@@ -1,0 +1,35 @@
+name: doctor_clinics_app
+description: Doctor Clinics app — shares package:core in this monorepo.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # ── Shared core (theme / routing / services / cubits) ──
+  core:
+    path: ../../core
+
+  # ── Directly imported in this app's bootstrap (must stay direct deps) ──
+  flutter_bloc: ^9.1.1
+  get_it: ^8.0.3
+  go_router: ^15.1.3
+  easy_localization: ^3.0.7
+  flutter_screenutil: ^5.9.3
+  # firebase_core: ^3.15.2  # MVP-OFFLINE: commented out (offline-only MVP)
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/translations/

@@ -1,0 +1,11 @@
+{
+  "app_name": "Doctor Clinics",
+  "splash": "Splash",
+  "login": "Login",
+  "home": "Home",
+  "placeholder_screen": "Placeholder: {title}",
+  "auth": {
+    "logout_confirm_title": "Confirm logout",
+    "logout_confirm_message": "Are you sure you want to log out?"
+  }
+}

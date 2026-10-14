@@ -1,0 +1,23 @@
+name: monorepo
+repository: https://example.com/monorepo
+
+packages:
+  - core
+  - apps/*
+
+scripts:
+  bootstrap: melos exec -- flutter pub get
+  analyze: melos exec -- flutter analyze
+  format: melos exec -- dart format .
+  test: melos exec -- flutter test
+  get:core: melos exec --scope=core -- flutter pub get
+  get:clinics: melos exec --scope=doctor_clinics_app -- flutter pub get
+  run:clinics: melos exec --scope=doctor_clinics_app -- flutter run
+  run:clinics:chrome: melos exec --scope=doctor_clinics_app -- flutter run -d chrome
+  build_runner:core: melos exec --scope=core -- dart run build_runner build --delete-conflicting-outputs
+  create_app: powershell -ExecutionPolicy Bypass -File tool/create_app.ps1
+
+command:
+  bootstrap:
+    runPubGetInParallel: true
+    enforceLockfile: false

@@ -1,0 +1,65 @@
+import 'package:intl/intl.dart';
+
+class DateConverter {
+  static String formatDate(DateTime dateTime) {
+    return DateFormat('yyyy-MM-dd hh:mm:ss').format(dateTime);
+  }
+
+  static String estimatedDate(DateTime dateTime) {
+    return DateFormat('dd MMM yyyy').format(dateTime);
+  }
+
+  static DateTime convertStringToDatetime(String dateTime) {
+    return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime);
+  }
+
+  static DateTime isoStringToLocalDate(String dateTime) {
+    return DateFormat(
+      'yyyy-MM-ddTHH:mm:ss.SSS',
+    ).parse(dateTime, true).toLocal();
+  }
+
+  static String isoStringToLocalTimeOnly(String dateTime) {
+    return DateFormat('hh:mm aa').format(isoStringToLocalDate(dateTime));
+  }
+
+  static String isoStringToLocalAMPM(String dateTime) {
+    return DateFormat('a').format(isoStringToLocalDate(dateTime));
+  }
+
+  static String isoStringToLocalDateOnly(String dateTime) {
+    return DateFormat('dd MMM yyyy').format(isoStringToLocalDate(dateTime));
+  }
+
+  static String localDateToIsoString(DateTime dateTime) {
+    return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').format(dateTime.toUtc());
+  }
+
+  static String convertTimeToTime(String time) {
+    return DateFormat('hh:mm a').format(DateFormat('hh:mm:ss').parse(time));
+  }
+
+  static String dateTimeStringToMonthAndTime(String dateTime) {
+    return DateFormat(
+      'dd MMM yyyy HH:mm',
+    ).format(isoStringToLocalDate(dateTime));
+  }
+
+  static String invoiceDate(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy HH:mm').format(dateTime);
+  }
+
+  static String refDate(DateTime dateTime) {
+    return DateFormat('MMddhhmmyyyy').format(dateTime);
+  }
+
+  static String orderDate(DateTime dateTime) {
+    return DateFormat('dd-MM-yyyy').format(dateTime);
+  }
+
+  static String invoiceDateForQr(String dateTime) {
+    DateTime now = DateTime.parse(dateTime);
+    String formattedDate = DateFormat('yyyy-MM-ddTHH:mm:ss.sss').format(now);
+    return formattedDate;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "app_name": "عيادات الأطباء",
+  "splash": "شاشة البداية",
+  "login": "تسجيل الدخول",
+  "home": "الرئيسية",
+  "placeholder_screen": "شاشة مؤقتة: {title}",
+  "auth": {
+    "logout_confirm_title": "تأكيد تسجيل الخروج",
+    "logout_confirm_message": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  }
+}
