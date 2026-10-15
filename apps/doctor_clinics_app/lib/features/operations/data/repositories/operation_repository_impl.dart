@@ -13,7 +13,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<List<Operation>> getAll() async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchAll();
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('operations.getAll failed: $e'));
     }
@@ -22,7 +23,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<List<Operation>> getByPatient(int patientId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchByPatient(patientId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('operations.getByPatient failed: $e'));
     }
@@ -31,7 +33,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<List<Operation>> getUpcoming() async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchUpcoming();
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('operations.getUpcoming failed: $e'));
     }
@@ -40,7 +43,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<Operation> create(Operation operation) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insert(operation);
+      return Right(operation.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('operations.create failed: $e'));
     }
@@ -49,7 +53,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<void> update(Operation operation) async {
     try {
-      throw UnimplementedError();
+      await datasource.update(operation);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('operations.update failed: $e'));
     }
@@ -58,7 +63,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<void> softDelete(int id) async {
     try {
-      throw UnimplementedError();
+      await datasource.softDelete(id);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('operations.softDelete failed: $e'));
     }
@@ -69,7 +75,8 @@ class OperationRepositoryImpl implements IOperationRepository {
     int operationId,
   ) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchRequiredTests(operationId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('operations.getRequiredTests failed: $e'));
     }
@@ -78,7 +85,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<void> addRequiredTest(OperationRequiredTest test) async {
     try {
-      throw UnimplementedError();
+      await datasource.insertRequiredTest(test);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('operations.addRequiredTest failed: $e'));
     }
@@ -89,7 +97,8 @@ class OperationRepositoryImpl implements IOperationRepository {
     OperationRequiredTest test,
   ) async {
     try {
-      throw UnimplementedError();
+      await datasource.updateRequiredTest(test);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('operations.updateRequiredTest failed: $e'));
     }
@@ -98,7 +107,8 @@ class OperationRepositoryImpl implements IOperationRepository {
   @override
   FutureResult<void> deleteRequiredTest(int id) async {
     try {
-      throw UnimplementedError();
+      await datasource.deleteRequiredTest(id);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('operations.deleteRequiredTest failed: $e'));
     }

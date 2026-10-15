@@ -15,32 +15,65 @@ class OperationCubit extends Cubit<OperationState> {
       : super(const OperationState.initial());
 
   Future<void> loadAll() async {
-    // TODO: implement.
+    emit(const OperationState.loading());
+    final result = await repository.getAll();
+    result.fold(
+      (failure) => emit(OperationState.error(message: failure.message)),
+      (operations) => emit(OperationState.loaded(operations: operations)),
+    );
   }
 
   Future<void> loadByPatient(int patientId) async {
-    // TODO: implement.
+    emit(const OperationState.loading());
+    final result = await repository.getByPatient(patientId);
+    result.fold(
+      (failure) => emit(OperationState.error(message: failure.message)),
+      (operations) => emit(OperationState.loaded(operations: operations)),
+    );
   }
 
   Future<void> loadUpcoming() async {
-    // TODO: implement.
+    emit(const OperationState.loading());
+    final result = await repository.getUpcoming();
+    result.fold(
+      (failure) => emit(OperationState.error(message: failure.message)),
+      (operations) => emit(OperationState.loaded(operations: operations)),
+    );
   }
 
   Future<void> create(Operation operation) async {
-    // TODO: implement.
+    emit(const OperationState.loading());
+    final result = await repository.create(operation);
+    result.fold(
+      (failure) => emit(OperationState.error(message: failure.message)),
+      (_) => loadAll(),
+    );
   }
 
   Future<void> update(Operation operation) async {
-    // TODO: implement.
+    emit(const OperationState.loading());
+    final result = await repository.update(operation);
+    result.fold(
+      (failure) => emit(OperationState.error(message: failure.message)),
+      (_) => loadAll(),
+    );
   }
 
-  Future<void> addRequiredTest(
-    OperationRequiredTest test,
-  ) async {
-    // TODO: implement.
+  Future<void> addRequiredTest(OperationRequiredTest test) async {
+    final result = await repository.addRequiredTest(test);
+    result.fold(
+      (failure) => emit(OperationState.error(message: failure.message)),
+      (_) => loadAll(),
+    );
   }
 
   Future<void> markTestDone(int testId) async {
-    // TODO: implement.
+    final test = OperationRequiredTest(
+      id: testId,
+      operationId: 0,
+      testName: '',
+      isDone: true,
+    );
+    await repository.updateRequiredTest(test);
   }
 }
