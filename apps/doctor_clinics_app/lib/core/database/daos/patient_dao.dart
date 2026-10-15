@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 import '../app_database.dart';
 import '../tables/patients_table.dart';
 
@@ -22,6 +22,15 @@ class PatientDao extends DatabaseAccessor<AppDatabase> with _$PatientDaoMixin {
       PatientsCompanion(deletedAt: Value(DateTime.now())),
     );
   }
+
+  Future<List<Patient>> searchPatients(String query) => (select(patients)
+        ..where((p) =>
+            p.deletedAt.isNull() &
+            (p.fullName.contains(query) |
+                p.searchText.contains(query) |
+                p.phone.contains(query) |
+                p.fileNumber.contains(query))))
+      .get();
 
   Future<List<PatientAllergy>> getPatientAllergies(int patientId) =>
       (select(patientAllergies)..where((a) => a.patientId.equals(patientId))).get();
