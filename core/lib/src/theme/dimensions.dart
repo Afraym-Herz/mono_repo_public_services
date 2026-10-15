@@ -53,6 +53,7 @@ class Dimensions {
 
   static const double RADIUS_SMALL = 5.0;
   static const double RADIUS_DEFAULT = 10.0;
+  static const double RADIUS_MEDIUM = 12.0;
   static const double RADIUS_LARGE = 15.0;
   static const double RADIUS_EXTRA_LARGE = 20.0;
 
@@ -64,6 +65,12 @@ class Dimensions {
   static const double DROPDOWN_HEIGHT = 35.0;
 
   static const double HEIGHT_WIDTH_50 = 50.0;
+
+  /// Clinical control height (DESIGN (2).md: inputs/buttons 40px).
+  static const double CONTROL_HEIGHT = 40.0;
+
+  /// Auth side-panel max width (1/3 split on desktop canvas).
+  static const double LOGIN_PANEL_MAX_WIDTH = 480.0;
 
   // Content max-widths per device class (used by ResponsiveHelper).
   static const double CONTENT_MAX_TABLET = 768;

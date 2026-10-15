@@ -50,7 +50,7 @@ class AppColorSchemes {
 
   static ThemeData get light => _buildTheme(
     colorScheme: lightColorScheme,
-    scaffoldBg: AppColors.white,
+    scaffoldBg: AppColors.clinicBackground,
     cardBg: AppColors.white,
     hintColor: AppColors.textHint,
     appBarBg: AppColors.white,

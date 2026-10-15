@@ -30,4 +30,26 @@ extension AppColorExtensions on BuildContext {
   Color get buttonPrimaryColor => AppColors.buttonPrimary;
   Color get buttonSecondaryColor => AppColors.buttonSecondary;
   Color get buttonDisabledColor => AppColors.buttonDisabled;
+
+  // Clinical Practice Desktop tokens (DESIGN (2).md) — brightness-aware.
+  bool get clinicIsDark => Theme.of(this).brightness == Brightness.dark;
+  Color get clinicBackground => clinicIsDark
+      ? AppColors.clinicBackgroundDark
+      : AppColors.clinicBackground;
+  Color get clinicContainer => clinicIsDark
+      ? AppColors.clinicSurfaceContainerDark
+      : AppColors.clinicSurfaceContainerLow;
+  Color get clinicBorder =>
+      clinicIsDark ? AppColors.clinicBorderDark : AppColors.clinicBorder;
+  Color get clinicTextPrimary => clinicIsDark
+      ? AppColors.clinicTextPrimaryDark
+      : AppColors.clinicTextPrimary;
+  Color get clinicTextSecondary => clinicIsDark
+      ? AppColors.clinicTextSecondaryDark
+      : AppColors.clinicTextSecondary;
+  Color get clinicPrimary => AppColors.clinicPrimary;
+  Color get clinicAccent => clinicIsDark
+      ? AppColors.clinicInversePrimary
+      : AppColors.clinicPrimaryContainer;
+  Color get clinicSubmitButton => AppColors.clinicPrimaryContainer;
 }

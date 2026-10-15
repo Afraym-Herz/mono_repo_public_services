@@ -108,4 +108,26 @@ class AppColors {
   static const Color iconBgLight = Color(0xFFF9F9F9);
   static const Color disabledBorderLight = Color(0xFFCBD5E1);
   static const Color disabledBorderDark = Color(0xFF4B5563);
+
+  // ── Clinical Practice Desktop (apps/doctor_clinics_app/DESIGN (2).md) ──
+  // Light values come straight from the DESIGN palette. Dark values reuse the
+  // DESIGN `inverse-*` tokens where available, otherwise tonal derivations.
+  static const Color clinicBackground = Color(0xFFF8F9FF);
+  static const Color clinicBackgroundDark = Color(0xFF10161D);
+  static const Color clinicSurfaceContainerLow = Color(0xFFEFF4FF);
+  static const Color clinicSurfaceContainer = Color(0xFFE5EEFF);
+  static const Color clinicSurfaceContainerDark = Color(0xFF1E2833);
+  static const Color clinicTextPrimary = Color(0xFF0B1C30);
+  static const Color clinicTextPrimaryDark = Color(0xFFEAF1FF);
+  static const Color clinicTextSecondary = Color(0xFF3E4947);
+  static const Color clinicTextSecondaryDark = Color(0xFFBDC9C6);
+  static const Color clinicBorder = Color(0xFFD9E2E8);
+  static const Color clinicBorderDark = Color(0xFF2C3A47);
+  static const Color clinicPrimary = Color(0xFF005C55);
+  static const Color clinicPrimaryContainer = Color(0xFF0F766E);
+  static const Color clinicOnPrimaryContainer = Color(0xFFA3FAEF);
+  static const Color clinicInversePrimary = Color(0xFF80D5CB);
+  static const Color clinicSecondary = Color(0xFF0051D5);
+  static const Color clinicError = Color(0xFFBA1A1A);
+  static const Color clinicErrorContainer = Color(0xFFFFDAD6);
 }
