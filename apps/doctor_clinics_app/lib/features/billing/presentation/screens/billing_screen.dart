@@ -1,14 +1,61 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// TODO: implement billing overview UI
 /// Overview of invoices, payments, and daily summary.
 class BillingScreen extends StatelessWidget {
   const BillingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return AdaptiveLayout(
+      mobileLayout: (_) => const _BillingBody(),
+      tabletLayout: (_) => const _BillingBody(),
+      desktopLayout: (_) => const _BillingBody(),
+    );
+  }
+}
+
+class _BillingBody extends StatelessWidget {
+  const _BillingBody();
+
+  @override
+  Widget build(BuildContext context) {
+    final maxWidth = context.isMobileOrSmallTablet
+        ? double.infinity
+        : context.contentMaxWidth;
+    return Scaffold(
       body: Center(
-        child: Text('TODO: Billing Screen'),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const AppFeatureHeader(
+                  title: 'Billing',
+                  subtitle: 'Invoices, payments and daily summary',
+                ),
+                SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
+                ZoomIn(
+                  delay: const Duration(milliseconds: 300),
+                  child: AppSectionCard(
+                    title: 'Billing overview',
+                    icon: Icons.receipt_long_outlined,
+                    animationDelay: const Duration(milliseconds: 350),
+                    child: Text(
+                      'TODO: Billing Screen',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

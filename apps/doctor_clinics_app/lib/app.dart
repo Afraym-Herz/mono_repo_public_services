@@ -4,14 +4,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:core/core.dart';
+import 'package:doctor_clinics_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/screens/patient_list_screen.dart';
 
 /// Root widget for the Doctor Clinics app.
 ///
 /// Wires shared `core` cubits + router. App screens are injected into
 /// [AppRouter.createRouter] — add real feature screens and pass their
 /// builders here as they are built under `lib/features/`.
-class DoctorClinicsApp extends StatelessWidget {
+class DoctorClinicsApp extends StatefulWidget {
   const DoctorClinicsApp({super.key});
+
+  @override
+  State<DoctorClinicsApp> createState() => _DoctorClinicsAppState();
+}
+
+class _DoctorClinicsAppState extends State<DoctorClinicsApp> {
+  /// Hoisted so theme changes rebuild only `MaterialApp.router`, not the
+  /// navigation state. Feature routes stay inside the shell.
+  late final router = AppRouter.createRouter(
+    loginBuilder: (ctx, state) => const LoginScreen(),
+    homeBuilder: (ctx, state) => const PatientListScreen(),
+    // extraShellRoutes: [ /* feature GoRoutes inside MainShellScreen */ ],
+    // extraRoutes: [ /* full-screen modals via transparentModalRoutePage */ ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +39,6 @@ class DoctorClinicsApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
           ThemeManager.setDarkMode(themeState.darkTheme);
-          final router = AppRouter.createRouter(
-            // TODO: replace placeholders with real feature screens, e.g.:
-            // loginBuilder: (ctx, state) => const LoginScreen(),
-            // homeBuilder: (ctx, state) => const HomeScreen(),
-            // extraShellRoutes: [ ClinicsRoutes.routes ],
-          );
           return ScreenUtilInit(
             designSize: const Size(375, 812),
             minTextAdapt: true,

@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:core/core.dart';
 
-import 'app.dart';
+import 'package:doctor_clinics_app/app.dart';
+import 'package:doctor_clinics_app/core/dependency_injection/app_locator.dart';
 
 /// Entry point for the Doctor Clinics app.
 ///
@@ -26,6 +27,7 @@ Future<void> main() async {
   // }
 
   await initDependencies();
+  setupAppLocator();
   await getIt<AppAuthCubit>().checkAuthStatus();
 
   runApp(
