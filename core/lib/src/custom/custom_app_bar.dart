@@ -1,4 +1,6 @@
+import 'package:core/src/theme/dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -21,13 +23,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       leading: isBackButtonVisible
           ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimensions.PADDING_SIZE_SMALL.w,
+              ),
               child: InkWell(
                 onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_sharp,
                   color: Theme.of(context).primaryColor,
-                  size: 25,
+                  size: Dimensions.ICON_SIZE_DEFAULT.r,
                 ),
               ),
             )

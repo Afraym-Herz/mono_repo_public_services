@@ -1,3 +1,5 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:core/src/theme/dimensions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -7,17 +9,23 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TweenAnimationBuilder<double>(
-          curve: Curves.bounceOut,
-          duration: const Duration(seconds: 2),
-          tween: Tween<double>(begin: 12.0, end: 30.0),
-          builder: (BuildContext context, double value, Widget? child) {
-            return Text(
-              'page_not_found'.tr(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: value),
-            );
-          },
+      body: FadeInUp(
+        delay: const Duration(milliseconds: 100),
+        child: Center(
+          child: TweenAnimationBuilder<double>(
+            curve: Curves.bounceOut,
+            duration: const Duration(seconds: 2),
+            tween: Tween<double>(
+            begin: Dimensions.FONT_SIZE_SMALL,
+            end: Dimensions.FONT_SIZE_OVER_OVER_LARGE,
+          ),
+            builder: (BuildContext context, double value, Widget? child) {
+              return Text(
+                'page_not_found'.tr(),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: value),
+              );
+            },
+          ),
         ),
       ),
     );

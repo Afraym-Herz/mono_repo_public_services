@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+export 'combined_transition_pages.dart';
+
 CustomTransitionPage<void> fadeTransitionPage(Widget child) {
   return CustomTransitionPage(
     child: child,
@@ -13,38 +15,6 @@ CustomTransitionPage<void> fadeTransitionPage(Widget child) {
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
       return FadeTransition(opacity: animation.drive(tween), child: child);
-    },
-  );
-}
-
-CustomTransitionPage<void> transparentModalRoutePage(Widget child) {
-  return CustomTransitionPage(
-    child: child,
-    opaque: false,
-    barrierColor: const Color(0x8C000000),
-    barrierDismissible: false,
-    transitionDuration: const Duration(milliseconds: 350),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(0, 0.04);
-      const end = Offset.zero;
-      const curve = Curves.easeOutCubic;
-
-      var slideTween = Tween(
-        begin: begin,
-        end: end,
-      ).chain(CurveTween(curve: curve));
-      var fadeTween = Tween(
-        begin: 0.0,
-        end: 1.0,
-      ).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(slideTween),
-        child: FadeTransition(
-          opacity: animation.drive(fadeTween),
-          child: child,
-        ),
-      );
     },
   );
 }
@@ -93,37 +63,6 @@ CustomTransitionPage<void> rotateTransitionPage(Widget child) {
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
       return RotationTransition(turns: animation.drive(tween), child: child);
-    },
-  );
-}
-
-CustomTransitionPage<void> slideFadeTransitionPage(Widget child) {
-  return CustomTransitionPage(
-    child: child,
-    transitionDuration: const Duration(milliseconds: 700),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const beginSlide = Offset(0, 1); // يدخل من تحت
-      const endSlide = Offset.zero;
-      const beginFade = 0.0; // شفاف في البداية
-      const endFade = 1.0; // واضح في النهاية
-      const curve = Curves.easeIn;
-
-      var slideTween = Tween(
-        begin: beginSlide,
-        end: endSlide,
-      ).chain(CurveTween(curve: curve));
-      var fadeTween = Tween(
-        begin: beginFade,
-        end: endFade,
-      ).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(slideTween),
-        child: FadeTransition(
-          opacity: animation.drive(fadeTween),
-          child: child,
-        ),
-      );
     },
   );
 }

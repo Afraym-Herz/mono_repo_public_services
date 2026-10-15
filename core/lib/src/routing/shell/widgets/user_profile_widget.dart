@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,10 @@ class UserProfileWidget extends StatelessWidget {
       orElse: () => 'header.user_fallback_name'.tr(),
     );
 
-    return Row(
+    return FadeInUp(
+      delay: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 300),
+      child: Row(
       children: [
         CircleAvatar(
           radius: 20.r,
@@ -46,6 +50,7 @@ class UserProfileWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ],
+      ),
     );
   }
 }

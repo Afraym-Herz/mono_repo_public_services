@@ -1,3 +1,4 @@
+import 'package:core/src/theme/dimensions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class FallbackLayoutWidget extends StatelessWidget {
       body: Center(
         child: Text(
           'no_layout_provided'.tr(),
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: Dimensions.FONT_SIZE_LARGE),
         ),
       ),
     );

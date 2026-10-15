@@ -14,8 +14,9 @@ extension ResponsiveContext on BuildContext {
   /// Used to branch navigation to full-screen route pushes (`context.push`) instead of desktop dialogs.
   bool get isMobileOrSmallTablet => screenWidth < ResponsiveBreakpoints.tablet;
 
-  /// True for Large Tablet (>= 1200px) and Desktop (>= 1400px).
-  /// Used to branch navigation to desktop dialogs (`showDialog`) and docked desktop shell layouts.
+  /// True for Large Tablet (>= 1200px) and Desktop (>= 1600px).
+  /// Used to branch navigation to desktop modals (`transparentModalRoutePage`)
+  /// and docked desktop shell layouts.
   bool get isLargeTabletOrDesktop =>
       screenWidth >= ResponsiveBreakpoints.tablet;
 

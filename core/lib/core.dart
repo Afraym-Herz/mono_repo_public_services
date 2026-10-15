@@ -11,6 +11,7 @@ export 'src/auth/auth_repository.dart';
 
 // ── DI / bootstrap ──
 export 'src/dependency_injection/setup_locator.dart';
+export 'src/dependency_injection/core_cubit_registrar.dart';
 
 // ── Errors / usecases / helpers ──
 export 'src/errors/failure_model.dart';
@@ -22,13 +23,17 @@ export 'src/helpers/date_converter.dart';
 // ── Services ──
 export 'src/services/storage_service.dart';
 export 'src/services/hive_storage_service.dart';
+export 'src/services/hive_settings_extension.dart';
 export 'src/services/print_service.dart';
 export 'src/services/print_service_impl.dart';
 
 // ── Routing / shell ──
 export 'src/routing/routes.dart';
 export 'src/routing/app_router.dart';
+export 'src/routing/app_router_redirect.dart';
+export 'src/routing/app_router_routes.dart';
 export 'src/routing/animation_route.dart';
+export 'src/routing/combined_transition_pages.dart';
 export 'src/routing/error_page.dart';
 export 'src/routing/navigation_service.dart';
 export 'src/routing/placeholder_screen.dart';
@@ -56,12 +61,15 @@ export 'src/theme/theme_manager.dart';
 
 // ── Responsive ──
 export 'src/responsive/adaptive_layout.dart';
+export 'src/responsive/adaptive_layout_resolver.dart';
 export 'src/responsive/design_sizes.dart';
 export 'src/responsive/fallback_layout_widget.dart';
 export 'src/responsive/responsive_breakpoints.dart';
 export 'src/responsive/responsive_extensions.dart';
 export 'src/responsive/responsive_helper.dart';
 export 'src/responsive/responsive_text.dart';
+export 'src/responsive/responsive_text_styles.dart';
+export 'src/responsive/responsive_font_size.dart';
 
 // ── Custom widgets ──
 export 'src/custom/animated_custom_dialog.dart';

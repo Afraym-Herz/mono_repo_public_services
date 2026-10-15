@@ -28,4 +28,72 @@ class AppConstants {
   // HIVE BOX NAMES
   // ═══════════════════════════════════════════════════════════════
   static const String settingsBox = 'settings_box';
+
+  // ═══════════════════════════════════════════════════════════════
+  // STATUS / TYPE VALUES — never inline these literals (CLAUDE.md: no magic
+  // strings). Values mirror the Drift schema in
+  // `apps/doctor_clinics_app/lib/core/database/tables/` + `DbConstants`.
+  // ═══════════════════════════════════════════════════════════════
+  // Appointments.type
+  static const String appointmentTypeBooked = 'booked';
+  static const String appointmentTypeWalkIn = 'walk_in';
+  static const String appointmentTypeFollowUp = 'follow_up';
+
+  // Appointments.status
+  static const String appointmentStatusBooked = 'booked';
+  static const String appointmentStatusArrived = 'arrived';
+  static const String appointmentStatusWaiting = 'waiting';
+  static const String appointmentStatusInConsultation = 'in_consultation';
+  static const String appointmentStatusDone = 'done';
+  static const String appointmentStatusCancelled = 'cancelled';
+  static const String appointmentStatusNoShow = 'no_show';
+
+  // QueueEntries.status
+  static const String queueStatusWaiting = 'waiting';
+  static const String queueStatusInConsultation = 'in_consultation';
+  static const String queueStatusDone = 'done';
+  static const String queueStatusCancelled = 'cancelled';
+
+  // Consultations.status
+  static const String consultationStatusDraft = 'draft';
+  static const String consultationStatusFinalized = 'finalized';
+
+  // Operations.status
+  static const String operationStatusScheduled = 'scheduled';
+  static const String operationStatusCompleted = 'completed';
+  static const String operationStatusCancelled = 'cancelled';
+
+  // Invoices.status
+  static const String invoiceStatusPending = 'pending';
+  static const String invoiceStatusPartiallyPaid = 'partially_paid';
+  static const String invoiceStatusPaid = 'paid';
+  static const String invoiceStatusCancelled = 'cancelled';
+
+  // InvoiceItems.itemType
+  static const String invoiceItemTypeConsultation = 'consultation';
+  static const String invoiceItemTypeOperation = 'operation';
+  static const String invoiceItemTypeMedicine = 'medicine';
+  static const String invoiceItemTypeOther = 'other';
+
+  // Payments.paymentMethod
+  static const String paymentMethodCash = 'cash';
+  static const String paymentMethodCard = 'card';
+  static const String paymentMethodTransfer = 'transfer';
+
+  // MedicinePresets.type
+  static const String presetTypeDosage = 'dosage';
+  static const String presetTypeFrequency = 'frequency';
+  static const String presetTypeDuration = 'duration';
+  static const String presetTypeInstruction = 'instruction';
+
+  // Users.role
+  static const String userRoleAdmin = 'admin';
+  static const String userRoleDoctor = 'doctor';
+  static const String userRoleSecretary = 'secretary';
+
+  // ClinicSettingsTable.printLanguage / paperSize (defaults in DbConstants)
+  static const String printLanguageAr = 'ar';
+  static const String printLanguageEn = 'en';
+  static const String paperSizeA4 = 'a4';
+  static const String paperSizeA5 = 'a5';
 }

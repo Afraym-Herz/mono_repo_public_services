@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:core/src/theme/app_colors.dart';
 import 'package:core/src/theme/dimensions.dart';
 
 class CustomInkWell extends StatelessWidget {
@@ -20,7 +21,7 @@ class CustomInkWell extends StatelessWidget {
   Widget build(BuildContext context) {
     final rad = radius ?? Dimensions.RADIUS_DEFAULT;
     return Material(
-      color: Colors.transparent,
+      color: AppColors.transparent,
       child: InkWell(
         onTap: onTap ?? () {},
         borderRadius: BorderRadius.circular(rad),

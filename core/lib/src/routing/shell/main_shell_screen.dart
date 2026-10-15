@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:core/src/responsive/adaptive_layout.dart';
 import 'package:core/src/routing/shell/mobile_shell_layout.dart';
@@ -13,9 +14,12 @@ class MainShellScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveLayout(
-      mobileLayout: (context) => MobileShellLayout(child: child),
-      tabletLayout: (context) => MobileShellLayout(child: child),
+    return FadeInUp(
+      delay: const Duration(milliseconds: 100),
+      child: AdaptiveLayout(
+        mobileLayout: (context) => MobileShellLayout(child: child),
+        tabletLayout: (context) => MobileShellLayout(child: child),
+      ),
     );
   }
 }

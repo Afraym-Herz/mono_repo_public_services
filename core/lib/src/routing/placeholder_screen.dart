@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -9,11 +10,14 @@ class PlaceholderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'placeholder_screen'.tr(namedArgs: {'title': title}),
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headlineSmall,
+    return FadeInUp(
+      delay: const Duration(milliseconds: 100),
+      child: Center(
+        child: Text(
+          'placeholder_screen'.tr(namedArgs: {'title': title}),
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
       ),
     );
   }

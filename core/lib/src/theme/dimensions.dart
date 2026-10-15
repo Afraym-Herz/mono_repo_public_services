@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:core/src/responsive/responsive_breakpoints.dart';
 import 'package:core/src/routing/navigation_service.dart';
 
 class Dimensions {
@@ -12,12 +13,16 @@ class Dimensions {
     return 400;
   }
 
-  static double get fontSizeExtraSmall => _width >= 1300 ? 14 : 10;
-  static double get fontSizeSmall => _width >= 1300 ? 16 : 12;
-  static double get fontSizeDefault => _width >= 1300 ? 18 : 14;
-  static double get fontSizeLarge => _width >= 1300 ? 20 : 16;
-  static double get fontSizeExtraLarge => _width >= 1300 ? 22 : 18;
-  static double get fontSizeOverLarge => _width >= 1300 ? 28 : 24;
+  /// Tablet threshold from [ResponsiveBreakpoints.tablet] (>= 1200).
+  /// Font scale switches here via `ResponsiveContext` breakpoints.
+  static bool get _isLarge => _width >= ResponsiveBreakpoints.tablet;
+
+  static double get fontSizeExtraSmall => _isLarge ? 14 : 10;
+  static double get fontSizeSmall => _isLarge ? 16 : 12;
+  static double get fontSizeDefault => _isLarge ? 18 : 14;
+  static double get fontSizeLarge => _isLarge ? 20 : 16;
+  static double get fontSizeExtraLarge => _isLarge ? 22 : 18;
+  static double get fontSizeOverLarge => _isLarge ? 28 : 24;
 
   static const double ICON_SIZE_VERY_SMALL = 8.0;
   static const double ICON_SIZE_EXTRA_SMALL = 12.0;
@@ -59,4 +64,11 @@ class Dimensions {
   static const double DROPDOWN_HEIGHT = 35.0;
 
   static const double HEIGHT_WIDTH_50 = 50.0;
+
+  // Content max-widths per device class (used by ResponsiveHelper).
+  static const double CONTENT_MAX_TABLET = 768;
+  static const double CONTENT_MAX_TABLET_LARGE = 1024;
+  static const double CONTENT_MAX_DESKTOP = 1200;
+  static const double CONTENT_MAX_DESKTOP_LARGE = 1400;
+  static const double CONTENT_MAX_DESKTOP_XL = 1600;
 }

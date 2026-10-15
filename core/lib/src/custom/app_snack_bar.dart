@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:core/src/theme/app_colors.dart';
+import 'package:core/src/theme/dimensions.dart';
 
 /// Centralised snackbar utility for the whole app.
 ///
@@ -18,7 +20,7 @@ class AppSnackBar {
   static void showSuccess(BuildContext context, String message) => _show(
     context,
     message: message,
-    backgroundColor: Colors.green.shade700,
+    backgroundColor: AppColors.successDark,
     icon: Icons.check_circle_outline_rounded,
   );
 
@@ -32,14 +34,14 @@ class AppSnackBar {
   static void showWarning(BuildContext context, String message) => _show(
     context,
     message: message,
-    backgroundColor: Colors.orange.shade700,
+    backgroundColor: AppColors.warningDark,
     icon: Icons.warning_amber_rounded,
   );
 
   static void showInfo(BuildContext context, String message) => _show(
     context,
     message: message,
-    backgroundColor: Colors.blueAccent.shade700,
+    backgroundColor: AppColors.infoDark,
     icon: Icons.info_outline_rounded,
   );
 
@@ -58,12 +60,15 @@ class AppSnackBar {
         SnackBar(
           content: Row(
             children: [
-              Icon(icon, color: Colors.white, size: 20.r),
-              SizedBox(width: 10.w),
+              Icon(icon, color: AppColors.white, size: Dimensions.NAVBAR_ICON_SIZE.r),
+              SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
               Expanded(
                 child: Text(
                   message,
-                  style: TextStyle(fontSize: 13.sp, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: Dimensions.FONT_SIZE_SMALL.sp,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ],
@@ -71,7 +76,7 @@ class AppSnackBar {
           backgroundColor: backgroundColor,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
           ),
           duration: duration,
         ),

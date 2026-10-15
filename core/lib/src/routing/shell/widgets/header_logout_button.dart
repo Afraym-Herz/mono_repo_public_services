@@ -1,9 +1,11 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:core/src/custom/animated_custom_dialog.dart';
 import 'package:core/src/custom/custom_ink_well.dart';
 import 'package:core/src/custom/logout_dialog.dart';
+import 'package:core/src/responsive/responsive_extensions.dart';
 import 'package:core/src/theme/dimensions.dart';
 import 'package:core/src/dependency_injection/setup_locator.dart';
 import 'package:core/src/shared_cubits/app_auth_cubit/app_auth_cubit.dart';
@@ -15,24 +17,44 @@ class HeaderLogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomInkWell(
-      onTap: () => _showLogoutDialog(context),
-      child: Container(
-        padding: EdgeInsets.all(8.r),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
-        ),
-        child: Icon(
-          Icons.logout_rounded,
-          color: Theme.of(context).primaryColor,
-          size: 22.r,
+    return FadeInUp(
+      delay: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 300),
+      child: CustomInkWell(
+        onTap: () => _showLogoutDialog(context),
+        child: Container(
+          padding: EdgeInsets.all(8.r),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
+          ),
+          child: Icon(
+            Icons.logout_rounded,
+            color: Theme.of(context).primaryColor,
+            size: 22.r,
+          ),
         ),
       ),
     );
   }
 
   void _showLogoutDialog(BuildContext context) {
+    // Per CLAUDE.md §2 + §5: on mobile/small-tablet use the imperative
+    // dialog below; on large-tablet/desktop prefer `context.push()` to a
+    // `GoRoute` built with `transparentModalRoutePage(...)` so the parent
+    // stays visible. Core cannot push an app-owned route directly, so both
+    // branches currently use `showAnimatedDialog` (behavior-preserving).
+    // TODO: add an app-level logout-confirm route with
+    // `transparentModalRoutePage` and `context.push()` to it here when
+    // `context.isLargeTabletOrDesktop`.
+    if (context.isMobileOrSmallTablet) {
+      _showImperativeLogoutDialog(context);
+    } else {
+      _showImperativeLogoutDialog(context);
+    }
+  }
+
+  void _showImperativeLogoutDialog(BuildContext context) {
     showAnimatedDialog(
       context,
       CustomDialog(

@@ -47,9 +47,9 @@ class AppFeatureHeader extends StatelessWidget {
             ),
           ],
         ),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isCompact = context.isMobile || constraints.maxWidth < 600;
+        child: Builder(
+          builder: (context) {
+            final isCompact = context.isMobileOrSmallTablet;
             final action =
                 customActionWidget ??
                 (actionLabel != null

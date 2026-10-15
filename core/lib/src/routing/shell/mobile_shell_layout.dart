@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:core/src/custom/custom_app_bar.dart';
@@ -45,7 +46,10 @@ class MobileShellLayout extends StatelessWidget {
           ),
         ),
       ),
-      body: child,
+      body: FadeInUp(
+        delay: const Duration(milliseconds: 100),
+        child: child,
+      ),
     );
   }
 }

@@ -18,26 +18,27 @@ class ThemeManager {
   // --- Dynamic helpers -------------------------------------------------------
 
   static Color getRedColor() =>
-      _isDarkMode ? const Color(0xFFbd0a00) : AppColors.error;
+      _isDarkMode ? AppColors.errorDeep : AppColors.error;
 
-  static Color getSplashColor1() =>
-      _isDarkMode ? Colors.white.withValues(alpha: 0.15) : Colors.white;
+  static Color getSplashColor1() => _isDarkMode
+      ? AppColors.white.withValues(alpha: 0.15)
+      : AppColors.white;
 
   static Color getTextColor() =>
       _isDarkMode ? AppColors.white : AppColors.textPrimary;
 
   static Color getTitleColor() => _isDarkMode
-      ? const Color(0xFFD1E4FF) // primaryContainer light readable on dark bg
+      ? AppColors.primaryContainerLight // primaryContainer light readable on dark bg
       : AppColors.primaryDark; // deep blue on light bg
 
   static Color getCheckoutTextColor() =>
-      _isDarkMode ? AppColors.primaryDarkMode : const Color(0xFF4C5D70);
+      _isDarkMode ? AppColors.primaryDarkMode : AppColors.checkoutTextLight;
 
   static Color getCategoryWithProductColor() =>
-      _isDarkMode ? const Color(0xFF989797) : AppColors.white;
+      _isDarkMode ? AppColors.categoryProductDark : AppColors.white;
 
   static Color getIconBg() =>
-      _isDarkMode ? const Color(0xFF2E2E2E) : const Color(0xFFF9F9F9);
+      _isDarkMode ? AppColors.iconBgDark : AppColors.iconBgLight;
 
   static Color getBackgroundColor() =>
       _isDarkMode ? AppColors.backgroundDark : AppColors.backgroundLight;
@@ -46,5 +47,5 @@ class ThemeManager {
       _isDarkMode ? AppColors.surfaceDark : AppColors.surfaceWhite;
 
   static Color getBorderColor() =>
-      _isDarkMode ? const Color(0xFF3D4160) : AppColors.borderPrimary;
+      _isDarkMode ? AppColors.borderDark : AppColors.borderPrimary;
 }

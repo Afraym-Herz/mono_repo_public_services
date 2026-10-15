@@ -28,7 +28,7 @@ class AppFeatureHeaderTitle extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: Theme.of(context).primaryColor,
         ),
-        SizedBox(height: 4.h),
+        SizedBox(height: Dimensions.PADDING_SIZE_BORDER.h),
         ResponsiveText(
           subtitle,
           fontSize: Dimensions.FONT_SIZE_DEFAULT,

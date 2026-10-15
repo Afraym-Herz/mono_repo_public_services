@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +11,15 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          'page_not_found_with_error'.tr(
-            namedArgs: {'error': error?.toString() ?? ''},
+      body: FadeInUp(
+        delay: const Duration(milliseconds: 100),
+        child: Center(
+          child: Text(
+            'page_not_found_with_error'.tr(
+              namedArgs: {'error': error?.toString() ?? ''},
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );

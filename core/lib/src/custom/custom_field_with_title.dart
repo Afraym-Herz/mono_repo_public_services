@@ -1,7 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:core/src/theme/app_colors.dart';
 import 'package:core/src/theme/dimensions.dart';
 import 'package:core/src/utils/styles.dart';
 import 'package:flutter/material.dart';
+
+/// Labeled wrapper for kit fields.
+///
+/// [customTextField] must be a shared-kit field (`AppTextField`,
+/// `AppDropdownField`) — never a one-off `TextField`/`DropdownButtonFormField`.
 
 class CustomFieldWithTitle extends StatelessWidget {
   final Widget customTextField;
@@ -50,7 +56,9 @@ class CustomFieldWithTitle extends StatelessWidget {
                       requiredField
                           ? TextSpan(
                               text: '  *',
-                              style: fontSizeBold.copyWith(color: Colors.red),
+                              style: fontSizeBold.copyWith(
+                                color: AppColors.error,
+                              ),
                             )
                           : const TextSpan(),
                     ],

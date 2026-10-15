@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:core/src/theme/app_colors.dart';
 
+/// Legacy imperative dialog helper (kept for compat).
+///
+/// Per CLAUDE.md §5, modal/detail screens must use [transparentModalRoutePage]
+/// (from `lib/src/routing/animation_route.dart`) so the parent stays visible
+/// on large screens. Prefer `context.push()` to a `GoRoute` built with
+/// `transparentModalRoutePage(child)` for new modals.
+///
+/// This helper keeps `showGeneralDialog` for existing callers (e.g. logout
+/// confirmation) with the standard [AppColors.scrim] barrier.
 void showAnimatedDialog(
   BuildContext context,
   Widget dialog, {
@@ -18,7 +27,7 @@ void showAnimatedDialog(
       context: context,
       barrierDismissible: dismissible,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      barrierColor: AppColors.black.withValues(alpha: 0.5),
+      barrierColor: AppColors.scrim,
       pageBuilder: (context, animation1, animation2) => dialog,
       transitionDuration: const Duration(milliseconds: 500),
       transitionBuilder: (context, a1, a2, widget) {

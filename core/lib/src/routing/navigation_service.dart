@@ -1,6 +1,12 @@
 // lib/core/services/navigation_service.dart
 import 'package:flutter/material.dart';
 
+/// Holds the root [navigatorKey] consumed by `GoRouter`.
+///
+/// Navigation itself must go through `context.go()` / `context.push()` with
+/// [AppRouter.createRouter] — never the imperative helpers below.
+/// The push/pop helpers are kept only for legacy callers (e.g. dialog pops)
+/// and are deprecated for route navigation.
 class NavigationService {
   static final NavigationService _instance = NavigationService._internal();
   factory NavigationService() => _instance;
@@ -30,7 +36,11 @@ class NavigationService {
     _nestedNavigators.remove(name);
   }
 
-  // Navigation methods for global context
+  // Navigation methods for global context.
+  //
+  // Deprecated: navigate via context.go()/push() + AppRouter.createRouter.
+  // Kept for legacy dialog-pop callers only.
+  @Deprecated('Use context.go()/push() with AppRouter.createRouter instead')
   static Future<T?>? pushNamed<T extends Object?>(
     String routeName, {
     Object? arguments,
@@ -41,6 +51,7 @@ class NavigationService {
     );
   }
 
+  @Deprecated('Use context.go()/push() with AppRouter.createRouter instead')
   static Future<T?>? pushReplacementNamed<
     T extends Object?,
     TO extends Object?
@@ -56,11 +67,15 @@ class NavigationService {
     return navigatorKey.currentState?.pop<T>(result);
   }
 
+  @Deprecated('Use context.go()/push() with AppRouter.createRouter instead')
   static void popUntil(bool Function(Route<dynamic>) predicate) {
     return navigatorKey.currentState?.popUntil(predicate);
   }
 
-  // Nested navigation methods
+  // Nested navigation methods.
+  //
+  // Deprecated for the same reason — prefer go_router shell branches.
+  @Deprecated('Use context.go()/push() with AppRouter.createRouter instead')
   static Future<T?>? pushNamedInNested<T extends Object?>(
     String navigatorName,
     String routeName, {
@@ -78,6 +93,7 @@ class NavigationService {
     return navigator?.currentState?.pop(result);
   }
 
+  @Deprecated('Use context.go()/push() with AppRouter.createRouter instead')
   static void popUntilInNested(
     String navigatorName,
     bool Function(Route<dynamic>) predicate,

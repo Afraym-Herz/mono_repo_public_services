@@ -17,8 +17,7 @@ import 'package:core/src/services/print_service_impl.dart';
 import 'package:core/src/utils/logger.dart';
 
 // Shared Cubits
-import 'package:core/src/shared_cubits/theme_cubit/theme_cubit.dart';
-import 'package:core/src/shared_cubits/app_auth_cubit/app_auth_cubit.dart';
+import 'package:core/src/dependency_injection/core_cubit_registrar.dart';
 
 // ═══════════════════════════════════════════════════════════════
 // SERVICE LOCATOR
@@ -31,8 +30,8 @@ final GetIt getIt = GetIt.instance;
 /// Call once from `main()` before `runApp()`.
 ///
 /// As features get built, register their datasources/repositories/usecases/
-/// cubits here too (grouped in their own `_registerXxxFeature()` helper,
-/// mirroring `_registerCoreCubits()` below).
+/// cubits here too (grouped in their own `registerXxxFeature()` helper,
+/// mirroring `registerCoreCubits()` in `core_cubit_registrar.dart`).
 Future<void> initDependencies() async {
   try {
     // ─────────────────────────────────────────────────────
@@ -78,7 +77,7 @@ Future<void> initDependencies() async {
     // ─────────────────────────────────────────────────────
     // 5. SHARED CUBITS
     // ─────────────────────────────────────────────────────
-    _registerCoreCubits();
+    registerCoreCubits();
 
     AppLogger.success('All dependencies initialised successfully');
   } catch (e, stackTrace) {
@@ -86,20 +85,4 @@ Future<void> initDependencies() async {
     if (kDebugMode) log('Stack trace: $stackTrace');
     rethrow;
   }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// SHARED CUBITS
-// ═══════════════════════════════════════════════════════════════
-void _registerCoreCubits() {
-  getIt.registerLazySingleton<ThemeCubit>(
-    () => ThemeCubit(sharedPreferences: getIt<SharedPreferences>()),
-  );
-
-  getIt.registerLazySingleton<AppAuthCubit>(
-    () => AppAuthCubit(secureStorage: getIt<SecureStorageService>()),
-  );
-
-  // TODO: once `AuthRepositoryImpl` exists (features/auth/data/...), register
-  // it here: getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(...));
 }

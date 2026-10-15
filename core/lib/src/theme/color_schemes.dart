@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:core/src/utils/app_constants.dart';
+import 'package:core/src/theme/dimensions.dart';
 import 'app_colors.dart';
 
 /// Centralised theme definitions for the app.
@@ -85,7 +86,7 @@ class AppColorSchemes {
     required BorderSide inputEnabledBorder,
   }) {
     final primary = colorScheme.primary;
-    final radius = const Radius.circular(12);
+    final radius = Radius.circular(Dimensions.RADIUS_DEFAULT);
 
     return ThemeData(
       useMaterial3: true,
@@ -119,8 +120,8 @@ class AppColorSchemes {
         filled: true,
         fillColor: inputFill,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
+          horizontal: Dimensions.paddingSizeDefault,
+          vertical: Dimensions.FONT_SIZE_DEFAULT,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(radius),

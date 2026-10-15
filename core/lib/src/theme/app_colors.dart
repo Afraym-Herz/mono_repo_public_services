@@ -88,11 +88,24 @@ class AppColors {
   static const Color gradientEnd = Color(0xFF5ABD88);
 
   // Shimmer Colors
-  static Color shimmerBase = Colors.grey[350]!;
-  static Color shimmerHighlight = Colors.grey[200]!;
+  static const Color shimmerBase = Color(0xFFD6D6D6);
+  static const Color shimmerHighlight = Color(0xFFEDEDED);
 
   // Shadow Colors
   static const Color shadowLight = Color(0x10000000);
   static const Color shadowMedium = Color(0x20000000);
   static const Color shadowDark = Color(0x30000000);
+
+  // Modal / scrim
+  static const Color scrim = Color(0x8C000000);
+
+  // ThemeManager tokens (previously hardcoded)
+  static const Color errorDeep = Color(0xFFBD0A00);
+  static const Color primaryContainerLight = Color(0xFFD1E4FF);
+  static const Color checkoutTextLight = Color(0xFF4C5D70);
+  static const Color categoryProductDark = Color(0xFF989797);
+  static const Color iconBgDark = Color(0xFF2E2E2E);
+  static const Color iconBgLight = Color(0xFFF9F9F9);
+  static const Color disabledBorderLight = Color(0xFFCBD5E1);
+  static const Color disabledBorderDark = Color(0xFF4B5563);
 }

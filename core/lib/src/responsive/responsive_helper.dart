@@ -1,6 +1,7 @@
 // lib/core/responsive/responsive_helper.dart
 
 import 'package:flutter/material.dart';
+import 'package:core/src/theme/dimensions.dart';
 import 'responsive_breakpoints.dart';
 
 class ResponsiveHelper {
@@ -47,20 +48,20 @@ class ResponsiveHelper {
     }
   }
 
-  // تحسين Screen Padding
+  // Screen padding derived from Dimensions tokens per breakpoint.
   static EdgeInsets getScreenPadding(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
     if (width < ResponsiveBreakpoints.mobile) {
-      return const EdgeInsets.all(8.0); // قليل للموبايل
+      return const EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL);
     } else if (width < ResponsiveBreakpoints.mobileLarge) {
-      return const EdgeInsets.all(12.0);
+      return const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL);
     } else if (width < ResponsiveBreakpoints.tablet) {
-      return const EdgeInsets.all(16.0);
+      return const EdgeInsets.all(Dimensions.paddingSizeDefault);
     } else if (width < ResponsiveBreakpoints.desktop) {
-      return const EdgeInsets.all(20.0); // تقليل من 24
+      return const EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE);
     } else {
-      return const EdgeInsets.all(24.0); // تقليل من 32+
+      return const EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_LARGE);
     }
   }
 
@@ -133,15 +134,15 @@ class ResponsiveHelper {
       case AppDeviceType.mobileLarge:
         return double.infinity;
       case AppDeviceType.tablet:
-        return 768;
+        return Dimensions.CONTENT_MAX_TABLET;
       case AppDeviceType.tabletLarge:
-        return 1024;
+        return Dimensions.CONTENT_MAX_TABLET_LARGE;
       case AppDeviceType.desktop:
-        return 1200;
+        return Dimensions.CONTENT_MAX_DESKTOP;
       case AppDeviceType.desktopLarge:
-        return 1400;
+        return Dimensions.CONTENT_MAX_DESKTOP_LARGE;
       case AppDeviceType.desktopXL:
-        return 1600;
+        return Dimensions.CONTENT_MAX_DESKTOP_XL;
     }
   }
 }

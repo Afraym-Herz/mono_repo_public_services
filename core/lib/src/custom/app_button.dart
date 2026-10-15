@@ -1,5 +1,9 @@
+import 'package:core/src/theme/app_colors.dart';
+import 'package:core/src/theme/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'app_button_content.dart';
 
 /// A branded action button used throughout the app with unified solid primary color.
 class AppButton extends StatelessWidget {
@@ -36,18 +40,18 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final primary = color ?? Theme.of(context).primaryColor;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final fg = outlined ? (textColor ?? primary) : Colors.white;
+    final fg = outlined ? (textColor ?? primary) : AppColors.white;
     final bg = outlined
-        ? Colors.transparent
+        ? AppColors.transparent
         : (isLoading ? primary.withValues(alpha: 0.55) : primary);
     final border = outlined
-        ? (borderColor ??
-              (isDark ? const Color(0xFF4B5563) : const Color(0xFFCBD5E1)))
-        : Colors.transparent;
-
+        ? (borderColor ?? (isDark
+              ? AppColors.disabledBorderDark
+              : AppColors.disabledBorderLight))
+        : AppColors.transparent;
     return SizedBox(
       width: width,
-      height: height ?? 52.h,
+      height: height ?? Dimensions.HEIGHT_WIDTH_50.h,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
@@ -59,10 +63,10 @@ class AppButton extends StatelessWidget {
           shadowColor: primary.withValues(alpha: 0.35),
           side: outlined ? BorderSide(color: border, width: 1.5) : null,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
           ),
         ),
-        child: _AppButtonContent(
+        child: AppButtonContent(
           label: label,
           isLoading: isLoading,
           icon: icon,
@@ -71,55 +75,6 @@ class AppButton extends StatelessWidget {
           iconSize: iconSize,
         ),
       ),
-    );
-  }
-}
-
-class _AppButtonContent extends StatelessWidget {
-  const _AppButtonContent({
-    required this.label,
-    required this.isLoading,
-    required this.icon,
-    required this.color,
-    this.fontSize,
-    this.iconSize,
-  });
-
-  final String label;
-  final bool isLoading;
-  final IconData? icon;
-  final Color color;
-  final double? fontSize;
-  final double? iconSize;
-
-  @override
-  Widget build(BuildContext context) {
-    if (isLoading) {
-      return SizedBox(
-        width: 22.r,
-        height: 22.r,
-        child: CircularProgressIndicator(strokeWidth: 2, color: color),
-      );
-    }
-    final textWidget = Text(
-      label,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(
-        fontSize: fontSize ?? 14.sp,
-        fontWeight: FontWeight.w500,
-        color: color,
-      ),
-    );
-    if (icon == null) return textWidget;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: iconSize ?? 20.r, color: color),
-        SizedBox(width: 8.w),
-        Flexible(child: textWidget),
-      ],
     );
   }
 }

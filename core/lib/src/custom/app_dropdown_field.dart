@@ -1,25 +1,11 @@
+import 'package:core/src/theme/app_colors.dart';
+import 'package:core/src/theme/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:core/src/theme/app_colors.dart';
 
-/// A branded, theme-aware dropdown field used throughout the app.
-///
-/// Matches [AppTextField] styling exactly:
-/// - Same fill, border radius, padding and label style.
-/// - Prefix icon tints to primary colour.
-/// - Supports validation and disabled state.
-///
-/// Usage:
-/// ```dart
-/// AppDropdownField<int>(
-///   label: 'Currency'.tr(),
-///   prefixIcon: Icons.attach_money,
-///   value: selectedCurrencyId,
-///   items: currencies.map((c) =>
-///     DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
-///   onChanged: (id) => setState(() => selectedCurrencyId = id),
-/// )
-/// ```
+import 'app_dropdown_decoration.dart';
+
+/// Branded, theme-aware dropdown field matching [AppTextField] styling.
 class AppDropdownField<T> extends StatelessWidget {
   const AppDropdownField({
     super.key,
@@ -47,16 +33,7 @@ class AppDropdownField<T> extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final primary = Theme.of(context).primaryColor;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final fillColor = isDark ? const Color(0xFF2A2D3E) : AppColors.white;
-
-    final enabledBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.r),
-      borderSide: BorderSide(
-        color: isDark ? const Color(0xFF3D4160) : AppColors.borderPrimary,
-        width: 1,
-      ),
-    );
+    final fillColor = isDark ? AppColors.inputFillDark : AppColors.white;
 
     return DropdownButtonFormField<T>(
       initialValue: value,
@@ -65,54 +42,33 @@ class AppDropdownField<T> extends StatelessWidget {
       isExpanded: true,
       icon: Icon(
         Icons.keyboard_arrow_down_rounded,
-        color: enabled
-            ? scheme.onSurface.withValues(alpha: 0.5)
-            : scheme.onSurface.withValues(alpha: 0.25),
-        size: 20.r,
+        color: scheme.onSurface.withValues(alpha: enabled ? 0.5 : 0.25),
+        size: Dimensions.NAVBAR_ICON_SIZE.r,
       ),
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        filled: true,
-        fillColor: enabled ? fillColor : fillColor.withValues(alpha: 0.5),
-        labelStyle: TextStyle(fontSize: 14.sp, color: AppColors.textTertiary),
-        hintStyle: TextStyle(fontSize: 14.sp, color: AppColors.textTertiary),
-        floatingLabelStyle: TextStyle(
-          fontSize: 13.sp,
-          color: primary,
-          fontWeight: FontWeight.w500,
-        ),
-        prefixIcon: prefixIcon != null
-            ? Icon(prefixIcon, size: 20.r, color: primary)
-            : null,
-        contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
-        border: enabledBorder,
-        enabledBorder: enabledBorder,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: primary, width: 1.5),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: scheme.error, width: 1),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: scheme.error, width: 1.5),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(
-            color: isDark
-                ? const Color(0xFF3D4160)
-                : AppColors.borderPrimary.withValues(alpha: 0.5),
-            width: 1,
-          ),
-        ),
+      decoration: buildAppDropdownDecoration(
+        label: label,
+        hint: hint,
+        prefixIcon: prefixIcon,
+        fillColor: fillColor,
+        enabled: enabled,
+        enabledBorder: _enabledBorder(isDark),
+        primary: primary,
+        scheme: scheme,
+        isDark: isDark,
       ),
-      dropdownColor: isDark ? const Color(0xFF2A2D3E) : AppColors.white,
-      borderRadius: BorderRadius.circular(12.r),
+      dropdownColor: isDark ? AppColors.inputFillDark : AppColors.white,
+      borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
       items: items,
+    );
+  }
+
+  OutlineInputBorder _enabledBorder(bool isDark) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
+      borderSide: BorderSide(
+        color: isDark ? AppColors.borderDark : AppColors.borderPrimary,
+        width: 1,
+      ),
     );
   }
 }
