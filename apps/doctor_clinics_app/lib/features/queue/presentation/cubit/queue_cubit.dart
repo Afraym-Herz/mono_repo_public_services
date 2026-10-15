@@ -15,30 +15,75 @@ class QueueCubit extends Cubit<QueueState> {
       : super(const QueueState.initial());
 
   Future<void> loadTodayQueue() async {
-    // TODO: implement.
+    emit(const QueueState.loading());
+    final queueResult = await repository.getTodayQueue();
+    final apptsResult =
+        await repository.getAppointmentsByDate(DateTime.now());
+
+    if (queueResult.isLeft()) {
+      emit(
+        QueueState.error(
+          message: queueResult.fold((f) => f.message, (_) => ''),
+        ),
+      );
+      return;
+    }
+
+    final entries = queueResult.fold((_) => <QueueEntry>[], (e) => e);
+    final appointments =
+        apptsResult.fold((_) => <Appointment>[], (a) => a);
+
+    emit(QueueState.loaded(entries: entries, appointments: appointments));
   }
 
   Future<void> bookAppointment(Appointment appointment) async {
-    // TODO: implement.
+    emit(const QueueState.loading());
+    final result = await repository.bookAppointment(appointment);
+    result.fold(
+      (failure) => emit(QueueState.error(message: failure.message)),
+      (_) => loadTodayQueue(),
+    );
   }
 
   Future<void> cancelAppointment(int id, String reason) async {
-    // TODO: implement.
+    emit(const QueueState.loading());
+    final result = await repository.cancelAppointment(id, reason);
+    result.fold(
+      (failure) => emit(QueueState.error(message: failure.message)),
+      (_) => loadTodayQueue(),
+    );
   }
 
   Future<void> addWalkIn(int patientId) async {
-    // TODO: implement.
+    emit(const QueueState.loading());
+    final result = await repository.addWalkIn(patientId);
+    result.fold(
+      (failure) => emit(QueueState.error(message: failure.message)),
+      (_) => loadTodayQueue(),
+    );
   }
 
   Future<void> updateStatus(int id, String status) async {
-    // TODO: implement.
+    final result = await repository.updateQueueStatus(id, status);
+    result.fold(
+      (failure) => emit(QueueState.error(message: failure.message)),
+      (_) => loadTodayQueue(),
+    );
   }
 
   Future<void> reorder(int id, int newPosition) async {
-    // TODO: implement.
+    final result = await repository.reorderQueue(id, newPosition);
+    result.fold(
+      (failure) => emit(QueueState.error(message: failure.message)),
+      (_) => loadTodayQueue(),
+    );
   }
 
   Future<void> toggleUrgent(int id, bool isUrgent) async {
-    // TODO: implement.
+    final result = await repository.markUrgent(id, isUrgent);
+    result.fold(
+      (failure) => emit(QueueState.error(message: failure.message)),
+      (_) => loadTodayQueue(),
+    );
   }
 }

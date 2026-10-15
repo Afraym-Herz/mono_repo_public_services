@@ -15,7 +15,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<List<Medicine>> getAllMedicines() async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchAllMedicines();
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('prescriptions.getAllMedicines failed: $e'));
     }
@@ -24,7 +25,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<List<Medicine>> searchMedicines(String query) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.searchMedicines(query);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('prescriptions.searchMedicines failed: $e'));
     }
@@ -33,7 +35,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<Medicine> addMedicine(Medicine medicine) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insertMedicine(medicine);
+      return Right(medicine.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('prescriptions.addMedicine failed: $e'));
     }
@@ -42,7 +45,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<void> updateMedicine(Medicine medicine) async {
     try {
-      throw UnimplementedError();
+      await datasource.updateMedicine(medicine);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('prescriptions.updateMedicine failed: $e'));
     }
@@ -51,7 +55,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<void> deleteMedicine(int id) async {
     try {
-      throw UnimplementedError();
+      await datasource.softDeleteMedicine(id);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('prescriptions.deleteMedicine failed: $e'));
     }
@@ -60,7 +65,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<List<Prescription>> getByPatient(int patientId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchByPatient(patientId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('prescriptions.getByPatient failed: $e'));
     }
@@ -69,7 +75,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<Prescription> create(Prescription prescription) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insertPrescription(prescription);
+      return Right(prescription.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('prescriptions.create failed: $e'));
     }
@@ -78,7 +85,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<void> addItem(PrescriptionItem item) async {
     try {
-      throw UnimplementedError();
+      await datasource.insertItem(item);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('prescriptions.addItem failed: $e'));
     }
@@ -87,7 +95,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<void> removeItem(int itemId) async {
     try {
-      throw UnimplementedError();
+      await datasource.deleteItem(itemId);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('prescriptions.removeItem failed: $e'));
     }
@@ -96,7 +105,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<List<PrescriptionItem>> getItems(int prescriptionId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchItems(prescriptionId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('prescriptions.getItems failed: $e'));
     }
@@ -105,7 +115,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<List<PrescriptionTemplate>> getTemplates() async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchTemplates();
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('prescriptions.getTemplates failed: $e'));
     }
@@ -116,7 +127,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
     PrescriptionTemplate template,
   ) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insertTemplate(template);
+      return Right(template.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('prescriptions.saveTemplate failed: $e'));
     }
@@ -125,7 +137,8 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   @override
   FutureResult<void> deleteTemplate(int id) async {
     try {
-      throw UnimplementedError();
+      await datasource.deleteTemplate(id);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('prescriptions.deleteTemplate failed: $e'));
     }
