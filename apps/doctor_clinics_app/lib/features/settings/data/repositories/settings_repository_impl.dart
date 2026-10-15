@@ -13,8 +13,16 @@ class SettingsRepositoryImpl implements ISettingsRepository {
   @override
   FutureResult<ClinicSettings> getSettings() async {
     try {
-      // TODO: implement.
-      throw UnimplementedError();
+      final settings = await datasource.fetchSettings();
+      return Right(
+        settings ??
+            const ClinicSettings(
+              clinicName: 'My Clinic',
+              language: 'ar',
+              paperSize: 'A4',
+              receiptMargin: 10,
+            ),
+      );
     } catch (e) {
       return Left(CacheFailure('settings.getSettings failed: $e'));
     }
@@ -23,8 +31,8 @@ class SettingsRepositoryImpl implements ISettingsRepository {
   @override
   FutureResult<void> saveSettings(ClinicSettings settings) async {
     try {
-      // TODO: implement.
-      throw UnimplementedError();
+      await datasource.upsertSettings(settings);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('settings.saveSettings failed: $e'));
     }
@@ -33,8 +41,20 @@ class SettingsRepositoryImpl implements ISettingsRepository {
   @override
   FutureResult<ClinicTemplate> getClinicTemplate() async {
     try {
-      // TODO: implement.
-      throw UnimplementedError();
+      final template = await datasource.fetchClinicTemplate();
+      final now = DateTime.now();
+      return Right(
+        template ??
+            ClinicTemplate(
+              id: 1,
+              clinicNameAr: 'عيادتي',
+              doctorNameAr: 'د. الطبيب',
+              printLanguage: 'ar',
+              paperSize: 'A4',
+              createdAt: now,
+              updatedAt: now,
+            ),
+      );
     } catch (e) {
       return Left(CacheFailure('settings.getClinicTemplate failed: $e'));
     }
@@ -43,8 +63,8 @@ class SettingsRepositoryImpl implements ISettingsRepository {
   @override
   FutureResult<void> saveClinicTemplate(ClinicTemplate template) async {
     try {
-      // TODO: implement.
-      throw UnimplementedError();
+      await datasource.upsertClinicTemplate(template);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('settings.saveClinicTemplate failed: $e'));
     }
