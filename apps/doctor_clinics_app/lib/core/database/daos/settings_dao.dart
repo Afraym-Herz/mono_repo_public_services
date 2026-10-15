@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 import '../app_database.dart';
 import '../tables/clinic_settings_table.dart';
 
@@ -11,4 +11,6 @@ class SettingsDao extends DatabaseAccessor<AppDatabase> with _$SettingsDaoMixin 
   Future<ClinicSettingsTableData?> getSettings() => select(clinicSettingsTable).getSingleOrNull();
   Future<int> insertSettings(ClinicSettingsTableCompanion entry) => into(clinicSettingsTable).insert(entry);
   Future<bool> updateSettings(ClinicSettingsTableCompanion entry) => update(clinicSettingsTable).replace(entry);
+  Future<int> upsertSettings(ClinicSettingsTableCompanion entry) =>
+      into(clinicSettingsTable).insertOnConflictUpdate(entry);
 }
