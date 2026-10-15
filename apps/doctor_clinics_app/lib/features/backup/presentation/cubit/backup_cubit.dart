@@ -14,18 +14,40 @@ class BackupCubit extends Cubit<BackupState> {
       : super(const BackupState.initial());
 
   Future<void> loadBackups(String directory) async {
-    // TODO: implement.
+    emit(const BackupState.loading());
+    final listResult = await repository.listBackups(directory);
+    final staleResult = await repository.isBackupStale();
+
+    final isStale = staleResult.fold((_) => false, (s) => s);
+    listResult.fold(
+      (failure) => emit(BackupState.error(message: failure.message)),
+      (backups) => emit(BackupState.loaded(backups: backups, isStale: isStale)),
+    );
   }
 
   Future<void> createBackup(String destination) async {
-    // TODO: implement.
+    emit(const BackupState.loading());
+    final result = await repository.createBackup(destination);
+    result.fold(
+      (failure) => emit(BackupState.error(message: failure.message)),
+      (info) => emit(
+        BackupState.success(message: 'Backup created at ${info.filePath}'),
+      ),
+    );
   }
 
   Future<void> restoreBackup(String filePath) async {
-    // TODO: implement.
+    emit(const BackupState.loading());
+    final result = await repository.restoreBackup(filePath);
+    result.fold(
+      (failure) => emit(BackupState.error(message: failure.message)),
+      (_) => const BackupState.success(
+        message: 'Backup restored successfully',
+      ),
+    );
   }
 
   Future<void> cleanOldBackups() async {
-    // TODO: implement.
+    await repository.deleteOldBackups();
   }
 }
