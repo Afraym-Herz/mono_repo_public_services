@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice_item.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart';
@@ -11,80 +13,140 @@ class BillingRepositoryImpl implements IBillingRepository {
   BillingRepositoryImpl({required this.datasource});
 
   @override
-  Future<List<Invoice>> getAllInvoices() {
-    throw UnimplementedError();
+  FutureResult<List<Invoice>> getAllInvoices() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getAllInvoices failed: $e'));
+    }
   }
 
   @override
-  Future<List<Invoice>> getByPatient(int patientId) {
-    throw UnimplementedError();
+  FutureResult<List<Invoice>> getByPatient(int patientId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getByPatient failed: $e'));
+    }
   }
 
   @override
-  Future<Invoice> createInvoice(Invoice invoice) {
-    throw UnimplementedError();
+  FutureResult<Invoice> createInvoice(Invoice invoice) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.createInvoice failed: $e'));
+    }
   }
 
   @override
-  Future<void> addInvoiceItem(InvoiceItem item) {
-    throw UnimplementedError();
+  FutureResult<void> addInvoiceItem(InvoiceItem item) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.addInvoiceItem failed: $e'));
+    }
   }
 
   @override
-  Future<List<InvoiceItem>> getInvoiceItems(int invoiceId) {
-    throw UnimplementedError();
+  FutureResult<List<InvoiceItem>> getInvoiceItems(int invoiceId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getInvoiceItems failed: $e'));
+    }
   }
 
   @override
-  Future<List<Payment>> getPayments(int invoiceId) {
-    throw UnimplementedError();
+  FutureResult<List<Payment>> getPayments(int invoiceId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getPayments failed: $e'));
+    }
   }
 
   @override
-  Future<Payment> recordPayment(Payment payment) {
-    throw UnimplementedError();
+  FutureResult<Payment> recordPayment(Payment payment) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.recordPayment failed: $e'));
+    }
   }
 
   @override
-  Future<String> nextReceiptNumber() {
-    throw UnimplementedError();
+  FutureResult<String> nextReceiptNumber() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.nextReceiptNumber failed: $e'));
+    }
   }
 
   @override
-  Future<List<Invoice>> getOutstandingInvoices() {
-    throw UnimplementedError();
+  FutureResult<List<Invoice>> getOutstandingInvoices() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getOutstandingInvoices failed: $e'));
+    }
   }
 
   @override
-  Future<int> getPatientDebt(int patientId) {
-    throw UnimplementedError();
+  FutureResult<int> getPatientDebt(int patientId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getPatientDebt failed: $e'));
+    }
   }
 
   @override
-  Future<List<Expense>> getExpenses({
+  FutureResult<List<Expense>> getExpenses({
     DateTime? from,
     DateTime? to,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getExpenses failed: $e'));
+    }
   }
 
   @override
-  Future<Expense> addExpense(Expense expense) {
-    throw UnimplementedError();
+  FutureResult<Expense> addExpense(Expense expense) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.addExpense failed: $e'));
+    }
   }
 
   @override
-  Future<void> updateExpense(Expense expense) {
-    throw UnimplementedError();
+  FutureResult<void> updateExpense(Expense expense) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.updateExpense failed: $e'));
+    }
   }
 
   @override
-  Future<int> getDailyRevenuePiasters(DateTime date) {
-    throw UnimplementedError();
+  FutureResult<int> getDailyRevenuePiasters(DateTime date) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getDailyRevenuePiasters failed: $e'));
+    }
   }
 
   @override
-  Future<int> getDailyExpensesPiasters(DateTime date) {
-    throw UnimplementedError();
+  FutureResult<int> getDailyExpensesPiasters(DateTime date) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('billing.getDailyExpensesPiasters failed: $e'));
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/reports/domain/entities/report.dart';
 import 'package:doctor_clinics_app/features/reports/domain/repositories/report_repository.dart';
 import 'package:doctor_clinics_app/features/reports/data/datasources/report_datasource.dart';
@@ -8,50 +10,74 @@ class ReportRepositoryImpl implements IReportRepository {
   ReportRepositoryImpl({required this.datasource});
 
   @override
-  Future<Report> generatePatientStats({
+  FutureResult<Report> generatePatientStats({
     required DateTime from,
     required DateTime to,
     required String format,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('reports.generatePatientStats failed: $e'));
+    }
   }
 
   @override
-  Future<Report> generateRevenueReport({
+  FutureResult<Report> generateRevenueReport({
     required DateTime from,
     required DateTime to,
     required String format,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('reports.generateRevenueReport failed: $e'));
+    }
   }
 
   @override
-  Future<Report> generateDebtReport({
+  FutureResult<Report> generateDebtReport({
     required String format,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('reports.generateDebtReport failed: $e'));
+    }
   }
 
   @override
-  Future<Report> generateVisitReport({
+  FutureResult<Report> generateVisitReport({
     required DateTime from,
     required DateTime to,
     required String format,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('reports.generateVisitReport failed: $e'));
+    }
   }
 
   @override
-  Future<Report> generateExpenseReport({
+  FutureResult<Report> generateExpenseReport({
     required DateTime from,
     required DateTime to,
     required String format,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('reports.generateExpenseReport failed: $e'));
+    }
   }
 
   @override
-  Future<List<Report>> getHistory() {
-    throw UnimplementedError();
+  FutureResult<List<Report>> getHistory() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('reports.getHistory failed: $e'));
+    }
   }
 }

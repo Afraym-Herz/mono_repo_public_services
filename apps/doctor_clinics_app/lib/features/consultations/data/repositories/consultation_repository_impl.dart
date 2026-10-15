@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/entities/consultation.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/entities/vital_signs.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/repositories/consultation_repository.dart';
@@ -9,42 +11,74 @@ class ConsultationRepositoryImpl implements IConsultationRepository {
   ConsultationRepositoryImpl({required this.datasource});
 
   @override
-  Future<List<Consultation>> getByPatient(int patientId) {
-    throw UnimplementedError();
+  FutureResult<List<Consultation>> getByPatient(int patientId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.getByPatient failed: $e'));
+    }
   }
 
   @override
-  Future<Consultation?> getById(int id) {
-    throw UnimplementedError();
+  FutureResult<Consultation?> getById(int id) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.getById failed: $e'));
+    }
   }
 
   @override
-  Future<Consultation> create(Consultation consultation) {
-    throw UnimplementedError();
+  FutureResult<Consultation> create(Consultation consultation) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.create failed: $e'));
+    }
   }
 
   @override
-  Future<void> update(Consultation consultation) {
-    throw UnimplementedError();
+  FutureResult<void> update(Consultation consultation) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.update failed: $e'));
+    }
   }
 
   @override
-  Future<void> finalize(int id) {
-    throw UnimplementedError();
+  FutureResult<void> finalize(int id) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.finalize failed: $e'));
+    }
   }
 
   @override
-  Future<void> softDelete(int id) {
-    throw UnimplementedError();
+  FutureResult<void> softDelete(int id) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.softDelete failed: $e'));
+    }
   }
 
   @override
-  Future<VitalSigns?> getVitals(int consultationId) {
-    throw UnimplementedError();
+  FutureResult<VitalSigns?> getVitals(int consultationId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.getVitals failed: $e'));
+    }
   }
 
   @override
-  Future<void> saveVitals(VitalSigns vitals) {
-    throw UnimplementedError();
+  FutureResult<void> saveVitals(VitalSigns vitals) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('consultations.saveVitals failed: $e'));
+    }
   }
 }

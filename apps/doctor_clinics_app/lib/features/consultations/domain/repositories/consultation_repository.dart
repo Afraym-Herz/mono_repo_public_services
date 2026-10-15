@@ -1,16 +1,17 @@
+import 'package:core/core.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/entities/consultation.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/entities/vital_signs.dart';
 
 /// Contract for consultation / medical-record operations.
 abstract class IConsultationRepository {
-  Future<List<Consultation>> getByPatient(int patientId);
-  Future<Consultation?> getById(int id);
-  Future<Consultation> create(Consultation consultation);
-  Future<void> update(Consultation consultation);
-  Future<void> finalize(int id);
-  Future<void> softDelete(int id);
+  FutureResult<List<Consultation>> getByPatient(int patientId);
+  FutureResult<Consultation?> getById(int id);
+  FutureResult<Consultation> create(Consultation consultation);
+  FutureResult<void> update(Consultation consultation);
+  FutureResult<void> finalize(int id);
+  FutureResult<void> softDelete(int id);
 
   //   Vital signs
-  Future<VitalSigns?> getVitals(int consultationId);
-  Future<void> saveVitals(VitalSigns vitals);
+  FutureResult<VitalSigns?> getVitals(int consultationId);
+  FutureResult<void> saveVitals(VitalSigns vitals);
 }

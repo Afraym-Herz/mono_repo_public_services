@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
 import 'package:doctor_clinics_app/features/patients/data/datasources/patient_datasource.dart';
@@ -8,27 +10,50 @@ class PatientRepositoryImpl implements PatientRepository {
   PatientRepositoryImpl({required this.datasource});
 
   @override
-  Future<void> addPatient(Patient patient) async {
-    await datasource.insert(patient);
+  FutureResult<void> addPatient(Patient patient) async {
+    try {
+      await datasource.insert(patient);
+      return const Right(null);
+    } catch (e) {
+      return Left(CacheFailure('patients.addPatient failed: $e'));
+    }
   }
 
   @override
-  Future<void> deletePatient(int id) async {
-    await datasource.softDelete(id);
+  FutureResult<void> deletePatient(int id) async {
+    try {
+      await datasource.softDelete(id);
+      return const Right(null);
+    } catch (e) {
+      return Left(CacheFailure('patients.deletePatient failed: $e'));
+    }
   }
 
   @override
-  Future<List<Patient>> getAllPatients() async {
-    return await datasource.fetchAll();
+  FutureResult<List<Patient>> getAllPatients() async {
+    try {
+      return Right(await datasource.fetchAll());
+    } catch (e) {
+      return Left(CacheFailure('patients.getAllPatients failed: $e'));
+    }
   }
 
   @override
-  Future<Patient?> getPatientById(int id) async {
-    return await datasource.fetchById(id);
+  FutureResult<Patient?> getPatientById(int id) async {
+    try {
+      return Right(await datasource.fetchById(id));
+    } catch (e) {
+      return Left(CacheFailure('patients.getPatientById failed: $e'));
+    }
   }
 
   @override
-  Future<void> updatePatient(Patient patient) async {
-    await datasource.update(patient);
+  FutureResult<void> updatePatient(Patient patient) async {
+    try {
+      await datasource.update(patient);
+      return const Right(null);
+    } catch (e) {
+      return Left(CacheFailure('patients.updatePatient failed: $e'));
+    }
   }
 }

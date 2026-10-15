@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_entry.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/appointment.dart';
 import 'package:doctor_clinics_app/features/queue/domain/repositories/queue_repository.dart';
@@ -9,66 +11,114 @@ class QueueRepositoryImpl implements IQueueRepository {
   QueueRepositoryImpl({required this.datasource});
 
   @override
-  Future<List<Appointment>> getAppointmentsByDate(DateTime date) {
-    throw UnimplementedError();
+  FutureResult<List<Appointment>> getAppointmentsByDate(DateTime date) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.getAppointmentsByDate failed: $e'));
+    }
   }
 
   @override
-  Future<Appointment> bookAppointment(Appointment appointment) {
-    throw UnimplementedError();
+  FutureResult<Appointment> bookAppointment(Appointment appointment) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.bookAppointment failed: $e'));
+    }
   }
 
   @override
-  Future<void> cancelAppointment(int id, String reason) {
-    throw UnimplementedError();
+  FutureResult<void> cancelAppointment(int id, String reason) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.cancelAppointment failed: $e'));
+    }
   }
 
   @override
-  Future<void> rescheduleAppointment(
+  FutureResult<void> rescheduleAppointment(
     int id,
     DateTime newDate,
     String newTime,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.rescheduleAppointment failed: $e'));
+    }
   }
 
   @override
-  Future<List<QueueEntry>> getTodayQueue() {
-    throw UnimplementedError();
+  FutureResult<List<QueueEntry>> getTodayQueue() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.getTodayQueue failed: $e'));
+    }
   }
 
   @override
-  Future<QueueEntry> addToQueue(int appointmentId) {
-    throw UnimplementedError();
+  FutureResult<QueueEntry> addToQueue(int appointmentId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.addToQueue failed: $e'));
+    }
   }
 
   @override
-  Future<void> addWalkIn(int patientId) {
-    throw UnimplementedError();
+  FutureResult<void> addWalkIn(int patientId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.addWalkIn failed: $e'));
+    }
   }
 
   @override
-  Future<void> updateQueueStatus(int id, String status) {
-    throw UnimplementedError();
+  FutureResult<void> updateQueueStatus(int id, String status) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.updateQueueStatus failed: $e'));
+    }
   }
 
   @override
-  Future<void> reorderQueue(int id, int newPosition) {
-    throw UnimplementedError();
+  FutureResult<void> reorderQueue(int id, int newPosition) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.reorderQueue failed: $e'));
+    }
   }
 
   @override
-  Future<void> markUrgent(int id, bool isUrgent) {
-    throw UnimplementedError();
+  FutureResult<void> markUrgent(int id, bool isUrgent) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.markUrgent failed: $e'));
+    }
   }
 
   @override
-  Future<int> nextQueueNumber(DateTime date) {
-    throw UnimplementedError();
+  FutureResult<int> nextQueueNumber(DateTime date) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.nextQueueNumber failed: $e'));
+    }
   }
 
   @override
-  Future<bool> isSlotAvailable(DateTime date, String time) {
-    throw UnimplementedError();
+  FutureResult<bool> isSlotAvailable(DateTime date, String time) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('queue.isSlotAvailable failed: $e'));
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/backup/domain/entities/backup_info.dart';
 import 'package:doctor_clinics_app/features/backup/domain/repositories/backup_repository.dart';
 import 'package:doctor_clinics_app/features/backup/data/datasources/backup_datasource.dart';
@@ -8,32 +10,56 @@ class BackupRepositoryImpl implements IBackupRepository {
   BackupRepositoryImpl({required this.datasource});
 
   @override
-  Future<BackupInfo> createBackup(String destinationPath) {
-    throw UnimplementedError();
+  FutureResult<BackupInfo> createBackup(String destinationPath) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('backup.createBackup failed: $e'));
+    }
   }
 
   @override
-  Future<void> restoreBackup(String backupFilePath) {
-    throw UnimplementedError();
+  FutureResult<void> restoreBackup(String backupFilePath) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('backup.restoreBackup failed: $e'));
+    }
   }
 
   @override
-  Future<List<BackupInfo>> listBackups(String directory) {
-    throw UnimplementedError();
+  FutureResult<List<BackupInfo>> listBackups(String directory) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('backup.listBackups failed: $e'));
+    }
   }
 
   @override
-  Future<void> deleteOldBackups({int keepCount = 14}) {
-    throw UnimplementedError();
+  FutureResult<void> deleteOldBackups({int keepCount = 14}) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('backup.deleteOldBackups failed: $e'));
+    }
   }
 
   @override
-  Future<DateTime?> lastBackupDate() {
-    throw UnimplementedError();
+  FutureResult<DateTime?> lastBackupDate() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('backup.lastBackupDate failed: $e'));
+    }
   }
 
   @override
-  Future<bool> isBackupStale({int thresholdDays = 1}) {
-    throw UnimplementedError();
+  FutureResult<bool> isBackupStale({int thresholdDays = 1}) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('backup.isBackupStale failed: $e'));
+    }
   }
 }

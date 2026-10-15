@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/audit/domain/entities/audit_event.dart';
 import 'package:doctor_clinics_app/features/audit/domain/repositories/audit_repository.dart';
 import 'package:doctor_clinics_app/features/audit/data/datasources/audit_datasource.dart';
@@ -8,33 +10,53 @@ class AuditRepositoryImpl implements IAuditRepository {
   AuditRepositoryImpl({required this.datasource});
 
   @override
-  Future<void> log(AuditEvent event) {
-    throw UnimplementedError();
+  FutureResult<void> log(AuditEvent event) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('audit.log failed: $e'));
+    }
   }
 
   @override
-  Future<List<AuditEvent>> getByEntity(
+  FutureResult<List<AuditEvent>> getByEntity(
     String entityType,
     int entityId,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('audit.getByEntity failed: $e'));
+    }
   }
 
   @override
-  Future<List<AuditEvent>> getByUser(int userId) {
-    throw UnimplementedError();
+  FutureResult<List<AuditEvent>> getByUser(int userId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('audit.getByUser failed: $e'));
+    }
   }
 
   @override
-  Future<List<AuditEvent>> getByDateRange(
+  FutureResult<List<AuditEvent>> getByDateRange(
     DateTime from,
     DateTime to,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('audit.getByDateRange failed: $e'));
+    }
   }
 
   @override
-  Future<List<AuditEvent>> getRecent({int limit = 50}) {
-    throw UnimplementedError();
+  FutureResult<List<AuditEvent>> getRecent({int limit = 50}) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('audit.getRecent failed: $e'));
+    }
   }
 }

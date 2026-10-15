@@ -1,3 +1,5 @@
+import 'package:core/core.dart';
+import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/prescriptions/domain/entities/medicine.dart';
 import 'package:doctor_clinics_app/features/prescriptions/domain/entities/prescription.dart';
 import 'package:doctor_clinics_app/features/prescriptions/domain/entities/prescription_item.dart';
@@ -11,69 +13,121 @@ class PrescriptionRepositoryImpl implements IPrescriptionRepository {
   PrescriptionRepositoryImpl({required this.datasource});
 
   @override
-  Future<List<Medicine>> getAllMedicines() {
-    throw UnimplementedError();
+  FutureResult<List<Medicine>> getAllMedicines() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.getAllMedicines failed: $e'));
+    }
   }
 
   @override
-  Future<List<Medicine>> searchMedicines(String query) {
-    throw UnimplementedError();
+  FutureResult<List<Medicine>> searchMedicines(String query) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.searchMedicines failed: $e'));
+    }
   }
 
   @override
-  Future<Medicine> addMedicine(Medicine medicine) {
-    throw UnimplementedError();
+  FutureResult<Medicine> addMedicine(Medicine medicine) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.addMedicine failed: $e'));
+    }
   }
 
   @override
-  Future<void> updateMedicine(Medicine medicine) {
-    throw UnimplementedError();
+  FutureResult<void> updateMedicine(Medicine medicine) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.updateMedicine failed: $e'));
+    }
   }
 
   @override
-  Future<void> deleteMedicine(int id) {
-    throw UnimplementedError();
+  FutureResult<void> deleteMedicine(int id) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.deleteMedicine failed: $e'));
+    }
   }
 
   @override
-  Future<List<Prescription>> getByPatient(int patientId) {
-    throw UnimplementedError();
+  FutureResult<List<Prescription>> getByPatient(int patientId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.getByPatient failed: $e'));
+    }
   }
 
   @override
-  Future<Prescription> create(Prescription prescription) {
-    throw UnimplementedError();
+  FutureResult<Prescription> create(Prescription prescription) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.create failed: $e'));
+    }
   }
 
   @override
-  Future<void> addItem(PrescriptionItem item) {
-    throw UnimplementedError();
+  FutureResult<void> addItem(PrescriptionItem item) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.addItem failed: $e'));
+    }
   }
 
   @override
-  Future<void> removeItem(int itemId) {
-    throw UnimplementedError();
+  FutureResult<void> removeItem(int itemId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.removeItem failed: $e'));
+    }
   }
 
   @override
-  Future<List<PrescriptionItem>> getItems(int prescriptionId) {
-    throw UnimplementedError();
+  FutureResult<List<PrescriptionItem>> getItems(int prescriptionId) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.getItems failed: $e'));
+    }
   }
 
   @override
-  Future<List<PrescriptionTemplate>> getTemplates() {
-    throw UnimplementedError();
+  FutureResult<List<PrescriptionTemplate>> getTemplates() async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.getTemplates failed: $e'));
+    }
   }
 
   @override
-  Future<PrescriptionTemplate> saveTemplate(
+  FutureResult<PrescriptionTemplate> saveTemplate(
     PrescriptionTemplate template,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.saveTemplate failed: $e'));
+    }
   }
 
   @override
-  Future<void> deleteTemplate(int id) {
-    throw UnimplementedError();
+  FutureResult<void> deleteTemplate(int id) async {
+    try {
+      throw UnimplementedError();
+    } catch (e) {
+      return Left(CacheFailure('prescriptions.deleteTemplate failed: $e'));
+    }
   }
 }
