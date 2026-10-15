@@ -18,7 +18,16 @@ class ReportCubit extends Cubit<ReportState> {
     required DateTime to,
     required String format,
   }) async {
-    // TODO: implement.
+    emit(const ReportState.loading());
+    final result = await repository.generatePatientStats(
+      from: from,
+      to: to,
+      format: format,
+    );
+    result.fold(
+      (failure) => emit(ReportState.error(message: failure.message)),
+      (report) => emit(ReportState.generated(report: report)),
+    );
   }
 
   Future<void> generateRevenueReport({
@@ -26,16 +35,35 @@ class ReportCubit extends Cubit<ReportState> {
     required DateTime to,
     required String format,
   }) async {
-    // TODO: implement.
+    emit(const ReportState.loading());
+    final result = await repository.generateRevenueReport(
+      from: from,
+      to: to,
+      format: format,
+    );
+    result.fold(
+      (failure) => emit(ReportState.error(message: failure.message)),
+      (report) => emit(ReportState.generated(report: report)),
+    );
   }
 
   Future<void> generateDebtReport({
     required String format,
   }) async {
-    // TODO: implement.
+    emit(const ReportState.loading());
+    final result = await repository.generateDebtReport(format: format);
+    result.fold(
+      (failure) => emit(ReportState.error(message: failure.message)),
+      (report) => emit(ReportState.generated(report: report)),
+    );
   }
 
   Future<void> loadHistory() async {
-    // TODO: implement.
+    emit(const ReportState.loading());
+    final result = await repository.getHistory();
+    result.fold(
+      (failure) => emit(ReportState.error(message: failure.message)),
+      (reports) => emit(ReportState.history(reports: reports)),
+    );
   }
 }
