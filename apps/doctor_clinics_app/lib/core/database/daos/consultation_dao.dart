@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 import '../app_database.dart';
 import '../tables/consultations_table.dart';
 
@@ -10,10 +10,16 @@ class ConsultationDao extends DatabaseAccessor<AppDatabase> with _$ConsultationD
 
   Future<List<Consultation>> getConsultationsForPatient(int patientId) =>
       (select(consultations)..where((c) => c.patientId.equals(patientId))).get();
+  Future<Consultation?> getConsultationById(int id) =>
+      (select(consultations)..where((c) => c.id.equals(id))).getSingleOrNull();
   Future<int> insertConsultation(ConsultationsCompanion entry) => into(consultations).insert(entry);
   Future<bool> updateConsultation(ConsultationsCompanion entry) => update(consultations).replace(entry);
+  Future<int> deleteConsultation(int id) =>
+      (delete(consultations)..where((c) => c.id.equals(id))).go();
 
   Future<VitalSign?> getVitalSigns(int consultationId) =>
       (select(vitalSigns)..where((v) => v.consultationId.equals(consultationId))).getSingleOrNull();
   Future<int> insertVitalSigns(VitalSignsCompanion entry) => into(vitalSigns).insert(entry);
+  Future<int> upsertVitalSigns(VitalSignsCompanion entry) =>
+      into(vitalSigns).insertOnConflictUpdate(entry);
 }
