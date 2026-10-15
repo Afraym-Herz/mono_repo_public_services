@@ -12,7 +12,8 @@ class AuditRepositoryImpl implements IAuditRepository {
   @override
   FutureResult<void> log(AuditEvent event) async {
     try {
-      throw UnimplementedError();
+      await datasource.insert(event);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('audit.log failed: $e'));
     }
@@ -24,7 +25,8 @@ class AuditRepositoryImpl implements IAuditRepository {
     int entityId,
   ) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchByEntity(entityType, entityId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('audit.getByEntity failed: $e'));
     }
@@ -33,7 +35,8 @@ class AuditRepositoryImpl implements IAuditRepository {
   @override
   FutureResult<List<AuditEvent>> getByUser(int userId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchByUser(userId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('audit.getByUser failed: $e'));
     }
@@ -45,7 +48,8 @@ class AuditRepositoryImpl implements IAuditRepository {
     DateTime to,
   ) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchByDateRange(from, to);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('audit.getByDateRange failed: $e'));
     }
@@ -54,7 +58,8 @@ class AuditRepositoryImpl implements IAuditRepository {
   @override
   FutureResult<List<AuditEvent>> getRecent({int limit = 50}) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchRecent(limit: limit);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('audit.getRecent failed: $e'));
     }
