@@ -15,7 +15,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<List<Invoice>> getAllInvoices() async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchAllInvoices();
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('billing.getAllInvoices failed: $e'));
     }
@@ -24,7 +25,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<List<Invoice>> getByPatient(int patientId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchByPatient(patientId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('billing.getByPatient failed: $e'));
     }
@@ -33,7 +35,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<Invoice> createInvoice(Invoice invoice) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insertInvoice(invoice);
+      return Right(invoice.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('billing.createInvoice failed: $e'));
     }
@@ -42,7 +45,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<void> addInvoiceItem(InvoiceItem item) async {
     try {
-      throw UnimplementedError();
+      await datasource.insertInvoiceItem(item);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('billing.addInvoiceItem failed: $e'));
     }
@@ -51,7 +55,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<List<InvoiceItem>> getInvoiceItems(int invoiceId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchInvoiceItems(invoiceId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('billing.getInvoiceItems failed: $e'));
     }
@@ -60,7 +65,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<List<Payment>> getPayments(int invoiceId) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchPayments(invoiceId);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('billing.getPayments failed: $e'));
     }
@@ -69,7 +75,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<Payment> recordPayment(Payment payment) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insertPayment(payment);
+      return Right(payment.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('billing.recordPayment failed: $e'));
     }
@@ -78,7 +85,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<String> nextReceiptNumber() async {
     try {
-      throw UnimplementedError();
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      return Right('RCP-$timestamp');
     } catch (e) {
       return Left(CacheFailure('billing.nextReceiptNumber failed: $e'));
     }
@@ -87,7 +95,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<List<Invoice>> getOutstandingInvoices() async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchOutstanding();
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('billing.getOutstandingInvoices failed: $e'));
     }
@@ -96,7 +105,12 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<int> getPatientDebt(int patientId) async {
     try {
-      throw UnimplementedError();
+      final invoices = await datasource.fetchByPatient(patientId);
+      var debt = 0;
+      for (final inv in invoices) {
+        debt += inv.duePiasters;
+      }
+      return Right(debt);
     } catch (e) {
       return Left(CacheFailure('billing.getPatientDebt failed: $e'));
     }
@@ -108,7 +122,8 @@ class BillingRepositoryImpl implements IBillingRepository {
     DateTime? to,
   }) async {
     try {
-      throw UnimplementedError();
+      final list = await datasource.fetchExpenses(from: from, to: to);
+      return Right(list);
     } catch (e) {
       return Left(CacheFailure('billing.getExpenses failed: $e'));
     }
@@ -117,7 +132,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<Expense> addExpense(Expense expense) async {
     try {
-      throw UnimplementedError();
+      final id = await datasource.insertExpense(expense);
+      return Right(expense.copyWith(id: id));
     } catch (e) {
       return Left(CacheFailure('billing.addExpense failed: $e'));
     }
@@ -126,7 +142,8 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<void> updateExpense(Expense expense) async {
     try {
-      throw UnimplementedError();
+      await datasource.updateExpense(expense);
+      return const Right(null);
     } catch (e) {
       return Left(CacheFailure('billing.updateExpense failed: $e'));
     }
@@ -135,7 +152,14 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<int> getDailyRevenuePiasters(DateTime date) async {
     try {
-      throw UnimplementedError();
+      final start = DateTime(date.year, date.month, date.day);
+      final end = start.add(const Duration(days: 1));
+      final expenses = await datasource.fetchExpenses(from: start, to: end);
+      var total = 0;
+      for (final e in expenses) {
+        total += e.amountPiasters;
+      }
+      return Right(total);
     } catch (e) {
       return Left(CacheFailure('billing.getDailyRevenuePiasters failed: $e'));
     }
@@ -144,7 +168,14 @@ class BillingRepositoryImpl implements IBillingRepository {
   @override
   FutureResult<int> getDailyExpensesPiasters(DateTime date) async {
     try {
-      throw UnimplementedError();
+      final start = DateTime(date.year, date.month, date.day);
+      final end = start.add(const Duration(days: 1));
+      final expenses = await datasource.fetchExpenses(from: start, to: end);
+      var total = 0;
+      for (final e in expenses) {
+        total += e.amountPiasters;
+      }
+      return Right(total);
     } catch (e) {
       return Left(CacheFailure('billing.getDailyExpensesPiasters failed: $e'));
     }
