@@ -72,6 +72,9 @@ class Dimensions {
   /// Auth side-panel max width (1/3 split on desktop canvas).
   static const double LOGIN_PANEL_MAX_WIDTH = 480.0;
 
+  /// Branding canvas content max width (1440px desktop canvas).
+  static const double BRANDING_PANEL_MAX_WIDTH = 720.0;
+
   // Content max-widths per device class (used by ResponsiveHelper).
   static const double CONTENT_MAX_TABLET = 768;
   static const double CONTENT_MAX_TABLET_LARGE = 1024;
