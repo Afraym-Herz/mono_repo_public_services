@@ -7,11 +7,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/auth/presentation/cubit/auth_cubit.dart';
 
-/// Auth error text (if any) + submit button driven by [AuthCubit].
+/// Auth CTA driven by [AuthCubit] (loading spinner + inline error text).
+///
+/// Renders large and anchors the end of the auth column when [large] is set
+/// (login + first-run setup share this widget).
 class LoginSubmitButton extends StatelessWidget {
-  const LoginSubmitButton({super.key, required this.onSubmit});
+  const LoginSubmitButton({
+    super.key,
+    required this.onSubmit,
+    this.label = 'login_submit',
+    this.icon = Icons.login_outlined,
+    this.large = false,
+  });
 
   final VoidCallback onSubmit;
+  final String label;
+  final IconData icon;
+  final bool large;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +56,10 @@ class LoginSubmitButton extends StatelessWidget {
                   ),
                 ),
               AppButton(
-                label: 'login_submit'.tr(),
-                icon: Icons.login_outlined,
-                height: Dimensions.CONTROL_HEIGHT.h,
+                label: label.tr(),
+                icon: icon,
+                height: large ? 56.h : Dimensions.CONTROL_HEIGHT.h,
+                fontSize: large ? Dimensions.FONT_SIZE_LARGE : null,
                 color: context.clinicSubmitButton,
                 isLoading: isLoading,
                 onPressed: isLoading ? null : onSubmit,

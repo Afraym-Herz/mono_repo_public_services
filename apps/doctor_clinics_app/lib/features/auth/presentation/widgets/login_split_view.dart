@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import 'package:doctor_clinics_app/features/auth/presentation/widgets/branding_panel.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_panel.dart';
 
