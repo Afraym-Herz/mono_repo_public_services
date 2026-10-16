@@ -25,13 +25,11 @@ class LoginTopBar extends StatelessWidget {
                 ),
                 SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
                 Flexible(
-                  child: Text(
+                  child: ResponsiveText(
                     'login_system_name'.tr(),
-                    style: TextStyle(
-                      fontSize: Dimensions.FONT_SIZE_SMALL.sp,
-                      fontWeight: FontWeight.w600,
-                      color: context.clinicAccent,
-                    ),
+                    fontSize: Dimensions.FONT_SIZE_SMALL,
+                    fontWeight: FontWeight.w600,
+                    color: context.clinicAccent,
                   ),
                 ),
               ],

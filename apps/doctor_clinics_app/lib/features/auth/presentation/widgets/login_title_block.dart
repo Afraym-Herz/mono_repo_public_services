@@ -16,24 +16,20 @@ class LoginTitleBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          ResponsiveText(
             'login_title'.tr(),
+            fontSize: Dimensions.FONT_SIZE_OVER_OVER_LARGE,
+            fontWeight: FontWeight.w700,
+            color: context.clinicTextPrimary,
             textAlign: TextAlign.start,
-            style: TextStyle(
-              fontSize: Dimensions.FONT_SIZE_OVER_OVER_LARGE.sp,
-              fontWeight: FontWeight.w700,
-              color: context.clinicTextPrimary,
-            ),
           ),
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
-          Text(
+          ResponsiveText(
             'login_subtitle'.tr(),
+            fontSize: Dimensions.FONT_SIZE_DEFAULT,
+            color: context.clinicTextSecondary,
             textAlign: TextAlign.start,
-            style: TextStyle(
-              fontSize: Dimensions.FONT_SIZE_DEFAULT.sp,
-              color: context.clinicTextSecondary,
-              height: 1.6,
-            ),
+            height: 1.6,
           ),
         ],
       ),

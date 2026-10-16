@@ -36,24 +36,20 @@ class LoginStatusBox extends StatelessWidget {
                   ),
                   SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
                   Flexible(
-                    child: Text(
+                    child: ResponsiveText(
                       'login_status_ok'.tr(),
-                      style: TextStyle(
-                        fontSize: Dimensions.FONT_SIZE_SMALL.sp,
-                        fontWeight: FontWeight.w600,
-                        color: context.clinicTextPrimary,
-                      ),
+                      fontSize: Dimensions.FONT_SIZE_SMALL,
+                      fontWeight: FontWeight.w600,
+                      color: context.clinicTextPrimary,
                     ),
                   ),
                 ],
               ),
             ),
-            Text(
+            ResponsiveText(
               'login_status_mode'.tr(),
-              style: TextStyle(
-                fontSize: Dimensions.FONT_SIZE_SMALL.sp,
-                color: context.clinicTextSecondary,
-              ),
+              fontSize: Dimensions.FONT_SIZE_SMALL,
+              color: context.clinicTextSecondary,
             ),
           ],
         ),

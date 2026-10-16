@@ -36,13 +36,11 @@ class LoginSubmitButton extends StatelessWidget {
                   padding: EdgeInsets.only(
                     bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
                   ),
-                  child: Text(
+                  child: ResponsiveText(
                     error,
+                    fontSize: Dimensions.FONT_SIZE_SMALL,
+                    color: context.errorColor,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: Dimensions.FONT_SIZE_SMALL.sp,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
                   ),
                 ),
               AppButton(
