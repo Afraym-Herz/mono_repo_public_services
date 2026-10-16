@@ -4,13 +4,23 @@ import 'package:flutter/material.dart';
 /// (`AppTextFieldCore`, `PasswordVisibilityProvider`).
 class TextFieldParams {
   const TextFieldParams({
-    required this.controller, required this.label, required this.hint,
-    required this.prefixIcon, required this.suffixIcon,
-    required this.keyboardType, required this.obscureText,
-    required this.validator, required this.textInputAction,
-    required this.onEditingComplete, required this.onFieldSubmitted,
-    required this.enabled, required this.readOnly, required this.onTap,
-    required this.autofocus, required this.maxLines,
+    required this.controller,
+    required this.label,
+    required this.hint,
+    required this.prefixIcon,
+    required this.suffixIcon,
+    required this.keyboardType,
+    required this.obscureText,
+    required this.validator,
+    required this.textInputAction,
+    required this.onEditingComplete,
+    required this.onFieldSubmitted,
+    required this.enabled,
+    required this.readOnly,
+    required this.onTap,
+    required this.autofocus,
+    required this.maxLines,
+    required this.autofillHints,
   });
 
   final TextEditingController controller;
@@ -29,4 +39,5 @@ class TextFieldParams {
   final VoidCallback? onTap;
   final bool autofocus;
   final int maxLines;
+  final Iterable<String>? autofillHints;
 }

@@ -7,13 +7,25 @@ import 'password_visibility_provider.dart';
 /// Premium, focus-aware text field (theme-aware, no `setState()`).
 class AppTextField extends StatefulWidget {
   const AppTextField({
-    super.key, required this.controller, this.label, this.hint,
-    this.prefixIcon, this.suffixIcon,
-    this.keyboardType = TextInputType.text, this.obscureText = false,
-    this.validator, this.textInputAction, this.onEditingComplete,
-    this.onFieldSubmitted, this.focusNode,
-    this.enabled = true, this.readOnly = false, this.onTap,
-    this.autofocus = false, this.maxLines = 1,
+    super.key,
+    required this.controller,
+    this.label,
+    this.hint,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.validator,
+    this.textInputAction,
+    this.onEditingComplete,
+    this.onFieldSubmitted,
+    this.focusNode,
+    this.enabled = true,
+    this.readOnly = false,
+    this.onTap,
+    this.autofocus = false,
+    this.maxLines = 1,
+    this.autofillHints,
   });
 
   final TextEditingController controller;
@@ -33,6 +45,7 @@ class AppTextField extends StatefulWidget {
   final VoidCallback? onTap;
   final bool autofocus;
   final int maxLines;
+  final Iterable<String>? autofillHints;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -54,15 +67,24 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 
   TextFieldParams get _params => TextFieldParams(
-        controller: widget.controller, label: widget.label, hint: widget.hint,
-        prefixIcon: widget.prefixIcon, suffixIcon: widget.suffixIcon,
-        keyboardType: widget.keyboardType, obscureText: widget.obscureText,
-        validator: widget.validator, textInputAction: widget.textInputAction,
-        onEditingComplete: widget.onEditingComplete,
-        onFieldSubmitted: widget.onFieldSubmitted, enabled: widget.enabled,
-        readOnly: widget.readOnly, onTap: widget.onTap,
-        autofocus: widget.autofocus, maxLines: widget.maxLines,
-      );
+    controller: widget.controller,
+    label: widget.label,
+    hint: widget.hint,
+    prefixIcon: widget.prefixIcon,
+    suffixIcon: widget.suffixIcon,
+    keyboardType: widget.keyboardType,
+    obscureText: widget.obscureText,
+    validator: widget.validator,
+    textInputAction: widget.textInputAction,
+    onEditingComplete: widget.onEditingComplete,
+    onFieldSubmitted: widget.onFieldSubmitted,
+    enabled: widget.enabled,
+    readOnly: widget.readOnly,
+    onTap: widget.onTap,
+    autofocus: widget.autofocus,
+    maxLines: widget.maxLines,
+    autofillHints: widget.autofillHints,
+  );
 
   @override
   Widget build(BuildContext context) {
