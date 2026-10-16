@@ -133,7 +133,7 @@ class _FirstRunPanelState extends State<FirstRunPanel> {
                 onFieldSubmitted: (_) => _submit(),
                 validator: _confirmValidator,
               ),
-              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h * 2),
+              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h),
               LoginSubmitButton(
                 label: 'login_first_run_submit',
                 icon: Icons.person_add_outlined,

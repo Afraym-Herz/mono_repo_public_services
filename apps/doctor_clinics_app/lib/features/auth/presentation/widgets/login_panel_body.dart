@@ -78,7 +78,7 @@ class _LoginPanelBodyState extends State<LoginPanelBody> {
           const LoginStatusBox(),
           SizedBox(height: Dimensions.PADDING_SIZE_LARGE.h),
           const LoginFooter(),
-          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h * 4),
+          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h * 2),
           LoginSubmitButton(large: true, onSubmit: _submit),
         ],
       ),
