@@ -73,7 +73,7 @@ class _FirstRunPanelState extends State<FirstRunPanel> {
             children: [
               ResponsiveText(
                 'login_first_run_title'.tr(),
-                fontSize: Dimensions.FONT_SIZE_OVER_OVER_LARGE,
+                fontSize: Dimensions.FONT_SIZE_LARGE,
                 fontWeight: FontWeight.w700,
                 color: context.clinicTextPrimary,
                 textAlign: TextAlign.start,
@@ -81,7 +81,7 @@ class _FirstRunPanelState extends State<FirstRunPanel> {
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
               ResponsiveText(
                 'login_first_run_subtitle'.tr(),
-                fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                fontSize: Dimensions.FONT_SIZE_SMALL,
                 color: context.clinicTextSecondary,
                 textAlign: TextAlign.start,
                 height: 1.6,
@@ -110,8 +110,12 @@ class _FirstRunPanelState extends State<FirstRunPanel> {
                 hint: '••••••••••••',
                 prefixIcon: Icons.lock_outline,
                 obscureText: true,
+                // NOTE: no `newPassword` autofill hint here on purpose. Chrome
+                // attaches its password-generation UI to `newPassword` fields
+                // inside an AutofillGroup and swallows keystrokes, leaving the
+                // Flutter field dead. This is a local offline account, so
+                // browser password generation has no value anyway.
                 textInputAction: TextInputAction.next,
-                autofillHints: const [AutofillHints.newPassword],
                 validator: AppValidators.compose([
                   AppValidators.required,
                   AppValidators.minLength(6),
@@ -129,7 +133,7 @@ class _FirstRunPanelState extends State<FirstRunPanel> {
                 onFieldSubmitted: (_) => _submit(),
                 validator: _confirmValidator,
               ),
-              SizedBox(height: Dimensions.paddingSizeDefault.h),
+              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h * 2),
               LoginSubmitButton(
                 label: 'login_first_run_submit',
                 icon: Icons.person_add_outlined,

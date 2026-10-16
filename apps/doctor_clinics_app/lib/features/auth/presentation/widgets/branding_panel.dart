@@ -27,15 +27,22 @@ class BrandingPanel extends StatelessWidget {
           gradient: LinearGradient(
             begin: AlignmentDirectional.topStart,
             end: AlignmentDirectional.bottomEnd,
+            // Four-stop gradient: blue → teal → lavender sweep across the
+            // card, staying soft on both mode surfaces.
             colors: context.clinicIsDark
-                ? [
-                    AppColors.clinicBackgroundDark,
-                    AppColors.clinicSurfaceContainerDark,
+                ? const [
+                    AppColors.clinicBackgroundDark, // deep navy base
+                    AppColors.clinicSurfaceContainerDark, // slate mid
+                    Color(0xFF17343F), // teal deep end
+                    Color(0xFF253B52), // indigo edge
                   ]
-                : [
-                    AppColors.white,
-                    context.clinicContainer,
+                : const [
+                    AppColors.white, // crisp start
+                    Color(0xFFEAF1FE), // soft cool blue
+                    Color(0xFFDFF3EF), // soft clinic teal end
+                    Color(0xFFE9E5FB), // lavender hint
                   ],
+            stops: const [0.0, 0.38, 0.7, 1.0],
           ),
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_EXTRA_LARGE.r),
           border: Border.all(color: context.clinicBorder),
@@ -60,17 +67,35 @@ class BrandingPanel extends StatelessWidget {
                     const _Header(),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const _HeadlineBlock(),
-                            SizedBox(
-                              height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h,
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final middle = Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const _HeadlineBlock(),
+                              SizedBox(
+                                height:
+                                    Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h,
+                              ),
+                              const _FeatureCards(),
+                            ],
+                          );
+                          return SingleChildScrollView(
+                            child: ConstrainedBox(
+                              // At least the full size of the Expanded slot:
+                              // width keeps the stretch direction, height lets
+                              // the block vertically center when there's spare
+                              // room; on short windows it scrolls normally.
+                              constraints: BoxConstraints(
+                                minWidth: constraints.maxWidth,
+                                minHeight: constraints.maxHeight,
+                              ),
+                              child: Center(
+                                child: middle,
+                              ),
                             ),
-                            const _FeatureCards(),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h),
@@ -92,8 +117,12 @@ class _DecorativeBlobs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tint = AppColors.clinicPrimaryContainer.withOpacity(
-      context.clinicIsDark ? 0.08 : 0.06,
+    final isDark = context.clinicIsDark;
+    final tealTint = AppColors.clinicPrimaryContainer.withOpacity(
+      isDark ? 0.10 : 0.07,
+    );
+    final blueTint = AppColors.clinicSecondary.withOpacity(
+      isDark ? 0.10 : 0.06,
     );
     return Positioned.fill(
       child: IgnorePointer(
@@ -105,7 +134,8 @@ class _DecorativeBlobs extends StatelessWidget {
               child: Container(
                 width: 220.r,
                 height: 220.r,
-                decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
+                decoration:
+                    BoxDecoration(color: tealTint, shape: BoxShape.circle),
               ),
             ),
             PositionedDirectional(
@@ -114,7 +144,42 @@ class _DecorativeBlobs extends StatelessWidget {
               child: Container(
                 width: 140.r,
                 height: 140.r,
-                decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
+                decoration:
+                    BoxDecoration(color: tealTint, shape: BoxShape.circle),
+              ),
+            ),
+            PositionedDirectional(
+              top: 40.h,
+              end: -50.w,
+              child: Container(
+                width: 160.r,
+                height: 160.r,
+                decoration:
+                    BoxDecoration(color: blueTint, shape: BoxShape.circle),
+              ),
+            ),
+            PositionedDirectional(
+              bottom: -70.h,
+              start: 40.w,
+              child: Container(
+                width: 120.r,
+                height: 120.r,
+                decoration:
+                    BoxDecoration(color: blueTint, shape: BoxShape.circle),
+              ),
+            ),
+            PositionedDirectional(
+              bottom: -20.h,
+              end: 60.w,
+              child: Container(
+                width: 100.r,
+                height: 100.r,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor.withOpacity(
+                    isDark ? 0.08 : 0.05,
+                  ),
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
           ],
@@ -142,7 +207,7 @@ class _Header extends StatelessWidget {
               children: [
                 ResponsiveText(
                   'branding_clinic_name'.tr(),
-                  fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                  fontSize: Dimensions.FONT_SIZE_SMALL,
                   fontWeight: FontWeight.w700,
                   color: context.clinicTextPrimary,
                   maxLines: 1,
@@ -325,7 +390,7 @@ class _HeadlineBlock extends StatelessWidget {
           SizedBox(height: Dimensions.PADDING_SIZE_LARGE.h),
           ResponsiveText(
             'branding_headline'.tr(),
-            fontSize: Dimensions.FONT_SIZE_EXTRA_OVER_LARGE + 2,
+            fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
             fontWeight: FontWeight.w800,
             height: 1.35,
             color: context.clinicTextPrimary,
@@ -333,7 +398,7 @@ class _HeadlineBlock extends StatelessWidget {
           SizedBox(height: Dimensions.PADDING_SIZE_LARGE.h),
           ResponsiveText(
             'branding_body'.tr(),
-            fontSize: Dimensions.FONT_SIZE_DEFAULT - 1,
+            fontSize: Dimensions.FONT_SIZE_SMALL - 1,
             height: 1.6,
             color: context.clinicTextSecondary,
           ),
@@ -363,7 +428,6 @@ class _FeatureCards extends StatelessWidget {
                 title: 'branding_card_fast_title'.tr(),
                 subtitle: 'branding_card_fast_body'.tr(),
                 stat: 'branding_card_fast_stat'.tr(),
-                isFeatured: true,
               ),
             ),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
@@ -389,7 +453,7 @@ class _FeatureCards extends StatelessWidget {
   }
 }
 
-/// White card with gradient icon tile, title, optional stat chip and body.
+/// White card with tinted icon tile, title, optional stat chip and body.
 /// Hovering lifts the card on desktop, matching desktop-UI conventions.
 class _FeatureCard extends StatefulWidget {
   const _FeatureCard({
@@ -397,14 +461,12 @@ class _FeatureCard extends StatefulWidget {
     required this.title,
     required this.subtitle,
     this.stat,
-    this.isFeatured = false,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
   final String? stat;
-  final bool isFeatured;
 
   @override
   State<_FeatureCard> createState() => _FeatureCardState();
@@ -428,7 +490,7 @@ class _FeatureCardState extends State<_FeatureCard> {
           color: isDark ? context.clinicContainer : AppColors.white,
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
           border: Border.all(
-            color: widget.isFeatured || _hovered
+            color: _hovered
                 ? AppColors.clinicPrimaryContainer.withOpacity(0.45)
                 : context.clinicBorder,
           ),
@@ -449,31 +511,19 @@ class _FeatureCardState extends State<_FeatureCard> {
               width: 36.r,
               height: 36.r,
               decoration: BoxDecoration(
-                gradient: widget.isFeatured
-                    ? const LinearGradient(
-                        begin: AlignmentDirectional.topStart,
-                        end: AlignmentDirectional.bottomEnd,
-                        colors: [
-                          AppColors.clinicPrimary,
-                          AppColors.clinicPrimaryContainer,
-                        ],
-                      )
-                    : null,
-                color: widget.isFeatured
-                    ? null
-                    : context.clinicAccent.withOpacity(0.12),
+                color: context.clinicAccent.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
               ),
               child: Icon(
                 widget.icon,
                 size: Dimensions.ICON_SIZE_SMALL.r,
-                color: widget.isFeatured ? Colors.white : null,
+                color: AppColors.clinicPrimaryContainer,
               ),
             ),
             SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
             ResponsiveText(
               widget.title,
-              fontSize: Dimensions.FONT_SIZE_DEFAULT - 1,
+              fontSize: Dimensions.FONT_SIZE_SMALL,
               fontWeight: FontWeight.w700,
               color: context.clinicTextPrimary,
               maxLines: 1,

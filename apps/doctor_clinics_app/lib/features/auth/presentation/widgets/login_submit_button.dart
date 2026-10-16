@@ -58,8 +58,7 @@ class LoginSubmitButton extends StatelessWidget {
               AppButton(
                 label: label.tr(),
                 icon: icon,
-                height: large ? 56.h : Dimensions.CONTROL_HEIGHT.h,
-                fontSize: large ? Dimensions.FONT_SIZE_LARGE : null,
+                height: large ? 64.h : Dimensions.CONTROL_HEIGHT.h,
                 color: context.clinicSubmitButton,
                 isLoading: isLoading,
                 onPressed: isLoading ? null : onSubmit,
