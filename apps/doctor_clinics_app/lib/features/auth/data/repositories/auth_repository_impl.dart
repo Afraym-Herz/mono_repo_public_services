@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/auth/domain/entities/user.dart';
 import 'package:doctor_clinics_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:doctor_clinics_app/features/auth/data/datasources/auth_datasource.dart';
+import 'package:doctor_clinics_app/features/auth/data/helpers/password_hasher.dart';
 
 /// Concrete [IAuthRepository] backed by a local datasource.
 ///
@@ -14,17 +17,38 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   AuthRepositoryImpl({required this.datasource});
 
+  /// Persists the active session so both this repository (`currentAppUser`)
+  /// and the shared [AppAuthCubit] (which drives router redirection and reads
+  /// [AppConstants.TOKEN] / [AppConstants.USER_INFO] before `runApp`) agree
+  /// on the signed-in state across restarts.
+  Future<void> _persistSession(User user) async {
+    final storage = getIt<SecureStorageService>();
+    await storage.writeSecureData(_sessionKey, user.id.toString());
+    await storage.writeSecureData(AppConstants.TOKEN, user.id.toString());
+    await storage.writeSecureData(
+      AppConstants.USER_INFO,
+      jsonEncode(user.toAuthUser().toMap()),
+    );
+  }
+
+  /// Clears every session key written by [_persistSession].
+  Future<void> _clearSession() async {
+    final storage = getIt<SecureStorageService>();
+    await storage.deleteSecureData(_sessionKey);
+    await storage.deleteSecureData(AppConstants.TOKEN);
+    await storage.deleteSecureData(AppConstants.USER_INFO);
+  }
+
   @override
   FutureResult<User> login(String username, String password) async {
     try {
-      final user = await datasource.findByUsername(username);
-      if (user == null) {
+      final credentials = await datasource.findCredentialsByUsername(username);
+      if (credentials == null ||
+          !PasswordHasher.verify(password, credentials.passwordHash)) {
         return const Left(CacheFailure('Invalid username or password'));
       }
-      await getIt<SecureStorageService>().writeSecureData(
-        _sessionKey,
-        user.id.toString(),
-      );
+      final user = credentials.user;
+      await _persistSession(user);
       return Right(user);
     } catch (e) {
       return Left(CacheFailure('auth.login failed: $e'));
@@ -34,7 +58,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   /// Core contract: ends the session (clears backend session + storage).
   @override
   Future<void> logout() async {
-    await getIt<SecureStorageService>().deleteSecureData(_sessionKey);
+    await _clearSession();
   }
 
   /// Core contract: app [User] mapped to shared [AuthUser].
@@ -47,17 +71,18 @@ class AuthRepositoryImpl implements IAuthRepository {
   @override
   FutureResult<User?> currentAppUser() async {
     try {
-      final res =
-          await getIt<SecureStorageService>().readSecureData(_sessionKey);
+      final res = await getIt<SecureStorageService>().readSecureData(
+        _sessionKey,
+      );
       final userIdStr = res.fold((_) => null, (val) => val);
       if (userIdStr == null) return const Right(null);
       final userId = int.tryParse(userIdStr);
       if (userId == null) return const Right(null);
       final users = await datasource.fetchAllUsers();
       final user = users.cast<User?>().firstWhere(
-            (u) => u?.id == userId,
-            orElse: () => null,
-          );
+        (u) => u?.id == userId,
+        orElse: () => null,
+      );
       return Right(user);
     } catch (e) {
       return Left(CacheFailure('auth.currentAppUser failed: $e'));
@@ -88,11 +113,11 @@ class AuthRepositoryImpl implements IAuthRepository {
         createdAt: now,
         updatedAt: now,
       );
-      final savedUser = await datasource.insertUser(user);
-      await getIt<SecureStorageService>().writeSecureData(
-        _sessionKey,
-        savedUser.id.toString(),
+      final savedUser = await datasource.insertUser(
+        user,
+        passwordHash: PasswordHasher.hash(password),
       );
+      await _persistSession(savedUser);
       return Right(savedUser);
     } catch (e) {
       return Left(CacheFailure('auth.createFirstUser failed: $e'));

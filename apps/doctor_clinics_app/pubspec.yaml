@@ -27,6 +27,7 @@ dependencies:
   drift: ^2.28.2
   drift_flutter: ^0.2.7
   dartz: ^0.10.1
+  crypto: ^3.0.7
   path_provider: ^2.1.6
   path: ^1.9.1
   # firebase_core: ^3.15.2  # MVP-OFFLINE: commented out (offline-only MVP)

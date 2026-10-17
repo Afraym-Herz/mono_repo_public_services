@@ -12,17 +12,24 @@ class AuthDriftDatasource implements IAuthDatasource {
   AuthDriftDatasource(this.dao);
 
   @override
-  Future<entity.User?> findByUsername(String username) async {
+  Future<AuthCredentials?> findCredentialsByUsername(String username) async {
     final row = await dao.getUserByUsername(username);
-    return row == null ? null : _toDomainUser(row);
+    if (row == null) return null;
+    return AuthCredentials(
+      user: _toDomainUser(row),
+      passwordHash: row.passwordHash,
+    );
   }
 
   @override
-  Future<entity.User> insertUser(entity.User user) async {
+  Future<entity.User> insertUser(
+    entity.User user, {
+    required String passwordHash,
+  }) async {
     final id = await dao.insertUser(
       UsersCompanion(
         username: Value(user.username),
-        passwordHash: const Value(''),
+        passwordHash: Value(passwordHash),
         role: Value(user.role),
         createdAt: Value(user.createdAt),
         updatedAt: Value(user.updatedAt),
@@ -50,7 +57,7 @@ class AuthDriftDatasource implements IAuthDatasource {
   }
 
   @override
-  Future<int> userCount() async {
+  Future<int> userCount() {
     return dao.getUserCount();
   }
 
