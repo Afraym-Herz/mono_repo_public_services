@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:core/core.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/screens/login_screen.dart';
-import 'package:doctor_clinics_app/features/patients/presentation/screens/patient_list_screen.dart';
+import 'package:doctor_clinics_app/features/home/presentation/screens/home_screen.dart';
+import 'package:doctor_clinics_app/features/navigation/presentation/app_shell_routes.dart';
 
 /// Root widget for the Doctor Clinics app.
 ///
@@ -24,8 +25,8 @@ class _DoctorClinicsAppState extends State<DoctorClinicsApp> {
   /// navigation state. Feature routes stay inside the shell.
   late final router = AppRouter.createRouter(
     loginBuilder: (ctx, state) => const LoginScreen(),
-    homeBuilder: (ctx, state) => const PatientListScreen(),
-    // extraShellRoutes: [ /* feature GoRoutes inside MainShellScreen */ ],
+    homeBuilder: (ctx, state) => const HomeScreen(),
+    extraShellRoutes: buildAppShellRoutes(),
     // extraRoutes: [ /* full-screen modals via transparentModalRoutePage */ ],
   );
 

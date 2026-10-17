@@ -127,6 +127,9 @@ class AppColors {
   static const Color clinicPrimaryContainer = Color(0xFF0F766E);
   static const Color clinicOnPrimaryContainer = Color(0xFFA3FAEF);
   static const Color clinicInversePrimary = Color(0xFF80D5CB);
+  // Side nav active-item tint (DESIGN (2).md: Primary Container `#D5F0EC`).
+  static const Color clinicPrimaryContainerTint = Color(0xFFD5F0EC);
+  static const Color clinicPrimaryContainerTintDark = Color(0xFF143732);
   static const Color clinicSecondary = Color(0xFF0051D5);
   static const Color clinicError = Color(0xFFBA1A1A);
   static const Color clinicErrorContainer = Color(0xFFFFDAD6);

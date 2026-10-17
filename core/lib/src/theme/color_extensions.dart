@@ -52,4 +52,9 @@ extension AppColorExtensions on BuildContext {
       ? AppColors.clinicInversePrimary
       : AppColors.clinicPrimaryContainer;
   Color get clinicSubmitButton => AppColors.clinicPrimaryContainer;
+
+  /// Active side-nav item background (tinted primary container).
+  Color get clinicNavActiveBackground => clinicIsDark
+      ? AppColors.clinicPrimaryContainerTintDark
+      : AppColors.clinicPrimaryContainerTint;
 }
