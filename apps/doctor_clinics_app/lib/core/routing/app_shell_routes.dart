@@ -13,6 +13,10 @@ import 'package:doctor_clinics_app/features/queue/presentation/screens/queue_scr
 ///
 /// Feed into `AppRouter.createRouter(extraShellRoutes: …)` so every nav item
 /// stays inside the shell and keeps the side navigation visible.
+///
+/// App-level routing lives in `lib/core/routing/` (not `lib/features/`), the
+/// app mirror of `package:core/src/routing/`. Screen widgets stay owned by
+/// their features.
 List<RouteBase> buildAppShellRoutes() {
   return [
     _shellRoute(path: Routes.queue, name: 'queue', child: const QueueScreen()),

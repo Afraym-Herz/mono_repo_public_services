@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:core/core.dart';
+import 'package:doctor_clinics_app/core/routing/app_shell_routes.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:doctor_clinics_app/features/home/presentation/screens/home_screen.dart';
-import 'package:doctor_clinics_app/features/navigation/presentation/app_shell_routes.dart';
 import 'package:doctor_clinics_app/features/settings/presentation/settings_routes.dart';
 
 /// Root widget for the Doctor Clinics app.

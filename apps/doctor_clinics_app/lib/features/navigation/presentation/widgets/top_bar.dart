@@ -18,7 +18,7 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 64.h,
+      height: Dimensions.TOP_BAR_HEIGHT.h,
       padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE.w),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -30,7 +30,9 @@ class TopBar extends StatelessWidget {
             child: Align(
               alignment: AlignmentDirectional.centerStart,
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 560.w),
+                constraints: BoxConstraints(
+                  maxWidth: Dimensions.TOP_BAR_SEARCH_MAX_WIDTH.w,
+                ),
                 child: const TopBarSearchField(),
               ),
             ),
