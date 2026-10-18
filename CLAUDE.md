@@ -55,11 +55,13 @@ connectivity gating) until the MVP constraint is lifted.
 
 ## Commands (run from the package folder, or via melos from root)
 
+**Do NOT run any of these — or any other build/test/analyze/pub command — until the user explicitly asks.** Make the code edits only; the user runs the project.
+
 ```bash
 melos bootstrap                                          # install all packages
 cd core && flutter pub get                               # single package
 dart run build_runner build --delete-conflicting-outputs # after editing any @freezed class (core)
-flutter analyze                                          # must be clean before calling a change done
+flutter analyze                                          # must be clean before calling a change done (only after the user asks you to run it)
 powershell -ExecutionPolicy Bypass -File tool/create_app.ps1 -AppName my_app
 ```
 
@@ -96,5 +98,7 @@ New `.tr()` key → update **both** `apps/<app>/assets/translations/en.json` and
 - Modal/detail screens use `transparentModalRoutePage(...)`, not `showDialog`, so the parent stays visible behind modals on large screens.
 
 ## Don't
+
+**Never test, run, build, analyze, or `pub get` the project — not even to verify your own edits — until the user tells you to.** Do not run `flutter test`, `flutter run`, `flutter analyze`, `flutter build`, `melos bootstrap`, `dart run build_runner …`, or start any app/server. Just make the requested file changes and stop.
 
 No tests unless asked. No magic strings for status/collection/field names. No skipping the `ar.json`/`en.json` pair when adding a `.tr()` key. No search UI without a 500ms debounce + `isSearching` flag (swapping the list for a skeleton on every keystroke loses scroll/text state).
