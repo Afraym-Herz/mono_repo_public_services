@@ -72,6 +72,18 @@ class Dimensions {
   /// Fixed primary navigation pane width (DESIGN (2).md: 240px right pane).
   static const double SIDE_NAV_WIDTH = 240.0;
 
+  /// Persistent workspace top-bar height, shared by every shell tab.
+  static const double TOP_BAR_HEIGHT = 64.0;
+
+  /// Max width of the global search pill docked in the workspace top bar.
+  static const double TOP_BAR_SEARCH_MAX_WIDTH = 560.0;
+
+  /// Signed-in user avatar radius in the workspace top bar.
+  static const double USER_AVATAR_RADIUS = 18.0;
+
+  /// Max width of the signed-in user's name/role block in the top bar.
+  static const double USER_PROFILE_MAX_WIDTH = 200.0;
+
   /// Max width of the quick-settings modal panel.
   static const double SETTINGS_PANEL_MAX_WIDTH = 460.0;
 

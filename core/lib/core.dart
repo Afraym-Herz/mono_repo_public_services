@@ -77,6 +77,8 @@ export 'src/custom/app_button.dart';
 export 'src/custom/app_dropdown_field.dart';
 export 'src/custom/app_feature_header.dart';
 export 'src/custom/app_feature_header_title.dart';
+export 'src/custom/app_meta_row.dart';
+export 'src/custom/app_pill_button.dart';
 export 'src/custom/app_section_card.dart';
 export 'src/custom/app_snack_bar.dart';
 export 'src/custom/app_tab_button.dart';

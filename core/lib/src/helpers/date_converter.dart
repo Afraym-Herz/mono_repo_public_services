@@ -62,4 +62,31 @@ class DateConverter {
     String formattedDate = DateFormat('yyyy-MM-ddTHH:mm:ss.sss').format(now);
     return formattedDate;
   }
+
+  /// Long weekday date (e.g. `الخميس 15 أكتوبر 2025` / `Thursday 15 October 2025`)
+  /// for [localeTag], with digits rendered in that locale's own numerals.
+  static String localizedFullDate(DateTime date, String localeTag) =>
+      withLocalizedDigits(
+        DateFormat('EEEE d MMMM yyyy', localeTag).format(date),
+        localeTag,
+      );
+
+  /// Clock time (e.g. `٩:٠٠ ص` / `9:00 AM`) for [date] in [localeTag].
+  static String localizedTime(DateTime date, String localeTag) =>
+      withLocalizedDigits(DateFormat.jm(localeTag).format(date), localeTag);
+
+  /// Maps western digits to Arabic-Indic ones for Arabic locales, leaving other
+  /// locales untouched (intl's bundled `ar` symbols use western digits).
+  static String withLocalizedDigits(String input, String localeTag) {
+    if (!localeTag.toLowerCase().startsWith('ar')) return input;
+    const western = '0123456789';
+    const arabic = '٠١٢٣٤٥٦٧٨٩';
+    final buffer = StringBuffer();
+    for (final rune in input.runes) {
+      final char = String.fromCharCode(rune);
+      final index = western.indexOf(char);
+      buffer.write(index == -1 ? char : arabic[index]);
+    }
+    return buffer.toString();
+  }
 }
