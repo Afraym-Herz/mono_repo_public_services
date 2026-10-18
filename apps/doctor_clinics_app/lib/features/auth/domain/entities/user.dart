@@ -22,14 +22,15 @@ class User with _$User {
 /// Per CLAUDE.md §3: `core` owns `AuthUser`; each app maps its own user
 /// model to/from it here, never importing `features/` from `core`.
 extension UserAuthMapper on User {
-  AuthUser toAuthUser() => AuthUser(id: id.toString(), name: username);
+  AuthUser toAuthUser() =>
+      AuthUser(id: id.toString(), name: username, role: role);
 
   static User fromAuthUser(AuthUser authUser, {String role = 'secretary'}) {
     final now = DateTime.now();
     return User(
       id: int.tryParse(authUser.id) ?? 0,
       username: authUser.name,
-      role: role,
+      role: authUser.role ?? role,
       createdAt: now,
       updatedAt: now,
     );

@@ -28,7 +28,21 @@ Future<void> main() async {
 
   await initDependencies();
   setupAppLocator();
-  await getIt<AppAuthCubit>().checkAuthStatus();
+
+  // ---------------------------------------------------------------------------
+  // TEMPORARY AUTH BYPASS
+  // Skips the login / first-run screens so the app boots straight into the
+  // home shell. Seeds an authenticated session directly on [AppAuthCubit];
+  // the router redirect (core `app_router_redirect.dart`) then lands on
+  // Routes.home instead of Routes.login.
+  //
+  // REVERT: delete the `logIn(...)` call below and restore the original
+  // `await getIt<AppAuthCubit>().checkAuthStatus();`.
+  // ---------------------------------------------------------------------------
+  getIt<AppAuthCubit>().logIn(
+    const AuthUser(id: 'dev', name: 'Maha Adel', role: 'secretary'),
+  );
+  // await getIt<AppAuthCubit>().checkAuthStatus();
 
   runApp(
     EasyLocalization(

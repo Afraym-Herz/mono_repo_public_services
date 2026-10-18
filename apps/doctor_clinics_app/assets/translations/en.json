@@ -64,6 +64,15 @@
   "branding_footer_upgrade": "New release 2025",
   "branding_footer_availability_tip": "Technical support is available all week",
   "branding_footer_hotline_tip": "Call the short number for inquiries",
+  "top_bar_search_hint": "Search by name, phone, or file number…",
+  "top_bar_search_shortcut": "Ctrl+K",
+  "role_secretary": "Secretary",
+  "role_doctor": "Doctor",
+  "role_admin": "Admin",
+  "header": {
+    "user_fallback_name": "User",
+    "user_fallback_role": "Staff"
+  },
   "auth": {
     "logout_confirm_title": "Confirm logout",
     "logout_confirm_message": "Are you sure you want to log out?"

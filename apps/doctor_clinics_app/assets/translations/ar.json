@@ -64,6 +64,15 @@
   "branding_footer_upgrade": "الإصدار الجديد ٢٠٢٥",
   "branding_footer_availability_tip": "الدعم الفني متاح طوال أيام الأسبوع",
   "branding_footer_hotline_tip": "اتصل بالرقم المختصر للاستفسار",
+  "top_bar_search_hint": "ابحث بالاسم أو رقم الهاتف أو رقم الملف…",
+  "top_bar_search_shortcut": "Ctrl+K",
+  "role_secretary": "سكرتارية",
+  "role_doctor": "طبيب",
+  "role_admin": "مدير",
+  "header": {
+    "user_fallback_name": "مستخدم",
+    "user_fallback_role": "موظف"
+  },
   "auth": {
     "logout_confirm_title": "تأكيد تسجيل الخروج",
     "logout_confirm_message": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
