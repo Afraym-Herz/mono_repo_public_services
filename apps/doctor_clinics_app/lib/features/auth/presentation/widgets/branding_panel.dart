@@ -48,7 +48,7 @@ class BrandingPanel extends StatelessWidget {
           border: Border.all(color: context.clinicBorder),
           boxShadow: [
             BoxShadow(
-              color: AppColors.clinicPrimaryContainer.withOpacity(0.12),
+              color: AppColors.clinicPrimaryContainer.withValues(alpha: 0.12),
               blurRadius: 24.r,
               offset: Offset(0, 10.h),
             ),
@@ -118,11 +118,11 @@ class _DecorativeBlobs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = context.clinicIsDark;
-    final tealTint = AppColors.clinicPrimaryContainer.withOpacity(
-      isDark ? 0.10 : 0.07,
+    final tealTint = AppColors.clinicPrimaryContainer.withValues(
+      alpha: isDark ? 0.10 : 0.07,
     );
-    final blueTint = AppColors.clinicSecondary.withOpacity(
-      isDark ? 0.10 : 0.06,
+    final blueTint = AppColors.clinicSecondary.withValues(
+      alpha: isDark ? 0.10 : 0.06,
     );
     return Positioned.fill(
       child: IgnorePointer(
@@ -175,8 +175,8 @@ class _DecorativeBlobs extends StatelessWidget {
                 width: 100.r,
                 height: 100.r,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(
-                    isDark ? 0.08 : 0.05,
+                  color: AppColors.primaryColor.withValues(
+                    alpha: isDark ? 0.08 : 0.05,
                   ),
                   shape: BoxShape.circle,
                 ),
@@ -249,7 +249,7 @@ class _LogoBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.clinicPrimaryContainer.withOpacity(0.35),
+            color: AppColors.clinicPrimaryContainer.withValues(alpha: 0.35),
             blurRadius: 14.r,
             offset: Offset(0, 5.h),
           ),
@@ -366,7 +366,7 @@ class _HeadlineBlock extends StatelessWidget {
               vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
             ),
             decoration: BoxDecoration(
-              color: context.clinicAccent.withOpacity(0.15),
+              color: context.clinicAccent.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_EXTRA_LARGE.r),
             ),
             child: Row(
@@ -491,13 +491,13 @@ class _FeatureCardState extends State<_FeatureCard> {
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
           border: Border.all(
             color: _hovered
-                ? AppColors.clinicPrimaryContainer.withOpacity(0.45)
+                ? AppColors.clinicPrimaryContainer.withValues(alpha: 0.45)
                 : context.clinicBorder,
           ),
           boxShadow: [
             BoxShadow(
               color: _hovered
-                  ? AppColors.clinicPrimaryContainer.withOpacity(0.20)
+                  ? AppColors.clinicPrimaryContainer.withValues(alpha: 0.20)
                   : AppColors.shadowLight,
               blurRadius: _hovered ? 16.r : 10.r,
               offset: Offset(0, _hovered ? 8.h : 4.h),
@@ -511,7 +511,7 @@ class _FeatureCardState extends State<_FeatureCard> {
               width: 36.r,
               height: 36.r,
               decoration: BoxDecoration(
-                color: context.clinicAccent.withOpacity(0.12),
+                color: context.clinicAccent.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
               ),
               child: Icon(

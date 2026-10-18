@@ -13,7 +13,12 @@ scripts:
   get:core: melos exec --scope=core -- flutter pub get
   get:clinics: melos exec --scope=doctor_clinics_app -- flutter pub get
   run:clinics: melos exec --scope=doctor_clinics_app -- flutter run
-  run:clinics:chrome: melos exec --scope=doctor_clinics_app -- flutter run -d chrome
+  # Pinned web port + persistent Chrome profile dir. Web storage (Drift DB in
+  # IndexedDB/OPFS + flutter_secure_storage in localStorage) is per-origin and
+  # per-profile; without both of these, `flutter run -d chrome` starts from a
+  # random port and a fresh temp profile every run, so the app looks like a
+  # fresh install and forces sign-up again.
+  run:clinics:chrome: melos exec --scope=doctor_clinics_app -- flutter run -d chrome --web-port=8080 --web-browser-flag=--user-data-dir=C:\flutter-web-profile
   build_runner:core: melos exec --scope=core -- dart run build_runner build --delete-conflicting-outputs
   create_app: powershell -ExecutionPolicy Bypass -File tool/create_app.ps1
 

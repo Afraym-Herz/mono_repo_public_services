@@ -7,6 +7,7 @@ import 'package:core/core.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:doctor_clinics_app/features/home/presentation/screens/home_screen.dart';
 import 'package:doctor_clinics_app/features/navigation/presentation/app_shell_routes.dart';
+import 'package:doctor_clinics_app/features/settings/presentation/settings_routes.dart';
 
 /// Root widget for the Doctor Clinics app.
 ///
@@ -27,7 +28,7 @@ class _DoctorClinicsAppState extends State<DoctorClinicsApp> {
     loginBuilder: (ctx, state) => const LoginScreen(),
     homeBuilder: (ctx, state) => const HomeScreen(),
     extraShellRoutes: buildAppShellRoutes(),
-    // extraRoutes: [ /* full-screen modals via transparentModalRoutePage */ ],
+    extraRoutes: buildSettingsRoutes(),
   );
 
   @override
@@ -41,7 +42,10 @@ class _DoctorClinicsAppState extends State<DoctorClinicsApp> {
         builder: (context, themeState) {
           ThemeManager.setDarkMode(themeState.darkTheme);
           return ScreenUtilInit(
-            designSize: const Size(375, 812),
+            // Desktop-first app: scale from the 1440x900 clinical canvas so
+            // widgets rendered outside AdaptiveLayout (modals, dialogs,
+            // snack bars) never balloon on wide screens.
+            designSize: ResponsiveDesignSizes.desktop,
             minTextAdapt: true,
             builder: (context, child) => MaterialApp.router(
               title: 'Doctor Clinics',

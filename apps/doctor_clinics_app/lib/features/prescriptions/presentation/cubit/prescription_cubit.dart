@@ -59,7 +59,7 @@ class PrescriptionCubit extends Cubit<PrescriptionState> {
     final medicines = medsResult.fold((_) => <Medicine>[], (m) => m);
 
     state.maybeWhen(
-      builder: (prescription, _, __) => emit(
+      builder: (prescription, _, _) => emit(
         PrescriptionState.builder(
           prescription: prescription,
           items: items,

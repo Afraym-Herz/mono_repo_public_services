@@ -1,14 +1,13 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/material.dart';
 import 'package:core/src/responsive/adaptive_layout.dart';
-import 'package:core/src/routing/shell/mobile_shell_layout.dart';
+import 'package:flutter/material.dart';
 
-/// Top-level Shell Screen for the navigation chrome (app bar + drawer).
+/// Top-level shell for the desktop clinics app.
 ///
-/// Mobile and tablet render [MobileShellLayout] (app bar + slide-out drawer).
-/// Large screens render the page bare so a docked shell — e.g. the clinics
-/// app's own side navigation bar — owns the chrome instead of stacking an app
-/// bar on top of it.
+/// The app targets desktop workstations and docks its own side navigation, so
+/// the shell only scopes [AdaptiveLayout] (ScreenUtil) and hosts the page. It
+/// deliberately does not add the mobile/tablet app-bar + drawer chrome
+/// (`MobileShellLayout`).
 class MainShellScreen extends StatelessWidget {
   const MainShellScreen({super.key, required this.child});
 
@@ -19,12 +18,9 @@ class MainShellScreen extends StatelessWidget {
     return FadeInUp(
       delay: const Duration(milliseconds: 100),
       child: AdaptiveLayout(
-        mobileLayout: (context) => MobileShellLayout(child: child),
-        tabletLayout: (context) => MobileShellLayout(child: child),
-        tabletLargeLayout: (context) => child,
+        mobileLayout: (context) => child,
+        tabletLayout: (context) => child,
         desktopLayout: (context) => child,
-        desktopLargeLayout: (context) => child,
-        desktopXLLayout: (context) => child,
       ),
     );
   }

@@ -71,7 +71,7 @@ New `.tr()` key → update **both** `apps/<app>/assets/translations/en.json` and
 
 ## 2. Responsive
 
-`MainShellScreen` renders `MobileShellLayout` for mobile + tablet via `AdaptiveLayout`. Never write manual width checks — use `ResponsiveContext` (`package:core/src/responsive/responsive_extensions.dart`): `context.isMobileOrSmallTablet`, `context.isLargeTabletOrDesktop`, `context.responsive<T>(mobile:…, tablet:…, desktop:…, defaultValue:…)`, `context.gridColumns`, `context.contentMaxWidth`. Breakpoints: mobile <600, tablet ≥1200, desktop ≥1600 (`ResponsiveBreakpoints`).
+`MainShellScreen` renders `MobileShellLayout` for mobile + tablet via `AdaptiveLayout`. **Exception:** `doctor_clinics_app` is desktop-only — its `MainShellScreen` renders the page bare and the app docks its own side navigation (`AppShellLayout`) instead. Never write manual width checks — use `ResponsiveContext` (`package:core/src/responsive/responsive_extensions.dart`): `context.isMobileOrSmallTablet`, `context.isLargeTabletOrDesktop`, `context.responsive<T>(mobile:…, tablet:…, desktop:…, defaultValue:…)`, `context.gridColumns`, `context.contentMaxWidth`. Breakpoints: mobile <600, tablet ≥1200, desktop ≥1600 (`ResponsiveBreakpoints`).
 
 ## 3. Feature layering (`apps/<app>/lib/features/<feature>/`)
 

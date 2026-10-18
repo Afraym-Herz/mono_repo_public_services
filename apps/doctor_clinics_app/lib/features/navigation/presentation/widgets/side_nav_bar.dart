@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -6,12 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:doctor_clinics_app/features/navigation/presentation/models/side_nav_destination.dart';
 import 'package:doctor_clinics_app/features/navigation/presentation/widgets/side_nav_header.dart';
 import 'package:doctor_clinics_app/features/navigation/presentation/widgets/side_nav_item.dart';
+import 'package:doctor_clinics_app/features/navigation/presentation/widgets/side_nav_settings_shortcut.dart';
 import 'package:doctor_clinics_app/features/navigation/presentation/widgets/side_nav_version_badge.dart';
 
 /// Fixed primary navigation pane docked to the leading edge of the layout.
 ///
 /// Matches DESIGN (2).md: a 240px right-hand pane holding the clinic identity,
-/// the primary destinations, and the app version.
+/// the primary destinations, a settings shortcut, and the app version.
 class SideNavBar extends StatelessWidget {
   const SideNavBar({super.key});
 
@@ -19,7 +21,7 @@ class SideNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
     return Container(
-      width: Dimensions.SIDE_NAV_WIDTH,
+      width: Dimensions.SIDE_NAV_WIDTH.w,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         border: BorderDirectional(end: BorderSide(color: context.clinicBorder)),
@@ -36,14 +38,21 @@ class SideNavBar extends StatelessWidget {
                   vertical: Dimensions.PADDING_SIZE_SMALL.h,
                 ),
                 children: [
-                  for (final destination in sideNavDestinations)
+                  for (final (index, destination) in sideNavDestinations.indexed)
                     SideNavItem(
-                      destination: destination,
+                      icon: destination.icon,
+                      activeIcon: destination.activeIcon,
+                      label: destination.labelKey.tr(),
                       isActive: destination.isActive(location),
+                      onTap: destination.isActive(location)
+                          ? null
+                          : () => context.go(destination.route),
+                      delay: Duration(milliseconds: 60 * index),
                     ),
                 ],
               ),
             ),
+            const SideNavSettingsShortcut(),
             const SideNavVersionBadge(),
           ],
         ),

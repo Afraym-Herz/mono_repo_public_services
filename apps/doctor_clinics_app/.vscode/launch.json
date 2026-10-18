@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // The persistent web flags live in .vscode/settings.json
+      // (dart.flutterRunAdditionalArgs), so they apply to this and any other
+      // Flutter Run/Debug config automatically.
+      "name": "Doctor Clinics (Chrome, persistent)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}",
+      "program": "lib/main.dart",
+      "deviceId": "chrome"
+    },
+    {
+      // Native desktop run: local DB + secure storage persist as files on disk.
+      // The web flags above are ignored on non-web devices.
+      "name": "Doctor Clinics (Windows, native)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}",
+      "program": "lib/main.dart",
+      "deviceId": "windows"
+    }
+  ]
+}

@@ -72,6 +72,9 @@ class Dimensions {
   /// Fixed primary navigation pane width (DESIGN (2).md: 240px right pane).
   static const double SIDE_NAV_WIDTH = 240.0;
 
+  /// Max width of the quick-settings modal panel.
+  static const double SETTINGS_PANEL_MAX_WIDTH = 460.0;
+
   /// Auth side-panel max width (1/3 split on desktop canvas).
   static const double LOGIN_PANEL_MAX_WIDTH = 480.0;
 

@@ -10,4 +10,7 @@ class Routes {
   static const String patients = '/patients';
   static const String operations = '/operations';
   static const String billing = '/billing';
+
+  /// Quick-settings modal (language + theme), pushed outside the shell.
+  static const String settings = '/settings';
 }

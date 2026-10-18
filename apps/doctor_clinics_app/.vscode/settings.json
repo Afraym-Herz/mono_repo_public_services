@@ -1,0 +1,15 @@
+{
+  // Extra args appended to EVERY `flutter run` in this workspace (Run and Debug
+  // button included), so you never have to remember them.
+  //
+  // Why both flags: web storage (Drift DB in IndexedDB/OPFS + secure storage in
+  // localStorage) is scoped to the page ORIGIN and the Chrome PROFILE. By
+  // default `flutter run -d chrome` uses a random port and a throwaway temp
+  // Chrome profile every run, so the app starts empty and forces sign-up again.
+  //   --web-port=8080                 -> stable origin http://localhost:8080
+  //   --user-data-dir=<dir>           -> stable, persistent Chrome profile
+  "dart.flutterRunAdditionalArgs": [
+    "--web-port=8080",
+    "--web-browser-flag=--user-data-dir=C:\\flutter-web-profile"
+  ]
+}

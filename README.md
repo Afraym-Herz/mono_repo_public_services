@@ -38,7 +38,8 @@ monoRepo/
 ```powershell
 dart pub global activate melos
 melos bootstrap
-flutter run --target apps/doctor_clinics_app/lib/main.dart -d chrome
+flutter run --target apps/doctor_clinics_app/lib/main.dart -d chrome `
+  --web-port=8080 --web-browser-flag=--user-data-dir=C:\flutter-web-profile
 ```
 
 ## New app
