@@ -66,6 +66,12 @@
   "branding_footer_hotline_tip": "Call the short number for inquiries",
   "top_bar_search_hint": "Search by name, phone, or file number…",
   "top_bar_search_shortcut": "Ctrl+K",
+  "home_greeting": "Welcome, {name}",
+  "home_clinic_hours": "Clinic hours: Morning shift (9:00 AM - 5:00 PM)",
+  "home_action_book_appointment": "Book appointment",
+  "home_action_add_to_queue": "Add patient to queue",
+  "home_appointments_alert": "Appointments alert: 3 patients have not shown up after their scheduled time in today's schedule.",
+  "home_view_latecomers": "View latecomers",
   "role_secretary": "Secretary",
   "role_doctor": "Doctor",
   "role_admin": "Admin",
@@ -76,5 +82,17 @@
   "auth": {
     "logout_confirm_title": "Confirm logout",
     "logout_confirm_message": "Are you sure you want to log out?"
+  },
+  "queue_header": {
+    "title": "Today's Queue",
+    "live": "Live",
+    "add_walk_in": "Add without appointment",
+    "screen_call": "General screen call",
+    "session_morning": "Morning clinic session",
+    "session_evening": "Evening clinic session"
+  },
+  "queue": {
+    "list_title": "Queue list",
+    "list_placeholder": "Queue list coming soon"
   }
 }

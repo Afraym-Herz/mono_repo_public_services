@@ -66,6 +66,12 @@
   "branding_footer_hotline_tip": "اتصل بالرقم المختصر للاستفسار",
   "top_bar_search_hint": "ابحث بالاسم أو رقم الهاتف أو رقم الملف…",
   "top_bar_search_shortcut": "Ctrl+K",
+  "home_greeting": "مرحبا {name}،",
+  "home_clinic_hours": "دوام العيادة: الفترة الصباحية (٩:٠٠ ص - ٥:٠٠ م)",
+  "home_action_book_appointment": "حجز موعد",
+  "home_action_add_to_queue": "إضافة مريض للطابور",
+  "home_appointments_alert": "تنبيه المواعيد: ٣ مرضى لم يحضروا بعد موعدهم المحدد في جدول كشوفات اليوم.",
+  "home_view_latecomers": "عرض المتأخرين",
   "role_secretary": "سكرتارية",
   "role_doctor": "طبيب",
   "role_admin": "مدير",
@@ -76,5 +82,17 @@
   "auth": {
     "logout_confirm_title": "تأكيد تسجيل الخروج",
     "logout_confirm_message": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  },
+  "queue_header": {
+    "title": "طابور اليوم",
+    "live": "مباشر",
+    "add_walk_in": "إضافة حالة بدون موعد",
+    "screen_call": "نداء عام للشاشة",
+    "session_morning": "فترة العيادة الصباحية",
+    "session_evening": "فترة العيادة المسائية"
+  },
+  "queue": {
+    "list_title": "قائمة الانتظار",
+    "list_placeholder": "قائمة الانتظار قيد الإنشاء"
   }
 }
