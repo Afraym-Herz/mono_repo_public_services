@@ -22,10 +22,13 @@ mixin _$QueueState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -35,10 +38,13 @@ mixin _$QueueState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -48,10 +54,13 @@ mixin _$QueueState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -149,10 +158,13 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -166,10 +178,13 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -183,10 +198,13 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -286,10 +304,13 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -303,10 +324,13 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -320,10 +344,13 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -385,10 +412,13 @@ abstract class _$$LoadedImplCopyWith<$Res> {
   ) = __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({
-    List<QueueEntry> entries,
-    List<Appointment> appointments,
+    List<QueueTicket> tickets,
+    List<BookedAppointment> booked,
     QueueListFilter filter,
     QueueSortOrder sortOrder,
+    int defaultFeePiasters,
+    bool isSubmitting,
+    String? actionError,
   });
 }
 
@@ -406,21 +436,24 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? entries = null,
-    Object? appointments = null,
+    Object? tickets = null,
+    Object? booked = null,
     Object? filter = null,
     Object? sortOrder = null,
+    Object? defaultFeePiasters = null,
+    Object? isSubmitting = null,
+    Object? actionError = freezed,
   }) {
     return _then(
       _$LoadedImpl(
-        entries: null == entries
-            ? _value._entries
-            : entries // ignore: cast_nullable_to_non_nullable
-                  as List<QueueEntry>,
-        appointments: null == appointments
-            ? _value._appointments
-            : appointments // ignore: cast_nullable_to_non_nullable
-                  as List<Appointment>,
+        tickets: null == tickets
+            ? _value._tickets
+            : tickets // ignore: cast_nullable_to_non_nullable
+                  as List<QueueTicket>,
+        booked: null == booked
+            ? _value._booked
+            : booked // ignore: cast_nullable_to_non_nullable
+                  as List<BookedAppointment>,
         filter: null == filter
             ? _value.filter
             : filter // ignore: cast_nullable_to_non_nullable
@@ -429,6 +462,18 @@ class __$$LoadedImplCopyWithImpl<$Res>
             ? _value.sortOrder
             : sortOrder // ignore: cast_nullable_to_non_nullable
                   as QueueSortOrder,
+        defaultFeePiasters: null == defaultFeePiasters
+            ? _value.defaultFeePiasters
+            : defaultFeePiasters // ignore: cast_nullable_to_non_nullable
+                  as int,
+        isSubmitting: null == isSubmitting
+            ? _value.isSubmitting
+            : isSubmitting // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        actionError: freezed == actionError
+            ? _value.actionError
+            : actionError // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -438,27 +483,30 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl({
-    required final List<QueueEntry> entries,
-    required final List<Appointment> appointments,
+    required final List<QueueTicket> tickets,
+    required final List<BookedAppointment> booked,
     this.filter = QueueListFilter.all,
     this.sortOrder = QueueSortOrder.ticketAscending,
-  }) : _entries = entries,
-       _appointments = appointments;
+    this.defaultFeePiasters = 0,
+    this.isSubmitting = false,
+    this.actionError,
+  }) : _tickets = tickets,
+       _booked = booked;
 
-  final List<QueueEntry> _entries;
+  final List<QueueTicket> _tickets;
   @override
-  List<QueueEntry> get entries {
-    if (_entries is EqualUnmodifiableListView) return _entries;
+  List<QueueTicket> get tickets {
+    if (_tickets is EqualUnmodifiableListView) return _tickets;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
+    return EqualUnmodifiableListView(_tickets);
   }
 
-  final List<Appointment> _appointments;
+  final List<BookedAppointment> _booked;
   @override
-  List<Appointment> get appointments {
-    if (_appointments is EqualUnmodifiableListView) return _appointments;
+  List<BookedAppointment> get booked {
+    if (_booked is EqualUnmodifiableListView) return _booked;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_appointments);
+    return EqualUnmodifiableListView(_booked);
   }
 
   @override
@@ -467,10 +515,18 @@ class _$LoadedImpl implements _Loaded {
   @override
   @JsonKey()
   final QueueSortOrder sortOrder;
+  @override
+  @JsonKey()
+  final int defaultFeePiasters;
+  @override
+  @JsonKey()
+  final bool isSubmitting;
+  @override
+  final String? actionError;
 
   @override
   String toString() {
-    return 'QueueState.loaded(entries: $entries, appointments: $appointments, filter: $filter, sortOrder: $sortOrder)';
+    return 'QueueState.loaded(tickets: $tickets, booked: $booked, filter: $filter, sortOrder: $sortOrder, defaultFeePiasters: $defaultFeePiasters, isSubmitting: $isSubmitting, actionError: $actionError)';
   }
 
   @override
@@ -478,23 +534,29 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality().equals(other._entries, _entries) &&
-            const DeepCollectionEquality().equals(
-              other._appointments,
-              _appointments,
-            ) &&
+            const DeepCollectionEquality().equals(other._tickets, _tickets) &&
+            const DeepCollectionEquality().equals(other._booked, _booked) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.sortOrder, sortOrder) ||
-                other.sortOrder == sortOrder));
+                other.sortOrder == sortOrder) &&
+            (identical(other.defaultFeePiasters, defaultFeePiasters) ||
+                other.defaultFeePiasters == defaultFeePiasters) &&
+            (identical(other.isSubmitting, isSubmitting) ||
+                other.isSubmitting == isSubmitting) &&
+            (identical(other.actionError, actionError) ||
+                other.actionError == actionError));
   }
 
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    const DeepCollectionEquality().hash(_entries),
-    const DeepCollectionEquality().hash(_appointments),
+    const DeepCollectionEquality().hash(_tickets),
+    const DeepCollectionEquality().hash(_booked),
     filter,
     sortOrder,
+    defaultFeePiasters,
+    isSubmitting,
+    actionError,
   );
 
   /// Create a copy of QueueState
@@ -511,15 +573,26 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )
     loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(entries, appointments, filter, sortOrder);
+    return loaded(
+      tickets,
+      booked,
+      filter,
+      sortOrder,
+      defaultFeePiasters,
+      isSubmitting,
+      actionError,
+    );
   }
 
   @override
@@ -528,15 +601,26 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(entries, appointments, filter, sortOrder);
+    return loaded?.call(
+      tickets,
+      booked,
+      filter,
+      sortOrder,
+      defaultFeePiasters,
+      isSubmitting,
+      actionError,
+    );
   }
 
   @override
@@ -545,17 +629,28 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(entries, appointments, filter, sortOrder);
+      return loaded(
+        tickets,
+        booked,
+        filter,
+        sortOrder,
+        defaultFeePiasters,
+        isSubmitting,
+        actionError,
+      );
     }
     return orElse();
   }
@@ -600,16 +695,22 @@ class _$LoadedImpl implements _Loaded {
 
 abstract class _Loaded implements QueueState {
   const factory _Loaded({
-    required final List<QueueEntry> entries,
-    required final List<Appointment> appointments,
+    required final List<QueueTicket> tickets,
+    required final List<BookedAppointment> booked,
     final QueueListFilter filter,
     final QueueSortOrder sortOrder,
+    final int defaultFeePiasters,
+    final bool isSubmitting,
+    final String? actionError,
   }) = _$LoadedImpl;
 
-  List<QueueEntry> get entries;
-  List<Appointment> get appointments;
+  List<QueueTicket> get tickets;
+  List<BookedAppointment> get booked;
   QueueListFilter get filter;
   QueueSortOrder get sortOrder;
+  int get defaultFeePiasters;
+  bool get isSubmitting;
+  String? get actionError;
 
   /// Create a copy of QueueState
   /// with the given fields replaced by the non-null parameter values.
@@ -691,10 +792,13 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -708,10 +812,13 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -725,10 +832,13 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(
-      List<QueueEntry> entries,
-      List<Appointment> appointments,
+      List<QueueTicket> tickets,
+      List<BookedAppointment> booked,
       QueueListFilter filter,
       QueueSortOrder sortOrder,
+      int defaultFeePiasters,
+      bool isSubmitting,
+      String? actionError,
     )?
     loaded,
     TResult Function(String message)? error,

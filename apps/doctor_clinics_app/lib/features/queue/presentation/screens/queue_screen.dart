@@ -1,19 +1,13 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:core/core.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:doctor_clinics_app/features/queue/presentation/cubit/queue_cubit.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_list.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_list_head.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/today_queue_header.dart';
 
-/// Live waiting queue for today.
-///
-/// The day banner docks directly under the shared top bar — mirroring the home
-/// dashboard — with the list head (status tabs, ticket ordering, refresh)
-/// pinned above the queue list canvas.
 class QueueScreen extends StatelessWidget {
   const QueueScreen({super.key});
 
@@ -21,10 +15,20 @@ class QueueScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<QueueCubit>()..loadTodayQueue(),
-      child: AdaptiveLayout(
-        mobileLayout: (_) => const _QueueBody(),
-        tabletLayout: (_) => const _QueueBody(),
-        desktopLayout: (_) => const _QueueBody(),
+      child: BlocListener<QueueCubit, QueueState>(
+        listenWhen: (a, b) => a.actionError != b.actionError,
+        listener: (context, state) {
+          final error = state.actionError;
+          if (error != null) {
+            AppSnackBar.showError(context, error.tr());
+            context.read<QueueCubit>().clearActionError();
+          }
+        },
+        child: AdaptiveLayout(
+          mobileLayout: (_) => const _QueueBody(),
+          tabletLayout: (_) => const _QueueBody(),
+          desktopLayout: (_) => const _QueueBody(),
+        ),
       ),
     );
   }
@@ -50,19 +54,12 @@ class _QueueBody extends StatelessWidget {
           ),
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
           Expanded(
-            child: SingleChildScrollView(
+            child: Padding(
               padding: EdgeInsets.symmetric(horizontal: padding),
-              child: ZoomIn(
-                delay: const Duration(milliseconds: 300),
-                child: AppSectionCard(
-                  title: 'queue.list_title'.tr(),
-                  icon: Icons.groups_outlined,
-                  animationDelay: const Duration(milliseconds: 350),
-                  child: Text(
-                    'queue.list_placeholder'.tr(),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
+              child: QueueList(
+                onTicketTap: (row) {
+                  // Deferred details screen callback
+                },
               ),
             ),
           ),

@@ -1,12 +1,8 @@
 import 'package:core/core.dart';
-
-import '../../domain/entities/queue_entry.dart';
+import 'package:doctor_clinics_app/features/queue/domain/entities/queue_status.dart';
+import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.dart';
 
 /// Status tabs docked at the head of the queue list.
-///
-/// Every tab but [all] maps onto an [AppConstants] queue status — the literals
-/// stay in `core` (CLAUDE.md: no magic strings for status names). Declaration
-/// order is the RTL reading order on screen: الكل → منتظر → في الكشف → تم → ملغي.
 enum QueueListFilter {
   all(labelKey: 'queue_filter.all'),
   waiting(
@@ -25,17 +21,18 @@ enum QueueListFilter {
 
   const QueueListFilter({required this.labelKey, this.status});
 
-  /// `.tr()` key for the tab caption.
   final String labelKey;
-
-  /// Queue status this tab keeps, or `null` for [all].
   final String? status;
 
-  /// Whether [entry] belongs under this tab.
-  bool matches(QueueEntry entry) => status == null || entry.status == status;
+  bool matchesStatus(QueueStatus queueStatus) =>
+      status == null || status == queueStatus.code;
 
-  /// Entry count per tab, keyed by tab (same order as [values]).
-  static Map<QueueListFilter, int> countByTab(List<QueueEntry> entries) => {
-    for (final filter in values) filter: entries.where(filter.matches).length,
+  static Map<QueueListFilter, int> countByTab(
+    List<QueueTicket> tickets, {
+    int bookedCount = 0,
+  }) => {
+    for (final f in values)
+      f: tickets.where((t) => f.matchesStatus(t.status)).length +
+          (f == all || f == waiting ? bookedCount : 0),
   };
 }

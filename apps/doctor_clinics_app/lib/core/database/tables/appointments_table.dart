@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 import 'patients_table.dart';
 
 class Appointments extends Table {
@@ -30,4 +30,7 @@ class QueueEntries extends Table {
   DateTimeColumn get calledAt => dateTime().nullable()();
   DateTimeColumn get finishedAt => dateTime().nullable()();
   BoolColumn get isUrgent => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get paidAt => dateTime().nullable()();
+  IntColumn get paidAmountPiasters => integer().nullable()();
+  TextColumn get cancelReason => text().nullable()();
 }
