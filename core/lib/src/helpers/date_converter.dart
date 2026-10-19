@@ -75,6 +75,23 @@ class DateConverter {
   static String localizedTime(DateTime date, String localeTag) =>
       withLocalizedDigits(DateFormat.jm(localeTag).format(date), localeTag);
 
+  /// Clock time for a stored `HH:mm` slot (`22:30` → `١٠:٣٠ م`) in [localeTag].
+  /// Returns [slot] unchanged (digits localized) when it is not `HH:mm`.
+  static String localizedSlot(String slot, String localeTag) {
+    final match = RegExp(r'^(\d{1,2}):(\d{2})').firstMatch(slot.trim());
+    if (match == null) return withLocalizedDigits(slot, localeTag);
+    return localizedTime(
+      DateTime(
+        2020,
+        1,
+        1,
+        int.parse(match.group(1)!),
+        int.parse(match.group(2)!),
+      ),
+      localeTag,
+    );
+  }
+
   /// Maps western digits to Arabic-Indic ones for Arabic locales, leaving other
   /// locales untouched (intl's bundled `ar` symbols use western digits).
   static String withLocalizedDigits(String input, String localeTag) {

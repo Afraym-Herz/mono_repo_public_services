@@ -7,7 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core/core.dart';
 
 import 'package:doctor_clinics_app/app.dart';
+import 'package:doctor_clinics_app/core/database/daos/patient_dao.dart';
+import 'package:doctor_clinics_app/core/database/daos/queue_dao.dart';
 import 'package:doctor_clinics_app/core/dependency_injection/app_locator.dart';
+import 'package:doctor_clinics_app/core/demo/queue_demo_store.dart';
+import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_seeder.dart';
 
 /// Entry point for the Doctor Clinics app.
 ///
@@ -28,6 +32,20 @@ Future<void> main() async {
 
   await initDependencies();
   setupAppLocator();
+
+  // ---------------------------------------------------------------------------
+  // TEMPORARY DEMO SEED
+  // Loads the dummy clinic day (`assets/data/queue_patients.json`) and seeds it
+  // into the local database when today is empty, so the home + queue widgets
+  // render with content in the offline MVP. REVERT: drop these two calls, the
+  // `lib/core/demo/` fixture, and `features/queue/data/demo/` once a real
+  // source of patients exists.
+  // ---------------------------------------------------------------------------
+  await QueueDemoStore.instance.prime();
+  await QueueDemoSeeder(
+    patientDao: getIt<PatientDao>(),
+    queueDao: getIt<QueueDao>(),
+  ).seedIfEmpty();
 
   // ---------------------------------------------------------------------------
   // TEMPORARY AUTH BYPASS

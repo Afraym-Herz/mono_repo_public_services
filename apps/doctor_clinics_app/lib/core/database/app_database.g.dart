@@ -2290,6 +2290,36 @@ class $QueueEntriesTable extends QueueEntries
     ),
     defaultValue: const Constant(false),
   );
+  static const VerificationMeta _paidAtMeta = const VerificationMeta('paidAt');
+  @override
+  late final GeneratedColumn<DateTime> paidAt = GeneratedColumn<DateTime>(
+    'paid_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _paidAmountPiastersMeta =
+      const VerificationMeta('paidAmountPiasters');
+  @override
+  late final GeneratedColumn<int> paidAmountPiasters = GeneratedColumn<int>(
+    'paid_amount_piasters',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _cancelReasonMeta = const VerificationMeta(
+    'cancelReason',
+  );
+  @override
+  late final GeneratedColumn<String> cancelReason = GeneratedColumn<String>(
+    'cancel_reason',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -2303,6 +2333,9 @@ class $QueueEntriesTable extends QueueEntries
     calledAt,
     finishedAt,
     isUrgent,
+    paidAt,
+    paidAmountPiasters,
+    cancelReason,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2395,6 +2428,30 @@ class $QueueEntriesTable extends QueueEntries
         isUrgent.isAcceptableOrUnknown(data['is_urgent']!, _isUrgentMeta),
       );
     }
+    if (data.containsKey('paid_at')) {
+      context.handle(
+        _paidAtMeta,
+        paidAt.isAcceptableOrUnknown(data['paid_at']!, _paidAtMeta),
+      );
+    }
+    if (data.containsKey('paid_amount_piasters')) {
+      context.handle(
+        _paidAmountPiastersMeta,
+        paidAmountPiasters.isAcceptableOrUnknown(
+          data['paid_amount_piasters']!,
+          _paidAmountPiastersMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cancel_reason')) {
+      context.handle(
+        _cancelReasonMeta,
+        cancelReason.isAcceptableOrUnknown(
+          data['cancel_reason']!,
+          _cancelReasonMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -2448,6 +2505,18 @@ class $QueueEntriesTable extends QueueEntries
         DriftSqlType.bool,
         data['${effectivePrefix}is_urgent'],
       )!,
+      paidAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}paid_at'],
+      ),
+      paidAmountPiasters: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}paid_amount_piasters'],
+      ),
+      cancelReason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cancel_reason'],
+      ),
     );
   }
 
@@ -2469,6 +2538,9 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
   final DateTime? calledAt;
   final DateTime? finishedAt;
   final bool isUrgent;
+  final DateTime? paidAt;
+  final int? paidAmountPiasters;
+  final String? cancelReason;
   const QueueEntry({
     required this.id,
     this.appointmentId,
@@ -2481,6 +2553,9 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
     this.calledAt,
     this.finishedAt,
     required this.isUrgent,
+    this.paidAt,
+    this.paidAmountPiasters,
+    this.cancelReason,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -2502,6 +2577,15 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
       map['finished_at'] = Variable<DateTime>(finishedAt);
     }
     map['is_urgent'] = Variable<bool>(isUrgent);
+    if (!nullToAbsent || paidAt != null) {
+      map['paid_at'] = Variable<DateTime>(paidAt);
+    }
+    if (!nullToAbsent || paidAmountPiasters != null) {
+      map['paid_amount_piasters'] = Variable<int>(paidAmountPiasters);
+    }
+    if (!nullToAbsent || cancelReason != null) {
+      map['cancel_reason'] = Variable<String>(cancelReason);
+    }
     return map;
   }
 
@@ -2524,6 +2608,15 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
           ? const Value.absent()
           : Value(finishedAt),
       isUrgent: Value(isUrgent),
+      paidAt: paidAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paidAt),
+      paidAmountPiasters: paidAmountPiasters == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paidAmountPiasters),
+      cancelReason: cancelReason == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cancelReason),
     );
   }
 
@@ -2544,6 +2637,9 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
       calledAt: serializer.fromJson<DateTime?>(json['calledAt']),
       finishedAt: serializer.fromJson<DateTime?>(json['finishedAt']),
       isUrgent: serializer.fromJson<bool>(json['isUrgent']),
+      paidAt: serializer.fromJson<DateTime?>(json['paidAt']),
+      paidAmountPiasters: serializer.fromJson<int?>(json['paidAmountPiasters']),
+      cancelReason: serializer.fromJson<String?>(json['cancelReason']),
     );
   }
   @override
@@ -2561,6 +2657,9 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
       'calledAt': serializer.toJson<DateTime?>(calledAt),
       'finishedAt': serializer.toJson<DateTime?>(finishedAt),
       'isUrgent': serializer.toJson<bool>(isUrgent),
+      'paidAt': serializer.toJson<DateTime?>(paidAt),
+      'paidAmountPiasters': serializer.toJson<int?>(paidAmountPiasters),
+      'cancelReason': serializer.toJson<String?>(cancelReason),
     };
   }
 
@@ -2576,6 +2675,9 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
     Value<DateTime?> calledAt = const Value.absent(),
     Value<DateTime?> finishedAt = const Value.absent(),
     bool? isUrgent,
+    Value<DateTime?> paidAt = const Value.absent(),
+    Value<int?> paidAmountPiasters = const Value.absent(),
+    Value<String?> cancelReason = const Value.absent(),
   }) => QueueEntry(
     id: id ?? this.id,
     appointmentId: appointmentId.present
@@ -2590,6 +2692,11 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
     calledAt: calledAt.present ? calledAt.value : this.calledAt,
     finishedAt: finishedAt.present ? finishedAt.value : this.finishedAt,
     isUrgent: isUrgent ?? this.isUrgent,
+    paidAt: paidAt.present ? paidAt.value : this.paidAt,
+    paidAmountPiasters: paidAmountPiasters.present
+        ? paidAmountPiasters.value
+        : this.paidAmountPiasters,
+    cancelReason: cancelReason.present ? cancelReason.value : this.cancelReason,
   );
   QueueEntry copyWithCompanion(QueueEntriesCompanion data) {
     return QueueEntry(
@@ -2610,6 +2717,13 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
           ? data.finishedAt.value
           : this.finishedAt,
       isUrgent: data.isUrgent.present ? data.isUrgent.value : this.isUrgent,
+      paidAt: data.paidAt.present ? data.paidAt.value : this.paidAt,
+      paidAmountPiasters: data.paidAmountPiasters.present
+          ? data.paidAmountPiasters.value
+          : this.paidAmountPiasters,
+      cancelReason: data.cancelReason.present
+          ? data.cancelReason.value
+          : this.cancelReason,
     );
   }
 
@@ -2626,7 +2740,10 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
           ..write('arrivedAt: $arrivedAt, ')
           ..write('calledAt: $calledAt, ')
           ..write('finishedAt: $finishedAt, ')
-          ..write('isUrgent: $isUrgent')
+          ..write('isUrgent: $isUrgent, ')
+          ..write('paidAt: $paidAt, ')
+          ..write('paidAmountPiasters: $paidAmountPiasters, ')
+          ..write('cancelReason: $cancelReason')
           ..write(')'))
         .toString();
   }
@@ -2644,6 +2761,9 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
     calledAt,
     finishedAt,
     isUrgent,
+    paidAt,
+    paidAmountPiasters,
+    cancelReason,
   );
   @override
   bool operator ==(Object other) =>
@@ -2659,7 +2779,10 @@ class QueueEntry extends DataClass implements Insertable<QueueEntry> {
           other.arrivedAt == this.arrivedAt &&
           other.calledAt == this.calledAt &&
           other.finishedAt == this.finishedAt &&
-          other.isUrgent == this.isUrgent);
+          other.isUrgent == this.isUrgent &&
+          other.paidAt == this.paidAt &&
+          other.paidAmountPiasters == this.paidAmountPiasters &&
+          other.cancelReason == this.cancelReason);
 }
 
 class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
@@ -2674,6 +2797,9 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
   final Value<DateTime?> calledAt;
   final Value<DateTime?> finishedAt;
   final Value<bool> isUrgent;
+  final Value<DateTime?> paidAt;
+  final Value<int?> paidAmountPiasters;
+  final Value<String?> cancelReason;
   const QueueEntriesCompanion({
     this.id = const Value.absent(),
     this.appointmentId = const Value.absent(),
@@ -2686,6 +2812,9 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
     this.calledAt = const Value.absent(),
     this.finishedAt = const Value.absent(),
     this.isUrgent = const Value.absent(),
+    this.paidAt = const Value.absent(),
+    this.paidAmountPiasters = const Value.absent(),
+    this.cancelReason = const Value.absent(),
   });
   QueueEntriesCompanion.insert({
     this.id = const Value.absent(),
@@ -2699,6 +2828,9 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
     this.calledAt = const Value.absent(),
     this.finishedAt = const Value.absent(),
     this.isUrgent = const Value.absent(),
+    this.paidAt = const Value.absent(),
+    this.paidAmountPiasters = const Value.absent(),
+    this.cancelReason = const Value.absent(),
   }) : patientId = Value(patientId),
        queueDate = Value(queueDate),
        queueNumber = Value(queueNumber),
@@ -2716,6 +2848,9 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
     Expression<DateTime>? calledAt,
     Expression<DateTime>? finishedAt,
     Expression<bool>? isUrgent,
+    Expression<DateTime>? paidAt,
+    Expression<int>? paidAmountPiasters,
+    Expression<String>? cancelReason,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2729,6 +2864,10 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
       if (calledAt != null) 'called_at': calledAt,
       if (finishedAt != null) 'finished_at': finishedAt,
       if (isUrgent != null) 'is_urgent': isUrgent,
+      if (paidAt != null) 'paid_at': paidAt,
+      if (paidAmountPiasters != null)
+        'paid_amount_piasters': paidAmountPiasters,
+      if (cancelReason != null) 'cancel_reason': cancelReason,
     });
   }
 
@@ -2744,6 +2883,9 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
     Value<DateTime?>? calledAt,
     Value<DateTime?>? finishedAt,
     Value<bool>? isUrgent,
+    Value<DateTime?>? paidAt,
+    Value<int?>? paidAmountPiasters,
+    Value<String?>? cancelReason,
   }) {
     return QueueEntriesCompanion(
       id: id ?? this.id,
@@ -2757,6 +2899,9 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
       calledAt: calledAt ?? this.calledAt,
       finishedAt: finishedAt ?? this.finishedAt,
       isUrgent: isUrgent ?? this.isUrgent,
+      paidAt: paidAt ?? this.paidAt,
+      paidAmountPiasters: paidAmountPiasters ?? this.paidAmountPiasters,
+      cancelReason: cancelReason ?? this.cancelReason,
     );
   }
 
@@ -2796,6 +2941,15 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
     if (isUrgent.present) {
       map['is_urgent'] = Variable<bool>(isUrgent.value);
     }
+    if (paidAt.present) {
+      map['paid_at'] = Variable<DateTime>(paidAt.value);
+    }
+    if (paidAmountPiasters.present) {
+      map['paid_amount_piasters'] = Variable<int>(paidAmountPiasters.value);
+    }
+    if (cancelReason.present) {
+      map['cancel_reason'] = Variable<String>(cancelReason.value);
+    }
     return map;
   }
 
@@ -2812,7 +2966,10 @@ class QueueEntriesCompanion extends UpdateCompanion<QueueEntry> {
           ..write('arrivedAt: $arrivedAt, ')
           ..write('calledAt: $calledAt, ')
           ..write('finishedAt: $finishedAt, ')
-          ..write('isUrgent: $isUrgent')
+          ..write('isUrgent: $isUrgent, ')
+          ..write('paidAt: $paidAt, ')
+          ..write('paidAmountPiasters: $paidAmountPiasters, ')
+          ..write('cancelReason: $cancelReason')
           ..write(')'))
         .toString();
   }
@@ -13878,6 +14035,9 @@ typedef $$QueueEntriesTableCreateCompanionBuilder =
       Value<DateTime?> calledAt,
       Value<DateTime?> finishedAt,
       Value<bool> isUrgent,
+      Value<DateTime?> paidAt,
+      Value<int?> paidAmountPiasters,
+      Value<String?> cancelReason,
     });
 typedef $$QueueEntriesTableUpdateCompanionBuilder =
     QueueEntriesCompanion Function({
@@ -13892,6 +14052,9 @@ typedef $$QueueEntriesTableUpdateCompanionBuilder =
       Value<DateTime?> calledAt,
       Value<DateTime?> finishedAt,
       Value<bool> isUrgent,
+      Value<DateTime?> paidAt,
+      Value<int?> paidAmountPiasters,
+      Value<String?> cancelReason,
     });
 
 final class $$QueueEntriesTableReferences
@@ -14009,6 +14172,21 @@ class $$QueueEntriesTableFilterComposer
 
   ColumnFilters<bool> get isUrgent => $composableBuilder(
     column: $table.isUrgent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get paidAt => $composableBuilder(
+    column: $table.paidAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get paidAmountPiasters => $composableBuilder(
+    column: $table.paidAmountPiasters,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cancelReason => $composableBuilder(
+    column: $table.cancelReason,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -14138,6 +14316,21 @@ class $$QueueEntriesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<DateTime> get paidAt => $composableBuilder(
+    column: $table.paidAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get paidAmountPiasters => $composableBuilder(
+    column: $table.paidAmountPiasters,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cancelReason => $composableBuilder(
+    column: $table.cancelReason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$AppointmentsTableOrderingComposer get appointmentId {
     final $$AppointmentsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -14224,6 +14417,19 @@ class $$QueueEntriesTableAnnotationComposer
 
   GeneratedColumn<bool> get isUrgent =>
       $composableBuilder(column: $table.isUrgent, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get paidAt =>
+      $composableBuilder(column: $table.paidAt, builder: (column) => column);
+
+  GeneratedColumn<int> get paidAmountPiasters => $composableBuilder(
+    column: $table.paidAmountPiasters,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get cancelReason => $composableBuilder(
+    column: $table.cancelReason,
+    builder: (column) => column,
+  );
 
   $$AppointmentsTableAnnotationComposer get appointmentId {
     final $$AppointmentsTableAnnotationComposer composer = $composerBuilder(
@@ -14340,6 +14546,9 @@ class $$QueueEntriesTableTableManager
                 Value<DateTime?> calledAt = const Value.absent(),
                 Value<DateTime?> finishedAt = const Value.absent(),
                 Value<bool> isUrgent = const Value.absent(),
+                Value<DateTime?> paidAt = const Value.absent(),
+                Value<int?> paidAmountPiasters = const Value.absent(),
+                Value<String?> cancelReason = const Value.absent(),
               }) => QueueEntriesCompanion(
                 id: id,
                 appointmentId: appointmentId,
@@ -14352,6 +14561,9 @@ class $$QueueEntriesTableTableManager
                 calledAt: calledAt,
                 finishedAt: finishedAt,
                 isUrgent: isUrgent,
+                paidAt: paidAt,
+                paidAmountPiasters: paidAmountPiasters,
+                cancelReason: cancelReason,
               ),
           createCompanionCallback:
               ({
@@ -14366,6 +14578,9 @@ class $$QueueEntriesTableTableManager
                 Value<DateTime?> calledAt = const Value.absent(),
                 Value<DateTime?> finishedAt = const Value.absent(),
                 Value<bool> isUrgent = const Value.absent(),
+                Value<DateTime?> paidAt = const Value.absent(),
+                Value<int?> paidAmountPiasters = const Value.absent(),
+                Value<String?> cancelReason = const Value.absent(),
               }) => QueueEntriesCompanion.insert(
                 id: id,
                 appointmentId: appointmentId,
@@ -14378,6 +14593,9 @@ class $$QueueEntriesTableTableManager
                 calledAt: calledAt,
                 finishedAt: finishedAt,
                 isUrgent: isUrgent,
+                paidAt: paidAt,
+                paidAmountPiasters: paidAmountPiasters,
+                cancelReason: cancelReason,
               ),
           withReferenceMapper: (p0) => p0
               .map(

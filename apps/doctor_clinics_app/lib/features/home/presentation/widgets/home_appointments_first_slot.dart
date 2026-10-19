@@ -16,20 +16,23 @@ class HomeAppointmentsFirstSlot extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: Dimensions.PADDING_SIZE_SMALL.w,
-        vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
+        vertical: Dimensions.PADDING_SIZE_SMALL.h,
       ),
       decoration: BoxDecoration(
         color: context.clinicContainer,
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
+        border: Border.all(
+          color: context.clinicAccent.withValues(alpha: 0.24),
+        ),
       ),
       child: Row(
         children: [
           Icon(
             Icons.schedule_rounded,
-            size: Dimensions.ICON_SIZE_SMALL.r,
+            size: Dimensions.ICON_SIZE_DEFAULT.r,
             color: context.clinicAccent,
           ),
-          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+          SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,10 +41,12 @@ class HomeAppointmentsFirstSlot extends StatelessWidget {
                   'home_appointments_first_label'.tr(),
                   fontSize: Dimensions.FONT_SIZE_SMALL,
                   color: context.clinicTextSecondary,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 ResponsiveText(
                   'home_appointments_doctor'.tr(),
-                  fontSize: Dimensions.FONT_SIZE_SMALL,
+                  fontSize: Dimensions.FONT_SIZE_DEFAULT,
                   fontWeight: FontWeight.w600,
                   color: context.clinicTextPrimary,
                   maxLines: 1,
@@ -50,7 +55,7 @@ class HomeAppointmentsFirstSlot extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+          SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
           ResponsiveText(
             time,
             fontSize: Dimensions.FONT_SIZE_LARGE,

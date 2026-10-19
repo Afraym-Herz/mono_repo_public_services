@@ -55,14 +55,14 @@ connectivity gating) until the MVP constraint is lifted.
 
 ## Commands (run from the package folder, or via melos from root)
 
-**You MAY run `dart run build_runner build --delete-conflicting-outputs` whenever a change requires regenerating `@freezed`/generated files.** Do NOT run any other build/test/analyze/pub command until the user explicitly asks. Make the rest of the code edits only; the user runs the project.
+All commands below are **allowed without asking** — run them as needed to implement or verify changes (`pub get`, `melos bootstrap`, `build_runner`, `analyze`, `build`, `run`, starting apps/servers). The only exception is **tests**: do NOT run `flutter test` / `dart test` / `melos test` unless the user explicitly asks.
 
 ```bash
 melos bootstrap                                          # install all packages
 cd core && flutter pub get                               # single package
-dart run build_runner build --delete-conflicting-outputs # ALLOWED anytime — required after editing @freezed classes (core/app)
-melos run build_runner:core                            # ALLOWED anytime — same, from repo root
-flutter analyze                                          # must be clean before calling a change done (only after the user asks you to run it)
+dart run build_runner build --delete-conflicting-outputs # required after editing @freezed classes (core/app)
+melos run build_runner:core                            # same, from repo root
+flutter analyze                                          # must be clean before calling a change done
 powershell -ExecutionPolicy Bypass -File tool/create_app.ps1 -AppName my_app
 ```
 
@@ -100,8 +100,6 @@ New `.tr()` key → update **both** `apps/<app>/assets/translations/en.json` and
 
 ## Don't
 
-**Never test, run, build, analyze, or `pub get` the project — not even to verify your own edits — until the user tells you to.** Do not run `flutter test`, `flutter run`, `flutter analyze`, `flutter build`, `melos bootstrap`, or start any app/server. Just make the requested file changes and stop.
-
-**Exception:** you MAY run `dart run build_runner build --delete-conflicting-outputs` (in `core` or the affected app) when code generation is needed after editing `@freezed` classes or other generated sources. Running it does not require asking first; do not use it to run tests/analyze.
+**Never run tests — `flutter test`, `dart test`, `melos test` — unless the user explicitly asks.** Everything else (`flutter run`, `flutter build`, `flutter analyze`, `flutter pub get`, `melos bootstrap`, `build_runner`, starting apps/servers, etc.) is allowed without asking, including to verify your own edits.
 
 No tests unless asked. No magic strings for status/collection/field names. No skipping the `ar.json`/`en.json` pair when adding a `.tr()` key. No search UI without a 500ms debounce + `isSearching` flag (swapping the list for a skeleton on every keystroke loses scroll/text state).

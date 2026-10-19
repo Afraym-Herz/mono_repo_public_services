@@ -1,8 +1,9 @@
+import 'package:core/core.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_patient.dart';
-import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_store.dart';
-import 'package:doctor_clinics_app/features/queue/presentation/helpers/queue_format.dart';
+import 'package:doctor_clinics_app/core/demo/queue_demo_patient.dart';
+import 'package:doctor_clinics_app/core/demo/queue_demo_store.dart';
 import 'home_queue_action.dart';
 import 'home_queue_status.dart';
 
@@ -54,38 +55,31 @@ HomeQueueSampleRow _toRow(QueueDemoPatient patient, BuildContext context) =>
       number: patient.number,
       name: patient.name,
       status: _statusFor(patient),
-      examTypeKey: patient.examTypeKey,
+      examTypeKey: patient.examTypeKey ?? 'home_queue_exam_general',
       action: _actionFor(patient.homeAction),
       waitMinutes: patient.waitMinutes,
       appointmentTime: patient.scheduledTime == null
           ? null
-          : QueueFormat.localizedSlot(patient.scheduledTime!, context),
+          : DateConverter.localizedSlot(
+              patient.scheduledTime!,
+              context.locale.toString(),
+            ),
     );
 
 HomeQueueStatus _statusFor(QueueDemoPatient patient) {
   if (patient.isBooked) return HomeQueueStatus.booked;
   if (patient.isUrgent) return HomeQueueStatus.urgent;
-  switch (patient.statusCode) {
-    case 'in_consultation':
+  switch (patient.status) {
+    case AppConstants.queueStatusInConsultation:
       return HomeQueueStatus.inConsultation;
-    case 'done':
+    case AppConstants.queueStatusDone:
       return HomeQueueStatus.done;
     default:
       return HomeQueueStatus.waiting;
   }
 }
 
-HomeQueueAction _actionFor(String action) {
-  switch (action) {
-    case 'finish':
-      return HomeQueueAction.finish;
-    case 'call':
-      return HomeQueueAction.call;
-    case 'start':
-      return HomeQueueAction.start;
-    case 'checkIn':
-      return HomeQueueAction.checkIn;
-    default:
-      return HomeQueueAction.more;
-  }
-}
+HomeQueueAction _actionFor(String? action) => HomeQueueAction.values.firstWhere(
+      (candidate) => candidate.name == action,
+      orElse: () => HomeQueueAction.more,
+    );

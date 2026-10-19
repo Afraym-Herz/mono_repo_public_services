@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 
 import 'connection/connection.dart';
 import 'db_constants.dart';
@@ -66,21 +66,21 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e]) : super(e ?? _openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   static QueryExecutor _openConnection() {
     return openConnection(dbName: DbConstants.dbName);
   }
 
   @override
-  MigrationStrategy get migration {
-    return MigrationStrategy(
-      onCreate: (Migrator m) async {
-        await m.createAll();
-      },
-      onUpgrade: (Migrator m, int from, int to) async {
-        // Schema migrations from day one
-      },
-    );
-  }
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) async => m.createAll(),
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.addColumn(queueEntries, queueEntries.paidAt);
+        await m.addColumn(queueEntries, queueEntries.paidAmountPiasters);
+        await m.addColumn(queueEntries, queueEntries.cancelReason);
+      }
+    },
+  );
 }

@@ -133,4 +133,29 @@ class AppColors {
   static const Color clinicSecondary = Color(0xFF0051D5);
   static const Color clinicError = Color(0xFFBA1A1A);
   static const Color clinicErrorContainer = Color(0xFFFFDAD6);
+
+  // Clinic semantic status colors
+  static const Color clinicStatusBooked = Color(0xFF2563EB);
+  static const Color clinicStatusBookedBg = Color(0xFFEFF6FF);
+  static const Color clinicStatusBookedBorder = Color(0xFFBFDBFE);
+
+  static const Color clinicStatusWaiting = Color(0xFFB45309);
+  static const Color clinicStatusWaitingBg = Color(0xFFFEF3C7);
+  static const Color clinicStatusWaitingBorder = Color(0xFFFDE68A);
+
+  static const Color clinicStatusCurrent = Color(0xFF0F766E);
+  static const Color clinicStatusCurrentBg = Color(0xFFD5F0EC);
+  static const Color clinicStatusCurrentBorder = Color(0xFF99F6E4);
+
+  static const Color clinicStatusDone = Color(0xFF15803D);
+  static const Color clinicStatusDoneBg = Color(0xFFDCFCE7);
+  static const Color clinicStatusDoneBorder = Color(0xFFBBF7D0);
+
+  static const Color clinicStatusCancelled = Color(0xFF64748B);
+  static const Color clinicStatusCancelledBg = Color(0xFFF1F5F9);
+  static const Color clinicStatusCancelledBorder = Color(0xFFE2E8F0);
+
+  static const Color clinicStatusUrgent = Color(0xFFB91C1C);
+  static const Color clinicStatusUrgentBg = Color(0xFFFEE2E2);
+  static const Color clinicStatusUrgentBorder = Color(0xFFFECACA);
 }

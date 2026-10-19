@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_store.dart';
+import 'package:doctor_clinics_app/core/demo/queue_demo_store.dart';
 import 'home_queue_list.dart';
 import 'home_queue_live_badge.dart';
 import 'home_section_card.dart';

@@ -96,4 +96,7 @@ class AppConstants {
   static const String printLanguageEn = 'en';
   static const String paperSizeA4 = 'a4';
   static const String paperSizeA5 = 'a5';
+
+  // QueueEntries.cancelReason
+  static const String queueCancelReasonStaff = 'staff_cancelled';
 }
