@@ -19,7 +19,7 @@ class SettingsRepositoryImpl implements ISettingsRepository {
             const ClinicSettings(
               clinicName: 'My Clinic',
               language: 'ar',
-              paperSize: 'A4',
+              paperSize: AppConstants.paperSizeA4,
               receiptMargin: 10,
             ),
       );
@@ -50,7 +50,7 @@ class SettingsRepositoryImpl implements ISettingsRepository {
               clinicNameAr: 'عيادتي',
               doctorNameAr: 'د. الطبيب',
               printLanguage: 'ar',
-              paperSize: 'A4',
+              paperSize: AppConstants.paperSizeA4,
               createdAt: now,
               updatedAt: now,
             ),

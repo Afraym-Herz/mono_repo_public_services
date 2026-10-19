@@ -1,8 +1,9 @@
 import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
+import 'package:doctor_clinics_app/features/reports/data/datasources/report_datasource.dart';
+import 'package:doctor_clinics_app/features/reports/data/repositories/report_factory.dart';
 import 'package:doctor_clinics_app/features/reports/domain/entities/report.dart';
 import 'package:doctor_clinics_app/features/reports/domain/repositories/report_repository.dart';
-import 'package:doctor_clinics_app/features/reports/data/datasources/report_datasource.dart';
 
 class ReportRepositoryImpl implements IReportRepository {
   final IReportDatasource datasource;
@@ -18,15 +19,7 @@ class ReportRepositoryImpl implements IReportRepository {
   }) async {
     try {
       await datasource.countPatients(from: from, to: to);
-      final report = Report(
-        id: DateTime.now().millisecondsSinceEpoch,
-        type: 'patient_stats',
-        fromDate: from,
-        toDate: to,
-        format: format,
-        generatedAt: DateTime.now(),
-        generatedBy: 1,
-      );
+      final report = ReportFactory.patientStats(from, to, format);
       _inMemoryHistory.add(report);
       return Right(report);
     } catch (e) {
@@ -42,15 +35,7 @@ class ReportRepositoryImpl implements IReportRepository {
   }) async {
     try {
       await datasource.totalRevenuePiasters(from: from, to: to);
-      final report = Report(
-        id: DateTime.now().millisecondsSinceEpoch,
-        type: 'revenue',
-        fromDate: from,
-        toDate: to,
-        format: format,
-        generatedAt: DateTime.now(),
-        generatedBy: 1,
-      );
+      final report = ReportFactory.revenue(from, to, format);
       _inMemoryHistory.add(report);
       return Right(report);
     } catch (e) {
@@ -59,21 +44,10 @@ class ReportRepositoryImpl implements IReportRepository {
   }
 
   @override
-  FutureResult<Report> generateDebtReport({
-    required String format,
-  }) async {
+  FutureResult<Report> generateDebtReport({required String format}) async {
     try {
       await datasource.totalOutstandingPiasters();
-      final now = DateTime.now();
-      final report = Report(
-        id: now.millisecondsSinceEpoch,
-        type: 'debt',
-        fromDate: now.subtract(const Duration(days: 30)),
-        toDate: now,
-        format: format,
-        generatedAt: now,
-        generatedBy: 1,
-      );
+      final report = ReportFactory.debt(format);
       _inMemoryHistory.add(report);
       return Right(report);
     } catch (e) {
@@ -89,15 +63,7 @@ class ReportRepositoryImpl implements IReportRepository {
   }) async {
     try {
       await datasource.countVisits(from: from, to: to);
-      final report = Report(
-        id: DateTime.now().millisecondsSinceEpoch,
-        type: 'visits',
-        fromDate: from,
-        toDate: to,
-        format: format,
-        generatedAt: DateTime.now(),
-        generatedBy: 1,
-      );
+      final report = ReportFactory.visits(from, to, format);
       _inMemoryHistory.add(report);
       return Right(report);
     } catch (e) {
@@ -113,15 +79,7 @@ class ReportRepositoryImpl implements IReportRepository {
   }) async {
     try {
       await datasource.totalExpensesPiasters(from: from, to: to);
-      final report = Report(
-        id: DateTime.now().millisecondsSinceEpoch,
-        type: 'expenses',
-        fromDate: from,
-        toDate: to,
-        format: format,
-        generatedAt: DateTime.now(),
-        generatedBy: 1,
-      );
+      final report = ReportFactory.expenses(from, to, format);
       _inMemoryHistory.add(report);
       return Right(report);
     } catch (e) {

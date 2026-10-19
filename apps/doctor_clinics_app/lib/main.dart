@@ -40,7 +40,11 @@ Future<void> main() async {
   // `await getIt<AppAuthCubit>().checkAuthStatus();`.
   // ---------------------------------------------------------------------------
   getIt<AppAuthCubit>().logIn(
-    const AuthUser(id: 'dev', name: 'Maha Adel', role: 'secretary'),
+    const AuthUser(
+      id: 'dev',
+      name: 'Maha Adel',
+      role: AppConstants.userRoleSecretary,
+    ),
   );
   // await getIt<AppAuthCubit>().checkAuthStatus();
 

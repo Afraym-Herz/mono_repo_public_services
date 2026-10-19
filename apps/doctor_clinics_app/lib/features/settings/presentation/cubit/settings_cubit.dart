@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -33,7 +34,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (_) => const ClinicSettings(
         clinicName: 'My Clinic',
         language: 'ar',
-        paperSize: 'A4',
+        paperSize: AppConstants.paperSizeA4,
         receiptMargin: 10,
       ),
       (s) => s,
@@ -44,7 +45,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         clinicNameAr: 'عيادتي',
         doctorNameAr: 'د. الطبيب',
         printLanguage: 'ar',
-        paperSize: 'A4',
+        paperSize: AppConstants.paperSizeA4,
         createdAt: now,
         updatedAt: now,
       ),

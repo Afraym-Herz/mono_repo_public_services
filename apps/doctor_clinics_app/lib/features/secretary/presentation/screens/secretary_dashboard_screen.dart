@@ -38,7 +38,7 @@ class _SecretaryDashboardBody extends StatelessWidget {
               children: [
                 const AppFeatureHeader(
                   title: 'Secretary Dashboard',
-                  subtitle: "Today's queue and quick actions",
+                  subtitle: 'Today\'s queue and quick actions',
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
                 ZoomIn(

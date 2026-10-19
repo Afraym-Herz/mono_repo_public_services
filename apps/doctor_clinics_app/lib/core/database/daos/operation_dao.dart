@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:drift/drift.dart';
 import '../app_database.dart';
 import '../tables/operations_table.dart';
@@ -14,7 +15,7 @@ class OperationDao extends DatabaseAccessor<AppDatabase> with _$OperationDaoMixi
   Future<List<Operation>> getUpcomingOperations() => (select(operations)
         ..where((o) =>
             o.scheduledDate.isBiggerOrEqualValue(DateTime.now()) &
-            o.status.equals('scheduled')))
+            o.status.equals(AppConstants.operationStatusScheduled)))
       .get();
   Future<int> insertOperation(OperationsCompanion entry) => into(operations).insert(entry);
   Future<bool> updateOperation(OperationsCompanion entry) => update(operations).replace(entry);

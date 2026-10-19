@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:drift/drift.dart';
 import '../app_database.dart';
 import '../tables/billing_table.dart';
@@ -13,7 +14,8 @@ class BillingDao extends DatabaseAccessor<AppDatabase> with _$BillingDaoMixin {
       (select(invoices)..where((i) => i.patientId.equals(patientId))).get();
   Future<List<Invoice>> getOutstandingInvoices() => (select(invoices)
         ..where((i) =>
-            i.status.equals('pending') | i.status.equals('partially_paid')))
+            i.status.equals(AppConstants.invoiceStatusPending) |
+            i.status.equals(AppConstants.invoiceStatusPartiallyPaid)))
       .get();
   Future<int> insertInvoice(InvoicesCompanion entry) => into(invoices).insert(entry);
   Future<bool> updateInvoice(InvoicesCompanion entry) => update(invoices).replace(entry);

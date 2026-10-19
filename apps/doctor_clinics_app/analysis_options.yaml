@@ -1,1 +1,39 @@
-include: ../../analysis_options.yaml
+# Analyzer + lint rules for this app.
+#
+# CLAUDE.md is the source of truth. Everything it asks for that the Dart linter
+# can express is declared here, so the app enforces its own house rules without
+# editing shared/root config.
+#
+# The rules the linter cannot express — 100-line logic / 80-line widget files,
+# en.json + ar.json key parity, hex colours outside lib/core/theme/, magic
+# status/type/role strings, setState(), print/debugPrint, Navigator.of(...)
+# navigation — are enforced by `tool/check_conventions.ps1`.
+include:
+  - package:flutter_lints/flutter.yaml
+  - ../../analysis_options.yaml
+
+analyzer:
+  # Generated sources are never hand-edited — keep them out of every report.
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+
+linter:
+  rules:
+    # CLAUDE.md section 4 — coding standards.
+    avoid_print: true # use AppLogger from package:core/core.dart
+    prefer_single_quotes: true
+    use_super_parameters: true
+
+    # Shared code is imported via `package:core/…` / `package:doctor_clinics_app/…`.
+    avoid_relative_lib_imports: true
+
+    # CLAUDE.md section 5 — design system (explicit even where flutter_lints
+    # already enables them, so the intent is documented in one place).
+    avoid_unnecessary_containers: true
+    sized_box_for_whitespace: true
+    unnecessary_const: true
+    unnecessary_new: true
+    use_full_hex_values_for_flutter_colors: true
+    use_key_in_widget_constructors: true

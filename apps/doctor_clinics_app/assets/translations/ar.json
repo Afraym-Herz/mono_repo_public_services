@@ -72,6 +72,24 @@
   "home_action_add_to_queue": "إضافة مريض للطابور",
   "home_appointments_alert": "تنبيه المواعيد: ٣ مرضى لم يحضروا بعد موعدهم المحدد في جدول كشوفات اليوم.",
   "home_view_latecomers": "عرض المتأخرين",
+  "home_stats_patients_title": "مرضى اليوم",
+  "home_stats_patients_value": "١٦",
+  "home_stats_patients_label": "مريض مسجل",
+  "home_stats_patients_trend": "+١٢٪ عن أمس",
+  "home_stats_waiting_title": "في الانتظار",
+  "home_stats_waiting_value": "٠",
+  "home_stats_waiting_label": "حالة في العيادة",
+  "home_stats_waiting_average": "متوسط الانتظار: ١٢ دقيقة",
+  "home_stats_examined_title": "تم فحصهم",
+  "home_stats_examined_value": "٦",
+  "home_stats_examined_label": "حالات الاستشارة",
+  "home_stats_examined_rate_label": "نسبة الإنجاز",
+  "home_stats_examined_rate_value": "٢٠٪",
+  "home_stats_revenue_title": "إيراد اليوم",
+  "home_stats_revenue_value": "٣٬٢٥٠",
+  "home_stats_currency": "ج.م.",
+  "home_stats_revenue_cash": "نقدي: ٣٬٢٥٠ ج.م.",
+  "home_stats_revenue_visa": "فيزا: ٠ ج.م.",
   "role_secretary": "سكرتارية",
   "role_doctor": "طبيب",
   "role_admin": "مدير",
@@ -94,5 +112,20 @@
   "queue": {
     "list_title": "قائمة الانتظار",
     "list_placeholder": "قائمة الانتظار قيد الإنشاء"
+  },
+  "queue_toolbar": {
+    "sort_by": "ترتيب حسب",
+    "refresh": "تحديث الطابور"
+  },
+  "queue_filter": {
+    "all": "الكل",
+    "waiting": "منتظر",
+    "in_consultation": "في الكشف",
+    "done": "تم",
+    "cancelled": "ملغي"
+  },
+  "queue_sort": {
+    "ticket_ascending": "رقم الدور (تصاعدي)",
+    "ticket_descending": "رقم الدور (تنازلي)"
   }
 }

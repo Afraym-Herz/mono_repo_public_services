@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:drift/drift.dart';
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/core/database/daos/settings_dao.dart';
@@ -18,7 +19,7 @@ class SettingsDriftDatasource implements ISettingsDatasource {
       return const ClinicSettings(
         clinicName: 'My Clinic',
         language: 'ar',
-        paperSize: 'A4',
+        paperSize: AppConstants.paperSizeA4,
         receiptMargin: 10,
       );
     }
@@ -53,7 +54,7 @@ class SettingsDriftDatasource implements ISettingsDatasource {
         clinicNameAr: 'عيادتي',
         doctorNameAr: 'د. الطبيب',
         printLanguage: 'ar',
-        paperSize: 'A4',
+        paperSize: AppConstants.paperSizeA4,
         createdAt: now,
         updatedAt: now,
       );
@@ -91,8 +92,7 @@ class SettingsDriftDatasource implements ISettingsDatasource {
         logoPath: Value(template.logoPath),
         printLanguage: Value(template.printLanguage),
         paperSize: Value(template.paperSize),
-        defaultConsultationFee:
-            Value(template.defaultConsultationFeePiasters ?? 0),
+        defaultConsultationFee: Value(template.defaultConsultationFeePiasters ?? 0),
         slotLengthMinutes: Value(template.slotLengthMinutes ?? 15),
       ),
     );
