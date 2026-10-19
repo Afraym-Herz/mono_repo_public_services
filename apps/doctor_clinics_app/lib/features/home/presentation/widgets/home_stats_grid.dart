@@ -4,9 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Responsive strip layout for the home KPI cards.
 ///
-/// Shows the cards four across on the desktop canvas, a 2×2 grid on medium
-/// widths, and a single column on phones. Each row stretches to equal height so
-/// the tiles stay aligned regardless of their content.
+/// Shows the cards four across on the desktop canvas, a 2×2 grid on compact
+/// dashboard widths, and a single column on the narrowest phones. Each row
+/// stretches to equal height so the tiles stay aligned regardless of their
+/// content.
 class HomeStatsGrid extends StatelessWidget {
   const HomeStatsGrid({super.key, required this.cards});
 
@@ -52,10 +53,11 @@ class HomeStatsGrid extends StatelessWidget {
     return rows;
   }
 
-  /// Four tiles from tablet width up, two on mid-size windows, one on phones.
+  /// Four tiles from tablet width up, two on compact windows, one on the
+  /// narrowest phones.
   int _columnsFor(double width) {
     if (width >= ResponsiveBreakpoints.mobileLarge) return 4;
-    if (width >= ResponsiveBreakpoints.mobile) return 2;
+    if (width >= ResponsiveBreakpoints.mobileSmall) return 2;
     return 1;
   }
 }

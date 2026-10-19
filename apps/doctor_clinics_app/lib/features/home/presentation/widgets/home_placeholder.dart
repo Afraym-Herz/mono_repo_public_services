@@ -12,7 +12,7 @@ class HomePlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HomeSectionCard(
-      animationDelay: const Duration(milliseconds: 560),
+      animationDelay: const Duration(milliseconds: 620),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -23,7 +23,7 @@ class HomeSectionLink extends StatelessWidget {
       onTap: () => context.go(route),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
+          vertical: Dimensions.HOME_CARD_SPACING.h,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

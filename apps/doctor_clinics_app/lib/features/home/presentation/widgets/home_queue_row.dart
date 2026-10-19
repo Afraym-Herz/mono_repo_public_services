@@ -10,6 +10,10 @@ import 'home_queue_row_meta.dart';
 import 'home_queue_status_chip.dart';
 
 /// Single row in the "current queue" home dashboard section.
+///
+/// Inside the expanding queue list the row gets a tight height. Its content is
+/// vertically centred and scales down only if the row is shorter than the
+/// content, keeping every row usable without overflow.
 class HomeQueueRow extends StatelessWidget {
   const HomeQueueRow({super.key, required this.sample});
 
@@ -18,6 +22,47 @@ class HomeQueueRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final content = Row(
+      children: [
+        HomeQueueNumberBadge(
+          number: sample.number,
+          isActive: sample.status == HomeQueueStatus.inConsultation,
+        ),
+        SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Flexible(
+                    child: ResponsiveText(
+                      sample.name,
+                      fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                      fontWeight: FontWeight.w600,
+                      color: context.clinicTextPrimary,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+                  HomeQueueStatusChip(status: sample.status),
+                ],
+              ),
+              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h / 4),
+              HomeQueueRowMeta(
+                examTypeKey: sample.examTypeKey,
+                waitMinutes: sample.waitMinutes,
+                appointmentTime: sample.appointmentTime,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+        HomeQueueActionButton(action: sample.action),
+      ],
+    );
+
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
@@ -25,45 +70,25 @@ class HomeQueueRow extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: context.clinicBorder)),
       ),
-      child: Row(
-        children: [
-          HomeQueueNumberBadge(
-            number: sample.number,
-            isActive: sample.status == HomeQueueStatus.inConsultation,
-          ),
-          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Flexible(
-                      child: ResponsiveText(
-                        sample.name,
-                        fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                        fontWeight: FontWeight.w600,
-                        color: context.clinicTextPrimary,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-                    HomeQueueStatusChip(status: sample.status),
-                  ],
-                ),
-                SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h / 4),
-                HomeQueueRowMeta(
-                  examTypeKey: sample.examTypeKey,
-                  waitMinutes: sample.waitMinutes,
-                  appointmentTime: sample.appointmentTime,
-                ),
-              ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (!constraints.hasBoundedHeight ||
+              !constraints.hasTightHeight) {
+            return content;
+          }
+
+          return FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerStart,
+            child: SizedBox(
+              width: constraints.maxWidth,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: content,
+              ),
             ),
-          ),
-          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-          HomeQueueActionButton(action: sample.action),
-        ],
+          );
+        },
       ),
     );
   }

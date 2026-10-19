@@ -2,10 +2,10 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// One detail line inside [HomeAppointmentsDetails]: a glyph and a caption, with
-/// the option to tint the whole row so a warning reads louder than a count.
-class HomeAppointmentsDetailRow extends StatelessWidget {
-  const HomeAppointmentsDetailRow({
+/// One detail line inside a home section card: a glyph and a caption, with the
+/// option to tint the whole row so a warning reads louder than a plain count.
+class HomeSectionDetailRow extends StatelessWidget {
+  const HomeSectionDetailRow({
     super.key,
     required this.icon,
     required this.label,
@@ -32,7 +32,7 @@ class HomeAppointmentsDetailRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: Dimensions.PADDING_SIZE_SMALL.w,
-        vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
+        vertical: Dimensions.HOME_CARD_SPACING.h,
       ),
       decoration: emphasized
           ? BoxDecoration(

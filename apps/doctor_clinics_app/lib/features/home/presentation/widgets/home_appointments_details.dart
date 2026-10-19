@@ -3,10 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'home_appointments_detail_row.dart';
+import 'home_section_detail_row.dart';
 
-/// Detail lines under the first slot: tomorrow's booked total and the cases
-/// still waiting on a confirmation.
+/// Detail lines under the appointments highlight tile: tomorrow's booked total
+/// and the cases still waiting on a confirmation.
 class HomeAppointmentsDetails extends StatelessWidget {
   const HomeAppointmentsDetails({super.key});
 
@@ -15,12 +15,12 @@ class HomeAppointmentsDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        HomeAppointmentsDetailRow(
+        HomeSectionDetailRow(
           icon: Icons.groups_2_outlined,
           label: 'home_appointments_total'.tr(),
         ),
         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h / 2),
-        HomeAppointmentsDetailRow(
+        HomeSectionDetailRow(
           icon: Icons.notifications_active_outlined,
           label: 'home_appointments_unconfirmed'.tr(),
           color: AppColors.warningDark,

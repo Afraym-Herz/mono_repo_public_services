@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/home/presentation/helpers/home_queue_sample.dart';
 import 'home_queue_row.dart';
 
-/// Scrollable stack of queue rows.
+/// Queue rows for the home dashboard.
 ///
-/// The viewport is capped at roughly four rows so the panel never outgrows the
-/// dashboard canvas: the header and the "view full queue" footer stay docked
-/// while the rows themselves scroll.
+/// When [expandRows] is true the list must live in a bounded height; each row
+/// then receives an equal share of that height so the queue fills the card.
+/// Rows keep their content centred and scale it down only when the row is too
+/// short, so no internal scrollbar or overflow is needed.
 class HomeQueueList extends StatelessWidget {
-  const HomeQueueList({super.key});
+  const HomeQueueList({super.key, this.expandRows = false});
 
-  /// Cap for the scrolling viewport (about four rows).
-  static const double _maxHeight = 220.0;
+  /// Whether rows should grow to split the available height.
+  final bool expandRows;
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: _maxHeight.h),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            for (final row in homeQueueSampleRows(context))
-              HomeQueueRow(sample: row),
-          ],
-        ),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final row in homeQueueSampleRows(context))
+          if (expandRows)
+            Expanded(child: HomeQueueRow(sample: row))
+          else
+            HomeQueueRow(sample: row),
+      ],
     );
   }
 }

@@ -1,22 +1,36 @@
 import 'package:core/core.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Highlighted "first appointment" block: label and doctor on the leading side,
-/// the localized time on the trailing side.
-class HomeAppointmentsFirstSlot extends StatelessWidget {
-  const HomeAppointmentsFirstSlot({super.key, required this.time});
+/// Highlighted tile that tops a home section card: a glyph on the leading side,
+/// a caption over its subtitle, and an emphasised value on the trailing side.
+class HomeSectionHighlightTile extends StatelessWidget {
+  const HomeSectionHighlightTile({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.subtitle,
+    required this.value,
+  });
 
-  /// Already-localized first appointment time.
-  final String time;
+  /// Leading glyph.
+  final IconData icon;
+
+  /// Already-localized caption, e.g. `أول موعد`.
+  final String label;
+
+  /// Already-localized secondary line, e.g. a doctor's name.
+  final String subtitle;
+
+  /// Already-localized emphasised value, e.g. a time.
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: Dimensions.PADDING_SIZE_SMALL.w,
-        vertical: Dimensions.PADDING_SIZE_SMALL.h,
+        vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
       ),
       decoration: BoxDecoration(
         color: context.clinicContainer,
@@ -28,7 +42,7 @@ class HomeAppointmentsFirstSlot extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            Icons.schedule_rounded,
+            icon,
             size: Dimensions.ICON_SIZE_DEFAULT.r,
             color: context.clinicAccent,
           ),
@@ -38,14 +52,14 @@ class HomeAppointmentsFirstSlot extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ResponsiveText(
-                  'home_appointments_first_label'.tr(),
+                  label,
                   fontSize: Dimensions.FONT_SIZE_SMALL,
                   color: context.clinicTextSecondary,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 ResponsiveText(
-                  'home_appointments_doctor'.tr(),
+                  subtitle,
                   fontSize: Dimensions.FONT_SIZE_DEFAULT,
                   fontWeight: FontWeight.w600,
                   color: context.clinicTextPrimary,
@@ -57,10 +71,12 @@ class HomeAppointmentsFirstSlot extends StatelessWidget {
           ),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
           ResponsiveText(
-            time,
+            value,
             fontSize: Dimensions.FONT_SIZE_LARGE,
             fontWeight: FontWeight.w700,
             color: context.clinicAccent,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

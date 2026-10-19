@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'home_appointments_details.dart';
-import 'home_appointments_first_slot.dart';
 import 'home_section_card.dart';
+import 'home_section_footer.dart';
 import 'home_section_header.dart';
-import 'home_section_link.dart';
+import 'home_section_highlight_tile.dart';
 
 /// Appointments section on the home dashboard.
 ///
@@ -32,6 +32,7 @@ class HomeAppointmentsCard extends StatelessWidget {
     return HomeSectionCard(
       animationDelay: const Duration(milliseconds: 500),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           HomeSectionHeader(
@@ -39,18 +40,16 @@ class HomeAppointmentsCard extends StatelessWidget {
             subtitle: DateConverter.localizedFullDate(tomorrow, locale),
             icon: Icons.event_note_rounded,
           ),
-          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
-          HomeAppointmentsFirstSlot(
-            time: DateConverter.localizedTime(firstSlot, locale),
+          SizedBox(height: Dimensions.HOME_CARD_SPACING.h),
+          HomeSectionHighlightTile(
+            icon: Icons.schedule_rounded,
+            label: 'home_appointments_first_label'.tr(),
+            subtitle: 'home_appointments_doctor'.tr(),
+            value: DateConverter.localizedTime(firstSlot, locale),
           ),
-          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
+          SizedBox(height: Dimensions.HOME_CARD_SPACING.h),
           const HomeAppointmentsDetails(),
-          Divider(
-            height: Dimensions.PADDING_SIZE_SMALL.h,
-            thickness: 1,
-            color: context.clinicBorder,
-          ),
-          HomeSectionLink(
+          HomeSectionFooter(
             label: 'home_appointments_view_all'.tr(),
             route: Routes.appointments,
           ),

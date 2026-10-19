@@ -116,6 +116,12 @@
   "home_appointments_total": "54 cases",
   "home_appointments_unconfirmed": "Follow up on 5 unconfirmed",
   "home_appointments_view_all": "View appointments",
+  "home_operations_title": "Upcoming operations",
+  "home_operations_first_label": "First operation",
+  "home_operations_lead": "Dr. Youssef Abdallah",
+  "home_operations_total": "3 operations",
+  "home_operations_pending": "Follow up on 2 awaiting confirmation",
+  "home_operations_view_all": "View operations",
   "role_secretary": "Secretary",
   "role_doctor": "Doctor",
   "role_admin": "Admin",
@@ -126,6 +132,19 @@
   "auth": {
     "logout_confirm_title": "Confirm logout",
     "logout_confirm_message": "Are you sure you want to log out?"
+  },
+  "patients_header": {
+    "title": "Patients Record",
+    "registered": "{count} registered patients",
+    "live_update": "Live updates for medical files",
+    "export_excel": "Export Excel",
+    "new_patient": "New Patient",
+    "export_unavailable": "Excel export is not available in this version",
+    "form_unavailable": "Adding patients is not available in this version"
+  },
+  "patients": {
+    "list_title": "Patient list",
+    "list_placeholder": "Patient list coming soon"
   },
   "queue_header": {
     "title": "Today's Queue",
@@ -149,6 +168,20 @@
     "in_consultation": "In consultation",
     "done": "Done",
     "cancelled": "Cancelled"
+  },
+  "queue_summary": {
+    "no_show": "No-show",
+    "registered_today": "Total registered today",
+    "patients_unit": "patients",
+    "wait_rate": "Waiting rate: {rating}",
+    "rate_excellent": "Excellent",
+    "rate_good": "Good",
+    "rate_high": "High",
+    "current_title": "Number currently in examination",
+    "current_empty": "No patient is in examination right now",
+    "in_exam_room": "In the examination room",
+    "with_doctor": "with {doctor}",
+    "for_minutes": "For {minutes} min"
   },
   "queue_sort": {
     "ticket_ascending": "Ticket no. (ascending)",

@@ -116,6 +116,12 @@
   "home_appointments_total": "٥٤ حالة",
   "home_appointments_unconfirmed": "متابعة ٥ حالات غير مؤكدة",
   "home_appointments_view_all": "عرض المواعيد",
+  "home_operations_title": "عمليات قادمة",
+  "home_operations_first_label": "أول عملية",
+  "home_operations_lead": "د. يوسف عبد الله",
+  "home_operations_total": "٣ عمليات",
+  "home_operations_pending": "متابعة حالتين بانتظار التأكيد",
+  "home_operations_view_all": "عرض العمليات",
   "role_secretary": "سكرتارية",
   "role_doctor": "طبيب",
   "role_admin": "مدير",
@@ -126,6 +132,19 @@
   "auth": {
     "logout_confirm_title": "تأكيد تسجيل الخروج",
     "logout_confirm_message": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  },
+  "patients_header": {
+    "title": "سجل المرضى",
+    "registered": "{count} مريض مسجل",
+    "live_update": "تحديث مباشر للملفات الطبية",
+    "export_excel": "تصدير Excel",
+    "new_patient": "مريض جديد",
+    "export_unavailable": "تصدير Excel غير متاح في هذه النسخة",
+    "form_unavailable": "إضافة مريض غير متاحة في هذه النسخة"
+  },
+  "patients": {
+    "list_title": "قائمة المرضى",
+    "list_placeholder": "قائمة المرضى قيد الإنشاء"
   },
   "queue_header": {
     "title": "طابور اليوم",
@@ -149,6 +168,20 @@
     "in_consultation": "في الكشف",
     "done": "تم",
     "cancelled": "ملغي"
+  },
+  "queue_summary": {
+    "no_show": "لم يحضر",
+    "registered_today": "إجمالي المسجلين اليوم",
+    "patients_unit": "مريض",
+    "wait_rate": "معدل الانتظار: {rating}",
+    "rate_excellent": "ممتاز",
+    "rate_good": "جيد",
+    "rate_high": "مرتفع",
+    "current_title": "الرقم قيد الكشف الآن",
+    "current_empty": "لا يوجد مريض في الكشف الآن",
+    "in_exam_room": "في غرفة الكشف",
+    "with_doctor": "مع {doctor}",
+    "for_minutes": "منذ {minutes} دقيقة"
   },
   "queue_sort": {
     "ticket_ascending": "رقم الدور (تصاعدي)",
