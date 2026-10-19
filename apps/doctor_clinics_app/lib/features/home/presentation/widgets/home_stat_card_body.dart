@@ -49,7 +49,7 @@ class HomeStatCardBody extends StatelessWidget {
           ),
         ],
         if (footer != null) ...[
-          SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
+          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
           footer!,
         ],
       ],

@@ -50,7 +50,7 @@ class HomeStatCard extends StatelessWidget {
       delay: animationDelay,
       duration: const Duration(milliseconds: 400),
       child: Container(
-        padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE.r),
+        padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
         decoration: BoxDecoration(
           color: surface,
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
@@ -60,7 +60,7 @@ class HomeStatCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HomeStatCardHeader(title: title, icon: icon, iconColor: iconColor),
-            SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
+            SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
             HomeStatCardBody(
               value: value,
               unit: unit,

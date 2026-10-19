@@ -21,12 +21,12 @@ class HomeAppointmentsAlert extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.PADDING_SIZE_LARGE.w,
+          horizontal: Dimensions.HOME_PAGE_PADDING.w,
         ),
         child: Container(
           padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.PADDING_SIZE_LARGE.w,
-            vertical: Dimensions.PADDING_SIZE_SMALL.h,
+            horizontal: Dimensions.paddingSizeDefault.w,
+            vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h,
           ),
           decoration: BoxDecoration(
             color: context.clinicIsDark

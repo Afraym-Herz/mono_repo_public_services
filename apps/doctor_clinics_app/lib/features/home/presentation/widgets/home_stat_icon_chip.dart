@@ -18,14 +18,14 @@ class HomeStatIconChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Dimensions.ICON_SIZE_EXTRA_LARGE.r,
-      height: Dimensions.ICON_SIZE_EXTRA_LARGE.r,
+      width: Dimensions.ICON_SIZE_LARGE.r,
+      height: Dimensions.ICON_SIZE_LARGE.r,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: color.withValues(alpha: context.clinicIsDark ? 0.20 : 0.12),
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
       ),
-      child: Icon(icon, size: Dimensions.ICON_SIZE_DEFAULT.r, color: color),
+      child: Icon(icon, size: Dimensions.ICON_SIZE_SMALL.r, color: color),
     );
   }
 }

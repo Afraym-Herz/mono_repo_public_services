@@ -29,8 +29,8 @@ class HomeGreetingHeader extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.PADDING_SIZE_LARGE.w,
-          vertical: Dimensions.PADDING_SIZE_LARGE.h,
+          horizontal: Dimensions.HOME_PAGE_PADDING.w,
+          vertical: Dimensions.PADDING_SIZE_SMALL.h,
         ),
         child: Row(
           children: [

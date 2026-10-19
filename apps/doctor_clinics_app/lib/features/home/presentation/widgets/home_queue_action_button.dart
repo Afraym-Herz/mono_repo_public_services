@@ -5,8 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/home/presentation/helpers/home_queue_action.dart';
 
-/// Compact quick-action pill on a queue row. Icon-only for actions without a
-/// label (e.g. the overflow menu).
+/// Compact quick-action pill on a queue row.
+///
+/// Filled actions use the clinical primary tone; the rest sit on a white
+/// (surface) pill with a hairline border so secondary actions — such as
+/// "finish" — read differently from the primary ones. Actions without a label
+/// (the overflow menu) render as a bare glyph.
 class HomeQueueActionButton extends StatelessWidget {
   const HomeQueueActionButton({super.key, required this.action, this.onTap});
 
@@ -19,19 +23,29 @@ class HomeQueueActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final radius = BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r);
-    final background =
-        action.filled ? context.clinicSubmitButton : context.clinicContainer;
-    final foreground = action.filled ? AppColors.white : context.clinicPrimary;
+    final filled = action.filled;
+    final background = filled
+        ? context.clinicSubmitButton
+        : context.clinicIsDark
+            ? context.clinicContainer
+            : context.cardColor;
+    final foreground = filled ? AppColors.white : context.clinicPrimary;
 
     return Material(
       color: background,
-      borderRadius: radius,
+      shape: RoundedRectangleBorder(
+        borderRadius: radius,
+        side: filled
+            ? BorderSide.none
+            : BorderSide(color: context.clinicBorder),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: radius,
         onTap: onTap,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.PADDING_SIZE_SMALL.w,
+            horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL.w,
             vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL.h / 2,
           ),
           child: Row(

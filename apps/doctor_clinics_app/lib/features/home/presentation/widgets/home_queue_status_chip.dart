@@ -20,7 +20,7 @@ class HomeQueueStatusChip extends StatelessWidget {
     final color = _colorFor(context);
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.PADDING_SIZE_SMALL.w,
+        horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL.w,
         vertical: Dimensions.PADDING_SIZE_BORDER.h,
       ),
       decoration: BoxDecoration(

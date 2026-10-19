@@ -17,7 +17,7 @@ class HomeStatsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final gap = Dimensions.paddingSizeDefault.w;
+        final gap = Dimensions.PADDING_SIZE_SMALL.w;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: _rows(_columnsFor(constraints.maxWidth), gap),
@@ -52,9 +52,9 @@ class HomeStatsGrid extends StatelessWidget {
     return rows;
   }
 
-  /// Four tiles on the desktop canvas, two on tablets, one on phones.
+  /// Four tiles from tablet width up, two on mid-size windows, one on phones.
   int _columnsFor(double width) {
-    if (width >= ResponsiveBreakpoints.tablet) return 4;
+    if (width >= ResponsiveBreakpoints.mobileLarge) return 4;
     if (width >= ResponsiveBreakpoints.mobile) return 2;
     return 1;
   }

@@ -34,7 +34,7 @@ class HomeStatValue extends StatelessWidget {
         Flexible(
           child: ResponsiveText(
             value,
-            fontSize: Dimensions.FONT_SIZE_OVER_OVER_LARGE,
+            fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
             fontWeight: FontWeight.w700,
             color: valueColor,
             maxLines: 1,
@@ -45,7 +45,7 @@ class HomeStatValue extends StatelessWidget {
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w / 2),
           ResponsiveText(
             unit!,
-            fontSize: Dimensions.FONT_SIZE_DEFAULT,
+            fontSize: Dimensions.FONT_SIZE_SMALL,
             fontWeight: FontWeight.w600,
             color: unitColor,
             maxLines: 1,

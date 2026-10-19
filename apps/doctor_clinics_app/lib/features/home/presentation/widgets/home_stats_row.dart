@@ -24,7 +24,7 @@ class HomeStatsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.PADDING_SIZE_LARGE.w,
+        horizontal: Dimensions.HOME_PAGE_PADDING.w,
       ),
       child: HomeStatsGrid(
         cards: [
