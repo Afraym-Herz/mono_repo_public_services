@@ -25,7 +25,10 @@ extension UserAuthMapper on User {
   AuthUser toAuthUser() =>
       AuthUser(id: id.toString(), name: username, role: role);
 
-  static User fromAuthUser(AuthUser authUser, {String role = 'secretary'}) {
+  static User fromAuthUser(
+    AuthUser authUser, {
+    String role = AppConstants.userRoleSecretary,
+  }) {
     final now = DateTime.now();
     return User(
       id: int.tryParse(authUser.id) ?? 0,
