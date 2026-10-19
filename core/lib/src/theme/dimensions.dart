@@ -31,14 +31,14 @@ class Dimensions {
   static const double ICON_SIZE_LARGE = 32.0;
   static const double ICON_SIZE_EXTRA_LARGE = 40.0;
 
-  static const double FONT_SIZE_EXTRA_SMALL = 8.0;
-  static const double FONT_SIZE_SMALL = 12.0;
-  static const double FONT_SIZE_DEFAULT = 14.0;
-  static const double FONT_SIZE_LARGE = 16.0;
+  static const double FONT_SIZE_EXTRA_SMALL = 7.0;
+  static const double FONT_SIZE_SMALL = 10.0;
+  static const double FONT_SIZE_DEFAULT = 12.0;
+  static const double FONT_SIZE_LARGE = 14.0;
   static const double FONT_SIZE_EXTRA_LARGE = 20.0;
   static const double FONT_SIZE_OVER_LARGE = 20.0;
   static const double FONT_SIZE_EXTRA_OVER_LARGE = 22.0;
-  static const double FONT_SIZE_OVER_OVER_LARGE = 28.0;
+  static const double FONT_SIZE_OVER_OVER_LARGE = 24.0;
 
   static const double PADDING_SIZE_CARD = 1.0;
   static const double PADDING_SIZE_BORDER = 3.0;
