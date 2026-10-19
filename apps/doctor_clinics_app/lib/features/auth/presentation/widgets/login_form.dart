@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_field_label.dart';
+import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_password_label_row.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/widgets/remember_workstation_row.dart';
 
 /// Username/password fields bound to parent-owned controllers.
@@ -47,24 +48,7 @@ class LoginForm extends StatelessWidget {
             ]),
           ),
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
-          Row(
-            children: [
-              Expanded(child: LoginFieldLabel('login_password_label'.tr())),
-              TextButton(
-                onPressed: () =>
-                    AppSnackBar.showInfo(context, 'login_forgot_todo'.tr()),
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                child: Text(
-                  'login_forgot'.tr(),
-                  style: TextStyle(fontSize: Dimensions.FONT_SIZE_SMALL.sp),
-                ),
-              ),
-            ],
-          ),
+          const LoginPasswordLabelRow(),
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
           AppTextField(
             controller: passwordController,

@@ -1,17 +1,10 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/widgets/centered_panel.dart';
-import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_footer.dart';
-import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_form.dart';
-import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_status_box.dart';
-import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_submit_button.dart';
-import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_title_block.dart';
-import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_top_bar.dart';
+import 'package:doctor_clinics_app/features/auth/presentation/widgets/login_panel_column.dart';
 
 /// Login column: top bar, headline, fields, status, footer, then the large
 /// submit CTA anchoring the end of the column.
@@ -57,30 +50,11 @@ class _LoginPanelBodyState extends State<LoginPanelBody> {
   @override
   Widget build(BuildContext context) {
     return CenteredPanel(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const LoginTopBar(),
-          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h),
-          const LoginTitleBlock(),
-          SizedBox(height: Dimensions.PADDING_SIZE_LARGE.h),
-          Form(
-            key: _formKey,
-            child: AutofillGroup(
-              child: LoginForm(
-                usernameController: _usernameController,
-                passwordController: _passwordController,
-                onSubmitted: _submit,
-              ),
-            ),
-          ),
-          SizedBox(height: Dimensions.paddingSizeDefault.h),
-          const LoginStatusBox(),
-          SizedBox(height: Dimensions.PADDING_SIZE_LARGE.h),
-          const LoginFooter(),
-          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE.h * 2),
-          LoginSubmitButton(large: true, onSubmit: _submit),
-        ],
+      child: LoginPanelColumn(
+        formKey: _formKey,
+        usernameController: _usernameController,
+        passwordController: _passwordController,
+        onSubmit: _submit,
       ),
     );
   }
