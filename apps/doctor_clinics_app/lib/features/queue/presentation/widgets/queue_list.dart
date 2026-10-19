@@ -22,7 +22,17 @@ class QueueList extends StatelessWidget {
           message: message,
           onRetry: cubit.loadTodayQueue,
         ),
-        loaded: (tickets, booked, filter, sortOrder, fee, isSubmitting, _) {
+        loaded: (
+          tickets,
+          booked,
+          filter,
+          sortOrder,
+          fee,
+          doctorNameAr,
+          doctorNameEn,
+          isSubmitting,
+          _,
+        ) {
           final groups = QueueBoardGroups.build(
             tickets: tickets,
             booked: booked,

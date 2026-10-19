@@ -31,17 +31,16 @@ class QueueCubit extends Cubit<QueueState> {
       return;
     }
     final templateResult = await settingsRepository.getClinicTemplate();
-    final defaultFee = templateResult.fold(
-      (_) => 0,
-      (t) => t.defaultConsultationFeePiasters ?? 0,
-    );
+    final template = templateResult.fold((_) => null, (t) => t);
     final board = boardResult.fold((_) => null, (b) => b)!;
     emit(QueueState.loaded(
       tickets: board.tickets,
       booked: board.booked,
       filter: previous.listFilter,
       sortOrder: previous.listSortOrder,
-      defaultFeePiasters: defaultFee,
+      defaultFeePiasters: template?.defaultConsultationFeePiasters ?? 0,
+      doctorNameAr: template?.doctorNameAr ?? '',
+      doctorNameEn: template?.doctorNameEn ?? '',
     ));
   }
 

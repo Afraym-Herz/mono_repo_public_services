@@ -51,6 +51,15 @@ class Dimensions {
   static const double HOME_PAGE_PADDING = 15.0;
   static const double PADDING_SIZE_EXTRA_EXTRA_LARGE = 30.0;
 
+  /// Dense vertical rhythm inside home dashboard cards.
+  static const double HOME_CARD_SPACING = 6.0;
+
+  /// Minimum home canvas height on the 1440x900 design scale.
+  ///
+  /// Taller windows stretch the dashboard to fill the viewport; shorter ones
+  /// scale the whole canvas down instead of squeezing the section cards.
+  static const double HOME_MIN_CANVAS_HEIGHT = 820.0;
+
   static const double RADIUS_SMALL = 5.0;
   static const double RADIUS_DEFAULT = 10.0;
   static const double RADIUS_MEDIUM = 12.0;

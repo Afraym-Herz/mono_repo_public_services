@@ -10,6 +10,8 @@ class QueueState with _$QueueState {
     @Default(QueueListFilter.all) QueueListFilter filter,
     @Default(QueueSortOrder.ticketAscending) QueueSortOrder sortOrder,
     @Default(0) int defaultFeePiasters,
+    @Default('') String doctorNameAr,
+    @Default('') String doctorNameEn,
     @Default(false) bool isSubmitting,
     String? actionError,
   }) = _Loaded;
@@ -42,6 +44,16 @@ extension QueueStateX on QueueState {
         orElse: () => null,
       );
 
+  String get doctorNameAr => maybeMap(
+        loaded: (s) => s.doctorNameAr,
+        orElse: () => '',
+      );
+
+  String get doctorNameEn => maybeMap(
+        loaded: (s) => s.doctorNameEn,
+        orElse: () => '',
+      );
+
   List<QueueTicket> get waitingGroup => allTickets
       .where((t) => t.status == QueueStatus.waiting && !t.isUrgent)
       .toList()
@@ -58,6 +70,8 @@ extension QueueStateX on QueueState {
           booked: booked,
           filter: listFilter,
           sortOrder: listSortOrder,
+          doctorNameAr: doctorNameAr,
+          doctorNameEn: doctorNameEn,
         ),
       );
 

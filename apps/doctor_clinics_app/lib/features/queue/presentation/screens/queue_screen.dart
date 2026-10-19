@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/cubit/queue_cubit.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_list.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_list_head.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_summary_strip.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/today_queue_header.dart';
 
 class QueueScreen extends StatelessWidget {
@@ -46,6 +47,11 @@ class _QueueBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const TodayQueueHeader(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            child: const QueueSummaryStrip(),
+          ),
+          SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: padding),
             child: const QueueListHead(

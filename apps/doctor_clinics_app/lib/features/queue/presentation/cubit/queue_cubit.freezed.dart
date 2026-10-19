@@ -27,6 +27,8 @@ mixin _$QueueState {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )
@@ -43,6 +45,8 @@ mixin _$QueueState {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -59,6 +63,8 @@ mixin _$QueueState {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -163,6 +169,8 @@ class _$InitialImpl implements _Initial {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )
@@ -183,6 +191,8 @@ class _$InitialImpl implements _Initial {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -203,6 +213,8 @@ class _$InitialImpl implements _Initial {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -309,6 +321,8 @@ class _$LoadingImpl implements _Loading {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )
@@ -329,6 +343,8 @@ class _$LoadingImpl implements _Loading {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -349,6 +365,8 @@ class _$LoadingImpl implements _Loading {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -417,6 +435,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
     QueueListFilter filter,
     QueueSortOrder sortOrder,
     int defaultFeePiasters,
+    String doctorNameAr,
+    String doctorNameEn,
     bool isSubmitting,
     String? actionError,
   });
@@ -441,6 +461,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
     Object? filter = null,
     Object? sortOrder = null,
     Object? defaultFeePiasters = null,
+    Object? doctorNameAr = null,
+    Object? doctorNameEn = null,
     Object? isSubmitting = null,
     Object? actionError = freezed,
   }) {
@@ -466,6 +488,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
             ? _value.defaultFeePiasters
             : defaultFeePiasters // ignore: cast_nullable_to_non_nullable
                   as int,
+        doctorNameAr: null == doctorNameAr
+            ? _value.doctorNameAr
+            : doctorNameAr // ignore: cast_nullable_to_non_nullable
+                  as String,
+        doctorNameEn: null == doctorNameEn
+            ? _value.doctorNameEn
+            : doctorNameEn // ignore: cast_nullable_to_non_nullable
+                  as String,
         isSubmitting: null == isSubmitting
             ? _value.isSubmitting
             : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -488,6 +518,8 @@ class _$LoadedImpl implements _Loaded {
     this.filter = QueueListFilter.all,
     this.sortOrder = QueueSortOrder.ticketAscending,
     this.defaultFeePiasters = 0,
+    this.doctorNameAr = '',
+    this.doctorNameEn = '',
     this.isSubmitting = false,
     this.actionError,
   }) : _tickets = tickets,
@@ -520,13 +552,19 @@ class _$LoadedImpl implements _Loaded {
   final int defaultFeePiasters;
   @override
   @JsonKey()
+  final String doctorNameAr;
+  @override
+  @JsonKey()
+  final String doctorNameEn;
+  @override
+  @JsonKey()
   final bool isSubmitting;
   @override
   final String? actionError;
 
   @override
   String toString() {
-    return 'QueueState.loaded(tickets: $tickets, booked: $booked, filter: $filter, sortOrder: $sortOrder, defaultFeePiasters: $defaultFeePiasters, isSubmitting: $isSubmitting, actionError: $actionError)';
+    return 'QueueState.loaded(tickets: $tickets, booked: $booked, filter: $filter, sortOrder: $sortOrder, defaultFeePiasters: $defaultFeePiasters, doctorNameAr: $doctorNameAr, doctorNameEn: $doctorNameEn, isSubmitting: $isSubmitting, actionError: $actionError)';
   }
 
   @override
@@ -541,6 +579,10 @@ class _$LoadedImpl implements _Loaded {
                 other.sortOrder == sortOrder) &&
             (identical(other.defaultFeePiasters, defaultFeePiasters) ||
                 other.defaultFeePiasters == defaultFeePiasters) &&
+            (identical(other.doctorNameAr, doctorNameAr) ||
+                other.doctorNameAr == doctorNameAr) &&
+            (identical(other.doctorNameEn, doctorNameEn) ||
+                other.doctorNameEn == doctorNameEn) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.actionError, actionError) ||
@@ -555,6 +597,8 @@ class _$LoadedImpl implements _Loaded {
     filter,
     sortOrder,
     defaultFeePiasters,
+    doctorNameAr,
+    doctorNameEn,
     isSubmitting,
     actionError,
   );
@@ -578,6 +622,8 @@ class _$LoadedImpl implements _Loaded {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )
@@ -590,6 +636,8 @@ class _$LoadedImpl implements _Loaded {
       filter,
       sortOrder,
       defaultFeePiasters,
+      doctorNameAr,
+      doctorNameEn,
       isSubmitting,
       actionError,
     );
@@ -606,6 +654,8 @@ class _$LoadedImpl implements _Loaded {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -618,6 +668,8 @@ class _$LoadedImpl implements _Loaded {
       filter,
       sortOrder,
       defaultFeePiasters,
+      doctorNameAr,
+      doctorNameEn,
       isSubmitting,
       actionError,
     );
@@ -634,6 +686,8 @@ class _$LoadedImpl implements _Loaded {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -648,6 +702,8 @@ class _$LoadedImpl implements _Loaded {
         filter,
         sortOrder,
         defaultFeePiasters,
+        doctorNameAr,
+        doctorNameEn,
         isSubmitting,
         actionError,
       );
@@ -700,6 +756,8 @@ abstract class _Loaded implements QueueState {
     final QueueListFilter filter,
     final QueueSortOrder sortOrder,
     final int defaultFeePiasters,
+    final String doctorNameAr,
+    final String doctorNameEn,
     final bool isSubmitting,
     final String? actionError,
   }) = _$LoadedImpl;
@@ -709,6 +767,8 @@ abstract class _Loaded implements QueueState {
   QueueListFilter get filter;
   QueueSortOrder get sortOrder;
   int get defaultFeePiasters;
+  String get doctorNameAr;
+  String get doctorNameEn;
   bool get isSubmitting;
   String? get actionError;
 
@@ -797,6 +857,8 @@ class _$ErrorImpl implements _Error {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )
@@ -817,6 +879,8 @@ class _$ErrorImpl implements _Error {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
@@ -837,6 +901,8 @@ class _$ErrorImpl implements _Error {
       QueueListFilter filter,
       QueueSortOrder sortOrder,
       int defaultFeePiasters,
+      String doctorNameAr,
+      String doctorNameEn,
       bool isSubmitting,
       String? actionError,
     )?
