@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/core/database/daos/queue_dao.dart';
 import 'package:doctor_clinics_app/features/queue/data/datasources/queue_datasource.dart';
+import 'package:doctor_clinics_app/features/queue/data/datasources/queue_drift_mapper.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/appointment.dart'
     as entity;
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_entry.dart'
@@ -16,23 +17,27 @@ class QueueDriftDatasource implements IQueueDatasource {
   @override
   Future<List<entity.Appointment>> fetchAppointments(DateTime date) async {
     final rows = await dao.getAppointmentsForDate(date);
-    return rows.map(_toDomainAppointment).toList();
+    return rows.map(QueueDriftMapper.toDomainAppointment).toList();
   }
 
   @override
   Future<int> insertAppointment(entity.Appointment appointment) async {
-    return dao.insertAppointment(_toAppointmentCompanion(appointment));
+    return dao.insertAppointment(
+      QueueDriftMapper.toAppointmentCompanion(appointment),
+    );
   }
 
   @override
   Future<void> updateAppointment(entity.Appointment appointment) async {
-    await dao.updateAppointment(_toAppointmentCompanion(appointment));
+    await dao.updateAppointment(
+      QueueDriftMapper.toAppointmentCompanion(appointment),
+    );
   }
 
   @override
   Future<List<entity.QueueEntry>> fetchQueueByDate(DateTime date) async {
     final rows = await dao.getQueueForDate(date);
-    return rows.map(_toDomainQueueEntry).toList();
+    return rows.map(QueueDriftMapper.toDomainQueueEntry).toList();
   }
 
   @override
@@ -65,46 +70,5 @@ class QueueDriftDatasource implements IQueueDatasource {
   @override
   Future<int> countQueueForDate(DateTime date) async {
     return dao.countQueueForDate(date);
-  }
-
-  entity.Appointment _toDomainAppointment(Appointment row) {
-    return entity.Appointment(
-      id: row.id,
-      patientId: row.patientId,
-      scheduledDate: row.scheduledDate,
-      scheduledTime: row.scheduledTime,
-      type: row.type,
-      status: row.status,
-      reason: row.reason,
-      notes: row.notes,
-      cancelledReason: row.cancelledReason,
-      createdBy: int.tryParse(row.createdBy) ?? 0,
-      createdAt: row.scheduledDate,
-      updatedAt: row.scheduledDate,
-    );
-  }
-
-  AppointmentsCompanion _toAppointmentCompanion(entity.Appointment appt) {
-    return AppointmentsCompanion(
-      id: appt.id > 0 ? Value(appt.id) : const Value.absent(),
-      patientId: Value(appt.patientId),
-      scheduledDate: Value(appt.scheduledDate),
-      scheduledTime: Value(appt.scheduledTime),
-      type: Value(appt.type),
-      status: Value(appt.status),
-      reason: Value(appt.reason),
-      notes: Value(appt.notes),
-      cancelledReason: Value(appt.cancelledReason),
-      createdBy: Value(appt.createdBy.toString()),
-    );
-  }
-
-  entity.QueueEntry _toDomainQueueEntry(QueueEntry row) {
-    return entity.QueueEntry(
-      id: row.id,
-      patientId: row.patientId,
-      scheduledAt: row.queueDate,
-      status: row.status,
-    );
   }
 }

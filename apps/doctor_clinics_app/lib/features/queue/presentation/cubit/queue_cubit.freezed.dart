@@ -24,6 +24,8 @@ mixin _$QueueState {
     required TResult Function(
       List<QueueEntry> entries,
       List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
     )
     loaded,
     required TResult Function(String message) error,
@@ -32,7 +34,12 @@ mixin _$QueueState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult? Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
@@ -40,7 +47,12 @@ mixin _$QueueState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -139,6 +151,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(
       List<QueueEntry> entries,
       List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
     )
     loaded,
     required TResult Function(String message) error,
@@ -151,7 +165,12 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult? Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult? Function(String message)? error,
   }) {
@@ -163,7 +182,12 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -264,6 +288,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(
       List<QueueEntry> entries,
       List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
     )
     loaded,
     required TResult Function(String message) error,
@@ -276,7 +302,12 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult? Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult? Function(String message)? error,
   }) {
@@ -288,7 +319,12 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -348,7 +384,12 @@ abstract class _$$LoadedImplCopyWith<$Res> {
     $Res Function(_$LoadedImpl) then,
   ) = __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<QueueEntry> entries, List<Appointment> appointments});
+  $Res call({
+    List<QueueEntry> entries,
+    List<Appointment> appointments,
+    QueueListFilter filter,
+    QueueSortOrder sortOrder,
+  });
 }
 
 /// @nodoc
@@ -364,7 +405,12 @@ class __$$LoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? entries = null, Object? appointments = null}) {
+  $Res call({
+    Object? entries = null,
+    Object? appointments = null,
+    Object? filter = null,
+    Object? sortOrder = null,
+  }) {
     return _then(
       _$LoadedImpl(
         entries: null == entries
@@ -375,6 +421,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
             ? _value._appointments
             : appointments // ignore: cast_nullable_to_non_nullable
                   as List<Appointment>,
+        filter: null == filter
+            ? _value.filter
+            : filter // ignore: cast_nullable_to_non_nullable
+                  as QueueListFilter,
+        sortOrder: null == sortOrder
+            ? _value.sortOrder
+            : sortOrder // ignore: cast_nullable_to_non_nullable
+                  as QueueSortOrder,
       ),
     );
   }
@@ -386,6 +440,8 @@ class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl({
     required final List<QueueEntry> entries,
     required final List<Appointment> appointments,
+    this.filter = QueueListFilter.all,
+    this.sortOrder = QueueSortOrder.ticketAscending,
   }) : _entries = entries,
        _appointments = appointments;
 
@@ -406,8 +462,15 @@ class _$LoadedImpl implements _Loaded {
   }
 
   @override
+  @JsonKey()
+  final QueueListFilter filter;
+  @override
+  @JsonKey()
+  final QueueSortOrder sortOrder;
+
+  @override
   String toString() {
-    return 'QueueState.loaded(entries: $entries, appointments: $appointments)';
+    return 'QueueState.loaded(entries: $entries, appointments: $appointments, filter: $filter, sortOrder: $sortOrder)';
   }
 
   @override
@@ -419,7 +482,10 @@ class _$LoadedImpl implements _Loaded {
             const DeepCollectionEquality().equals(
               other._appointments,
               _appointments,
-            ));
+            ) &&
+            (identical(other.filter, filter) || other.filter == filter) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
   }
 
   @override
@@ -427,6 +493,8 @@ class _$LoadedImpl implements _Loaded {
     runtimeType,
     const DeepCollectionEquality().hash(_entries),
     const DeepCollectionEquality().hash(_appointments),
+    filter,
+    sortOrder,
   );
 
   /// Create a copy of QueueState
@@ -445,11 +513,13 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(
       List<QueueEntry> entries,
       List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
     )
     loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(entries, appointments);
+    return loaded(entries, appointments, filter, sortOrder);
   }
 
   @override
@@ -457,11 +527,16 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult? Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(entries, appointments);
+    return loaded?.call(entries, appointments, filter, sortOrder);
   }
 
   @override
@@ -469,13 +544,18 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(entries, appointments);
+      return loaded(entries, appointments, filter, sortOrder);
     }
     return orElse();
   }
@@ -522,10 +602,14 @@ abstract class _Loaded implements QueueState {
   const factory _Loaded({
     required final List<QueueEntry> entries,
     required final List<Appointment> appointments,
+    final QueueListFilter filter,
+    final QueueSortOrder sortOrder,
   }) = _$LoadedImpl;
 
   List<QueueEntry> get entries;
   List<Appointment> get appointments;
+  QueueListFilter get filter;
+  QueueSortOrder get sortOrder;
 
   /// Create a copy of QueueState
   /// with the given fields replaced by the non-null parameter values.
@@ -609,6 +693,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(
       List<QueueEntry> entries,
       List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
     )
     loaded,
     required TResult Function(String message) error,
@@ -621,7 +707,12 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult? Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult? Function(String message)? error,
   }) {
@@ -633,7 +724,12 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<QueueEntry> entries, List<Appointment> appointments)?
+    TResult Function(
+      List<QueueEntry> entries,
+      List<Appointment> appointments,
+      QueueListFilter filter,
+      QueueSortOrder sortOrder,
+    )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
