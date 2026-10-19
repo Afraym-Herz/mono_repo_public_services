@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
-import 'package:dartz/dartz.dart';
+import 'package:doctor_clinics_app/features/patients/data/datasources/patient_datasource.dart';
+import 'package:doctor_clinics_app/features/patients/data/repositories/patient_repository_guard.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient_allergy.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient_condition.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
-import 'package:doctor_clinics_app/features/patients/data/datasources/patient_datasource.dart';
 
 class PatientRepositoryImpl implements PatientRepository {
   final IPatientDatasource datasource;
@@ -12,117 +12,60 @@ class PatientRepositoryImpl implements PatientRepository {
   PatientRepositoryImpl({required this.datasource});
 
   @override
-  FutureResult<void> addPatient(Patient patient) async {
-    try {
-      await datasource.insert(patient);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.addPatient failed: $e'));
-    }
-  }
+  FutureResult<void> addPatient(Patient patient) =>
+      guardPatientVoid('addPatient', () => datasource.insert(patient));
 
   @override
-  FutureResult<void> deletePatient(int id) async {
-    try {
-      await datasource.softDelete(id);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.deletePatient failed: $e'));
-    }
-  }
+  FutureResult<void> deletePatient(int id) =>
+      guardPatientVoid('deletePatient', () => datasource.softDelete(id));
 
   @override
-  FutureResult<List<Patient>> getAllPatients() async {
-    try {
-      return Right(await datasource.fetchAll());
-    } catch (e) {
-      return Left(CacheFailure('patients.getAllPatients failed: $e'));
-    }
-  }
+  FutureResult<List<Patient>> getAllPatients() =>
+      guardPatient('getAllPatients', datasource.fetchAll);
 
   @override
-  FutureResult<Patient?> getPatientById(int id) async {
-    try {
-      return Right(await datasource.fetchById(id));
-    } catch (e) {
-      return Left(CacheFailure('patients.getPatientById failed: $e'));
-    }
-  }
+  FutureResult<Patient?> getPatientById(int id) =>
+      guardPatient('getPatientById', () => datasource.fetchById(id));
 
   @override
-  FutureResult<void> updatePatient(Patient patient) async {
-    try {
-      await datasource.update(patient);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.updatePatient failed: $e'));
-    }
-  }
+  FutureResult<void> updatePatient(Patient patient) =>
+      guardPatientVoid('updatePatient', () => datasource.update(patient));
 
   @override
-  FutureResult<List<Patient>> searchPatients(String query) async {
-    try {
-      return Right(await datasource.search(query));
-    } catch (e) {
-      return Left(CacheFailure('patients.searchPatients failed: $e'));
-    }
-  }
+  FutureResult<List<Patient>> searchPatients(String query) =>
+      guardPatient('searchPatients', () => datasource.search(query));
 
   @override
-  FutureResult<List<PatientAllergy>> getPatientAllergies(int patientId) async {
-    try {
-      return Right(await datasource.fetchAllergies(patientId));
-    } catch (e) {
-      return Left(CacheFailure('patients.getPatientAllergies failed: $e'));
-    }
-  }
+  FutureResult<List<PatientAllergy>> getPatientAllergies(int patientId) =>
+      guardPatient(
+        'getPatientAllergies',
+        () => datasource.fetchAllergies(patientId),
+      );
 
   @override
-  FutureResult<void> addAllergy(PatientAllergy allergy) async {
-    try {
-      await datasource.insertAllergy(allergy);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.addAllergy failed: $e'));
-    }
-  }
+  FutureResult<void> addAllergy(PatientAllergy allergy) =>
+      guardPatientVoid('addAllergy', () => datasource.insertAllergy(allergy));
 
   @override
-  FutureResult<void> removeAllergy(int allergyId) async {
-    try {
-      await datasource.deleteAllergy(allergyId);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.removeAllergy failed: $e'));
-    }
-  }
+  FutureResult<void> removeAllergy(int allergyId) => guardPatientVoid(
+        'removeAllergy',
+        () => datasource.deleteAllergy(allergyId),
+      );
 
   @override
-  FutureResult<List<PatientCondition>> getPatientConditions(int patientId) async {
-    try {
-      return Right(await datasource.fetchConditions(patientId));
-    } catch (e) {
-      return Left(CacheFailure('patients.getPatientConditions failed: $e'));
-    }
-  }
+  FutureResult<List<PatientCondition>> getPatientConditions(int patientId) =>
+      guardPatient(
+        'getPatientConditions',
+        () => datasource.fetchConditions(patientId),
+      );
 
   @override
-  FutureResult<void> addCondition(PatientCondition condition) async {
-    try {
-      await datasource.insertCondition(condition);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.addCondition failed: $e'));
-    }
-  }
+  FutureResult<void> addCondition(PatientCondition condition) =>
+      guardPatientVoid('addCondition', () => datasource.insertCondition(condition));
 
   @override
-  FutureResult<void> removeCondition(int conditionId) async {
-    try {
-      await datasource.deleteCondition(conditionId);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('patients.removeCondition failed: $e'));
-    }
-  }
+  FutureResult<void> removeCondition(int conditionId) => guardPatientVoid(
+        'removeCondition',
+        () => datasource.deleteCondition(conditionId),
+      );
 }

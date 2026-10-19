@@ -5,6 +5,7 @@ import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dar
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient_allergy.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient_condition.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_detail_loader.dart';
 
 part 'patient_state.dart';
 part 'patient_cubit.freezed.dart';
@@ -39,35 +40,7 @@ class PatientCubit extends Cubit<PatientState> {
 
   Future<void> loadPatientDetail(int patientId) async {
     emit(const PatientState.loading());
-    final patientResult = await repository.getPatientById(patientId);
-    if (patientResult.isLeft()) {
-      emit(
-        PatientState.error(
-          message: patientResult.fold((f) => f.message, (_) => ''),
-        ),
-      );
-      return;
-    }
-
-    final patient = patientResult.fold((_) => null, (p) => p);
-    if (patient == null) {
-      emit(const PatientState.error(message: 'Patient not found'));
-      return;
-    }
-
-    final allergiesResult = await repository.getPatientAllergies(patientId);
-    final conditionsResult = await repository.getPatientConditions(patientId);
-
-    final allergies = allergiesResult.fold((_) => <PatientAllergy>[], (a) => a);
-    final conditions = conditionsResult.fold((_) => <PatientCondition>[], (c) => c);
-
-    emit(
-      PatientState.patientDetail(
-        patient: patient,
-        allergies: allergies,
-        conditions: conditions,
-      ),
-    );
+    emit(await PatientDetailLoader.load(repository, patientId));
   }
 
   Future<void> addPatient(Patient patient) async {
