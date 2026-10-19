@@ -57,7 +57,7 @@ class ConsultationRepositoryImpl implements IConsultationRepository {
       if (existing != null) {
         await datasource.update(
           existing.copyWith(
-            status: 'finalized',
+            status: AppConstants.consultationStatusFinalized,
             finalizedAt: DateTime.now(),
           ),
         );
