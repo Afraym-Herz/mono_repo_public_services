@@ -16,7 +16,7 @@
   "settings_theme": "Theme",
   "settings_theme_hint": "Switch between light and dark mode",
   "settings_close": "Close",
-  "home_placeholder": "Dashboard coming soon — only the side navigation bar is implemented.",
+  "home_placeholder": "More sections coming soon — they will appear here.",
   "placeholder_screen": "Placeholder: {title}",
   "field_required": "This field is required",
   "invalid_number": "Invalid number",
@@ -110,6 +110,12 @@
   "home_queue_exam_general": "Internal",
   "home_queue_exam_new": "New",
   "home_queue_exam_referral": "Referral",
+  "home_appointments_title": "Tomorrow's appointments",
+  "home_appointments_first_label": "First appointment",
+  "home_appointments_doctor": "Dr. Youssef Abdallah",
+  "home_appointments_total": "54 booked cases",
+  "home_appointments_unconfirmed": "5 unconfirmed",
+  "home_appointments_view_all": "View appointments",
   "role_secretary": "Secretary",
   "role_doctor": "Doctor",
   "role_admin": "Admin",
@@ -147,5 +153,54 @@
   "queue_sort": {
     "ticket_ascending": "Ticket no. (ascending)",
     "ticket_descending": "Ticket no. (descending)"
+  },
+  "queue_row": {
+    "status": {
+      "current": "Current",
+      "waiting": "Waiting",
+      "urgent": "Urgent",
+      "done": "Examined",
+      "collected": "Collected",
+      "cancelled": "Cancelled",
+      "booked": "Booked"
+    },
+    "action": {
+      "check_in": "Check in",
+      "call": "Call",
+      "advance": "Advance",
+      "cancel": "Cancel",
+      "restore": "Restore",
+      "finish": "Finish exam",
+      "collect": "Collect payment",
+      "request_labs": "Request labs"
+    },
+    "type": {
+      "booked": "Booked",
+      "walk_in": "Walk-in",
+      "follow_up": "Follow-up"
+    },
+    "meta": {
+      "arrived_at": "Arrived",
+      "scheduled_at": "Scheduled",
+      "queue_number": "Queue no.",
+      "file_number": "File no.",
+      "wait": "Wait time: {minutes} min",
+      "paid": "Collected"
+    },
+    "cancel_reason": {
+      "staff": "Cancelled by staff"
+    },
+    "collect": {
+      "title": "Collect payment",
+      "amount_label": "Amount (EGP)",
+      "confirm": "Confirm collection",
+      "invalid_amount": "Enter a valid amount"
+    },
+    "empty": "No patients in the queue",
+    "error": {
+      "current_in_progress": "Another consultation is in progress — finish it first",
+      "board_changed": "The queue changed, refreshing",
+      "invalid_transition": "This action is not allowed in the current state"
+    }
   }
 }

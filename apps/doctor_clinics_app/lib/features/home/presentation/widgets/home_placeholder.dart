@@ -3,22 +3,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'home_section_card.dart';
+
 /// Card shell reserving space for the dashboard sections still to be built.
 class HomePlaceholder extends StatelessWidget {
   const HomePlaceholder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final surface =
-        context.clinicIsDark ? context.clinicContainer : context.cardColor;
-
-    return Container(
-      padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
-      decoration: BoxDecoration(
-        color: surface,
-        borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
-        border: Border.all(color: context.clinicBorder),
-      ),
+    return HomeSectionCard(
+      animationDelay: const Duration(milliseconds: 560),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

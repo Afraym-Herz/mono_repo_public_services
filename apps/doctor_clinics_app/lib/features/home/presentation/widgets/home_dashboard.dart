@@ -4,6 +4,7 @@ import 'package:doctor_clinics_app/features/home/presentation/widgets/home_appoi
 import 'package:doctor_clinics_app/features/home/presentation/widgets/home_greeting_header.dart';
 import 'package:doctor_clinics_app/features/home/presentation/widgets/home_sections_row.dart';
 import 'package:doctor_clinics_app/features/home/presentation/widgets/home_stats_row.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Home dashboard canvas rendered inside the workspace shell.
 ///
@@ -14,14 +15,15 @@ class HomeDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          HomeGreetingHeader(),
-          HomeAppointmentsAlert(),
-          HomeStatsRow(),
-          HomeSectionsRow(),
+          const HomeGreetingHeader(),
+          const HomeAppointmentsAlert(),
+          SizedBox(height: 20.h),
+          const HomeStatsRow(),
+          const HomeSectionsRow(),
         ],
       ),
     );

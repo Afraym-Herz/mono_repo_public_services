@@ -1,10 +1,15 @@
+import 'package:flutter/widgets.dart';
+
+import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_patient.dart';
+import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_store.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/helpers/queue_format.dart';
 import 'home_queue_action.dart';
 import 'home_queue_status.dart';
 
 /// One row in the home "current queue" panel.
 ///
-/// Presentational: mirrors the design mock until the panel reads the live queue
-/// feed.
+/// Built from the shared dummy clinic day (`assets/data/queue_patients.json`)
+/// until the panel reads the live queue feed.
 class HomeQueueSampleRow {
   const HomeQueueSampleRow({
     required this.number,
@@ -38,46 +43,49 @@ class HomeQueueSampleRow {
   final String? appointmentTime;
 }
 
-/// Sample rows mirroring the dashboard mock (DESIGN (2).md).
-const List<HomeQueueSampleRow> homeQueueSampleRows = [
-  HomeQueueSampleRow(
-    number: 1,
-    name: 'أحمد محمود علي',
-    status: HomeQueueStatus.inConsultation,
-    examTypeKey: 'home_queue_exam_general',
-    waitMinutes: 18,
-    action: HomeQueueAction.finish,
-  ),
-  HomeQueueSampleRow(
-    number: 2,
-    name: 'فاطمة حسن إبراهيم',
-    status: HomeQueueStatus.waiting,
-    examTypeKey: 'home_queue_exam_new',
-    waitMinutes: 22,
-    action: HomeQueueAction.call,
-  ),
-  HomeQueueSampleRow(
-    number: 3,
-    name: 'عاصم كمال الشريف',
-    status: HomeQueueStatus.urgent,
-    examTypeKey: 'home_queue_exam_referral',
-    waitMinutes: 8,
-    action: HomeQueueAction.start,
-  ),
-  HomeQueueSampleRow(
-    number: 4,
-    name: 'مريم وجدي النجار',
-    status: HomeQueueStatus.waiting,
-    examTypeKey: 'home_queue_exam_new',
-    waitMinutes: 12,
-    action: HomeQueueAction.more,
-  ),
-  HomeQueueSampleRow(
-    number: 5,
-    name: 'طارق سمير عبد الحليم',
-    status: HomeQueueStatus.booked,
-    examTypeKey: 'home_queue_exam_general',
-    appointmentTime: '١٠:٣٠ م',
-    action: HomeQueueAction.checkIn,
-  ),
-];
+/// The home-panel subset of the demo patients, mapped to view rows.
+List<HomeQueueSampleRow> homeQueueSampleRows(BuildContext context) =>
+    QueueDemoStore.instance.homePatients
+        .map((patient) => _toRow(patient, context))
+        .toList(growable: false);
+
+HomeQueueSampleRow _toRow(QueueDemoPatient patient, BuildContext context) =>
+    HomeQueueSampleRow(
+      number: patient.number,
+      name: patient.name,
+      status: _statusFor(patient),
+      examTypeKey: patient.examTypeKey,
+      action: _actionFor(patient.homeAction),
+      waitMinutes: patient.waitMinutes,
+      appointmentTime: patient.scheduledTime == null
+          ? null
+          : QueueFormat.localizedSlot(patient.scheduledTime!, context),
+    );
+
+HomeQueueStatus _statusFor(QueueDemoPatient patient) {
+  if (patient.isBooked) return HomeQueueStatus.booked;
+  if (patient.isUrgent) return HomeQueueStatus.urgent;
+  switch (patient.statusCode) {
+    case 'in_consultation':
+      return HomeQueueStatus.inConsultation;
+    case 'done':
+      return HomeQueueStatus.done;
+    default:
+      return HomeQueueStatus.waiting;
+  }
+}
+
+HomeQueueAction _actionFor(String action) {
+  switch (action) {
+    case 'finish':
+      return HomeQueueAction.finish;
+    case 'call':
+      return HomeQueueAction.call;
+    case 'start':
+      return HomeQueueAction.start;
+    case 'checkIn':
+      return HomeQueueAction.checkIn;
+    default:
+      return HomeQueueAction.more;
+  }
+}

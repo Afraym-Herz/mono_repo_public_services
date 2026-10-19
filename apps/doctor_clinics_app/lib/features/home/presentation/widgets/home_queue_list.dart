@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +23,8 @@ class HomeQueueList extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final row in homeQueueSampleRows) HomeQueueRow(sample: row),
+            for (final row in homeQueueSampleRows(context))
+              HomeQueueRow(sample: row),
           ],
         ),
       ),

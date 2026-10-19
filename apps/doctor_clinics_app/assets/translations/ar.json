@@ -16,7 +16,7 @@
   "settings_theme": "المظهر",
   "settings_theme_hint": "التبديل بين الوضع الفاتح والداكن",
   "settings_close": "إغلاق",
-  "home_placeholder": "لوحة التحكم قيد الإنشاء — تم تنفيذ شريط التنقل الجانبي فقط.",
+  "home_placeholder": "أقسام إضافية قيد الإنشاء — ستظهر هنا قريبًا.",
   "placeholder_screen": "شاشة مؤقتة: {title}",
   "field_required": "هذا الحقل مطلوب",
   "invalid_number": "رقم غير صالح",
@@ -110,6 +110,12 @@
   "home_queue_exam_general": "باطنة",
   "home_queue_exam_new": "جديد",
   "home_queue_exam_referral": "تحويل",
+  "home_appointments_title": "مواعيد الغد",
+  "home_appointments_first_label": "أول موعد",
+  "home_appointments_doctor": "د. يوسف عبد الله",
+  "home_appointments_total": "٥٤ حالة محجوزة",
+  "home_appointments_unconfirmed": "٥ غير مؤكدة",
+  "home_appointments_view_all": "عرض المواعيد",
   "role_secretary": "سكرتارية",
   "role_doctor": "طبيب",
   "role_admin": "مدير",
@@ -147,5 +153,54 @@
   "queue_sort": {
     "ticket_ascending": "رقم الدور (تصاعدي)",
     "ticket_descending": "رقم الدور (تنازلي)"
+  },
+  "queue_row": {
+    "status": {
+      "current": "الحالي",
+      "waiting": "منتظر",
+      "urgent": "عاجل / طارئ",
+      "done": "تم الكشف",
+      "collected": "تم التحصيل",
+      "cancelled": "ملغي",
+      "booked": "حجز مسبق"
+    },
+    "action": {
+      "check_in": "تسجيل حضور",
+      "call": "استدعاء",
+      "advance": "تقديم",
+      "cancel": "إلغاء",
+      "restore": "إعادة تعمل",
+      "finish": "إنهاء الكشف",
+      "collect": "تم التحصيل",
+      "request_labs": "طلب تحاليل"
+    },
+    "type": {
+      "booked": "حجز مسبق",
+      "walk_in": "بدون موعد",
+      "follow_up": "متابعة"
+    },
+    "meta": {
+      "arrived_at": "حضور",
+      "scheduled_at": "الموعد",
+      "queue_number": "رقم الدور",
+      "file_number": "رقم الملف",
+      "wait": "وقت الانتظار: {minutes} دقيقة",
+      "paid": "تم التحصيل"
+    },
+    "cancel_reason": {
+      "staff": "ألغاه الموظف"
+    },
+    "collect": {
+      "title": "تحصيل المبلغ",
+      "amount_label": "المبلغ (ج.م.)",
+      "confirm": "تأكيد التحصيل",
+      "invalid_amount": "أدخل مبلغاً صحيحاً"
+    },
+    "empty": "لا يوجد مرضى في الطابور",
+    "error": {
+      "current_in_progress": "يوجد كشف جارٍ بالفعل — أنهِ الكشف الحالي أولاً",
+      "board_changed": "تغيّرت قائمة الانتظار، جارٍ التحديث",
+      "invalid_transition": "لا يمكن تنفيذ هذا الإجراء في الحالة الحالية"
+    }
   }
 }

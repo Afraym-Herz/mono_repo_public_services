@@ -26,7 +26,10 @@ void registerAppCubits() {
     () => PatientCubit(repository: getIt<PatientRepository>()),
   );
   getIt.registerFactory<QueueCubit>(
-    () => QueueCubit(repository: getIt<IQueueRepository>()),
+    () => QueueCubit(
+      repository: getIt<IQueueRepository>(),
+      settingsRepository: getIt<ISettingsRepository>(),
+    ),
   );
   getIt.registerFactory<ConsultationCubit>(
     () => ConsultationCubit(repository: getIt<IConsultationRepository>()),
