@@ -8,9 +8,10 @@ class QueueEntryRowData {
   const QueueEntryRowData(this.entry, this.patient, this.appointment);
 }
 
-class BookedAppointmentRowData {
+/// Appointment plus its patient, used by the Day/Week planner.
+class AppointmentRowData {
   final Appointment appointment;
   final Patient patient;
 
-  const BookedAppointmentRowData(this.appointment, this.patient);
+  const AppointmentRowData(this.appointment, this.patient);
 }

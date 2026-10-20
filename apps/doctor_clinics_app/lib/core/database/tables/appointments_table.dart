@@ -5,11 +5,14 @@ class Appointments extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get patientId => integer().references(Patients, #id)();
   DateTimeColumn get scheduledDate => dateTime()();
+  // Day-only bookings: kept for legacy rows, never read by the booking flow.
   TextColumn get scheduledTime => text()();
+  // Per-day ticket number. Assigned when the booking is created.
+  IntColumn get queueNumber => integer().nullable()();
   // See AppConstants.appointmentTypeBooked/WalkIn/FollowUp.
   TextColumn get type => text()();
-  // See AppConstants.appointmentStatusBooked/Arrived/Waiting/InConsultation/
-  // Done/Cancelled/NoShow.
+  // See AppConstants.appointmentStatusBooked/InConsultation/Done/Cancelled/
+  // NoShow. Legacy arrived/waiting rows are normalized by the v3 migration.
   TextColumn get status => text()();
   TextColumn get reason => text().nullable()();
   TextColumn get notes => text().nullable()();
@@ -24,7 +27,7 @@ class QueueEntries extends Table {
   DateTimeColumn get queueDate => dateTime()();
   IntColumn get queueNumber => integer()();
   IntColumn get position => integer()();
-  // See AppConstants.queueStatusWaiting/InConsultation/Done/Cancelled.
+  // See AppConstants.queueStatusWaiting/InConsultation/Done/Cancelled/NoShow.
   TextColumn get status => text()();
   DateTimeColumn get arrivedAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get calledAt => dateTime().nullable()();

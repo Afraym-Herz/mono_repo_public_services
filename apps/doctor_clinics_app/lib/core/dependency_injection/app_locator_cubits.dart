@@ -16,6 +16,7 @@ import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_
 import 'package:doctor_clinics_app/features/prescriptions/domain/repositories/prescription_repository.dart';
 import 'package:doctor_clinics_app/features/prescriptions/presentation/cubit/prescription_cubit.dart';
 import 'package:doctor_clinics_app/features/queue/domain/repositories/queue_repository.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/cubit/appointment_cubit.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/cubit/queue_cubit.dart';
 import 'package:doctor_clinics_app/features/reports/domain/repositories/report_repository.dart';
 import 'package:doctor_clinics_app/features/reports/presentation/cubit/report_cubit.dart';
@@ -40,6 +41,9 @@ void registerAppCubits() {
       repository: getIt<IQueueRepository>(),
       settingsRepository: getIt<ISettingsRepository>(),
     ),
+  );
+  getIt.registerFactory<AppointmentCubit>(
+    () => AppointmentCubit(repository: getIt<IQueueRepository>()),
   );
   getIt.registerFactory<ConsultationCubit>(
     () => ConsultationCubit(repository: getIt<IConsultationRepository>()),
