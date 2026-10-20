@@ -70,7 +70,7 @@
   "home_clinic_hours": "Clinic hours: Morning shift (9:00 AM - 5:00 PM)",
   "home_action_book_appointment": "Book appointment",
   "home_action_add_to_queue": "Add patient to queue",
-  "home_appointments_alert": "Appointments alert: 3 patients have not shown up after their scheduled time in today's schedule.",
+  "home_appointments_alert": "Queue alert: 3 patients are still waiting to be seen today.",
   "home_view_latecomers": "View latecomers",
   "home_stats_patients_title": "Today's patients",
   "home_stats_patients_value": "16",
@@ -96,7 +96,7 @@
   "home_queue_room_name": "Dr. Youssef Abdallah",
   "home_queue_exam_type": "Exam type: {type}",
   "home_queue_wait": "Wait time: {minutes} min",
-  "home_queue_appointment": "Confirmed slot: {time}",
+  "home_queue_booked": "In today's queue",
   "home_queue_view_all": "View full queue ({count} waiting)",
   "home_queue_status_in_consultation": "In consultation",
   "home_queue_status_waiting": "Waiting",
@@ -106,15 +106,15 @@
   "home_queue_action_finish": "Finish",
   "home_queue_action_call": "Call",
   "home_queue_action_start": "Start exam",
-  "home_queue_action_check_in": "Check in",
   "home_queue_exam_general": "Internal",
   "home_queue_exam_new": "New",
   "home_queue_exam_referral": "Referral",
   "home_appointments_title": "Appointments",
-  "home_appointments_first_label": "First appointment",
+  "home_appointments_day_label": "Booking mode",
+  "home_appointments_day_value": "By day",
   "home_appointments_doctor": "Dr. Youssef Abdallah",
   "home_appointments_total": "54 cases",
-  "home_appointments_unconfirmed": "Follow up on 5 unconfirmed",
+  "home_appointments_booking_hint": "Queue numbers follow booking order",
   "home_appointments_view_all": "View appointments",
   "home_operations_title": "Upcoming operations",
   "home_operations_first_label": "First operation",
@@ -207,6 +207,7 @@
     "waiting": "Waiting",
     "in_consultation": "In consultation",
     "done": "Done",
+    "no_show": "No-show",
     "cancelled": "Cancelled"
   },
   "queue_summary": {
@@ -235,10 +236,10 @@
       "done": "Examined",
       "collected": "Collected",
       "cancelled": "Cancelled",
-      "booked": "Booked"
+      "no_show": "No-show"
     },
     "action": {
-      "check_in": "Check in",
+      "no_show": "No-show",
       "call": "Call",
       "advance": "Advance",
       "cancel": "Cancel",
@@ -273,7 +274,66 @@
     "error": {
       "current_in_progress": "Another consultation is in progress — finish it first",
       "board_changed": "The queue changed, refreshing",
-      "invalid_transition": "This action is not allowed in the current state"
+      "invalid_transition": "This action is not allowed in the current state",
+      "no_show_paid": "This patient has a payment recorded, so a no-show is blocked"
     }
+  },
+  "appointment_header": {
+    "title": "Appointments & calendar",
+    "subtitle": "Book by day — each patient gets a permanent queue number",
+    "book": "Book new appointment",
+    "print": "Print schedule",
+    "print_unavailable": "Printing is not available in this version",
+    "today_count": "{count} appointments today",
+    "week_count": "{count} appointments this week",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "appointment_toolbar": {
+    "day": "Day",
+    "week": "Week",
+    "today": "Today"
+  },
+  "appointment_status": {
+    "booked": "Booked",
+    "in_consultation": "In consultation",
+    "done": "Done",
+    "cancelled": "Cancelled",
+    "no_show": "No-show"
+  },
+  "appointment_empty": {
+    "title": "No appointments",
+    "subtitle": "Use “Book new appointment” to add the first patient for this day.",
+    "subtitle_read_only": "No appointments are scheduled for this day."
+  },
+  "appointment_day": {
+    "count": "{0} appointments"
+  },
+  "appointment_week": {
+    "empty_day": "No appointments on this day"
+  },
+  "appointment_row": {
+    "reschedule": "Move to another day",
+    "cancel": "Cancel appointment",
+    "cancel_title": "Cancel this appointment?",
+    "cancel_body": "The queue number stays reserved and will never be reused.",
+    "keep": "Keep"
+  },
+  "appointment_sheet": {
+    "title": "Book new appointment",
+    "subtitle": "Pick a patient and a day. No time slot is needed.",
+    "search_patient": "Patient",
+    "search_hint": "Search by name, file number or phone",
+    "no_patients": "No matching patients",
+    "notes": "Notes",
+    "notes_hint": "Optional note for the secretary",
+    "confirm": "Confirm booking",
+    "walk_in_title": "Add walk-in patient",
+    "walk_in_subtitle": "The patient joins today's queue at the end.",
+    "walk_in_confirm": "Add to today's queue"
+  },
+  "appointment_error": {
+    "retry": "Try again",
+    "past_date": "Appointments cannot be booked in the past"
   }
 }

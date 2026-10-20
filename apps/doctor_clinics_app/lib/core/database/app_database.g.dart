@@ -1594,6 +1594,17 @@ class $AppointmentsTable extends Appointments
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _queueNumberMeta = const VerificationMeta(
+    'queueNumber',
+  );
+  @override
+  late final GeneratedColumn<int> queueNumber = GeneratedColumn<int>(
+    'queue_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _typeMeta = const VerificationMeta('type');
   @override
   late final GeneratedColumn<String> type = GeneratedColumn<String>(
@@ -1658,6 +1669,7 @@ class $AppointmentsTable extends Appointments
     patientId,
     scheduledDate,
     scheduledTime,
+    queueNumber,
     type,
     status,
     reason,
@@ -1709,6 +1721,15 @@ class $AppointmentsTable extends Appointments
       );
     } else if (isInserting) {
       context.missing(_scheduledTimeMeta);
+    }
+    if (data.containsKey('queue_number')) {
+      context.handle(
+        _queueNumberMeta,
+        queueNumber.isAcceptableOrUnknown(
+          data['queue_number']!,
+          _queueNumberMeta,
+        ),
+      );
     }
     if (data.containsKey('type')) {
       context.handle(
@@ -1780,6 +1801,10 @@ class $AppointmentsTable extends Appointments
         DriftSqlType.string,
         data['${effectivePrefix}scheduled_time'],
       )!,
+      queueNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}queue_number'],
+      ),
       type: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}type'],
@@ -1818,6 +1843,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
   final int patientId;
   final DateTime scheduledDate;
   final String scheduledTime;
+  final int? queueNumber;
   final String type;
   final String status;
   final String? reason;
@@ -1829,6 +1855,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     required this.patientId,
     required this.scheduledDate,
     required this.scheduledTime,
+    this.queueNumber,
     required this.type,
     required this.status,
     this.reason,
@@ -1843,6 +1870,9 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     map['patient_id'] = Variable<int>(patientId);
     map['scheduled_date'] = Variable<DateTime>(scheduledDate);
     map['scheduled_time'] = Variable<String>(scheduledTime);
+    if (!nullToAbsent || queueNumber != null) {
+      map['queue_number'] = Variable<int>(queueNumber);
+    }
     map['type'] = Variable<String>(type);
     map['status'] = Variable<String>(status);
     if (!nullToAbsent || reason != null) {
@@ -1864,6 +1894,9 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       patientId: Value(patientId),
       scheduledDate: Value(scheduledDate),
       scheduledTime: Value(scheduledTime),
+      queueNumber: queueNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(queueNumber),
       type: Value(type),
       status: Value(status),
       reason: reason == null && nullToAbsent
@@ -1889,6 +1922,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       patientId: serializer.fromJson<int>(json['patientId']),
       scheduledDate: serializer.fromJson<DateTime>(json['scheduledDate']),
       scheduledTime: serializer.fromJson<String>(json['scheduledTime']),
+      queueNumber: serializer.fromJson<int?>(json['queueNumber']),
       type: serializer.fromJson<String>(json['type']),
       status: serializer.fromJson<String>(json['status']),
       reason: serializer.fromJson<String?>(json['reason']),
@@ -1905,6 +1939,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       'patientId': serializer.toJson<int>(patientId),
       'scheduledDate': serializer.toJson<DateTime>(scheduledDate),
       'scheduledTime': serializer.toJson<String>(scheduledTime),
+      'queueNumber': serializer.toJson<int?>(queueNumber),
       'type': serializer.toJson<String>(type),
       'status': serializer.toJson<String>(status),
       'reason': serializer.toJson<String?>(reason),
@@ -1919,6 +1954,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     int? patientId,
     DateTime? scheduledDate,
     String? scheduledTime,
+    Value<int?> queueNumber = const Value.absent(),
     String? type,
     String? status,
     Value<String?> reason = const Value.absent(),
@@ -1930,6 +1966,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     patientId: patientId ?? this.patientId,
     scheduledDate: scheduledDate ?? this.scheduledDate,
     scheduledTime: scheduledTime ?? this.scheduledTime,
+    queueNumber: queueNumber.present ? queueNumber.value : this.queueNumber,
     type: type ?? this.type,
     status: status ?? this.status,
     reason: reason.present ? reason.value : this.reason,
@@ -1949,6 +1986,9 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       scheduledTime: data.scheduledTime.present
           ? data.scheduledTime.value
           : this.scheduledTime,
+      queueNumber: data.queueNumber.present
+          ? data.queueNumber.value
+          : this.queueNumber,
       type: data.type.present ? data.type.value : this.type,
       status: data.status.present ? data.status.value : this.status,
       reason: data.reason.present ? data.reason.value : this.reason,
@@ -1967,6 +2007,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
           ..write('patientId: $patientId, ')
           ..write('scheduledDate: $scheduledDate, ')
           ..write('scheduledTime: $scheduledTime, ')
+          ..write('queueNumber: $queueNumber, ')
           ..write('type: $type, ')
           ..write('status: $status, ')
           ..write('reason: $reason, ')
@@ -1983,6 +2024,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     patientId,
     scheduledDate,
     scheduledTime,
+    queueNumber,
     type,
     status,
     reason,
@@ -1998,6 +2040,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
           other.patientId == this.patientId &&
           other.scheduledDate == this.scheduledDate &&
           other.scheduledTime == this.scheduledTime &&
+          other.queueNumber == this.queueNumber &&
           other.type == this.type &&
           other.status == this.status &&
           other.reason == this.reason &&
@@ -2011,6 +2054,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
   final Value<int> patientId;
   final Value<DateTime> scheduledDate;
   final Value<String> scheduledTime;
+  final Value<int?> queueNumber;
   final Value<String> type;
   final Value<String> status;
   final Value<String?> reason;
@@ -2022,6 +2066,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     this.patientId = const Value.absent(),
     this.scheduledDate = const Value.absent(),
     this.scheduledTime = const Value.absent(),
+    this.queueNumber = const Value.absent(),
     this.type = const Value.absent(),
     this.status = const Value.absent(),
     this.reason = const Value.absent(),
@@ -2034,6 +2079,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     required int patientId,
     required DateTime scheduledDate,
     required String scheduledTime,
+    this.queueNumber = const Value.absent(),
     required String type,
     required String status,
     this.reason = const Value.absent(),
@@ -2051,6 +2097,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     Expression<int>? patientId,
     Expression<DateTime>? scheduledDate,
     Expression<String>? scheduledTime,
+    Expression<int>? queueNumber,
     Expression<String>? type,
     Expression<String>? status,
     Expression<String>? reason,
@@ -2063,6 +2110,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
       if (patientId != null) 'patient_id': patientId,
       if (scheduledDate != null) 'scheduled_date': scheduledDate,
       if (scheduledTime != null) 'scheduled_time': scheduledTime,
+      if (queueNumber != null) 'queue_number': queueNumber,
       if (type != null) 'type': type,
       if (status != null) 'status': status,
       if (reason != null) 'reason': reason,
@@ -2077,6 +2125,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     Value<int>? patientId,
     Value<DateTime>? scheduledDate,
     Value<String>? scheduledTime,
+    Value<int?>? queueNumber,
     Value<String>? type,
     Value<String>? status,
     Value<String?>? reason,
@@ -2089,6 +2138,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
       patientId: patientId ?? this.patientId,
       scheduledDate: scheduledDate ?? this.scheduledDate,
       scheduledTime: scheduledTime ?? this.scheduledTime,
+      queueNumber: queueNumber ?? this.queueNumber,
       type: type ?? this.type,
       status: status ?? this.status,
       reason: reason ?? this.reason,
@@ -2112,6 +2162,9 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     }
     if (scheduledTime.present) {
       map['scheduled_time'] = Variable<String>(scheduledTime.value);
+    }
+    if (queueNumber.present) {
+      map['queue_number'] = Variable<int>(queueNumber.value);
     }
     if (type.present) {
       map['type'] = Variable<String>(type.value);
@@ -2141,6 +2194,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
           ..write('patientId: $patientId, ')
           ..write('scheduledDate: $scheduledDate, ')
           ..write('scheduledTime: $scheduledTime, ')
+          ..write('queueNumber: $queueNumber, ')
           ..write('type: $type, ')
           ..write('status: $status, ')
           ..write('reason: $reason, ')
@@ -13516,6 +13570,7 @@ typedef $$AppointmentsTableCreateCompanionBuilder =
       required int patientId,
       required DateTime scheduledDate,
       required String scheduledTime,
+      Value<int?> queueNumber,
       required String type,
       required String status,
       Value<String?> reason,
@@ -13529,6 +13584,7 @@ typedef $$AppointmentsTableUpdateCompanionBuilder =
       Value<int> patientId,
       Value<DateTime> scheduledDate,
       Value<String> scheduledTime,
+      Value<int?> queueNumber,
       Value<String> type,
       Value<String> status,
       Value<String?> reason,
@@ -13603,6 +13659,11 @@ class $$AppointmentsTableFilterComposer
 
   ColumnFilters<String> get scheduledTime => $composableBuilder(
     column: $table.scheduledTime,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get queueNumber => $composableBuilder(
+    column: $table.queueNumber,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13709,6 +13770,11 @@ class $$AppointmentsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get queueNumber => $composableBuilder(
+    column: $table.queueNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get type => $composableBuilder(
     column: $table.type,
     builder: (column) => ColumnOrderings(column),
@@ -13782,6 +13848,11 @@ class $$AppointmentsTableAnnotationComposer
 
   GeneratedColumn<String> get scheduledTime => $composableBuilder(
     column: $table.scheduledTime,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get queueNumber => $composableBuilder(
+    column: $table.queueNumber,
     builder: (column) => column,
   );
 
@@ -13886,6 +13957,7 @@ class $$AppointmentsTableTableManager
                 Value<int> patientId = const Value.absent(),
                 Value<DateTime> scheduledDate = const Value.absent(),
                 Value<String> scheduledTime = const Value.absent(),
+                Value<int?> queueNumber = const Value.absent(),
                 Value<String> type = const Value.absent(),
                 Value<String> status = const Value.absent(),
                 Value<String?> reason = const Value.absent(),
@@ -13897,6 +13969,7 @@ class $$AppointmentsTableTableManager
                 patientId: patientId,
                 scheduledDate: scheduledDate,
                 scheduledTime: scheduledTime,
+                queueNumber: queueNumber,
                 type: type,
                 status: status,
                 reason: reason,
@@ -13910,6 +13983,7 @@ class $$AppointmentsTableTableManager
                 required int patientId,
                 required DateTime scheduledDate,
                 required String scheduledTime,
+                Value<int?> queueNumber = const Value.absent(),
                 required String type,
                 required String status,
                 Value<String?> reason = const Value.absent(),
@@ -13921,6 +13995,7 @@ class $$AppointmentsTableTableManager
                 patientId: patientId,
                 scheduledDate: scheduledDate,
                 scheduledTime: scheduledTime,
+                queueNumber: queueNumber,
                 type: type,
                 status: status,
                 reason: reason,

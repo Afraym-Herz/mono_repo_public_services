@@ -70,7 +70,7 @@
   "home_clinic_hours": "دوام العيادة: الفترة الصباحية (٩:٠٠ ص - ٥:٠٠ م)",
   "home_action_book_appointment": "حجز موعد",
   "home_action_add_to_queue": "إضافة مريض للطابور",
-  "home_appointments_alert": "تنبيه المواعيد: ٣ مرضى لم يحضروا بعد موعدهم المحدد في جدول كشوفات اليوم.",
+  "home_appointments_alert": "تنبيه الطابور: ٣ مرضى ما زالوا في انتظار الكشف اليوم.",
   "home_view_latecomers": "عرض المتأخرين",
   "home_stats_patients_title": "مرضى اليوم",
   "home_stats_patients_value": "١٦",
@@ -96,7 +96,7 @@
   "home_queue_room_name": "د. يوسف عبد الله",
   "home_queue_exam_type": "نوع الفحص: {type}",
   "home_queue_wait": "وقت الانتظار: {minutes} دقيقة",
-  "home_queue_appointment": "موعد مؤكد: {time}",
+  "home_queue_booked": "في دور اليوم",
   "home_queue_view_all": "عرض كامل الطابور ({count} منتظرين)",
   "home_queue_status_in_consultation": "في الكشف",
   "home_queue_status_waiting": "منتظر",
@@ -106,15 +106,15 @@
   "home_queue_action_finish": "إنهاء",
   "home_queue_action_call": "نداء",
   "home_queue_action_start": "بدء الفحص",
-  "home_queue_action_check_in": "تأكيد وصول",
   "home_queue_exam_general": "باطنة",
   "home_queue_exam_new": "جديد",
   "home_queue_exam_referral": "تحويل",
   "home_appointments_title": "مواعيد",
-  "home_appointments_first_label": "أول موعد",
+  "home_appointments_day_label": "طريقة الحجز",
+  "home_appointments_day_value": "حسب اليوم",
   "home_appointments_doctor": "د. يوسف عبد الله",
   "home_appointments_total": "٥٤ حالة",
-  "home_appointments_unconfirmed": "متابعة ٥ حالات غير مؤكدة",
+  "home_appointments_booking_hint": "أرقام الدور تُسند بترتيب الحجز",
   "home_appointments_view_all": "عرض المواعيد",
   "home_operations_title": "عمليات قادمة",
   "home_operations_first_label": "أول عملية",
@@ -207,6 +207,7 @@
     "waiting": "منتظر",
     "in_consultation": "في الكشف",
     "done": "تم",
+    "no_show": "لم يحضر",
     "cancelled": "ملغي"
   },
   "queue_summary": {
@@ -235,10 +236,10 @@
       "done": "تم الكشف",
       "collected": "تم التحصيل",
       "cancelled": "ملغي",
-      "booked": "حجز مسبق"
+      "no_show": "لم يحضر"
     },
     "action": {
-      "check_in": "تسجيل حضور",
+      "no_show": "لم يحضر",
       "call": "استدعاء",
       "advance": "تقديم",
       "cancel": "إلغاء",
@@ -273,7 +274,66 @@
     "error": {
       "current_in_progress": "يوجد كشف جارٍ بالفعل — أنهِ الكشف الحالي أولاً",
       "board_changed": "تغيّرت قائمة الانتظار، جارٍ التحديث",
-      "invalid_transition": "لا يمكن تنفيذ هذا الإجراء في الحالة الحالية"
+      "invalid_transition": "لا يمكن تنفيذ هذا الإجراء في الحالة الحالية",
+      "no_show_paid": "تم تسجيل دفعة لهذا المريض، لذلك لا يمكن تسجيل عدم الحضور"
     }
+  },
+  "appointment_header": {
+    "title": "جدول المواعيد والتقويم",
+    "subtitle": "احجز باليوم فقط — لكل مريض رقم دور ثابت",
+    "book": "حجز موعد جديد",
+    "print": "طباعة الجدول",
+    "print_unavailable": "الطباعة غير متاحة في هذه النسخة",
+    "today_count": "{count} موعدا اليوم",
+    "week_count": "{count} موعدا هذا الأسبوع",
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "appointment_toolbar": {
+    "day": "يوم",
+    "week": "أسبوع",
+    "today": "اليوم"
+  },
+  "appointment_status": {
+    "booked": "محجوز",
+    "in_consultation": "في الكشف",
+    "done": "تم",
+    "cancelled": "ملغي",
+    "no_show": "لم يحضر"
+  },
+  "appointment_empty": {
+    "title": "لا توجد مواعيد",
+    "subtitle": "استخدم «حجز موعد جديد» لإضافة أول مريض في هذا اليوم.",
+    "subtitle_read_only": "لا توجد مواعيد مجدولة في هذا اليوم."
+  },
+  "appointment_day": {
+    "count": "{0} موعد"
+  },
+  "appointment_week": {
+    "empty_day": "لا توجد مواعيد في هذا اليوم"
+  },
+  "appointment_row": {
+    "reschedule": "نقل إلى يوم آخر",
+    "cancel": "إلغاء الموعد",
+    "cancel_title": "إلغاء هذا الموعد؟",
+    "cancel_body": "رقم الدور يظل محفوظاً ولن يُعاد استخدامه أبداً.",
+    "keep": "احتفاظ"
+  },
+  "appointment_sheet": {
+    "title": "حجز موعد جديد",
+    "subtitle": "اختر المريض واليوم. لا حاجة لاختيار وقت.",
+    "search_patient": "المريض",
+    "search_hint": "ابحث بالاسم أو رقم الملف أو الهاتف",
+    "no_patients": "لا يوجد مرضى مطابقون",
+    "notes": "ملاحظات",
+    "notes_hint": "ملاحظة اختيارية للسكرتيرة",
+    "confirm": "تأكيد الحجز",
+    "walk_in_title": "إضافة مريض بدون موعد",
+    "walk_in_subtitle": "ينضم المريض إلى طابور اليوم في النهاية.",
+    "walk_in_confirm": "إضافة إلى طابور اليوم"
+  },
+  "appointment_error": {
+    "retry": "إعادة المحاولة",
+    "past_date": "لا يمكن حجز موعد في تاريخ سابق"
   }
 }

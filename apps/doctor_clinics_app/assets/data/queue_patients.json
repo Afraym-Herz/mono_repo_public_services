@@ -95,7 +95,7 @@
       "isUrgent": false,
       "waitMinutes": null,
       "scheduledTime": "22:30",
-      "homeAction": "checkIn",
+      "homeAction": "more",
       "showOnHome": true,
       "paid": false
     },

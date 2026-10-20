@@ -24,6 +24,7 @@ import 'daos/settings_dao.dart';
 import 'daos/audit_dao.dart';
 
 part 'app_database.g.dart';
+part 'migrations/appointment_number_backfill.dart';
 
 @DriftDatabase(
   tables: [
@@ -66,7 +67,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e]) : super(e ?? _openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   static QueryExecutor _openConnection() {
     return openConnection(dbName: DbConstants.dbName);
@@ -80,6 +81,10 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(queueEntries, queueEntries.paidAt);
         await m.addColumn(queueEntries, queueEntries.paidAmountPiasters);
         await m.addColumn(queueEntries, queueEntries.cancelReason);
+      }
+      if (from < 3) {
+        await m.addColumn(appointments, appointments.queueNumber);
+        await backfillAppointmentQueueNumbers(this);
       }
     },
   );
