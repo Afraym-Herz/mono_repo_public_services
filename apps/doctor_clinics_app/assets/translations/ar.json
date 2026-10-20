@@ -144,7 +144,47 @@
   },
   "patients": {
     "list_title": "قائمة المرضى",
-    "list_placeholder": "قائمة المرضى قيد الإنشاء"
+    "list_placeholder": "قائمة المرضى قيد الإنشاء",
+    "search_hint": "ابحث بالاسم أو رقم الملف أو الهاتف…",
+    "gender_male": "ذكر",
+    "gender_female": "أنثى",
+    "age_years": "{count} سنة",
+    "currency": "ج.م.",
+    "table": {
+      "file_number": "رقم الملف",
+      "name": "اسم المريض",
+      "age_gender": "السّن/النوع",
+      "phone": "رقم الهاتف",
+      "blood_type": "فصيلة الدم",
+      "last_visit": "آخر زيارة",
+      "account": "الحساب/المتبقي",
+      "actions": "إجراءات سريعة",
+      "none": "—",
+      "paid_full": "مدفوع بالكامل",
+      "remaining": "متبقي {amount}",
+      "showing": "عرض {from} - {to} من أصل {total} مريض",
+      "showing_none": "لا توجد نتائج من أصل {total} مريض",
+      "empty": "لا يوجد مرضى مطابقون",
+      "empty_hint": "جرّب كلمة بحث أخرى أو غيّر الفلتر.",
+      "load_error": "تعذّر تحميل سجل المرضى",
+      "retry": "إعادة المحاولة",
+      "previous": "السابق",
+      "next": "التالي",
+      "view": "عرض الملف",
+      "book": "حجز موعد",
+      "delete": "حذف",
+      "delete_title": "حذف المريض",
+      "delete_message": "هل أنت متأكد من حذف {name}؟",
+      "cancel": "إلغاء",
+      "profile_unavailable": "ملف المريض غير متاح في هذه النسخة",
+      "book_unavailable": "حجز المواعيد غير متاح في هذه النسخة"
+    }
+  },
+  "patients_filter": {
+    "all": "الكل",
+    "new_patient": "مريض جديد",
+    "follow_up_soon": "متابعة قريبًا",
+    "indebtedness": "مديونية"
   },
   "queue_header": {
     "title": "طابور اليوم",

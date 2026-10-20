@@ -1,12 +1,13 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:core/core.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_cubit.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_list_cubit.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_toolbar_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/widgets/patients_header_connected.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/widgets/patients_table.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/widgets/patients_toolbar.dart';
 
 /// Displays all patients with live search and filters.
 class PatientListScreen extends StatelessWidget {
@@ -14,8 +15,11 @@ class PatientListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<PatientCubit>()..loadPatients(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<PatientListCubit>()..load()),
+        BlocProvider(create: (_) => getIt<PatientToolbarCubit>()),
+      ],
       child: AdaptiveLayout(
         mobileLayout: (_) => const _PatientListBody(),
         tabletLayout: (_) => const _PatientListBody(),
@@ -36,23 +40,16 @@ class _PatientListBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const PatientsHeaderConnected(),
+          const PatientsToolbar(),
           Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.PADDING_SIZE_LARGE.w,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                Dimensions.PADDING_SIZE_LARGE.w,
+                0,
+                Dimensions.PADDING_SIZE_LARGE.w,
+                Dimensions.PADDING_SIZE_SMALL.h,
               ),
-              child: ZoomIn(
-                delay: const Duration(milliseconds: 300),
-                child: AppSectionCard(
-                  title: 'patients.list_title'.tr(),
-                  icon: Icons.people_outline,
-                  animationDelay: const Duration(milliseconds: 350),
-                  child: Text(
-                    'patients.list_placeholder'.tr(),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-              ),
+              child: const PatientsTable(),
             ),
           ),
         ],

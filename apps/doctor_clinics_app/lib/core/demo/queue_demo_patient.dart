@@ -8,9 +8,13 @@ part 'queue_demo_patient.g.dart';
 /// `assets/data/queue_patients.json`.
 ///
 /// App-level fixture (not a feature model): the same rows feed the home
-/// "current queue" panel and seed the full queue workspace in the offline MVP.
-/// Feature-specific defaults (exam-type `.tr()` key, row action) stay null and
-/// are applied by the consuming feature.
+/// "current queue" panel, seed the full queue workspace, and seed the patient
+/// register in the offline MVP. Feature-specific defaults (exam-type `.tr()`
+/// key, row action) stay null and are applied by the consuming feature.
+///
+/// The profile block (`birthDate`, `bloodType`, `phone2`) and the register block
+/// (`lastVisitDaysAgo`, `followUpInDays`, `debtPiasters`) are only read by
+/// [PatientDemoSeeder]; the queue rows ignore them.
 @freezed
 class QueueDemoPatient with _$QueueDemoPatient {
   const QueueDemoPatient._();
@@ -32,6 +36,12 @@ class QueueDemoPatient with _$QueueDemoPatient {
     String? scheduledTime,
     int? paidAmountPiasters,
     String? cancelReason,
+    String? birthDate,
+    String? phone2,
+    String? bloodType,
+    int? lastVisitDaysAgo,
+    int? followUpInDays,
+    int? debtPiasters,
   }) = _QueueDemoPatient;
 
   /// True for an appointment that has not checked in yet.

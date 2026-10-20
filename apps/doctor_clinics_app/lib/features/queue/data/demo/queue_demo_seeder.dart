@@ -36,15 +36,20 @@ class QueueDemoSeeder {
   }
 
   Future<void> _insertPatient(QueueDemoPatient patient, DateTime now) async {
-    final patientId = await patientDao.insertPatient(
-      PatientsCompanion.insert(
-        fileNumber: patient.fileNumber ?? 'DEMO-${patient.number}',
-        fullName: patient.name,
-        searchText: patient.name,
-        gender: patient.gender ?? 'male',
-        phone: Value(patient.phone),
-      ),
-    );
+    final fileNumber = patient.fileNumber ?? 'DEMO-${patient.number}';
+    final existing = await patientDao.getPatientByFileNumber(fileNumber);
+    if (existing?.deletedAt != null) return;
+    final patientId =
+        existing?.id ??
+        await patientDao.insertPatient(
+          PatientsCompanion.insert(
+            fileNumber: fileNumber,
+            fullName: patient.name,
+            searchText: patient.name,
+            gender: patient.gender ?? 'male',
+            phone: Value(patient.phone),
+          ),
+        );
 
     if (patient.isBooked) {
       await queueDao.insertAppointment(
@@ -60,8 +65,7 @@ class QueueDemoSeeder {
       return;
     }
 
-    final status =
-        QueueStatus.tryParse(patient.status) ?? QueueStatus.waiting;
+    final status = QueueStatus.tryParse(patient.status) ?? QueueStatus.waiting;
     final arrivedAt = now.subtract(Duration(minutes: patient.waitMinutes ?? 0));
     await queueDao.insertQueueEntry(
       QueueEntriesCompanion.insert(

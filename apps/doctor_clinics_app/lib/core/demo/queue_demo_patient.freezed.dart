@@ -37,6 +37,12 @@ mixin _$QueueDemoPatient {
   String? get scheduledTime => throw _privateConstructorUsedError;
   int? get paidAmountPiasters => throw _privateConstructorUsedError;
   String? get cancelReason => throw _privateConstructorUsedError;
+  String? get birthDate => throw _privateConstructorUsedError;
+  String? get phone2 => throw _privateConstructorUsedError;
+  String? get bloodType => throw _privateConstructorUsedError;
+  int? get lastVisitDaysAgo => throw _privateConstructorUsedError;
+  int? get followUpInDays => throw _privateConstructorUsedError;
+  int? get debtPiasters => throw _privateConstructorUsedError;
 
   /// Serializes this QueueDemoPatient to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,6 +78,12 @@ abstract class $QueueDemoPatientCopyWith<$Res> {
     String? scheduledTime,
     int? paidAmountPiasters,
     String? cancelReason,
+    String? birthDate,
+    String? phone2,
+    String? bloodType,
+    int? lastVisitDaysAgo,
+    int? followUpInDays,
+    int? debtPiasters,
   });
 }
 
@@ -106,6 +118,12 @@ class _$QueueDemoPatientCopyWithImpl<$Res, $Val extends QueueDemoPatient>
     Object? scheduledTime = freezed,
     Object? paidAmountPiasters = freezed,
     Object? cancelReason = freezed,
+    Object? birthDate = freezed,
+    Object? phone2 = freezed,
+    Object? bloodType = freezed,
+    Object? lastVisitDaysAgo = freezed,
+    Object? followUpInDays = freezed,
+    Object? debtPiasters = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -173,6 +191,30 @@ class _$QueueDemoPatientCopyWithImpl<$Res, $Val extends QueueDemoPatient>
                 ? _value.cancelReason
                 : cancelReason // ignore: cast_nullable_to_non_nullable
                       as String?,
+            birthDate: freezed == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            phone2: freezed == phone2
+                ? _value.phone2
+                : phone2 // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            bloodType: freezed == bloodType
+                ? _value.bloodType
+                : bloodType // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            lastVisitDaysAgo: freezed == lastVisitDaysAgo
+                ? _value.lastVisitDaysAgo
+                : lastVisitDaysAgo // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            followUpInDays: freezed == followUpInDays
+                ? _value.followUpInDays
+                : followUpInDays // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            debtPiasters: freezed == debtPiasters
+                ? _value.debtPiasters
+                : debtPiasters // ignore: cast_nullable_to_non_nullable
+                      as int?,
           )
           as $Val,
     );
@@ -205,6 +247,12 @@ abstract class _$$QueueDemoPatientImplCopyWith<$Res>
     String? scheduledTime,
     int? paidAmountPiasters,
     String? cancelReason,
+    String? birthDate,
+    String? phone2,
+    String? bloodType,
+    int? lastVisitDaysAgo,
+    int? followUpInDays,
+    int? debtPiasters,
   });
 }
 
@@ -238,6 +286,12 @@ class __$$QueueDemoPatientImplCopyWithImpl<$Res>
     Object? scheduledTime = freezed,
     Object? paidAmountPiasters = freezed,
     Object? cancelReason = freezed,
+    Object? birthDate = freezed,
+    Object? phone2 = freezed,
+    Object? bloodType = freezed,
+    Object? lastVisitDaysAgo = freezed,
+    Object? followUpInDays = freezed,
+    Object? debtPiasters = freezed,
   }) {
     return _then(
       _$QueueDemoPatientImpl(
@@ -305,6 +359,30 @@ class __$$QueueDemoPatientImplCopyWithImpl<$Res>
             ? _value.cancelReason
             : cancelReason // ignore: cast_nullable_to_non_nullable
                   as String?,
+        birthDate: freezed == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        phone2: freezed == phone2
+            ? _value.phone2
+            : phone2 // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        bloodType: freezed == bloodType
+            ? _value.bloodType
+            : bloodType // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        lastVisitDaysAgo: freezed == lastVisitDaysAgo
+            ? _value.lastVisitDaysAgo
+            : lastVisitDaysAgo // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        followUpInDays: freezed == followUpInDays
+            ? _value.followUpInDays
+            : followUpInDays // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        debtPiasters: freezed == debtPiasters
+            ? _value.debtPiasters
+            : debtPiasters // ignore: cast_nullable_to_non_nullable
+                  as int?,
       ),
     );
   }
@@ -330,6 +408,12 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
     this.scheduledTime,
     this.paidAmountPiasters,
     this.cancelReason,
+    this.birthDate,
+    this.phone2,
+    this.bloodType,
+    this.lastVisitDaysAgo,
+    this.followUpInDays,
+    this.debtPiasters,
   }) : super._();
 
   factory _$QueueDemoPatientImpl.fromJson(Map<String, dynamic> json) =>
@@ -367,10 +451,22 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
   final int? paidAmountPiasters;
   @override
   final String? cancelReason;
+  @override
+  final String? birthDate;
+  @override
+  final String? phone2;
+  @override
+  final String? bloodType;
+  @override
+  final int? lastVisitDaysAgo;
+  @override
+  final int? followUpInDays;
+  @override
+  final int? debtPiasters;
 
   @override
   String toString() {
-    return 'QueueDemoPatient(number: $number, name: $name, status: $status, appointmentType: $appointmentType, isUrgent: $isUrgent, showOnHome: $showOnHome, paid: $paid, phone: $phone, fileNumber: $fileNumber, gender: $gender, examTypeKey: $examTypeKey, homeAction: $homeAction, waitMinutes: $waitMinutes, scheduledTime: $scheduledTime, paidAmountPiasters: $paidAmountPiasters, cancelReason: $cancelReason)';
+    return 'QueueDemoPatient(number: $number, name: $name, status: $status, appointmentType: $appointmentType, isUrgent: $isUrgent, showOnHome: $showOnHome, paid: $paid, phone: $phone, fileNumber: $fileNumber, gender: $gender, examTypeKey: $examTypeKey, homeAction: $homeAction, waitMinutes: $waitMinutes, scheduledTime: $scheduledTime, paidAmountPiasters: $paidAmountPiasters, cancelReason: $cancelReason, birthDate: $birthDate, phone2: $phone2, bloodType: $bloodType, lastVisitDaysAgo: $lastVisitDaysAgo, followUpInDays: $followUpInDays, debtPiasters: $debtPiasters)';
   }
 
   @override
@@ -403,12 +499,23 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
             (identical(other.paidAmountPiasters, paidAmountPiasters) ||
                 other.paidAmountPiasters == paidAmountPiasters) &&
             (identical(other.cancelReason, cancelReason) ||
-                other.cancelReason == cancelReason));
+                other.cancelReason == cancelReason) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.phone2, phone2) || other.phone2 == phone2) &&
+            (identical(other.bloodType, bloodType) ||
+                other.bloodType == bloodType) &&
+            (identical(other.lastVisitDaysAgo, lastVisitDaysAgo) ||
+                other.lastVisitDaysAgo == lastVisitDaysAgo) &&
+            (identical(other.followUpInDays, followUpInDays) ||
+                other.followUpInDays == followUpInDays) &&
+            (identical(other.debtPiasters, debtPiasters) ||
+                other.debtPiasters == debtPiasters));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     runtimeType,
     number,
     name,
@@ -426,7 +533,13 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
     scheduledTime,
     paidAmountPiasters,
     cancelReason,
-  );
+    birthDate,
+    phone2,
+    bloodType,
+    lastVisitDaysAgo,
+    followUpInDays,
+    debtPiasters,
+  ]);
 
   /// Create a copy of QueueDemoPatient
   /// with the given fields replaced by the non-null parameter values.
@@ -463,6 +576,12 @@ abstract class _QueueDemoPatient extends QueueDemoPatient {
     final String? scheduledTime,
     final int? paidAmountPiasters,
     final String? cancelReason,
+    final String? birthDate,
+    final String? phone2,
+    final String? bloodType,
+    final int? lastVisitDaysAgo,
+    final int? followUpInDays,
+    final int? debtPiasters,
   }) = _$QueueDemoPatientImpl;
   const _QueueDemoPatient._() : super._();
 
@@ -501,6 +620,18 @@ abstract class _QueueDemoPatient extends QueueDemoPatient {
   int? get paidAmountPiasters;
   @override
   String? get cancelReason;
+  @override
+  String? get birthDate;
+  @override
+  String? get phone2;
+  @override
+  String? get bloodType;
+  @override
+  int? get lastVisitDaysAgo;
+  @override
+  int? get followUpInDays;
+  @override
+  int? get debtPiasters;
 
   /// Create a copy of QueueDemoPatient
   /// with the given fields replaced by the non-null parameter values.

@@ -144,7 +144,47 @@
   },
   "patients": {
     "list_title": "Patient list",
-    "list_placeholder": "Patient list coming soon"
+    "list_placeholder": "Patient list coming soon",
+    "search_hint": "Search by name, file number, or phone…",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "age_years": "{count} yrs",
+    "currency": "EGP",
+    "table": {
+      "file_number": "File No.",
+      "name": "Patient Name",
+      "age_gender": "Age / Gender",
+      "phone": "Phone",
+      "blood_type": "Blood Type",
+      "last_visit": "Last Visit",
+      "account": "Account / Balance",
+      "actions": "Quick Actions",
+      "none": "—",
+      "paid_full": "Paid in full",
+      "remaining": "{amount} due",
+      "showing": "Showing {from} - {to} of {total} patients",
+      "showing_none": "No results out of {total} patients",
+      "empty": "No matching patients",
+      "empty_hint": "Try another search term or switch the filter.",
+      "load_error": "Could not load the patient register",
+      "retry": "Try again",
+      "previous": "Previous",
+      "next": "Next",
+      "view": "View record",
+      "book": "Book appointment",
+      "delete": "Delete",
+      "delete_title": "Delete patient",
+      "delete_message": "Are you sure you want to delete {name}?",
+      "cancel": "Cancel",
+      "profile_unavailable": "Patient records are not available in this version",
+      "book_unavailable": "Appointment booking is not available in this version"
+    }
+  },
+  "patients_filter": {
+    "all": "All",
+    "new_patient": "New patient",
+    "follow_up_soon": "Follow up soon",
+    "indebtedness": "Indebtedness"
   },
   "queue_header": {
     "title": "Today's Queue",

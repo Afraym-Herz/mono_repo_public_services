@@ -15,6 +15,14 @@ class PatientDao extends DatabaseAccessor<AppDatabase> with _$PatientDaoMixin {
   Future<Patient?> getPatientById(int id) => (select(patients)
         ..where((p) => p.id.equals(id) & p.deletedAt.isNull()))
       .getSingleOrNull();
+
+  /// Looks up a patient by file number, including soft-deleted rows.
+  ///
+  /// Demo seeders use this so a deleted demo patient is neither resurrected nor
+  /// re-inserted against the unique file-number constraint.
+  Future<Patient?> getPatientByFileNumber(String fileNumber) =>
+      (select(patients)..where((p) => p.fileNumber.equals(fileNumber)))
+          .getSingleOrNull();
   Future<int> insertPatient(PatientsCompanion entry) => into(patients).insert(entry);
   Future<bool> updatePatient(PatientsCompanion entry) => update(patients).replace(entry);
   Future<int> softDeletePatient(int id) {

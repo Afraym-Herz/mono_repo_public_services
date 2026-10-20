@@ -25,6 +25,12 @@ _$QueueDemoPatientImpl _$$QueueDemoPatientImplFromJson(
   scheduledTime: json['scheduledTime'] as String?,
   paidAmountPiasters: (json['paidAmountPiasters'] as num?)?.toInt(),
   cancelReason: json['cancelReason'] as String?,
+  birthDate: json['birthDate'] as String?,
+  phone2: json['phone2'] as String?,
+  bloodType: json['bloodType'] as String?,
+  lastVisitDaysAgo: (json['lastVisitDaysAgo'] as num?)?.toInt(),
+  followUpInDays: (json['followUpInDays'] as num?)?.toInt(),
+  debtPiasters: (json['debtPiasters'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$$QueueDemoPatientImplToJson(
@@ -46,4 +52,10 @@ Map<String, dynamic> _$$QueueDemoPatientImplToJson(
   'scheduledTime': instance.scheduledTime,
   'paidAmountPiasters': instance.paidAmountPiasters,
   'cancelReason': instance.cancelReason,
+  'birthDate': instance.birthDate,
+  'phone2': instance.phone2,
+  'bloodType': instance.bloodType,
+  'lastVisitDaysAgo': instance.lastVisitDaysAgo,
+  'followUpInDays': instance.followUpInDays,
+  'debtPiasters': instance.debtPiasters,
 };

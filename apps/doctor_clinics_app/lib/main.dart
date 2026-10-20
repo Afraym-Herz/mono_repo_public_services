@@ -7,10 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core/core.dart';
 
 import 'package:doctor_clinics_app/app.dart';
+import 'package:doctor_clinics_app/core/database/daos/billing_dao.dart';
+import 'package:doctor_clinics_app/core/database/daos/consultation_dao.dart';
 import 'package:doctor_clinics_app/core/database/daos/patient_dao.dart';
 import 'package:doctor_clinics_app/core/database/daos/queue_dao.dart';
 import 'package:doctor_clinics_app/core/dependency_injection/app_locator.dart';
 import 'package:doctor_clinics_app/core/demo/queue_demo_store.dart';
+import 'package:doctor_clinics_app/features/patients/data/demo/patient_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_seeder.dart';
 
 /// Entry point for the Doctor Clinics app.
@@ -36,12 +39,18 @@ Future<void> main() async {
   // ---------------------------------------------------------------------------
   // TEMPORARY DEMO SEED
   // Loads the dummy clinic day (`assets/data/queue_patients.json`) and seeds it
-  // into the local database when today is empty, so the home + queue widgets
-  // render with content in the offline MVP. REVERT: drop these two calls, the
-  // `lib/core/demo/` fixture, and `features/queue/data/demo/` once a real
-  // source of patients exists.
+  // into the local database when empty, so the home, queue and patient widgets
+  // render with content in the offline MVP. The patient register is seeded
+  // first so the queue reuses those records instead of inserting duplicates.
+  // REVERT: drop these calls, the `lib/core/demo/` fixture, and the
+  // `features/*/data/demo/` seeders once a real source of patients exists.
   // ---------------------------------------------------------------------------
   await QueueDemoStore.instance.prime();
+  await PatientDemoSeeder(
+    patientDao: getIt<PatientDao>(),
+    consultationDao: getIt<ConsultationDao>(),
+    billingDao: getIt<BillingDao>(),
+  ).seedIfEmpty();
   await QueueDemoSeeder(
     patientDao: getIt<PatientDao>(),
     queueDao: getIt<QueueDao>(),
