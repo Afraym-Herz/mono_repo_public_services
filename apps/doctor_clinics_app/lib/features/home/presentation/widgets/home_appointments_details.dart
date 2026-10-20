@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'home_section_detail_row.dart';
 
 /// Detail lines under the appointments highlight tile: tomorrow's booked total
-/// and the cases still waiting on a confirmation.
+/// and the day-based queue-number hint.
 class HomeAppointmentsDetails extends StatelessWidget {
   const HomeAppointmentsDetails({super.key});
 
@@ -21,10 +21,8 @@ class HomeAppointmentsDetails extends StatelessWidget {
         ),
         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h / 2),
         HomeSectionDetailRow(
-          icon: Icons.notifications_active_outlined,
-          label: 'home_appointments_unconfirmed'.tr(),
-          color: AppColors.warningDark,
-          emphasized: true,
+          icon: Icons.format_list_numbered_rounded,
+          label: 'home_appointments_booking_hint'.tr(),
         ),
       ],
     );

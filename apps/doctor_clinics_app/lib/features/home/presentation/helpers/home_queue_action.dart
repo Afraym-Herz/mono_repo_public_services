@@ -17,11 +17,6 @@ enum HomeQueueAction {
     icon: Icons.play_circle_outline_rounded,
     filled: true,
   ),
-  checkIn(
-    labelKey: 'home_queue_action_check_in',
-    icon: Icons.login_rounded,
-    filled: false,
-  ),
   more(labelKey: null, icon: Icons.more_vert_rounded, filled: false);
 
   const HomeQueueAction({

@@ -8,9 +8,9 @@ import 'package:doctor_clinics_app/features/home/presentation/widgets/home_alert
 
 /// Info banner shown under the home greeting header.
 ///
-/// Surfaces today's "no-show" count and links to the queue, where the late
-/// patients are followed up. The count is still part of the translation string —
-/// it will come from the appointments feed once that feature lands.
+/// Surfaces a queue follow-up hint and links to the queue, where late patients
+/// are repositioned manually. The count is a dashboard hint; the live queue
+/// screen is the source of truth for today's patients.
 class HomeAppointmentsAlert extends StatelessWidget {
   const HomeAppointmentsAlert({super.key});
 
