@@ -3,24 +3,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Meta line under a queue row name: exam type followed by the wait time (or the
-/// confirmed slot for booked patients), separated by a dot.
+/// Meta line under a queue row name: exam type followed by the wait time (or
+/// the day-queue hint for booked patients), separated by a dot.
 class HomeQueueRowMeta extends StatelessWidget {
   const HomeQueueRowMeta({
     super.key,
     required this.examTypeKey,
     this.waitMinutes,
-    this.appointmentTime,
   });
 
   /// `.tr()` key for the exam/visit type.
   final String examTypeKey;
 
-  /// Minutes waiting, for arrived patients.
+  /// Minutes waiting, for live queue patients.
   final int? waitMinutes;
-
-  /// Confirmed slot, for booked patients.
-  final String? appointmentTime;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +29,7 @@ class HomeQueueRowMeta extends StatelessWidget {
               ),
             },
           )
-        : 'home_queue_appointment'.tr(
-            namedArgs: {'time': appointmentTime ?? ''},
-          );
+        : 'home_queue_booked'.tr();
 
     return Row(
       children: [

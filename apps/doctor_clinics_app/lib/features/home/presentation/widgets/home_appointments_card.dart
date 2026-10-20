@@ -11,9 +11,9 @@ import 'home_section_highlight_tile.dart';
 
 /// Appointments section on the home dashboard.
 ///
-/// Presentational: the date and the first slot come from tomorrow's clock,
-/// while the counts stay localized placeholders until the appointments feed is
-/// wired in.
+/// Presentational: the date comes from tomorrow's clock, while the counts and
+/// the day-booking hint stay localized placeholders until the appointments feed
+/// is wired in.
 class HomeAppointmentsCard extends StatelessWidget {
   const HomeAppointmentsCard({super.key});
 
@@ -21,13 +21,6 @@ class HomeAppointmentsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = context.locale.toString();
     final tomorrow = DateTime.now().add(const Duration(days: 1));
-    final firstSlot = DateTime(
-      tomorrow.year,
-      tomorrow.month,
-      tomorrow.day,
-      9,
-      30,
-    );
 
     return HomeSectionCard(
       animationDelay: const Duration(milliseconds: 500),
@@ -42,10 +35,10 @@ class HomeAppointmentsCard extends StatelessWidget {
           ),
           SizedBox(height: Dimensions.HOME_CARD_SPACING.h),
           HomeSectionHighlightTile(
-            icon: Icons.schedule_rounded,
-            label: 'home_appointments_first_label'.tr(),
+            icon: Icons.confirmation_number_outlined,
+            label: 'home_appointments_day_label'.tr(),
             subtitle: 'home_appointments_doctor'.tr(),
-            value: DateConverter.localizedTime(firstSlot, locale),
+            value: 'home_appointments_day_value'.tr(),
           ),
           SizedBox(height: Dimensions.HOME_CARD_SPACING.h),
           const HomeAppointmentsDetails(),

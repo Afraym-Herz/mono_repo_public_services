@@ -20,11 +20,11 @@ class HomeQueueList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final row in homeQueueSampleRows(context))
-          if (expandRows)
-            Expanded(child: HomeQueueRow(sample: row))
-          else
-            HomeQueueRow(sample: row),
+        ...homeQueueSampleRows().map(
+          (row) => expandRows
+              ? Expanded(child: HomeQueueRow(sample: row))
+              : HomeQueueRow(sample: row),
+        ),
       ],
     );
   }
