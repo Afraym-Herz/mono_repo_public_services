@@ -11,7 +11,7 @@ class Patient with _$Patient {
     required String fullName,
     required String searchText,
     required String gender,
-    required DateTime birthDate,
+    DateTime? birthDate,
     String? phone,
     String? phone2,
     String? address,

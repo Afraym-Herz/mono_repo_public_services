@@ -20,6 +20,10 @@ class DemoTodaySeed {
   final PatientDao patientDao;
   final QueueDao queueDao;
 
+  /// Marker written on today's fixture rows, shared with [DemoMonthSchedule] so
+  /// it can tell demo data apart from real bookings.
+  static const String marker = 'demo-v2';
+
   Future<void> seed(DateTime now, List<QueueDemoPatient> patients) async {
     final day = DateTime(now.year, now.month, now.day);
     for (final patient in patients) {
@@ -33,7 +37,7 @@ class DemoTodaySeed {
           queueNumber: Value(patient.number),
           type: patient.appointmentType,
           status: _appointmentStatus(patient.status),
-          createdBy: 'demo',
+          createdBy: marker,
         ),
       );
       final status =

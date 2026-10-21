@@ -7,6 +7,7 @@ abstract class IPatientDatasource {
   //   Patients
   Future<List<Patient>> fetchAll();
   Future<Patient?> fetchById(int id);
+  Future<int?> getMaxFileNumber();
   Future<int> insert(Patient patient);
   Future<void> update(Patient patient);
   Future<void> softDelete(int id);

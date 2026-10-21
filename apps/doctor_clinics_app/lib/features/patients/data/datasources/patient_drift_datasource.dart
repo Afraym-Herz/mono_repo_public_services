@@ -27,6 +27,9 @@ class PatientDriftDatasource implements IPatientDatasource {
   }
 
   @override
+  Future<int?> getMaxFileNumber() => patientDao.getMaxNumericFileNumber();
+
+  @override
   Future<int> insert(entity.Patient patient) async {
     return patientDao.insertPatient(toPatientCompanion(patient));
   }

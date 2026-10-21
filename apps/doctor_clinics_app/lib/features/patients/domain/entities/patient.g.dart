@@ -13,7 +13,9 @@ _$PatientImpl _$$PatientImplFromJson(Map<String, dynamic> json) =>
       fullName: json['fullName'] as String,
       searchText: json['searchText'] as String,
       gender: json['gender'] as String,
-      birthDate: DateTime.parse(json['birthDate'] as String),
+      birthDate: json['birthDate'] == null
+          ? null
+          : DateTime.parse(json['birthDate'] as String),
       phone: json['phone'] as String?,
       phone2: json['phone2'] as String?,
       address: json['address'] as String?,
@@ -34,7 +36,7 @@ Map<String, dynamic> _$$PatientImplToJson(_$PatientImpl instance) =>
       'fullName': instance.fullName,
       'searchText': instance.searchText,
       'gender': instance.gender,
-      'birthDate': instance.birthDate.toIso8601String(),
+      'birthDate': instance.birthDate?.toIso8601String(),
       'phone': instance.phone,
       'phone2': instance.phone2,
       'address': instance.address,

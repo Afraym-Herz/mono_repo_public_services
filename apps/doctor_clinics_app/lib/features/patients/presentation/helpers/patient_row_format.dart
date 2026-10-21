@@ -10,10 +10,17 @@ class PatientRowFormat {
 
   /// `٣٨ سنة / ذكر` (age from [patient]'s birth date plus the gender label).
   static String ageGender(Patient patient, BuildContext context) {
-    final age = _localizedDigits('${_yearsSince(patient.birthDate)}', context);
-    final ageLabel = 'patients.age_years'.tr(namedArgs: {'count': age});
+    final birthDate = patient.birthDate;
+    final ageLabel = birthDate == null
+        ? 'patients.table.none'.tr()
+        : _ageLabel(_yearsSince(birthDate), context);
     final genderLabel = _genderKey(patient.gender).tr();
     return '$ageLabel / $genderLabel';
+  }
+
+  static String _ageLabel(int years, BuildContext context) {
+    final age = _localizedDigits('$years', context);
+    return 'patients.age_years'.tr(namedArgs: {'count': age});
   }
 
   /// `١ أكتوبر ٢٠٢٦` — day, month and year in the active locale.
@@ -44,7 +51,8 @@ class PatientRowFormat {
     return years < 0 ? 0 : years;
   }
 
-  static String _genderKey(String gender) => gender.toLowerCase() == 'female'
+  static String _genderKey(String gender) =>
+      gender.toLowerCase() == AppConstants.genderFemale
       ? 'patients.gender_female'
       : 'patients.gender_male';
 

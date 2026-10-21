@@ -91,6 +91,19 @@ class QueueDao extends DatabaseAccessor<AppDatabase> with _$QueueDaoMixin {
   Future<bool> updateQueueEntry(QueueEntriesCompanion entry) =>
       update(queueEntries).replace(entry);
 
+  /// Removes appointments written by an older demo seed, together with their
+  /// queue entries. Real bookings are never matched because [createdBy] is only
+  /// written by the demo seeders.
+  Future<void> deleteDemoAppointments(Iterable<String> markers) async {
+    final rows = await (select(
+      appointments,
+    )..where((a) => a.createdBy.isIn(markers))).get();
+    if (rows.isEmpty) return;
+    final ids = rows.map((row) => row.id).toList(growable: false);
+    await (delete(queueEntries)..where((q) => q.appointmentId.isIn(ids))).go();
+    await (delete(appointments)..where((a) => a.id.isIn(ids))).go();
+  }
+
   Future<int> countQueueForDate(DateTime date) async =>
       (await getBoardForDate(date)).length;
 }

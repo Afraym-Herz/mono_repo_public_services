@@ -23,6 +23,19 @@ class PatientDao extends DatabaseAccessor<AppDatabase> with _$PatientDaoMixin {
   Future<Patient?> getPatientByFileNumber(String fileNumber) =>
       (select(patients)..where((p) => p.fileNumber.equals(fileNumber)))
           .getSingleOrNull();
+
+  /// Highest numeric file number, including soft-deleted rows.
+  ///
+  /// File numbers have a unique constraint across every row, so new files must
+  /// skip numbers reserved by deleted patients.
+  Future<int?> getMaxNumericFileNumber() async {
+    final row = await customSelect(
+      'SELECT MAX(CAST(file_number AS INTEGER)) AS max_file FROM patients',
+      readsFrom: {patients},
+    ).getSingle();
+    return row.readNullable<int>('max_file');
+  }
+
   Future<int> insertPatient(PatientsCompanion entry) => into(patients).insert(entry);
   Future<bool> updatePatient(PatientsCompanion entry) => update(patients).replace(entry);
   Future<int> softDeletePatient(int id) {

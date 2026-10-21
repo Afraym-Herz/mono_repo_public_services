@@ -16,7 +16,7 @@ entity.Patient toDomainPatient(Patient row) {
     fullName: row.fullName,
     searchText: row.searchText,
     gender: row.gender,
-    birthDate: row.birthDate ?? DateTime(1970),
+    birthDate: row.birthDate,
     phone: row.phone,
     phone2: row.phone2,
     address: row.address,

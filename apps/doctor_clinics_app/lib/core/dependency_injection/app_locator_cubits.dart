@@ -11,6 +11,7 @@ import 'package:doctor_clinics_app/features/operations/domain/repositories/opera
 import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_cubit.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_form_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_list_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_toolbar_cubit.dart';
 import 'package:doctor_clinics_app/features/prescriptions/domain/repositories/prescription_repository.dart';
@@ -27,6 +28,9 @@ import 'package:doctor_clinics_app/features/settings/presentation/cubit/settings
 void registerAppCubits() {
   getIt.registerFactory<PatientCubit>(
     () => PatientCubit(repository: getIt<PatientRepository>()),
+  );
+  getIt.registerFactory<PatientFormCubit>(
+    () => PatientFormCubit(repository: getIt<PatientRepository>()),
   );
   getIt.registerFactory<PatientListCubit>(
     () => PatientListCubit(

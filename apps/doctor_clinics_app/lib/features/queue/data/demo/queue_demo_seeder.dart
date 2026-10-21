@@ -17,10 +17,15 @@ class QueueDemoSeeder {
   final PatientDao patientDao;
   final QueueDao queueDao;
 
+  /// Markers used by the first demo fixture. They are removed once so the
+  /// corrected ticket order is seeded even on a device that already ran it.
+  static const Set<String> _legacyMarkers = {'demo', 'demo-schedule'};
+
   Future<void> seedIfEmpty() async {
     final now = DateTime.now();
     final patients = QueueDemoStore.instance.patients;
     if (patients.isEmpty) return;
+    await queueDao.deleteDemoAppointments(_legacyMarkers);
     final entries = await queueDao.getQueueForDate(now);
     final appointments = await queueDao.getAppointmentsForDate(now);
     if (entries.isEmpty && appointments.isEmpty) {

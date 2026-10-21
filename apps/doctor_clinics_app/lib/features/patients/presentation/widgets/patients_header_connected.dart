@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/patient_list_cubit.dart';
+import 'patient_form_dialog.dart';
 import 'patients_header.dart';
 
 /// [PatientsHeader] bound to [PatientListCubit].
 ///
 /// The header reads the live patient count straight from the loaded register,
-/// so it updates after adding, editing or deleting a record. Export and creation
-/// are still placeholders until those flows land.
+/// so it updates after adding, editing or deleting a record. Creation opens the
+/// shared patient form; export is still a placeholder until that flow lands.
 class PatientsHeaderConnected extends StatelessWidget {
   const PatientsHeaderConnected({super.key});
 
@@ -25,10 +26,7 @@ class PatientsHeaderConnected extends StatelessWidget {
 
         return PatientsHeader(
           patientCount: count,
-          onAddPatient: () => AppSnackBar.showInfo(
-            context,
-            'patients_header.form_unavailable'.tr(),
-          ),
+          onAddPatient: () => _addPatient(context),
           onExport: () => AppSnackBar.showInfo(
             context,
             'patients_header.export_unavailable'.tr(),
@@ -36,5 +34,12 @@ class PatientsHeaderConnected extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _addPatient(BuildContext context) async {
+    final patient = await showPatientFormDialog(context);
+    if (patient == null || !context.mounted) return;
+    AppSnackBar.showSuccess(context, 'patient_form.saved'.tr());
+    context.read<PatientListCubit>().load();
   }
 }

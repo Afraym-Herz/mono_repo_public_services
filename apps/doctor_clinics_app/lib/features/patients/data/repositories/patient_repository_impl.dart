@@ -12,8 +12,11 @@ class PatientRepositoryImpl implements PatientRepository {
   PatientRepositoryImpl({required this.datasource});
 
   @override
-  FutureResult<void> addPatient(Patient patient) =>
-      guardPatientVoid('addPatient', () => datasource.insert(patient));
+  FutureResult<Patient> addPatient(Patient patient) =>
+      guardPatient('addPatient', () async {
+        final id = await datasource.insert(patient);
+        return patient.copyWith(id: id);
+      });
 
   @override
   FutureResult<void> deletePatient(int id) =>
@@ -26,6 +29,10 @@ class PatientRepositoryImpl implements PatientRepository {
   @override
   FutureResult<Patient?> getPatientById(int id) =>
       guardPatient('getPatientById', () => datasource.fetchById(id));
+
+  @override
+  FutureResult<int?> getMaxFileNumber() =>
+      guardPatient('getMaxFileNumber', datasource.getMaxFileNumber);
 
   @override
   FutureResult<void> updatePatient(Patient patient) =>
