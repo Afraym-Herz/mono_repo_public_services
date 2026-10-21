@@ -87,6 +87,10 @@ class AppConstants {
   static const String presetTypeDuration = 'duration';
   static const String presetTypeInstruction = 'instruction';
 
+  // Patients.gender
+  static const String genderMale = 'male';
+  static const String genderFemale = 'female';
+
   // Users.role
   static const String userRoleAdmin = 'admin';
   static const String userRoleDoctor = 'doctor';
