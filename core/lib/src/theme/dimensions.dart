@@ -54,6 +54,9 @@ class Dimensions {
   /// Dense vertical rhythm inside home dashboard cards.
   static const double HOME_CARD_SPACING = 6.0;
 
+  /// Fixed height of one week row in the appointments month grid.
+  static const double APPOINTMENT_MONTH_CELL_HEIGHT = 112.0;
+
   /// Minimum home canvas height on the 1440x900 design scale.
   ///
   /// Taller windows stretch the dashboard to fill the viewport; shorter ones

@@ -53,6 +53,7 @@ class AppConstants {
   static const String queueStatusInConsultation = 'in_consultation';
   static const String queueStatusDone = 'done';
   static const String queueStatusCancelled = 'cancelled';
+  static const String queueStatusNoShow = 'no_show';
 
   // Consultations.status
   static const String consultationStatusDraft = 'draft';
@@ -99,4 +100,5 @@ class AppConstants {
 
   // QueueEntries.cancelReason
   static const String queueCancelReasonStaff = 'staff_cancelled';
+  static const String queueCancelReasonRescheduled = 'rescheduled';
 }

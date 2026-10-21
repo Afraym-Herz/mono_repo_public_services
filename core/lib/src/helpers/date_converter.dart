@@ -71,6 +71,31 @@ class DateConverter {
         localeTag,
       );
 
+  /// Compact day + month (e.g. `١٥ أكتوبر` / `15 Oct`) for [date].
+  static String localizedShortDate(DateTime date, String localeTag) =>
+      withLocalizedDigits(
+        DateFormat('d MMM', localeTag).format(date),
+        localeTag,
+      );
+
+  /// Weekday + day + month (e.g. `السبت ١٧ أكتوبر` / `Saturday 17 Oct`).
+  static String localizedWeekdayDate(DateTime date, String localeTag) =>
+      withLocalizedDigits(
+        DateFormat('EEEE d MMMM', localeTag).format(date),
+        localeTag,
+      );
+
+  /// Short weekday (e.g. `السبت` / `Sat`) for calendar column headers.
+  static String localizedWeekdayShort(DateTime date, String localeTag) =>
+      withLocalizedDigits(DateFormat('EEE', localeTag).format(date), localeTag);
+
+  /// Month + year (e.g. `أكتوبر ٢٠٢٥` / `October 2025`) for the month planner.
+  static String localizedMonthYear(DateTime date, String localeTag) =>
+      withLocalizedDigits(
+        DateFormat('MMMM yyyy', localeTag).format(date),
+        localeTag,
+      );
+
   /// Clock time (e.g. `٩:٠٠ ص` / `9:00 AM`) for [date] in [localeTag].
   static String localizedTime(DateTime date, String localeTag) =>
       withLocalizedDigits(DateFormat.jm(localeTag).format(date), localeTag);

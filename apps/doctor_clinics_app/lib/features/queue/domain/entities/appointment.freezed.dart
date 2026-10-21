@@ -25,6 +25,7 @@ mixin _$Appointment {
   int get patientId => throw _privateConstructorUsedError;
   DateTime get scheduledDate => throw _privateConstructorUsedError;
   String get scheduledTime => throw _privateConstructorUsedError;
+  int? get queueNumber => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   String? get reason => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $AppointmentCopyWith<$Res> {
     int patientId,
     DateTime scheduledDate,
     String scheduledTime,
+    int? queueNumber,
     String type,
     String status,
     String? reason,
@@ -86,6 +88,7 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
     Object? patientId = null,
     Object? scheduledDate = null,
     Object? scheduledTime = null,
+    Object? queueNumber = freezed,
     Object? type = null,
     Object? status = null,
     Object? reason = freezed,
@@ -113,6 +116,10 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
                 ? _value.scheduledTime
                 : scheduledTime // ignore: cast_nullable_to_non_nullable
                       as String,
+            queueNumber: freezed == queueNumber
+                ? _value.queueNumber
+                : queueNumber // ignore: cast_nullable_to_non_nullable
+                      as int?,
             type: null == type
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
@@ -165,6 +172,7 @@ abstract class _$$AppointmentImplCopyWith<$Res>
     int patientId,
     DateTime scheduledDate,
     String scheduledTime,
+    int? queueNumber,
     String type,
     String status,
     String? reason,
@@ -194,6 +202,7 @@ class __$$AppointmentImplCopyWithImpl<$Res>
     Object? patientId = null,
     Object? scheduledDate = null,
     Object? scheduledTime = null,
+    Object? queueNumber = freezed,
     Object? type = null,
     Object? status = null,
     Object? reason = freezed,
@@ -221,6 +230,10 @@ class __$$AppointmentImplCopyWithImpl<$Res>
             ? _value.scheduledTime
             : scheduledTime // ignore: cast_nullable_to_non_nullable
                   as String,
+        queueNumber: freezed == queueNumber
+            ? _value.queueNumber
+            : queueNumber // ignore: cast_nullable_to_non_nullable
+                  as int?,
         type: null == type
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
@@ -266,6 +279,7 @@ class _$AppointmentImpl implements _Appointment {
     required this.patientId,
     required this.scheduledDate,
     required this.scheduledTime,
+    this.queueNumber,
     required this.type,
     required this.status,
     this.reason,
@@ -288,6 +302,8 @@ class _$AppointmentImpl implements _Appointment {
   @override
   final String scheduledTime;
   @override
+  final int? queueNumber;
+  @override
   final String type;
   @override
   final String status;
@@ -306,7 +322,7 @@ class _$AppointmentImpl implements _Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, patientId: $patientId, scheduledDate: $scheduledDate, scheduledTime: $scheduledTime, type: $type, status: $status, reason: $reason, notes: $notes, cancelledReason: $cancelledReason, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Appointment(id: $id, patientId: $patientId, scheduledDate: $scheduledDate, scheduledTime: $scheduledTime, queueNumber: $queueNumber, type: $type, status: $status, reason: $reason, notes: $notes, cancelledReason: $cancelledReason, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -321,6 +337,8 @@ class _$AppointmentImpl implements _Appointment {
                 other.scheduledDate == scheduledDate) &&
             (identical(other.scheduledTime, scheduledTime) ||
                 other.scheduledTime == scheduledTime) &&
+            (identical(other.queueNumber, queueNumber) ||
+                other.queueNumber == queueNumber) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.reason, reason) || other.reason == reason) &&
@@ -343,6 +361,7 @@ class _$AppointmentImpl implements _Appointment {
     patientId,
     scheduledDate,
     scheduledTime,
+    queueNumber,
     type,
     status,
     reason,
@@ -373,6 +392,7 @@ abstract class _Appointment implements Appointment {
     required final int patientId,
     required final DateTime scheduledDate,
     required final String scheduledTime,
+    final int? queueNumber,
     required final String type,
     required final String status,
     final String? reason,
@@ -394,6 +414,8 @@ abstract class _Appointment implements Appointment {
   DateTime get scheduledDate;
   @override
   String get scheduledTime;
+  @override
+  int? get queueNumber;
   @override
   String get type;
   @override

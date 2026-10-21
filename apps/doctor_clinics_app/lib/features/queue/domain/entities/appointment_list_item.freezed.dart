@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'booked_appointment.dart';
+part of 'appointment_list_item.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,28 +16,31 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$BookedAppointment {
+mixin _$AppointmentListItem {
   int get appointmentId => throw _privateConstructorUsedError;
   int get patientId => throw _privateConstructorUsedError;
   String get patientName => throw _privateConstructorUsedError;
   String? get patientPhone => throw _privateConstructorUsedError;
   String? get fileNumber => throw _privateConstructorUsedError;
-  String get scheduledTime => throw _privateConstructorUsedError;
+  DateTime get scheduledDate => throw _privateConstructorUsedError;
+  int? get queueNumber => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
 
-  /// Create a copy of BookedAppointment
+  /// Create a copy of AppointmentListItem
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $BookedAppointmentCopyWith<BookedAppointment> get copyWith =>
+  $AppointmentListItemCopyWith<AppointmentListItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BookedAppointmentCopyWith<$Res> {
-  factory $BookedAppointmentCopyWith(
-    BookedAppointment value,
-    $Res Function(BookedAppointment) then,
-  ) = _$BookedAppointmentCopyWithImpl<$Res, BookedAppointment>;
+abstract class $AppointmentListItemCopyWith<$Res> {
+  factory $AppointmentListItemCopyWith(
+    AppointmentListItem value,
+    $Res Function(AppointmentListItem) then,
+  ) = _$AppointmentListItemCopyWithImpl<$Res, AppointmentListItem>;
   @useResult
   $Res call({
     int appointmentId,
@@ -45,22 +48,25 @@ abstract class $BookedAppointmentCopyWith<$Res> {
     String patientName,
     String? patientPhone,
     String? fileNumber,
-    String scheduledTime,
+    DateTime scheduledDate,
+    int? queueNumber,
     String type,
+    String status,
+    String? notes,
   });
 }
 
 /// @nodoc
-class _$BookedAppointmentCopyWithImpl<$Res, $Val extends BookedAppointment>
-    implements $BookedAppointmentCopyWith<$Res> {
-  _$BookedAppointmentCopyWithImpl(this._value, this._then);
+class _$AppointmentListItemCopyWithImpl<$Res, $Val extends AppointmentListItem>
+    implements $AppointmentListItemCopyWith<$Res> {
+  _$AppointmentListItemCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BookedAppointment
+  /// Create a copy of AppointmentListItem
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -70,8 +76,11 @@ class _$BookedAppointmentCopyWithImpl<$Res, $Val extends BookedAppointment>
     Object? patientName = null,
     Object? patientPhone = freezed,
     Object? fileNumber = freezed,
-    Object? scheduledTime = null,
+    Object? scheduledDate = null,
+    Object? queueNumber = freezed,
     Object? type = null,
+    Object? status = null,
+    Object? notes = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -95,14 +104,26 @@ class _$BookedAppointmentCopyWithImpl<$Res, $Val extends BookedAppointment>
                 ? _value.fileNumber
                 : fileNumber // ignore: cast_nullable_to_non_nullable
                       as String?,
-            scheduledTime: null == scheduledTime
-                ? _value.scheduledTime
-                : scheduledTime // ignore: cast_nullable_to_non_nullable
-                      as String,
+            scheduledDate: null == scheduledDate
+                ? _value.scheduledDate
+                : scheduledDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            queueNumber: freezed == queueNumber
+                ? _value.queueNumber
+                : queueNumber // ignore: cast_nullable_to_non_nullable
+                      as int?,
             type: null == type
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
                       as String,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as String,
+            notes: freezed == notes
+                ? _value.notes
+                : notes // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -110,12 +131,12 @@ class _$BookedAppointmentCopyWithImpl<$Res, $Val extends BookedAppointment>
 }
 
 /// @nodoc
-abstract class _$$BookedAppointmentImplCopyWith<$Res>
-    implements $BookedAppointmentCopyWith<$Res> {
-  factory _$$BookedAppointmentImplCopyWith(
-    _$BookedAppointmentImpl value,
-    $Res Function(_$BookedAppointmentImpl) then,
-  ) = __$$BookedAppointmentImplCopyWithImpl<$Res>;
+abstract class _$$AppointmentListItemImplCopyWith<$Res>
+    implements $AppointmentListItemCopyWith<$Res> {
+  factory _$$AppointmentListItemImplCopyWith(
+    _$AppointmentListItemImpl value,
+    $Res Function(_$AppointmentListItemImpl) then,
+  ) = __$$AppointmentListItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({
@@ -124,21 +145,24 @@ abstract class _$$BookedAppointmentImplCopyWith<$Res>
     String patientName,
     String? patientPhone,
     String? fileNumber,
-    String scheduledTime,
+    DateTime scheduledDate,
+    int? queueNumber,
     String type,
+    String status,
+    String? notes,
   });
 }
 
 /// @nodoc
-class __$$BookedAppointmentImplCopyWithImpl<$Res>
-    extends _$BookedAppointmentCopyWithImpl<$Res, _$BookedAppointmentImpl>
-    implements _$$BookedAppointmentImplCopyWith<$Res> {
-  __$$BookedAppointmentImplCopyWithImpl(
-    _$BookedAppointmentImpl _value,
-    $Res Function(_$BookedAppointmentImpl) _then,
+class __$$AppointmentListItemImplCopyWithImpl<$Res>
+    extends _$AppointmentListItemCopyWithImpl<$Res, _$AppointmentListItemImpl>
+    implements _$$AppointmentListItemImplCopyWith<$Res> {
+  __$$AppointmentListItemImplCopyWithImpl(
+    _$AppointmentListItemImpl _value,
+    $Res Function(_$AppointmentListItemImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of BookedAppointment
+  /// Create a copy of AppointmentListItem
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -148,11 +172,14 @@ class __$$BookedAppointmentImplCopyWithImpl<$Res>
     Object? patientName = null,
     Object? patientPhone = freezed,
     Object? fileNumber = freezed,
-    Object? scheduledTime = null,
+    Object? scheduledDate = null,
+    Object? queueNumber = freezed,
     Object? type = null,
+    Object? status = null,
+    Object? notes = freezed,
   }) {
     return _then(
-      _$BookedAppointmentImpl(
+      _$AppointmentListItemImpl(
         appointmentId: null == appointmentId
             ? _value.appointmentId
             : appointmentId // ignore: cast_nullable_to_non_nullable
@@ -173,14 +200,26 @@ class __$$BookedAppointmentImplCopyWithImpl<$Res>
             ? _value.fileNumber
             : fileNumber // ignore: cast_nullable_to_non_nullable
                   as String?,
-        scheduledTime: null == scheduledTime
-            ? _value.scheduledTime
-            : scheduledTime // ignore: cast_nullable_to_non_nullable
-                  as String,
+        scheduledDate: null == scheduledDate
+            ? _value.scheduledDate
+            : scheduledDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        queueNumber: freezed == queueNumber
+            ? _value.queueNumber
+            : queueNumber // ignore: cast_nullable_to_non_nullable
+                  as int?,
         type: null == type
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
                   as String,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as String,
+        notes: freezed == notes
+            ? _value.notes
+            : notes // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -188,16 +227,19 @@ class __$$BookedAppointmentImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BookedAppointmentImpl implements _BookedAppointment {
-  const _$BookedAppointmentImpl({
+class _$AppointmentListItemImpl extends _AppointmentListItem {
+  const _$AppointmentListItemImpl({
     required this.appointmentId,
     required this.patientId,
     required this.patientName,
     this.patientPhone,
     this.fileNumber,
-    required this.scheduledTime,
+    required this.scheduledDate,
+    this.queueNumber,
     required this.type,
-  });
+    required this.status,
+    this.notes,
+  }) : super._();
 
   @override
   final int appointmentId;
@@ -210,20 +252,26 @@ class _$BookedAppointmentImpl implements _BookedAppointment {
   @override
   final String? fileNumber;
   @override
-  final String scheduledTime;
+  final DateTime scheduledDate;
+  @override
+  final int? queueNumber;
   @override
   final String type;
+  @override
+  final String status;
+  @override
+  final String? notes;
 
   @override
   String toString() {
-    return 'BookedAppointment(appointmentId: $appointmentId, patientId: $patientId, patientName: $patientName, patientPhone: $patientPhone, fileNumber: $fileNumber, scheduledTime: $scheduledTime, type: $type)';
+    return 'AppointmentListItem(appointmentId: $appointmentId, patientId: $patientId, patientName: $patientName, patientPhone: $patientPhone, fileNumber: $fileNumber, scheduledDate: $scheduledDate, queueNumber: $queueNumber, type: $type, status: $status, notes: $notes)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BookedAppointmentImpl &&
+            other is _$AppointmentListItemImpl &&
             (identical(other.appointmentId, appointmentId) ||
                 other.appointmentId == appointmentId) &&
             (identical(other.patientId, patientId) ||
@@ -234,9 +282,13 @@ class _$BookedAppointmentImpl implements _BookedAppointment {
                 other.patientPhone == patientPhone) &&
             (identical(other.fileNumber, fileNumber) ||
                 other.fileNumber == fileNumber) &&
-            (identical(other.scheduledTime, scheduledTime) ||
-                other.scheduledTime == scheduledTime) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.scheduledDate, scheduledDate) ||
+                other.scheduledDate == scheduledDate) &&
+            (identical(other.queueNumber, queueNumber) ||
+                other.queueNumber == queueNumber) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.notes, notes) || other.notes == notes));
   }
 
   @override
@@ -247,32 +299,39 @@ class _$BookedAppointmentImpl implements _BookedAppointment {
     patientName,
     patientPhone,
     fileNumber,
-    scheduledTime,
+    scheduledDate,
+    queueNumber,
     type,
+    status,
+    notes,
   );
 
-  /// Create a copy of BookedAppointment
+  /// Create a copy of AppointmentListItem
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$BookedAppointmentImplCopyWith<_$BookedAppointmentImpl> get copyWith =>
-      __$$BookedAppointmentImplCopyWithImpl<_$BookedAppointmentImpl>(
+  _$$AppointmentListItemImplCopyWith<_$AppointmentListItemImpl> get copyWith =>
+      __$$AppointmentListItemImplCopyWithImpl<_$AppointmentListItemImpl>(
         this,
         _$identity,
       );
 }
 
-abstract class _BookedAppointment implements BookedAppointment {
-  const factory _BookedAppointment({
+abstract class _AppointmentListItem extends AppointmentListItem {
+  const factory _AppointmentListItem({
     required final int appointmentId,
     required final int patientId,
     required final String patientName,
     final String? patientPhone,
     final String? fileNumber,
-    required final String scheduledTime,
+    required final DateTime scheduledDate,
+    final int? queueNumber,
     required final String type,
-  }) = _$BookedAppointmentImpl;
+    required final String status,
+    final String? notes,
+  }) = _$AppointmentListItemImpl;
+  const _AppointmentListItem._() : super._();
 
   @override
   int get appointmentId;
@@ -285,14 +344,20 @@ abstract class _BookedAppointment implements BookedAppointment {
   @override
   String? get fileNumber;
   @override
-  String get scheduledTime;
+  DateTime get scheduledDate;
+  @override
+  int? get queueNumber;
   @override
   String get type;
+  @override
+  String get status;
+  @override
+  String? get notes;
 
-  /// Create a copy of BookedAppointment
+  /// Create a copy of AppointmentListItem
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BookedAppointmentImplCopyWith<_$BookedAppointmentImpl> get copyWith =>
+  _$$AppointmentListItemImplCopyWith<_$AppointmentListItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

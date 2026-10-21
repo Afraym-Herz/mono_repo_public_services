@@ -16,9 +16,11 @@ class AppPillButton extends StatelessWidget {
     required this.label,
     required this.onTap,
     this.primary = false,
+    this.outlined = false,
+    this.iconTrailing = false,
   });
 
-  /// Leading icon.
+  /// Leading icon (or trailing when [iconTrailing] is `true`).
   final IconData icon;
 
   /// Already-localized label text.
@@ -31,17 +33,33 @@ class AppPillButton extends StatelessWidget {
   /// it sits on the muted container tone.
   final bool primary;
 
+  /// Draws a bordered surface pill (white in light mode) instead of the muted
+  /// container fill. Ignored when [primary] is `true`.
+  final bool outlined;
+
+  /// Places [icon] after the label, so it lands on the leading edge in RTL.
+  final bool iconTrailing;
+
   @override
   Widget build(BuildContext context) {
     final radius = BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r);
     final background = primary
         ? context.clinicSubmitButton
+        : outlined
+        ? (context.clinicIsDark
+              ? AppColors.clinicSurfaceContainerDark
+              : AppColors.surfaceWhite)
         : context.clinicContainer;
     final foreground = primary ? AppColors.white : context.clinicTextPrimary;
 
     return Material(
       color: background,
-      borderRadius: radius,
+      shape: RoundedRectangleBorder(
+        borderRadius: radius,
+        side: outlined && !primary
+            ? BorderSide(color: context.clinicBorder)
+            : BorderSide.none,
+      ),
       child: InkWell(
         borderRadius: radius,
         onTap: onTap,
@@ -53,8 +71,14 @@ class AppPillButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: Dimensions.ICON_SIZE_SMALL.r, color: foreground),
-              SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+              if (!iconTrailing) ...[
+                Icon(
+                  icon,
+                  size: Dimensions.ICON_SIZE_SMALL.r,
+                  color: foreground,
+                ),
+                SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+              ],
               ResponsiveText(
                 label,
                 fontSize: Dimensions.FONT_SIZE_SMALL,
@@ -62,6 +86,14 @@ class AppPillButton extends StatelessWidget {
                 color: foreground,
                 maxLines: 1,
               ),
+              if (iconTrailing) ...[
+                SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+                Icon(
+                  icon,
+                  size: Dimensions.ICON_SIZE_SMALL.r,
+                  color: foreground,
+                ),
+              ],
             ],
           ),
         ),

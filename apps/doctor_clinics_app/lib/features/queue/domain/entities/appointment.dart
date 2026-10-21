@@ -10,6 +10,7 @@ class Appointment with _$Appointment {
     required int patientId,
     required DateTime scheduledDate,
     required String scheduledTime,
+    int? queueNumber,
     required String type,
     required String status,
     String? reason,
