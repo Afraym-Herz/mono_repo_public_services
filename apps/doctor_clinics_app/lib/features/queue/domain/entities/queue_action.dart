@@ -1,8 +1,8 @@
 enum QueueAction {
-  checkIn,
   call,
   advance,
   cancel,
+  markNoShow,
   restore,
   finish,
   collect,

@@ -3,7 +3,7 @@ import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/core/database/daos/queue_row_data.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/appointment.dart'
     as entity;
-import 'package:doctor_clinics_app/features/queue/domain/entities/booked_appointment.dart';
+import 'package:doctor_clinics_app/features/queue/domain/entities/appointment_list_item.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_status.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.dart';
 
@@ -31,15 +31,18 @@ class QueueDriftMapper {
     cancelReason: row.entry.cancelReason,
   );
 
-  static BookedAppointment toBooked(BookedAppointmentRowData row) =>
-      BookedAppointment(
+  static AppointmentListItem toAppointmentListItem(AppointmentRowData row) =>
+      AppointmentListItem(
         appointmentId: row.appointment.id,
         patientId: row.patient.id,
         patientName: row.patient.fullName,
         patientPhone: row.patient.phone,
         fileNumber: row.patient.fileNumber,
-        scheduledTime: row.appointment.scheduledTime,
+        scheduledDate: row.appointment.scheduledDate,
+        queueNumber: row.appointment.queueNumber,
         type: row.appointment.type,
+        status: row.appointment.status,
+        notes: row.appointment.notes,
       );
 
   static entity.Appointment toDomainAppointment(Appointment row) =>
@@ -48,6 +51,7 @@ class QueueDriftMapper {
         patientId: row.patientId,
         scheduledDate: row.scheduledDate,
         scheduledTime: row.scheduledTime,
+        queueNumber: row.queueNumber,
         type: row.type,
         status: row.status,
         reason: row.reason,
@@ -58,17 +62,19 @@ class QueueDriftMapper {
         updatedAt: row.scheduledDate,
       );
 
-  static AppointmentsCompanion toAppointmentCompanion(entity.Appointment appt) =>
-      AppointmentsCompanion(
-        id: appt.id > 0 ? Value(appt.id) : const Value.absent(),
-        patientId: Value(appt.patientId),
-        scheduledDate: Value(appt.scheduledDate),
-        scheduledTime: Value(appt.scheduledTime),
-        type: Value(appt.type),
-        status: Value(appt.status),
-        reason: Value(appt.reason),
-        notes: Value(appt.notes),
-        cancelledReason: Value(appt.cancelledReason),
-        createdBy: Value(appt.createdBy.toString()),
-      );
+  static AppointmentsCompanion toAppointmentCompanion(
+    entity.Appointment appt,
+  ) => AppointmentsCompanion(
+    id: appt.id > 0 ? Value(appt.id) : const Value.absent(),
+    patientId: Value(appt.patientId),
+    scheduledDate: Value(appt.scheduledDate),
+    scheduledTime: Value(appt.scheduledTime),
+    queueNumber: Value(appt.queueNumber),
+    type: Value(appt.type),
+    status: Value(appt.status),
+    reason: Value(appt.reason),
+    notes: Value(appt.notes),
+    cancelledReason: Value(appt.cancelledReason),
+    createdBy: Value(appt.createdBy.toString()),
+  );
 }

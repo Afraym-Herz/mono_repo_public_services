@@ -17,38 +17,39 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$QueueBoardRow {
+  QueueTicket get ticket => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(QueueTicket ticket) ticket,
-    required TResult Function(BookedAppointment appointment) booked,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(QueueTicket ticket)? ticket,
-    TResult? Function(BookedAppointment appointment)? booked,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(QueueTicket ticket)? ticket,
-    TResult Function(BookedAppointment appointment)? booked,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(QueueTicketRow value) ticket,
-    required TResult Function(QueueBookedRow value) booked,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QueueTicketRow value)? ticket,
-    TResult? Function(QueueBookedRow value)? booked,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QueueTicketRow value)? ticket,
-    TResult Function(QueueBookedRow value)? booked,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
+
+  /// Create a copy of QueueBoardRow
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $QueueBoardRowCopyWith<QueueBoardRow> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -57,6 +58,10 @@ abstract class $QueueBoardRowCopyWith<$Res> {
     QueueBoardRow value,
     $Res Function(QueueBoardRow) then,
   ) = _$QueueBoardRowCopyWithImpl<$Res, QueueBoardRow>;
+  @useResult
+  $Res call({QueueTicket ticket});
+
+  $QueueTicketCopyWith<$Res> get ticket;
 }
 
 /// @nodoc
@@ -71,17 +76,43 @@ class _$QueueBoardRowCopyWithImpl<$Res, $Val extends QueueBoardRow>
 
   /// Create a copy of QueueBoardRow
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? ticket = null}) {
+    return _then(
+      _value.copyWith(
+            ticket: null == ticket
+                ? _value.ticket
+                : ticket // ignore: cast_nullable_to_non_nullable
+                      as QueueTicket,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of QueueBoardRow
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $QueueTicketCopyWith<$Res> get ticket {
+    return $QueueTicketCopyWith<$Res>(_value.ticket, (value) {
+      return _then(_value.copyWith(ticket: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$QueueTicketRowImplCopyWith<$Res> {
+abstract class _$$QueueTicketRowImplCopyWith<$Res>
+    implements $QueueBoardRowCopyWith<$Res> {
   factory _$$QueueTicketRowImplCopyWith(
     _$QueueTicketRowImpl value,
     $Res Function(_$QueueTicketRowImpl) then,
   ) = __$$QueueTicketRowImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({QueueTicket ticket});
 
+  @override
   $QueueTicketCopyWith<$Res> get ticket;
 }
 
@@ -107,16 +138,6 @@ class __$$QueueTicketRowImplCopyWithImpl<$Res>
                   as QueueTicket,
       ),
     );
-  }
-
-  /// Create a copy of QueueBoardRow
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $QueueTicketCopyWith<$Res> get ticket {
-    return $QueueTicketCopyWith<$Res>(_value.ticket, (value) {
-      return _then(_value.copyWith(ticket: value));
-    });
   }
 }
 
@@ -159,7 +180,6 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(QueueTicket ticket) ticket,
-    required TResult Function(BookedAppointment appointment) booked,
   }) {
     return ticket(this.ticket);
   }
@@ -168,7 +188,6 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(QueueTicket ticket)? ticket,
-    TResult? Function(BookedAppointment appointment)? booked,
   }) {
     return ticket?.call(this.ticket);
   }
@@ -177,7 +196,6 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(QueueTicket ticket)? ticket,
-    TResult Function(BookedAppointment appointment)? booked,
     required TResult orElse(),
   }) {
     if (ticket != null) {
@@ -190,7 +208,6 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(QueueTicketRow value) ticket,
-    required TResult Function(QueueBookedRow value) booked,
   }) {
     return ticket(this);
   }
@@ -199,7 +216,6 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QueueTicketRow value)? ticket,
-    TResult? Function(QueueBookedRow value)? booked,
   }) {
     return ticket?.call(this);
   }
@@ -208,7 +224,6 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QueueTicketRow value)? ticket,
-    TResult Function(QueueBookedRow value)? booked,
     required TResult orElse(),
   }) {
     if (ticket != null) {
@@ -221,170 +236,13 @@ class _$QueueTicketRowImpl implements QueueTicketRow {
 abstract class QueueTicketRow implements QueueBoardRow {
   const factory QueueTicketRow(final QueueTicket ticket) = _$QueueTicketRowImpl;
 
+  @override
   QueueTicket get ticket;
 
   /// Create a copy of QueueBoardRow
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$QueueTicketRowImplCopyWith<_$QueueTicketRowImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$QueueBookedRowImplCopyWith<$Res> {
-  factory _$$QueueBookedRowImplCopyWith(
-    _$QueueBookedRowImpl value,
-    $Res Function(_$QueueBookedRowImpl) then,
-  ) = __$$QueueBookedRowImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({BookedAppointment appointment});
-
-  $BookedAppointmentCopyWith<$Res> get appointment;
-}
-
-/// @nodoc
-class __$$QueueBookedRowImplCopyWithImpl<$Res>
-    extends _$QueueBoardRowCopyWithImpl<$Res, _$QueueBookedRowImpl>
-    implements _$$QueueBookedRowImplCopyWith<$Res> {
-  __$$QueueBookedRowImplCopyWithImpl(
-    _$QueueBookedRowImpl _value,
-    $Res Function(_$QueueBookedRowImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of QueueBoardRow
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? appointment = null}) {
-    return _then(
-      _$QueueBookedRowImpl(
-        null == appointment
-            ? _value.appointment
-            : appointment // ignore: cast_nullable_to_non_nullable
-                  as BookedAppointment,
-      ),
-    );
-  }
-
-  /// Create a copy of QueueBoardRow
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $BookedAppointmentCopyWith<$Res> get appointment {
-    return $BookedAppointmentCopyWith<$Res>(_value.appointment, (value) {
-      return _then(_value.copyWith(appointment: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$QueueBookedRowImpl implements QueueBookedRow {
-  const _$QueueBookedRowImpl(this.appointment);
-
-  @override
-  final BookedAppointment appointment;
-
-  @override
-  String toString() {
-    return 'QueueBoardRow.booked(appointment: $appointment)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$QueueBookedRowImpl &&
-            (identical(other.appointment, appointment) ||
-                other.appointment == appointment));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, appointment);
-
-  /// Create a copy of QueueBoardRow
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$QueueBookedRowImplCopyWith<_$QueueBookedRowImpl> get copyWith =>
-      __$$QueueBookedRowImplCopyWithImpl<_$QueueBookedRowImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(QueueTicket ticket) ticket,
-    required TResult Function(BookedAppointment appointment) booked,
-  }) {
-    return booked(appointment);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(QueueTicket ticket)? ticket,
-    TResult? Function(BookedAppointment appointment)? booked,
-  }) {
-    return booked?.call(appointment);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(QueueTicket ticket)? ticket,
-    TResult Function(BookedAppointment appointment)? booked,
-    required TResult orElse(),
-  }) {
-    if (booked != null) {
-      return booked(appointment);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(QueueTicketRow value) ticket,
-    required TResult Function(QueueBookedRow value) booked,
-  }) {
-    return booked(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(QueueTicketRow value)? ticket,
-    TResult? Function(QueueBookedRow value)? booked,
-  }) {
-    return booked?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(QueueTicketRow value)? ticket,
-    TResult Function(QueueBookedRow value)? booked,
-    required TResult orElse(),
-  }) {
-    if (booked != null) {
-      return booked(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class QueueBookedRow implements QueueBoardRow {
-  const factory QueueBookedRow(final BookedAppointment appointment) =
-      _$QueueBookedRowImpl;
-
-  BookedAppointment get appointment;
-
-  /// Create a copy of QueueBoardRow
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$QueueBookedRowImplCopyWith<_$QueueBookedRowImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

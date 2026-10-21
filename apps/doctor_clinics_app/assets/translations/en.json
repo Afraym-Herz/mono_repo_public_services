@@ -292,6 +292,7 @@
   "appointment_toolbar": {
     "day": "Day",
     "week": "Week",
+    "month": "Month",
     "today": "Today"
   },
   "appointment_status": {
@@ -301,13 +302,21 @@
     "cancelled": "Cancelled",
     "no_show": "No-show"
   },
+  "appointment_type": {
+    "booked": "Booked",
+    "walk_in": "Walk-in",
+    "follow_up": "Follow-up"
+  },
+  "appointment_month": {
+    "more": "+{count}"
+  },
   "appointment_empty": {
     "title": "No appointments",
     "subtitle": "Use “Book new appointment” to add the first patient for this day.",
     "subtitle_read_only": "No appointments are scheduled for this day."
   },
   "appointment_day": {
-    "count": "{0} appointments"
+    "count": "{count} appointments"
   },
   "appointment_week": {
     "empty_day": "No appointments on this day"

@@ -1,8 +1,11 @@
 import 'package:core/core.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_action.dart';
+import '../cubit/queue_cubit.dart';
+import '../helpers/queue_action_catalog.dart';
 import '../helpers/queue_row_state.dart';
 import 'queue_action_button.dart';
 
@@ -24,7 +27,8 @@ class QueueTicketActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final actions = rowState.availableActions;
+    final canManage = context.read<QueueCubit>().canManageQueue;
+    final actions = QueueActionCatalog.visible(rowState, canManage: canManage);
     if (actions.isEmpty) return const SizedBox.shrink();
     return Wrap(
       spacing: Dimensions.PADDING_SIZE_SMALL.w,
@@ -44,33 +48,12 @@ class QueueTicketActions extends StatelessWidget {
           ),
         for (final action in actions)
           QueueActionButton(
-            label: _labelFor(action),
+            label: QueueActionCatalog.label(action),
             onPressed: () => onAction(action),
             isDanger: action == QueueAction.cancel,
             isSubmitting: isSubmitting,
           ),
       ],
     );
-  }
-
-  String _labelFor(QueueAction action) {
-    switch (action) {
-      case QueueAction.checkIn:
-        return 'queue_row.action.check_in'.tr();
-      case QueueAction.call:
-        return 'queue_row.action.call'.tr();
-      case QueueAction.advance:
-        return 'queue_row.action.advance'.tr();
-      case QueueAction.cancel:
-        return 'queue_row.action.cancel'.tr();
-      case QueueAction.restore:
-        return 'queue_row.action.restore'.tr();
-      case QueueAction.finish:
-        return 'queue_row.action.finish'.tr();
-      case QueueAction.collect:
-        return 'queue_row.action.collect'.tr();
-      case QueueAction.toggleUrgent:
-        return 'queue_row.status.urgent'.tr();
-    }
   }
 }

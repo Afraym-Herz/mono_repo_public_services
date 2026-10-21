@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/queue_status.dart';
 import '../../domain/entities/queue_ticket.dart';
 
-/// Derived text for a queue card: the contact/file line and the home-style
-/// timing detail (wait time for arrived patients, confirmed slot for booked).
+/// Derived text for a queue card: the contact/file line and the live wait time.
 class QueueTicketDetails {
   QueueTicketDetails._();
 
@@ -28,33 +27,25 @@ class QueueTicketDetails {
     return parts.isEmpty ? null : parts.join('  •  ');
   }
 
-  /// Wait time for arrived patients, or the confirmed slot when the ticket
-  /// carries no arrival time.
+  /// Wait time for live patients. Booked times are intentionally not shown:
+  /// appointments are day-only now.
   static String? timing(BuildContext context, QueueTicket ticket) {
-    if (ticket.status == QueueStatus.waiting ||
-        ticket.status == QueueStatus.inConsultation) {
-      final minutes = DateTime.now().difference(ticket.arrivedAt).inMinutes;
-      final safeMinutes = minutes < 0 ? 0 : minutes;
-      return 'queue_row.meta.wait'.tr(
-        namedArgs: {
-          'minutes': DateConverter.withLocalizedDigits(
-            '$safeMinutes',
-            context.locale.toString(),
-          ),
-        },
-      );
+    if (ticket.status != QueueStatus.waiting &&
+        ticket.status != QueueStatus.inConsultation) {
+      return null;
     }
-    final scheduled = ticket.scheduledTime;
-    if (scheduled != null && scheduled.isNotEmpty) {
-      return 'queue_row.meta.scheduled_at'.tr(
-        namedArgs: {
-          'time': DateConverter.localizedSlot(
-            scheduled,
-            context.locale.toString(),
-          ),
-        },
-      );
-    }
-    return null;
+    final now = DateTime.now();
+    final startOfDay = DateTime(now.year, now.month, now.day);
+    if (ticket.arrivedAt.isBefore(startOfDay)) return null;
+    final minutes = now.difference(ticket.arrivedAt).inMinutes;
+    final safeMinutes = minutes < 0 ? 0 : minutes;
+    return 'queue_row.meta.wait'.tr(
+      namedArgs: {
+        'minutes': DateConverter.withLocalizedDigits(
+          '$safeMinutes',
+          context.locale.toString(),
+        ),
+      },
+    );
   }
 }

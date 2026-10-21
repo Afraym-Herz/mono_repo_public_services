@@ -292,6 +292,7 @@
   "appointment_toolbar": {
     "day": "يوم",
     "week": "أسبوع",
+    "month": "شهر",
     "today": "اليوم"
   },
   "appointment_status": {
@@ -301,13 +302,21 @@
     "cancelled": "ملغي",
     "no_show": "لم يحضر"
   },
+  "appointment_type": {
+    "booked": "محجوز",
+    "walk_in": "بدون موعد",
+    "follow_up": "متابعة"
+  },
+  "appointment_month": {
+    "more": "+{count}"
+  },
   "appointment_empty": {
     "title": "لا توجد مواعيد",
     "subtitle": "استخدم «حجز موعد جديد» لإضافة أول مريض في هذا اليوم.",
     "subtitle_read_only": "لا توجد مواعيد مجدولة في هذا اليوم."
   },
   "appointment_day": {
-    "count": "{0} موعد"
+    "count": "{count} موعد"
   },
   "appointment_week": {
     "empty_day": "لا توجد مواعيد في هذا اليوم"

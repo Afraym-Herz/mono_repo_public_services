@@ -6,14 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// Meta line on a queue card.
 ///
 /// Reuses the home "current queue" row language: a small type chip (booked /
-/// walk-in / follow-up) followed by a dot and the timing detail — wait time for
-/// arrived patients, or the confirmed slot for booked ones.
+/// walk-in / follow-up) followed by a dot and the wait-time detail for live
+/// patients. Day-only bookings never show a time slot.
 class QueueTicketMeta extends StatelessWidget {
-  const QueueTicketMeta({
-    super.key,
-    this.appointmentType,
-    this.detail,
-  });
+  const QueueTicketMeta({super.key, this.appointmentType, this.detail});
 
   /// Raw appointment type code (`booked`, `walk_in`, `follow_up`).
   final String? appointmentType;
@@ -24,9 +20,9 @@ class QueueTicketMeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: AppColors.clinicTextSecondary,
-          fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL.sp,
-        );
+      color: AppColors.clinicTextSecondary,
+      fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL.sp,
+    );
     final hasType = appointmentType != null && appointmentType!.isNotEmpty;
     final hasDetail = detail != null && detail!.isNotEmpty;
     if (!hasType && !hasDetail) return const SizedBox.shrink();

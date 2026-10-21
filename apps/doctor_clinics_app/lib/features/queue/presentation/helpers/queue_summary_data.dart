@@ -1,4 +1,3 @@
-import 'package:doctor_clinics_app/features/queue/domain/entities/booked_appointment.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_status.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.dart';
 
@@ -35,14 +34,15 @@ class QueueSummaryData {
 
   factory QueueSummaryData.fromBoard({
     required List<QueueTicket> tickets,
-    required List<BookedAppointment> booked,
     DateTime? now,
   }) {
     final at = now ?? DateTime.now();
+    final startOfDay = DateTime(at.year, at.month, at.day);
     final waitingTickets = tickets
         .where((ticket) => ticket.status == QueueStatus.waiting)
         .toList();
     final waitTimes = waitingTickets
+        .where((ticket) => !ticket.arrivedAt.isBefore(startOfDay))
         .map((ticket) => at.difference(ticket.arrivedAt).inMinutes)
         .where((minutes) => minutes > 0)
         .toList();
@@ -54,9 +54,8 @@ class QueueSummaryData {
       waiting: waitingTickets.length,
       done: tickets.where((t) => t.status == QueueStatus.done).length,
       cancelled: tickets.where((t) => t.status == QueueStatus.cancelled).length,
-      // Queue entries do not record a no-show status yet, so it stays at zero.
-      noShow: 0,
-      totalRegistered: tickets.length + booked.length,
+      noShow: tickets.where((t) => t.status == QueueStatus.noShow).length,
+      totalRegistered: tickets.length,
       averageWaitMinutes: average,
       current: _currentOf(tickets),
     );

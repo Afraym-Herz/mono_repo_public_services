@@ -67,13 +67,13 @@ class QueueRowStyle {
           badgeBgColor: AppColors.clinicStatusCancelledBg,
           labelKey: 'queue_row.status.cancelled',
         );
-      case QueueRowState.booked:
+      case QueueRowState.noShow:
         return const QueueRowStyle(
-          surfaceColor: AppColors.surfaceWhite,
-          borderColor: AppColors.clinicBorder,
-          badgeTextColor: AppColors.clinicStatusBooked,
-          badgeBgColor: AppColors.clinicStatusBookedBg,
-          labelKey: 'queue_row.status.booked',
+          surfaceColor: AppColors.clinicStatusCancelledBg,
+          borderColor: AppColors.clinicStatusCancelledBorder,
+          badgeTextColor: AppColors.clinicStatusCancelled,
+          badgeBgColor: AppColors.clinicStatusCancelledBg,
+          labelKey: 'queue_row.status.no_show',
         );
     }
   }

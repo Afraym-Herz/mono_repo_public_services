@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$QueueBoard {
   List<QueueTicket> get tickets => throw _privateConstructorUsedError;
-  List<BookedAppointment> get booked => throw _privateConstructorUsedError;
 
   /// Create a copy of QueueBoard
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +33,7 @@ abstract class $QueueBoardCopyWith<$Res> {
     $Res Function(QueueBoard) then,
   ) = _$QueueBoardCopyWithImpl<$Res, QueueBoard>;
   @useResult
-  $Res call({List<QueueTicket> tickets, List<BookedAppointment> booked});
+  $Res call({List<QueueTicket> tickets});
 }
 
 /// @nodoc
@@ -51,17 +50,13 @@ class _$QueueBoardCopyWithImpl<$Res, $Val extends QueueBoard>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tickets = null, Object? booked = null}) {
+  $Res call({Object? tickets = null}) {
     return _then(
       _value.copyWith(
             tickets: null == tickets
                 ? _value.tickets
                 : tickets // ignore: cast_nullable_to_non_nullable
                       as List<QueueTicket>,
-            booked: null == booked
-                ? _value.booked
-                : booked // ignore: cast_nullable_to_non_nullable
-                      as List<BookedAppointment>,
           )
           as $Val,
     );
@@ -77,7 +72,7 @@ abstract class _$$QueueBoardImplCopyWith<$Res>
   ) = __$$QueueBoardImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<QueueTicket> tickets, List<BookedAppointment> booked});
+  $Res call({List<QueueTicket> tickets});
 }
 
 /// @nodoc
@@ -93,17 +88,13 @@ class __$$QueueBoardImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tickets = null, Object? booked = null}) {
+  $Res call({Object? tickets = null}) {
     return _then(
       _$QueueBoardImpl(
         tickets: null == tickets
             ? _value._tickets
             : tickets // ignore: cast_nullable_to_non_nullable
                   as List<QueueTicket>,
-        booked: null == booked
-            ? _value._booked
-            : booked // ignore: cast_nullable_to_non_nullable
-                  as List<BookedAppointment>,
       ),
     );
   }
@@ -112,11 +103,8 @@ class __$$QueueBoardImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$QueueBoardImpl implements _QueueBoard {
-  const _$QueueBoardImpl({
-    required final List<QueueTicket> tickets,
-    required final List<BookedAppointment> booked,
-  }) : _tickets = tickets,
-       _booked = booked;
+  const _$QueueBoardImpl({required final List<QueueTicket> tickets})
+    : _tickets = tickets;
 
   final List<QueueTicket> _tickets;
   @override
@@ -126,17 +114,9 @@ class _$QueueBoardImpl implements _QueueBoard {
     return EqualUnmodifiableListView(_tickets);
   }
 
-  final List<BookedAppointment> _booked;
-  @override
-  List<BookedAppointment> get booked {
-    if (_booked is EqualUnmodifiableListView) return _booked;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_booked);
-  }
-
   @override
   String toString() {
-    return 'QueueBoard(tickets: $tickets, booked: $booked)';
+    return 'QueueBoard(tickets: $tickets)';
   }
 
   @override
@@ -144,16 +124,12 @@ class _$QueueBoardImpl implements _QueueBoard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QueueBoardImpl &&
-            const DeepCollectionEquality().equals(other._tickets, _tickets) &&
-            const DeepCollectionEquality().equals(other._booked, _booked));
+            const DeepCollectionEquality().equals(other._tickets, _tickets));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_tickets),
-    const DeepCollectionEquality().hash(_booked),
-  );
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_tickets));
 
   /// Create a copy of QueueBoard
   /// with the given fields replaced by the non-null parameter values.
@@ -165,15 +141,11 @@ class _$QueueBoardImpl implements _QueueBoard {
 }
 
 abstract class _QueueBoard implements QueueBoard {
-  const factory _QueueBoard({
-    required final List<QueueTicket> tickets,
-    required final List<BookedAppointment> booked,
-  }) = _$QueueBoardImpl;
+  const factory _QueueBoard({required final List<QueueTicket> tickets}) =
+      _$QueueBoardImpl;
 
   @override
   List<QueueTicket> get tickets;
-  @override
-  List<BookedAppointment> get booked;
 
   /// Create a copy of QueueBoard
   /// with the given fields replaced by the non-null parameter values.

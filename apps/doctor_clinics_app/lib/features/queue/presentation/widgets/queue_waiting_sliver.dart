@@ -6,8 +6,11 @@ import 'package:doctor_clinics_app/features/queue/domain/entities/queue_board_ro
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.dart';
 import '../cubit/queue_cubit.dart';
 import '../helpers/queue_action_dispatcher.dart';
+import 'queue_ticket_sliver.dart';
 import 'queue_ticket_tile.dart';
 
+/// Live waiting list. The secretary can drag a late patient to a new position;
+/// the doctor only sees the resulting order.
 class QueueWaitingSliver extends StatelessWidget {
   const QueueWaitingSliver({
     super.key,
@@ -25,6 +28,14 @@ class QueueWaitingSliver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<QueueCubit>();
+    if (!cubit.canManageQueue) {
+      return QueueTicketSliver(
+        tickets: waiting,
+        isSubmitting: isSubmitting,
+        onTicketTap: onTicketTap,
+        defaultFeePiasters: defaultFeePiasters,
+      );
+    }
     return SliverReorderableList(
       itemCount: waiting.length,
       onReorderItem: cubit.reorderWaiting,

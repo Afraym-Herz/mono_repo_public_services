@@ -2,6 +2,8 @@ import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:doctor_clinics_app/features/queue/data/datasources/queue_datasource.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/appointment.dart';
+import 'package:doctor_clinics_app/features/queue/domain/entities/appointment_list_item.dart';
+import 'package:doctor_clinics_app/features/queue/domain/entities/queue_failure.dart';
 
 /// Appointment operations mixed into the concrete queue repository.
 mixin QueueAppointmentOps {
@@ -17,10 +19,24 @@ mixin QueueAppointmentOps {
     }
   }
 
+  FutureResult<List<AppointmentListItem>> getAppointmentsInRange(
+    DateTime start,
+    DateTime end,
+  ) async {
+    try {
+      final result = await datasource.fetchAppointmentsInRange(start, end);
+      return Right(result);
+    } catch (e) {
+      return Left(CacheFailure('queue.getAppointmentsInRange failed: $e'));
+    }
+  }
+
   FutureResult<Appointment> bookAppointment(Appointment appointment) async {
     try {
-      final id = await datasource.insertAppointment(appointment);
-      return Right(appointment.copyWith(id: id));
+      final booked = await datasource.bookAppointment(appointment);
+      return Right(booked);
+    } on QueueFailure catch (f) {
+      return Left(f);
     } catch (e) {
       return Left(CacheFailure('queue.bookAppointment failed: $e'));
     }
@@ -28,32 +44,21 @@ mixin QueueAppointmentOps {
 
   FutureResult<void> cancelAppointment(int id, String reason) async {
     try {
-      final appointments = await datasource.fetchAppointments(DateTime.now());
-      final appt = appointments.firstWhere((a) => a.id == id);
-      await datasource.updateAppointment(
-        appt.copyWith(
-          status: AppConstants.appointmentStatusCancelled,
-          cancelledReason: reason,
-        ),
-      );
+      await datasource.cancelAppointment(id, reason);
       return const Right(null);
+    } on QueueFailure catch (f) {
+      return Left(f);
     } catch (e) {
       return Left(CacheFailure('queue.cancelAppointment failed: $e'));
     }
   }
 
-  FutureResult<void> rescheduleAppointment(
-    int id,
-    DateTime newDate,
-    String newTime,
-  ) async {
+  FutureResult<void> rescheduleAppointment(int id, DateTime newDate) async {
     try {
-      final appointments = await datasource.fetchAppointments(DateTime.now());
-      final appt = appointments.firstWhere((a) => a.id == id);
-      await datasource.updateAppointment(
-        appt.copyWith(scheduledDate: newDate, scheduledTime: newTime),
-      );
+      await datasource.rescheduleAppointment(id, newDate);
       return const Right(null);
+    } on QueueFailure catch (f) {
+      return Left(f);
     } catch (e) {
       return Left(CacheFailure('queue.rescheduleAppointment failed: $e'));
     }

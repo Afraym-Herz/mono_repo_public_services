@@ -4,7 +4,8 @@ enum QueueStatus {
   waiting(AppConstants.queueStatusWaiting),
   inConsultation(AppConstants.queueStatusInConsultation),
   done(AppConstants.queueStatusDone),
-  cancelled(AppConstants.queueStatusCancelled);
+  cancelled(AppConstants.queueStatusCancelled),
+  noShow(AppConstants.queueStatusNoShow);
 
   const QueueStatus(this.code);
   final String code;
@@ -16,5 +17,5 @@ enum QueueStatus {
   static QueueStatus? tryParse(String code) => _byCode[code];
 
   bool get isActive => this == waiting || this == inConsultation;
-  bool get isTerminal => this == done || this == cancelled;
+  bool get isTerminal => this == done || this == cancelled || this == noShow;
 }

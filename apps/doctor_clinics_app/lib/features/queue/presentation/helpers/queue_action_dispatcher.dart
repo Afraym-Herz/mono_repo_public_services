@@ -33,8 +33,9 @@ class QueueActionDispatcher {
         final amount = await showGeneralDialog<int>(
           context: context,
           barrierDismissible: true,
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          barrierLabel: MaterialLocalizations.of(
+            context,
+          ).modalBarrierDismissLabel,
           barrierColor: AppColors.scrim,
           pageBuilder: (ctx, _, _) => Center(
             child: Material(
@@ -49,10 +50,8 @@ class QueueActionDispatcher {
         if (amount != null && context.mounted) {
           return cubit.collect(ticket.entryId, amount);
         }
-      case QueueAction.checkIn:
-        if (ticket.appointmentId != null) {
-          return cubit.checkIn(ticket.appointmentId!);
-        }
+      case QueueAction.markNoShow:
+        return cubit.markNoShow(ticket.entryId);
     }
   }
 }

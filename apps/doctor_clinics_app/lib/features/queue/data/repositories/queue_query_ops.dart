@@ -9,24 +9,10 @@ mixin QueueQueryOps {
 
   FutureResult<int> nextQueueNumber(DateTime date) async {
     try {
-      final count = await datasource.countQueueForDate(date);
-      return Right(count + 1);
+      final number = await datasource.nextQueueNumber(date);
+      return Right(number);
     } catch (e) {
       return Left(CacheFailure('queue.nextQueueNumber failed: $e'));
-    }
-  }
-
-  FutureResult<bool> isSlotAvailable(DateTime date, String time) async {
-    try {
-      final appointments = await datasource.fetchAppointments(date);
-      final isTaken = appointments.any(
-        (a) =>
-            a.scheduledTime == time &&
-            a.status != AppConstants.appointmentStatusCancelled,
-      );
-      return Right(!isTaken);
-    } catch (e) {
-      return Left(CacheFailure('queue.isSlotAvailable failed: $e'));
     }
   }
 }

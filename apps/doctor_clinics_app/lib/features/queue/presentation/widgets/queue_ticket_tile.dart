@@ -1,9 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_action.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_status.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.dart';
+import '../cubit/queue_cubit.dart';
 import '../helpers/queue_row_state.dart';
 import 'queue_ticket_actions.dart';
 import 'queue_ticket_body.dart';
@@ -29,7 +31,9 @@ class QueueTicketTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = ticket.rowState;
-    final canToggleUrgent = ticket.status == QueueStatus.waiting;
+    final canToggleUrgent =
+        ticket.status == QueueStatus.waiting &&
+        context.read<QueueCubit>().canManageQueue;
     return QueueTicketSurface(
       rowState: state,
       onTap: onTap,
@@ -42,9 +46,7 @@ class QueueTicketTile extends StatelessWidget {
             isUrgent: ticket.isUrgent,
           ),
           SizedBox(width: Dimensions.paddingSizeDefault.w),
-          Expanded(
-            child: QueueTicketBody(ticket: ticket),
-          ),
+          Expanded(child: QueueTicketBody(ticket: ticket)),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
           QueueTicketActions(
             rowState: state,

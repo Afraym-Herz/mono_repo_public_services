@@ -14,6 +14,10 @@ enum QueueListFilter {
     status: AppConstants.queueStatusInConsultation,
   ),
   done(labelKey: 'queue_filter.done', status: AppConstants.queueStatusDone),
+  noShow(
+    labelKey: 'queue_filter.no_show',
+    status: AppConstants.queueStatusNoShow,
+  ),
   cancelled(
     labelKey: 'queue_filter.cancelled',
     status: AppConstants.queueStatusCancelled,
@@ -27,12 +31,8 @@ enum QueueListFilter {
   bool matchesStatus(QueueStatus queueStatus) =>
       status == null || status == queueStatus.code;
 
-  static Map<QueueListFilter, int> countByTab(
-    List<QueueTicket> tickets, {
-    int bookedCount = 0,
-  }) => {
+  static Map<QueueListFilter, int> countByTab(List<QueueTicket> tickets) => {
     for (final f in values)
-      f: tickets.where((t) => f.matchesStatus(t.status)).length +
-          (f == all || f == waiting ? bookedCount : 0),
+      f: tickets.where((t) => f.matchesStatus(t.status)).length,
   };
 }

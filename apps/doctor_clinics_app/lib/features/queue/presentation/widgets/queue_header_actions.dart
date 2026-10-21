@@ -24,17 +24,19 @@ class QueueHeaderActions extends StatelessWidget {
       runSpacing: Dimensions.PADDING_SIZE_SMALL.h,
       alignment: WrapAlignment.start,
       children: [
-        AppPillButton(
-          icon: Icons.campaign_outlined,
-          label: 'queue_header.screen_call'.tr(),
-          onTap: onScreenCall ?? () {},
-        ),
-        AppPillButton(
-          icon: Icons.person_add_alt_1_outlined,
-          label: 'queue_header.add_walk_in'.tr(),
-          onTap: onAddWalkIn ?? () {},
-          primary: true,
-        ),
+        if (onScreenCall != null)
+          AppPillButton(
+            icon: Icons.campaign_outlined,
+            label: 'queue_header.screen_call'.tr(),
+            onTap: onScreenCall!,
+          ),
+        if (onAddWalkIn != null)
+          AppPillButton(
+            icon: Icons.person_add_alt_1_outlined,
+            label: 'queue_header.add_walk_in'.tr(),
+            onTap: onAddWalkIn!,
+            primary: true,
+          ),
       ],
     );
   }

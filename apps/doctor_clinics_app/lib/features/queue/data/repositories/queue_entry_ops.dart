@@ -7,7 +7,6 @@ import 'package:doctor_clinics_app/features/queue/domain/entities/queue_status.d
 
 mixin QueueEntryOps {
   IQueueDatasource get datasource;
-
   FutureResult<QueueBoard> getTodayBoard() async {
     try {
       final board = await datasource.fetchTodayBoard();
@@ -17,18 +16,9 @@ mixin QueueEntryOps {
     }
   }
 
-  FutureResult<void> checkIn(int appointmentId) async {
+  FutureResult<void> addWalkIn(int patientId, {String? notes}) async {
     try {
-      await datasource.checkInAppointment(appointmentId);
-      return const Right(null);
-    } catch (e) {
-      return Left(CacheFailure('queue.checkIn failed: $e'));
-    }
-  }
-
-  FutureResult<void> addWalkIn(int patientId) async {
-    try {
-      await datasource.addWalkIn(patientId);
+      await datasource.addWalkIn(patientId, notes: notes);
       return const Right(null);
     } catch (e) {
       return Left(CacheFailure('queue.addWalkIn failed: $e'));
@@ -70,6 +60,19 @@ mixin QueueEntryOps {
       return Left(f);
     } catch (e) {
       return Left(CacheFailure('queue.finishEntry failed: $e'));
+    }
+  }
+
+  FutureResult<void> markNoShow(int entryId) async {
+    try {
+      final ok = await datasource.markNoShow(entryId);
+      return ok
+          ? const Right(null)
+          : const Left(QueueFailure('queue_row.error.invalid_transition'));
+    } on QueueFailure catch (f) {
+      return Left(f);
+    } catch (e) {
+      return Left(CacheFailure('queue.markNoShow failed: $e'));
     }
   }
 

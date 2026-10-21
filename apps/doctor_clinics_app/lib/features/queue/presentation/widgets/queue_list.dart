@@ -18,34 +18,31 @@ class QueueList extends StatelessWidget {
     return BlocBuilder<QueueCubit, QueueState>(
       builder: (context, state) => state.maybeWhen(
         loading: () => const QueueListSkeleton(),
-        error: (message) => QueueListError(
-          message: message,
-          onRetry: cubit.loadTodayQueue,
-        ),
-        loaded: (
-          tickets,
-          booked,
-          filter,
-          sortOrder,
-          fee,
-          doctorNameAr,
-          doctorNameEn,
-          isSubmitting,
-          _,
-        ) {
-          final groups = QueueBoardGroups.build(
-            tickets: tickets,
-            booked: booked,
-            filter: filter,
-            sortOrder: sortOrder,
-          );
-          return QueueBoardView(
-            groups: groups,
-            onTicketTap: onTicketTap,
-            isSubmitting: isSubmitting,
-            defaultFeePiasters: fee,
-          );
-        },
+        error: (message) =>
+            QueueListError(message: message, onRetry: cubit.loadTodayQueue),
+        loaded:
+            (
+              tickets,
+              filter,
+              sortOrder,
+              fee,
+              doctorNameAr,
+              doctorNameEn,
+              isSubmitting,
+              _,
+            ) {
+              final groups = QueueBoardGroups.build(
+                tickets: tickets,
+                filter: filter,
+                sortOrder: sortOrder,
+              );
+              return QueueBoardView(
+                groups: groups,
+                onTicketTap: onTicketTap,
+                isSubmitting: isSubmitting,
+                defaultFeePiasters: fee,
+              );
+            },
         orElse: () => const SizedBox.shrink(),
       ),
     );
