@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:core/core.dart';
 
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/core/demo/queue_demo_patient.dart';
@@ -26,7 +27,7 @@ class PatientDemoProfile {
       fileNumber: Value(fileNumber),
       fullName: Value(patient.name),
       searchText: Value(patient.name),
-      gender: Value(patient.gender ?? 'male'),
+      gender: Value(patient.gender ?? AppConstants.genderMale),
       birthDate: Value(_parseDate(patient.birthDate) ?? existing?.birthDate),
       phone: Value(patient.phone ?? existing?.phone),
       phone2: Value(patient.phone2 ?? existing?.phone2),
