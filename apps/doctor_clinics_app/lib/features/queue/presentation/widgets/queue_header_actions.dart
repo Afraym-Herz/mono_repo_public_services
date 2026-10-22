@@ -9,13 +9,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// the filled action lands on the leading edge in RTL. Laid out with [Wrap] so
 /// the pills drop onto a second line instead of overflowing at narrow widths.
 class QueueHeaderActions extends StatelessWidget {
-  const QueueHeaderActions({super.key, this.onAddWalkIn, this.onScreenCall});
+  const QueueHeaderActions({
+    super.key,
+    this.onAddWalkIn,
+    this.onScreenCall,
+    this.isAddWalkInEnabled = true,
+  });
 
   /// Adds a walk-in patient to today's queue.
   final VoidCallback? onAddWalkIn;
 
   /// Broadcasts a general call to the waiting-room screen.
   final VoidCallback? onScreenCall;
+
+  /// Greys out and blocks the walk-in pill without removing it from the row.
+  final bool isAddWalkInEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +39,17 @@ class QueueHeaderActions extends StatelessWidget {
             onTap: onScreenCall!,
           ),
         if (onAddWalkIn != null)
-          AppPillButton(
-            icon: Icons.person_add_alt_1_outlined,
-            label: 'queue_header.add_walk_in'.tr(),
-            onTap: onAddWalkIn!,
-            primary: true,
+          IgnorePointer(
+            ignoring: !isAddWalkInEnabled,
+            child: Opacity(
+              opacity: isAddWalkInEnabled ? 1 : 0.5,
+              child: AppPillButton(
+                icon: Icons.person_add_alt_1_outlined,
+                label: 'queue_header.add_walk_in'.tr(),
+                onTap: onAddWalkIn!,
+                primary: true,
+              ),
+            ),
           ),
       ],
     );

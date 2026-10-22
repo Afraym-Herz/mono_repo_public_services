@@ -24,14 +24,17 @@ class QueueBody extends StatelessWidget {
         children: [
           BlocBuilder<QueueCubit, QueueState>(
             builder: (context, state) {
-              final canAdd =
-                  canManage &&
-                  state.maybeMap(
-                    loaded: (s) => !s.isSubmitting,
-                    orElse: () => false,
-                  );
+              final loaded = state.maybeMap(
+                loaded: (s) => s,
+                orElse: () => null,
+              );
+              final canAdd = canManage && loaded != null;
+              // Keep the pill mounted while an action is submitting so the
+              // header does not reflow (button disappears then reappears on
+              // every row action); it is just disabled until the reload lands.
               return TodayQueueHeader(
                 onAddWalkIn: canAdd ? () => _addWalkIn(context) : null,
+                isAddWalkInEnabled: loaded != null && !loaded.isSubmitting,
               );
             },
           ),
@@ -66,6 +69,7 @@ class QueueBody extends StatelessWidget {
     await context.read<QueueCubit>().addWalkIn(
       draft.patientId,
       notes: draft.notes,
+      depositPiasters: draft.depositPiasters,
     );
   }
 }

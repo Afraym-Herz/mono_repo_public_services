@@ -17,13 +17,11 @@ class QueueWaitingSliver extends StatelessWidget {
     required this.waiting,
     this.onTicketTap,
     this.isSubmitting = false,
-    required this.defaultFeePiasters,
   });
 
   final List<QueueTicket> waiting;
   final ValueChanged<QueueBoardRow>? onTicketTap;
   final bool isSubmitting;
-  final int defaultFeePiasters;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,6 @@ class QueueWaitingSliver extends StatelessWidget {
         tickets: waiting,
         isSubmitting: isSubmitting,
         onTicketTap: onTicketTap,
-        defaultFeePiasters: defaultFeePiasters,
       );
     }
     return SliverReorderableList(
@@ -54,7 +51,6 @@ class QueueWaitingSliver extends StatelessWidget {
                 context,
                 action: a,
                 ticket: ticket,
-                defaultFeePiasters: defaultFeePiasters,
               ),
               onToggleUrgent: () =>
                   cubit.toggleUrgent(ticket.entryId, !ticket.isUrgent),

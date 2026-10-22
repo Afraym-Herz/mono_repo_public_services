@@ -12,14 +12,12 @@ class QueueTicketSliver extends StatelessWidget {
     required this.tickets,
     this.onTicketTap,
     this.isSubmitting = false,
-    required this.defaultFeePiasters,
     this.onToggleUrgent,
   });
 
   final List<QueueTicket> tickets;
   final ValueChanged<QueueBoardRow>? onTicketTap;
   final bool isSubmitting;
-  final int defaultFeePiasters;
   final ValueChanged<QueueTicket>? onToggleUrgent;
 
   @override
@@ -37,7 +35,6 @@ class QueueTicketSliver extends StatelessWidget {
               context,
               action: a,
               ticket: ticket,
-              defaultFeePiasters: defaultFeePiasters,
             ),
             onToggleUrgent: onToggleUrgent == null
                 ? null

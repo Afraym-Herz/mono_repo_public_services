@@ -6,9 +6,9 @@ import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.d
 
 import '../helpers/queue_row_state.dart';
 import '../helpers/queue_ticket_details.dart';
-import 'queue_paid_pill.dart';
 import 'queue_status_badge.dart';
 import 'queue_ticket_meta.dart';
+import 'queue_ticket_money_pills.dart';
 
 /// Identity block on a queue card: name + status chip, the extra contact/file
 /// line, and the home-style type/timing meta line.
@@ -58,11 +58,7 @@ class QueueTicketBody extends StatelessWidget {
           appointmentType: ticket.appointmentType,
           detail: QueueTicketDetails.timing(context, ticket),
         ),
-        if (rowState == QueueRowState.collected &&
-            ticket.paidAmountPiasters != null) ...[
-          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL.h),
-          QueuePaidPill(paidAmountPiasters: ticket.paidAmountPiasters!),
-        ],
+        QueueTicketMoneyPills(ticket: ticket, rowState: rowState),
       ],
     );
   }

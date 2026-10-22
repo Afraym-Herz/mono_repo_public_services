@@ -25,7 +25,7 @@ class QueueList extends StatelessWidget {
               tickets,
               filter,
               sortOrder,
-              fee,
+              _,
               doctorNameAr,
               doctorNameEn,
               isSubmitting,
@@ -40,7 +40,6 @@ class QueueList extends StatelessWidget {
                 groups: groups,
                 onTicketTap: onTicketTap,
                 isSubmitting: isSubmitting,
-                defaultFeePiasters: fee,
               );
             },
         orElse: () => const SizedBox.shrink(),

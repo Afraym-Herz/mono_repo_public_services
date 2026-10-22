@@ -13,13 +13,11 @@ class QueueBoardView extends StatelessWidget {
     required this.groups,
     this.onTicketTap,
     this.isSubmitting = false,
-    required this.defaultFeePiasters,
   });
 
   final QueueBoardGroups groups;
   final ValueChanged<QueueBoardRow>? onTicketTap;
   final bool isSubmitting;
-  final int defaultFeePiasters;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +30,12 @@ class QueueBoardView extends StatelessWidget {
             tickets: groups.current,
             isSubmitting: isSubmitting,
             onTicketTap: onTicketTap,
-            defaultFeePiasters: defaultFeePiasters,
           ),
         if (groups.urgent.isNotEmpty)
           QueueTicketSliver(
             tickets: groups.urgent,
             isSubmitting: isSubmitting,
             onTicketTap: onTicketTap,
-            defaultFeePiasters: defaultFeePiasters,
             onToggleUrgent: cubit.canManageQueue
                 ? (ticket) =>
                       cubit.toggleUrgent(ticket.entryId, !ticket.isUrgent)
@@ -50,14 +46,12 @@ class QueueBoardView extends StatelessWidget {
             waiting: groups.waiting,
             isSubmitting: isSubmitting,
             onTicketTap: onTicketTap,
-            defaultFeePiasters: defaultFeePiasters,
           ),
         if (groups.terminal.isNotEmpty)
           QueueTicketSliver(
             tickets: groups.terminal,
             isSubmitting: isSubmitting,
             onTicketTap: onTicketTap,
-            defaultFeePiasters: defaultFeePiasters,
           ),
       ],
     );

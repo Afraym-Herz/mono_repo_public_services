@@ -14,7 +14,12 @@ import 'queue_header_info.dart';
 /// the small-tablet breakpoint the actions drop under the heading instead of
 /// overflowing.
 class TodayQueueHeader extends StatelessWidget {
-  const TodayQueueHeader({super.key, this.onAddWalkIn, this.onScreenCall});
+  const TodayQueueHeader({
+    super.key,
+    this.onAddWalkIn,
+    this.onScreenCall,
+    this.isAddWalkInEnabled = true,
+  });
 
   /// Adds a walk-in patient to today's queue.
   final VoidCallback? onAddWalkIn;
@@ -22,11 +27,17 @@ class TodayQueueHeader extends StatelessWidget {
   /// Broadcasts a general call to the waiting-room screen.
   final VoidCallback? onScreenCall;
 
+  /// Whether the walk-in pill accepts taps. Kept separate from [onAddWalkIn]
+  /// so the pill stays mounted (and the header keeps its layout) while a
+  /// queue action is submitting.
+  final bool isAddWalkInEnabled;
+
   @override
   Widget build(BuildContext context) {
     final actions = QueueHeaderActions(
       onAddWalkIn: onAddWalkIn,
       onScreenCall: onScreenCall,
+      isAddWalkInEnabled: isAddWalkInEnabled,
     );
 
     return FadeInUp(

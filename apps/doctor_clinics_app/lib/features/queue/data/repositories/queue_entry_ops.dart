@@ -16,9 +16,17 @@ mixin QueueEntryOps {
     }
   }
 
-  FutureResult<void> addWalkIn(int patientId, {String? notes}) async {
+  FutureResult<void> addWalkIn(
+    int patientId, {
+    String? notes,
+    int depositPiasters = 0,
+  }) async {
     try {
-      await datasource.addWalkIn(patientId, notes: notes);
+      await datasource.addWalkIn(
+        patientId,
+        notes: notes,
+        depositPiasters: depositPiasters,
+      );
       return const Right(null);
     } catch (e) {
       return Left(CacheFailure('queue.addWalkIn failed: $e'));
@@ -41,25 +49,6 @@ mixin QueueEntryOps {
       return Left(f);
     } catch (e) {
       return Left(CacheFailure('queue.callEntry failed: $e'));
-    }
-  }
-
-  FutureResult<void> finishEntry(int entryId) async {
-    try {
-      final ok = await datasource.transitionEntry(
-        entryId: entryId,
-        from: {QueueStatus.inConsultation},
-        to: QueueStatus.done,
-        appointmentStatus: AppConstants.appointmentStatusDone,
-        finishedAt: DateTime.now(),
-      );
-      return ok
-          ? const Right(null)
-          : const Left(QueueFailure('queue_row.error.invalid_transition'));
-    } on QueueFailure catch (f) {
-      return Left(f);
-    } catch (e) {
-      return Left(CacheFailure('queue.finishEntry failed: $e'));
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:core/src/utils/app_constants.dart';
 import 'package:core/src/theme/dimensions.dart';
 import 'app_colors.dart';
+import 'text_theme_builder.dart';
 
 /// Centralised theme definitions for the app.
 /// Both [light] and [dark] are built entirely from [AppColors] —
@@ -58,7 +59,7 @@ class AppColorSchemes {
     systemOverlayStyle: SystemUiOverlayStyle.dark,
     inputFill: const Color(0xFFEEF3FF),
     inputEnabledBorder: const BorderSide(color: Color(0xFFD0D9F0), width: 1),
-    textTheme: _buildTextTheme(
+    textTheme: buildClinicalTextTheme(
       primaryText: AppColors.clinicTextPrimary,
       secondaryText: AppColors.clinicTextSecondary,
     ),
@@ -74,44 +75,11 @@ class AppColorSchemes {
     systemOverlayStyle: SystemUiOverlayStyle.light,
     inputFill: const Color(0xFF2A2D3E),
     inputEnabledBorder: const BorderSide(color: Color(0xFF3D4160), width: 1),
-    textTheme: _buildTextTheme(
+    textTheme: buildClinicalTextTheme(
       primaryText: AppColors.clinicTextPrimaryDark,
       secondaryText: AppColors.clinicTextSecondaryDark,
     ),
   );
-
-  // ─── Typography ────────────────────────────────────────────────────────────
-
-  /// Single source of truth for default text colours.
-  ///
-  /// Only the colour is authored here — sizes, weights and the font family
-  /// stay on the Material defaults that [ThemeData] merges underneath, so
-  /// every `Text` that doesn't set its own colour resolves the right token
-  /// for the active brightness. Widgets should not hardcode a text colour.
-  static TextTheme _buildTextTheme({
-    required Color primaryText,
-    required Color secondaryText,
-  }) {
-    TextStyle on(Color color) => TextStyle(color: color);
-
-    return TextTheme(
-      displayLarge: on(primaryText),
-      displayMedium: on(primaryText),
-      displaySmall: on(primaryText),
-      headlineLarge: on(primaryText),
-      headlineMedium: on(primaryText),
-      headlineSmall: on(primaryText),
-      titleLarge: on(primaryText),
-      titleMedium: on(primaryText),
-      titleSmall: on(primaryText),
-      bodyLarge: on(primaryText),
-      bodyMedium: on(primaryText),
-      bodySmall: on(secondaryText),
-      labelLarge: on(primaryText),
-      labelMedium: on(secondaryText),
-      labelSmall: on(secondaryText),
-    );
-  }
 
   // ─── Builder ──────────────────────────────────────────────────────────────
 
@@ -142,10 +110,12 @@ class AppColorSchemes {
       colorScheme: colorScheme,
 
       // ── Typography / iconography ──────────────────────────────────────────
-      // Brightness-aware defaults from [_buildTextTheme]: unstyled `Text` and
-      // `Icon` widgets inherit the right colour in light and dark mode.
+      // Brightness-aware defaults from [buildClinicalTextTheme]: unstyled
+      // `Text` and `Icon` widgets inherit the right light/dark colour.
       textTheme: textTheme,
-      iconTheme: IconThemeData(color: textTheme.bodyLarge?.color ?? colorScheme.onSurface),
+      iconTheme: IconThemeData(
+        color: textTheme.bodyLarge?.color ?? colorScheme.onSurface,
+      ),
 
       // ── AppBar ────────────────────────────────────────────────────────────
       appBarTheme: AppBarTheme(

@@ -18,7 +18,7 @@ class DemoMonthSchedule {
   final PatientDao patientDao;
   final QueueDao queueDao;
 
-  static const String marker = 'demo-schedule-v2';
+  static const String marker = 'demo-schedule-v3';
 
   Future<void> seed(DateTime now, List<QueueDemoPatient> patients) async {
     final start = DateTime(now.year, now.month);
@@ -34,14 +34,12 @@ class DemoMonthSchedule {
     )) {
       return;
     }
-
     final seeded = <({QueueDemoPatient patient, int id})>[];
     for (final patient in patients) {
       final id = await DemoPatientLookup.ensure(patientDao, patient);
       if (id != null) seeded.add((patient: patient, id: id));
     }
     if (seeded.isEmpty) return;
-
     final today = DateTime(now.year, now.month, now.day);
     final lastDay = DateTime(now.year, now.month + 1, 0).day;
     final bookedOnly = seeded
@@ -81,6 +79,7 @@ class DemoMonthSchedule {
             queueNumber: Value(slot + 1),
             type: entry.patient.appointmentType,
             status: _statusFor(day, today, slot, count),
+            depositPiasters: Value(entry.patient.depositPiasters ?? 0),
             createdBy: marker,
           ),
         );

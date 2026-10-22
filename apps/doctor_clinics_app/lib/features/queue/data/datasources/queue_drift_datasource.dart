@@ -24,9 +24,27 @@ class QueueDriftDatasource
   }
 
   @override
-  Future<void> addWalkIn(int patientId, {String? notes}) async {
-    await dao.addWalkInAppointment(patientId, notes: notes);
+  Future<void> addWalkIn(
+    int patientId, {
+    String? notes,
+    int depositPiasters = 0,
+  }) async {
+    await dao.addWalkInAppointment(
+      patientId,
+      notes: notes,
+      depositPiasters: depositPiasters,
+    );
   }
+
+  @override
+  Future<bool> finishEntryWithPayment({
+    required int entryId,
+    required int amountPiasters,
+  }) => dao.finishEntryWithPayment(
+    entryId: entryId,
+    amountPiasters: amountPiasters,
+    finishedAt: DateTime.now(),
+  );
 
   @override
   Future<bool> transitionEntry({

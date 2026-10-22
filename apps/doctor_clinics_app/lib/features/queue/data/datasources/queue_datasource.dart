@@ -6,7 +6,15 @@ import 'package:doctor_clinics_app/features/queue/domain/entities/queue_status.d
 /// Local data-source for appointments and queue (Drift).
 abstract class IQueueDatasource {
   Future<QueueBoard> fetchTodayBoard();
-  Future<void> addWalkIn(int patientId, {String? notes});
+  Future<void> addWalkIn(
+    int patientId, {
+    String? notes,
+    int depositPiasters = 0,
+  });
+  Future<bool> finishEntryWithPayment({
+    required int entryId,
+    required int amountPiasters,
+  });
   Future<bool> transitionEntry({
     required int entryId,
     required Set<QueueStatus> from,

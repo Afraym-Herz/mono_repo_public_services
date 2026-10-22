@@ -17,9 +17,15 @@ class QueueDemoSeeder {
   final PatientDao patientDao;
   final QueueDao queueDao;
 
-  /// Markers used by the first demo fixture. They are removed once so the
-  /// corrected ticket order is seeded even on a device that already ran it.
-  static const Set<String> _legacyMarkers = {'demo', 'demo-schedule'};
+  /// Markers used by older demo fixtures. They are removed once so corrected
+  /// fixture data (ticket order, deposits) is seeded even on a device that
+  /// already ran an older demo.
+  static const Set<String> _legacyMarkers = {
+    'demo',
+    'demo-schedule',
+    'demo-v2',
+    'demo-schedule-v2',
+  };
 
   Future<void> seedIfEmpty() async {
     final now = DateTime.now();

@@ -26,6 +26,7 @@ class QueueDriftMapper {
     fileNumber: row.patient.fileNumber,
     appointmentType: row.appointment?.type,
     scheduledTime: row.appointment?.scheduledTime,
+    depositPiasters: row.appointment?.depositPiasters ?? 0,
     paidAt: row.entry.paidAt,
     paidAmountPiasters: row.entry.paidAmountPiasters,
     cancelReason: row.entry.cancelReason,
@@ -57,6 +58,7 @@ class QueueDriftMapper {
         reason: row.reason,
         notes: row.notes,
         cancelledReason: row.cancelledReason,
+        depositPiasters: row.depositPiasters,
         createdBy: int.tryParse(row.createdBy) ?? 0,
         createdAt: row.scheduledDate,
         updatedAt: row.scheduledDate,
@@ -75,6 +77,7 @@ class QueueDriftMapper {
     reason: Value(appt.reason),
     notes: Value(appt.notes),
     cancelledReason: Value(appt.cancelledReason),
+    depositPiasters: Value(appt.depositPiasters),
     createdBy: Value(appt.createdBy.toString()),
   );
 }
