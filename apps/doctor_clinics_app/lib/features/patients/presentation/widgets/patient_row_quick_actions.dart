@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient_list_row.dart';
 
+import '../helpers/open_patient_profile.dart';
 import 'patient_delete_dialog.dart';
 import 'patient_row_actions.dart';
 
 /// Binds the row's quick actions to snackbars and the delete confirmation.
 class PatientRowQuickActions extends StatelessWidget {
-  const PatientRowQuickActions({
-    super.key,
-    required this.row,
-    this.onDelete,
-  });
+  const PatientRowQuickActions({super.key, required this.row, this.onDelete});
 
   final PatientListRow row;
   final ValueChanged<PatientListRow>? onDelete;
@@ -21,14 +18,9 @@ class PatientRowQuickActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PatientRowActions(
-      onView: () => AppSnackBar.showInfo(
-        context,
-        'patients.table.profile_unavailable'.tr(),
-      ),
-      onBook: () => AppSnackBar.showInfo(
-        context,
-        'patients.table.book_unavailable'.tr(),
-      ),
+      onView: () => openPatientProfile(context, row.patient),
+      onBook: () =>
+          AppSnackBar.showInfo(context, 'patients.table.book_unavailable'.tr()),
       onDelete: () => _delete(context),
     );
   }

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../helpers/patient_form_controller.dart';
 import 'patient_form_age_field.dart';
+import 'patient_form_name_field.dart';
 
 /// Name, gender, age and blood type.
 class PatientFormIdentityFields extends StatelessWidget {
@@ -20,15 +21,7 @@ class PatientFormIdentityFields extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AppTextField(
-          controller: controller.name,
-          label: 'patient_form.name'.tr(),
-          hint: 'patient_form.name_hint'.tr(),
-          prefixIcon: Icons.person_outline_rounded,
-          validator: AppValidators.required,
-          textInputAction: TextInputAction.next,
-          autofocus: true,
-        ),
+        PatientFormNameField(controller: controller),
         gap,
         ValueListenableBuilder<String>(
           valueListenable: controller.gender,

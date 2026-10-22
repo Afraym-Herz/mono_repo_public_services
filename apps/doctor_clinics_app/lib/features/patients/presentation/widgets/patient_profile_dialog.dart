@@ -65,11 +65,6 @@ class _PatientDetailDialog extends StatelessWidget {
               label: 'Age',
               value: _ageString(patient.birthDate),
             ),
-            _DetailRow(
-              icon: Icons.location_on,
-              label: 'Address',
-              value: patient.address ?? 'Not available',
-            ),
             const SizedBox(height: 20),
             TextButton(
               onPressed: () => Navigator.pop(context),

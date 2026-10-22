@@ -8,6 +8,7 @@ import 'package:doctor_clinics_app/features/patients/domain/entities/patient_lis
 
 import '../cubit/patient_list_cubit.dart';
 import '../cubit/patient_toolbar_cubit.dart';
+import '../helpers/open_patient_profile.dart';
 import '../helpers/patient_list_filter.dart';
 import '../helpers/patients_table_columns.dart';
 import 'patients_table_card.dart';
@@ -44,6 +45,7 @@ class PatientsTableLoaded extends StatelessWidget {
                     height: constraints.maxHeight,
                     child: PatientsTableCard(
                       rows: visible,
+                      onView: (row) => openPatientProfile(context, row.patient),
                       onDelete: cubit.delete,
                     ),
                   ),

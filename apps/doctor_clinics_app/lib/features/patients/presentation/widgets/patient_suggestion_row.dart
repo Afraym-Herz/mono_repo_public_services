@@ -5,17 +5,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../domain/entities/patient.dart';
 
-/// One patient hit in the search suggestions: identity on the left, the
-/// booking affordance on the right; the whole row books an appointment.
+/// One patient hit in the suggestions; the whole row triggers [onTap].
 class PatientSuggestionRow extends StatelessWidget {
   const PatientSuggestionRow({
     super.key,
     required this.patient,
     required this.onTap,
+    this.trailing,
   });
 
   final Patient patient;
   final VoidCallback onTap;
+
+  /// Row affordance; defaults to the book-appointment action.
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +65,16 @@ class PatientSuggestionRow extends StatelessWidget {
                 color: context.clinicTextSecondary,
               ),
             ),
-      trailing: Tooltip(
-        message: 'patients.table.book'.tr(),
-        child: Icon(
-          Icons.event_available_rounded,
-          size: Dimensions.ICON_SIZE_SMALL.r,
-          color: context.clinicAccent,
-        ),
-      ),
+      trailing:
+          trailing ??
+          Tooltip(
+            message: 'patients.table.book'.tr(),
+            child: Icon(
+              Icons.event_available_rounded,
+              size: Dimensions.ICON_SIZE_SMALL.r,
+              color: context.clinicAccent,
+            ),
+          ),
     );
   }
 }

@@ -37,9 +37,11 @@ class PatientsHeaderConnected extends StatelessWidget {
   }
 
   Future<void> _addPatient(BuildContext context) async {
-    final patient = await showPatientFormDialog(context);
-    if (patient == null || !context.mounted) return;
-    AppSnackBar.showSuccess(context, 'patient_form.saved'.tr());
+    final outcome = await showPatientFormDialog(context);
+    if (outcome == null || !context.mounted) return;
+    if (outcome.created) {
+      AppSnackBar.showSuccess(context, 'patient_form.saved'.tr());
+    }
     context.read<PatientListCubit>().load();
   }
 }

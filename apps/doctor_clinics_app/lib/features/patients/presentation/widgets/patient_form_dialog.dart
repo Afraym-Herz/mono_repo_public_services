@@ -2,20 +2,25 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_form_cubit.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_name_matches_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/helpers/patient_form_controller.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/helpers/patient_form_duplicate_guard.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/helpers/patient_form_outcome.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/widgets/patient_form_view.dart';
 
-/// Opens the new-patient modal and returns the stored patient.
-Future<Patient?> showPatientFormDialog(BuildContext context) {
-  return showGeneralDialog<Patient>(
+/// Opens the new-patient modal and returns what was saved or picked.
+Future<PatientFormOutcome?> showPatientFormDialog(BuildContext context) {
+  return showGeneralDialog<PatientFormOutcome>(
     context: context,
     barrierDismissible: true,
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierColor: AppColors.scrim,
-    pageBuilder: (_, _, _) => BlocProvider(
-      create: (_) => getIt<PatientFormCubit>(),
+    pageBuilder: (_, _, _) => MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<PatientFormCubit>()),
+        BlocProvider(create: (_) => getIt<PatientNameMatchesCubit>()),
+      ],
       child: const PatientFormDialog(),
     ),
   );
@@ -43,7 +48,10 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
       listenWhen: (previous, current) => previous != current,
       listener: (context, state) {
         state.maybeMap(
-          saved: (saved) => Navigator.pop(context, saved.patient),
+          saved: (saved) => Navigator.pop(
+            context,
+            PatientFormOutcome(patient: saved.patient, created: true),
+          ),
           error: (error) => AppSnackBar.showError(context, error.message),
           orElse: () {},
         );
@@ -56,8 +64,15 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
     );
   }
 
-  void _save() {
+  Future<void> _save() async {
     if (!_controller.formKey.currentState!.validate()) return;
-    context.read<PatientFormCubit>().save(_controller.toPatient());
+    final draft = _controller.toPatient();
+    final outcome = await resolveDuplicatePatient(context, draft: draft);
+    if (outcome == null || !mounted) return;
+    if (!outcome.created) {
+      Navigator.pop(context, outcome);
+      return;
+    }
+    context.read<PatientFormCubit>().save(draft);
   }
 }

@@ -13,10 +13,12 @@ class PatientsTableCard extends StatelessWidget {
   const PatientsTableCard({
     super.key,
     required this.rows,
+    required this.onView,
     required this.onDelete,
   });
 
   final List<PatientListRow> rows;
+  final ValueChanged<PatientListRow> onView;
   final ValueChanged<PatientListRow> onDelete;
 
   @override
@@ -39,8 +41,13 @@ class PatientsTableCard extends StatelessWidget {
                     itemCount: rows.length,
                     separatorBuilder: (_, _) =>
                         Divider(height: 1, color: context.clinicBorder),
-                    itemBuilder: (context, index) =>
-                        PatientsTableRow(row: rows[index], onDelete: onDelete),
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () => onView(rows[index]),
+                      child: PatientsTableRow(
+                        row: rows[index],
+                        onDelete: onDelete,
+                      ),
+                    ),
                   ),
           ),
         ],
