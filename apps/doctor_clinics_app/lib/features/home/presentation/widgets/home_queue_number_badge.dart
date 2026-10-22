@@ -32,13 +32,10 @@ class HomeQueueNumberBadge extends StatelessWidget {
         border: isActive ? null : Border.all(color: context.clinicBorder),
       ),
       child: ResponsiveText(
-        DateConverter.withLocalizedDigits(
-          '$number',
-          context.locale.toString(),
-        ),
+        DateConverter.withLocalizedDigits('$number', context.locale.toString()),
         fontSize: Dimensions.FONT_SIZE_SMALL,
         fontWeight: FontWeight.w700,
-        color: isActive ? AppColors.white : context.clinicTextSecondary,
+        color: isActive ? context.clinicOnAccent : context.clinicTextSecondary,
       ),
     );
   }

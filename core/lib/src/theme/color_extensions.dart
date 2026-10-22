@@ -71,6 +71,37 @@ extension AppColorExtensions on BuildContext {
       : AppColors.clinicPrimaryContainer;
   Color get clinicSubmitButton => AppColors.clinicPrimaryContainer;
 
+  /// Primary tone for glyphs drawn on a surface — circled queue numbers,
+  /// appointment numbers, outlined row actions, icons.
+  ///
+  /// Light mode keeps the deep clinical primary; dark mode lifts it to the
+  /// DESIGN `inverse-primary`, because `clinicPrimary` is nearly black on a
+  /// dark card and the glyph stops reading.
+  Color get clinicPrimaryInk =>
+      clinicIsDark ? AppColors.clinicInversePrimary : AppColors.clinicPrimary;
+
+  /// Ink drawn *on top of* a filled [clinicAccent] / primary chip (the circled
+  /// "current patient" number).
+  ///
+  /// The accent flips to a light teal in dark mode, so white — which light
+  /// mode uses on the deep teal — would wash out; dark mode needs the deep
+  /// ink instead.
+  Color get clinicOnAccent =>
+      clinicIsDark ? AppColors.clinicTextPrimary : AppColors.white;
+
+  /// Destructive counterpart of [clinicPrimaryInk] for outlined actions: the
+  /// light `clinicError` is too dark on a dark surface, so dark mode uses the
+  /// brighter error tone.
+  Color get clinicActionDanger =>
+      clinicIsDark ? AppColors.errorLight : AppColors.clinicError;
+
+  /// Muted label/border of a disabled or submitting outlined action —
+  /// brightness-aware so the dimmed state stays legible in both modes.
+  Color get clinicActionMuted =>
+      clinicIsDark ? AppColors.clinicTextSecondaryDark : AppColors.textHint;
+  Color get clinicActionMutedBorder =>
+      clinicIsDark ? AppColors.clinicBorderDark : AppColors.borderPrimary;
+
   /// Active side-nav item background (tinted primary container).
   Color get clinicNavActiveBackground => clinicIsDark
       ? AppColors.clinicPrimaryContainerTintDark

@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/helpers/open_patient_profile.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/cubit/queue_cubit.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/schedule_permissions.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/appointment_booking_dialog.dart';
@@ -51,7 +52,10 @@ class QueueBody extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: padding),
-              child: const QueueList(),
+              child: QueueList(
+                onTicketTap: (row) =>
+                    openPatientProfileById(context, row.ticket.patientId),
+              ),
             ),
           ),
         ],

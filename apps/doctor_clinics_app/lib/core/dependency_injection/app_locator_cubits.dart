@@ -13,6 +13,7 @@ import 'package:doctor_clinics_app/features/patients/domain/repositories/patient
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_form_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_list_cubit.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_name_matches_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_toolbar_cubit.dart';
 import 'package:doctor_clinics_app/features/prescriptions/domain/repositories/prescription_repository.dart';
 import 'package:doctor_clinics_app/features/prescriptions/presentation/cubit/prescription_cubit.dart';
@@ -40,6 +41,9 @@ void registerAppCubits() {
     ),
   );
   getIt.registerFactory<PatientToolbarCubit>(() => PatientToolbarCubit());
+  getIt.registerFactory<PatientNameMatchesCubit>(
+    () => PatientNameMatchesCubit(repository: getIt<PatientRepository>()),
+  );
   getIt.registerFactory<QueueCubit>(
     () => QueueCubit(
       repository: getIt<IQueueRepository>(),

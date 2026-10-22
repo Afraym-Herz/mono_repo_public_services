@@ -19,25 +19,25 @@ import 'package:doctor_clinics_app/features/queue/presentation/screens/queue_scr
 /// their features.
 List<RouteBase> buildAppShellRoutes() {
   return [
-    _shellRoute(path: Routes.queue, name: 'queue', child: const QueueScreen()),
+    _shellRoute(path: Routes.queue, name: Routes.routeQueue, child: const QueueScreen()),
     _shellRoute(
       path: Routes.appointments,
-      name: 'appointments',
+      name: Routes.routeAppointments,
       child: const AppointmentScreen(),
     ),
     _shellRoute(
       path: Routes.patients,
-      name: 'patients',
+      name: Routes.routePatients,
       child: const PatientListScreen(),
     ),
     _shellRoute(
       path: Routes.operations,
-      name: 'operations',
+      name: Routes.routeOperations,
       child: const OperationScreen(),
     ),
     _shellRoute(
       path: Routes.billing,
-      name: 'billing',
+      name: Routes.routeBilling,
       child: const BillingScreen(),
     ),
   ];

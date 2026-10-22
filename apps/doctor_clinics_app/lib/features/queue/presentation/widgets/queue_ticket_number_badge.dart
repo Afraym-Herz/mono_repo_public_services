@@ -35,8 +35,10 @@ class QueueTicketNumberBadge extends StatelessWidget {
     final Color background;
     final Color foreground;
     if (isCurrent) {
+      // The accent flips to a light teal in dark mode, so the ink flips with
+      // it ([clinicOnAccent]) instead of staying white-on-light-teal.
       background = context.clinicAccent;
-      foreground = AppColors.white;
+      foreground = context.clinicOnAccent;
     } else if (isUrgentRow) {
       background = context.clinicStatusUrgentBg;
       foreground = context.clinicStatusUrgent;

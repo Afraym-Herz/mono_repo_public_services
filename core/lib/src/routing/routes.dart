@@ -13,4 +13,15 @@ class Routes {
 
   /// Quick-settings modal (language + theme), pushed outside the shell.
   static const String settings = '/settings';
+
+  // ═══════════════════════════════════════════════════════════════
+  // Route names (for GoRouter `name:` param / `context.goNamed()`).
+  // ═══════════════════════════════════════════════════════════════
+  static const String routeQueue = 'queue';
+  static const String routeAppointments = 'appointments';
+  static const String routePatients = 'patients';
+  static const String routeOperations = 'operations';
+  static const String routeBilling = 'billing';
+  static const String routeSettings = 'settings';
+  static const String routePatientProfile = 'patient-profile';
 }

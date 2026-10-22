@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/widgets/branding_panel.dart';
@@ -14,7 +15,7 @@ class LoginSplitView extends StatelessWidget {
   Widget build(BuildContext context) {
     const panel = Expanded(flex: 1, child: LoginPanel());
     const branding = Expanded(flex: 2, child: BrandingPanel());
-    final isRtl = context.locale.languageCode == 'ar';
+    final isRtl = context.locale.languageCode == AppConstants.printLanguageAr;
     return Row(children: isRtl ? [panel, branding] : [branding, panel]);
   }
 }

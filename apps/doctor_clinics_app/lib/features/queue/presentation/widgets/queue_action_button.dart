@@ -18,13 +18,18 @@ class QueueActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isDanger ? AppColors.clinicError : AppColors.clinicPrimary;
+    // Brightness-aware tones: on a dark card the light-mode primary/error are
+    // almost unreadable, and the submitting state must dim through the dark
+    // hint/border tokens instead of the light ones.
+    final color = isDanger
+        ? context.clinicActionDanger
+        : context.clinicPrimaryInk;
     return OutlinedButton(
       onPressed: isSubmitting ? null : onPressed,
       style: OutlinedButton.styleFrom(
         foregroundColor: color,
         side: BorderSide(
-          color: isSubmitting ? AppColors.borderPrimary : color,
+          color: isSubmitting ? context.clinicActionMutedBorder : color,
           width: 1.w,
         ),
         padding: EdgeInsets.symmetric(
@@ -38,9 +43,9 @@ class QueueActionButton extends StatelessWidget {
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: isSubmitting ? AppColors.textHint : color,
-              fontWeight: FontWeight.w600,
-            ),
+          color: isSubmitting ? context.clinicActionMuted : color,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

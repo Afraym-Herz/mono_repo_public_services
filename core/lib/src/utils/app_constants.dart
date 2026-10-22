@@ -105,4 +105,7 @@ class AppConstants {
   // QueueEntries.cancelReason
   static const String queueCancelReasonStaff = 'staff_cancelled';
   static const String queueCancelReasonRescheduled = 'rescheduled';
+
+  // QueueEntries.status — legacy value used in migration
+  static const String queueStatusArrived = 'arrived';
 }

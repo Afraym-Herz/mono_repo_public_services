@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:core/core.dart';
 
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/core/database/daos/patient_dao.dart';
@@ -23,7 +24,7 @@ class DemoPatientLookup {
             fileNumber: fileNumber,
             fullName: patient.name,
             searchText: patient.name,
-            gender: patient.gender ?? 'male',
+            gender: patient.gender ?? AppConstants.genderMale,
             phone: Value(patient.phone),
           ),
         );

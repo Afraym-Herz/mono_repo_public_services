@@ -176,7 +176,6 @@
       "delete_title": "Delete patient",
       "delete_message": "Are you sure you want to delete {name}?",
       "cancel": "Cancel",
-      "profile_unavailable": "Patient records are not available in this version",
       "book_unavailable": "Appointment booking is not available in this version"
     },
     "book_success": "Appointment booked for {name}",
@@ -204,11 +203,30 @@
     "cancel": "Cancel",
     "save": "Save patient",
     "saved": "Patient added",
+    "exists_hint": "Already registered — open the record instead of creating a duplicate.",
+    "duplicate_title": "Patient already exists",
+    "duplicate_body": "{name} is already registered with file number {file}.",
+    "duplicate_use_existing": "Open the registered patient",
+    "duplicate_create_anyway": "Create a new patient",
+    "duplicate_cancel": "Back to the form",
     "dialog_phone": "Phone",
     "dialog_blood_type": "Blood Type",
     "dialog_age": "Age",
     "dialog_address": "Address",
     "dialog_close": "Close"
+  },
+  "patient_profile": {
+    "title": "Personal & basic data",
+    "file_number": "File No.",
+    "name": "Full name",
+    "gender": "Gender",
+    "blood_type": "Blood type",
+    "age": "Age",
+    "phone": "Phone number",
+    "notes": "Medical notes",
+    "load_error": "Could not load this patient's details",
+    "retry": "Try again",
+    "close": "Close"
   },
   "patients_filter": {
     "all": "All",

@@ -22,4 +22,20 @@ class DbConstants {
 
   /// `ClinicSettingsTable.slotLengthMinutes` default.
   static const int slotLengthMinutesDefault = 15;
+
+  // ═══════════════════════════════════════════════════════════════
+  // COLUMN NAMES — used in raw SQL / migration reads
+  // ═══════════════════════════════════════════════════════════════
+  /// `Appointments.id`
+  static const String colAppointmentId = 'id';
+  /// `Appointments.scheduled_date`
+  static const String colScheduledDate = 'scheduled_date';
+  /// `Appointments.scheduled_time`
+  static const String colScheduledTime = 'scheduled_time';
+  /// `QueueEntries.appointment_id`
+  static const String colAppointmentIdQueue = 'appointment_id';
+  /// `QueueEntries.queue_number`
+  static const String colQueueNumber = 'queue_number';
+  /// `QueueEntries.queue_date`
+  static const String colQueueDate = 'queue_date';
 }

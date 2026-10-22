@@ -7,6 +7,7 @@ import 'package:core/core.dart';
 import 'package:doctor_clinics_app/core/routing/app_shell_routes.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:doctor_clinics_app/features/home/presentation/screens/home_screen.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/patient_routes.dart';
 import 'package:doctor_clinics_app/features/settings/presentation/settings_routes.dart';
 
 /// Root widget for the Doctor Clinics app.
@@ -28,7 +29,7 @@ class _DoctorClinicsAppState extends State<DoctorClinicsApp> {
     loginBuilder: (ctx, state) => const LoginScreen(),
     homeBuilder: (ctx, state) => const HomeScreen(),
     extraShellRoutes: buildAppShellRoutes(),
-    extraRoutes: buildSettingsRoutes(),
+    extraRoutes: [...buildSettingsRoutes(), ...buildPatientRoutes()],
   );
 
   @override

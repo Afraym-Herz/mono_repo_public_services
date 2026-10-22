@@ -10,7 +10,7 @@ List<RouteBase> buildSettingsRoutes() {
   return [
     GoRoute(
       path: Routes.settings,
-      name: 'settings',
+      name: Routes.routeSettings,
       pageBuilder: (context, state) =>
           transparentModalRoutePage(const SettingsModalScreen()),
     ),

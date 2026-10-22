@@ -27,7 +27,7 @@ class QueueRefreshButton extends StatelessWidget {
             child: Icon(
               Icons.refresh_rounded,
               size: Dimensions.ICON_SIZE_DEFAULT.r,
-              color: context.clinicPrimary,
+              color: context.clinicPrimaryInk,
             ),
           ),
         ),

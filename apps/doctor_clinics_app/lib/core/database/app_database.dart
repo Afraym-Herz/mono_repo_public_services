@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:core/core.dart';
 
 import 'connection/connection.dart';
 import 'db_constants.dart';

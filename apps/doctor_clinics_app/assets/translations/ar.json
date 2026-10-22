@@ -176,7 +176,6 @@
       "delete_title": "حذف المريض",
       "delete_message": "هل أنت متأكد من حذف {name}؟",
       "cancel": "إلغاء",
-      "profile_unavailable": "ملف المريض غير متاح في هذه النسخة",
       "book_unavailable": "حجز المواعيد غير متاح في هذه النسخة"
     },
     "book_success": "تم حجز موعد لـ {name}",
@@ -204,11 +203,30 @@
     "cancel": "إلغاء",
     "save": "حفظ المريض",
     "saved": "تمت إضافة المريض",
+    "exists_hint": "مسجل بالفعل — افتح الملف بدل إنشاء نسخة مكررة.",
+    "duplicate_title": "المريض موجود بالفعل",
+    "duplicate_body": "{name} مسجل بالفعل برقم ملف {file}.",
+    "duplicate_use_existing": "فتح المريض المسجل",
+    "duplicate_create_anyway": "إنشاء مريض جديد",
+    "duplicate_cancel": "رجوع للنموذج",
     "dialog_phone": "رقم الهاتف",
     "dialog_blood_type": "فصيلة الدم",
     "dialog_age": "العمر",
     "dialog_address": "العنوان",
     "dialog_close": "إغلاق"
+  },
+  "patient_profile": {
+    "title": "البيانات الشخصية والأساسية",
+    "file_number": "رقم الملف",
+    "name": "الاسم الكامل",
+    "gender": "النوع",
+    "blood_type": "فصيلة الدم",
+    "age": "العمر",
+    "phone": "رقم الهاتف",
+    "notes": "ملاحظات طبية",
+    "load_error": "تعذّر تحميل بيانات هذا المريض",
+    "retry": "إعادة المحاولة",
+    "close": "إغلاق"
   },
   "patients_filter": {
     "all": "الكل",

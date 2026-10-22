@@ -27,7 +27,7 @@ class QueueSummaryStrip extends StatelessWidget {
         if (!isLoaded) return const SizedBox.shrink();
 
         final data = QueueSummaryData.fromBoard(tickets: state.allTickets);
-        final doctorName = context.locale.languageCode == 'ar'
+        final doctorName = context.locale.languageCode == AppConstants.printLanguageAr
             ? state.doctorNameAr
             : (state.doctorNameEn.isEmpty
                   ? state.doctorNameAr

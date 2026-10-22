@@ -99,6 +99,12 @@ class Dimensions {
   /// Max width of the quick-settings modal panel.
   static const double SETTINGS_PANEL_MAX_WIDTH = 460.0;
 
+  /// Max width of the read-only patient profile modal panel.
+  static const double PATIENT_PROFILE_MAX_WIDTH = 620.0;
+
+  /// Max share of the viewport height the patient profile modal may occupy.
+  static const double MODAL_MAX_HEIGHT_FACTOR = 0.86;
+
   /// Auth side-panel max width (1/3 split on desktop canvas).
   static const double LOGIN_PANEL_MAX_WIDTH = 480.0;
 
