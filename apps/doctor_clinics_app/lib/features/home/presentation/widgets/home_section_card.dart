@@ -29,16 +29,13 @@ class HomeSectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surface =
-        context.clinicIsDark ? context.clinicContainer : context.cardColor;
-
     return FadeInUp(
       delay: animationDelay,
       duration: const Duration(milliseconds: 400),
       child: Container(
         padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL.r),
         decoration: BoxDecoration(
-          color: surface,
+          color: context.cardColor,
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
           border: Border.all(color: context.clinicBorder),
         ),

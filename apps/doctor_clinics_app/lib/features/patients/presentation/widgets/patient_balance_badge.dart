@@ -15,14 +15,14 @@ class PatientBalanceBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final isPaid = debtPiasters <= 0;
     final foreground = isPaid
-        ? AppColors.clinicStatusDone
-        : AppColors.clinicStatusUrgent;
+        ? context.clinicStatusDone
+        : context.clinicStatusUrgent;
     final background = isPaid
-        ? AppColors.clinicStatusDoneBg
-        : AppColors.clinicStatusUrgentBg;
+        ? context.clinicStatusDoneBg
+        : context.clinicStatusUrgentBg;
     final border = isPaid
-        ? AppColors.clinicStatusDoneBorder
-        : AppColors.clinicStatusUrgentBorder;
+        ? context.clinicStatusDoneBorder
+        : context.clinicStatusUrgentBorder;
     final label = isPaid
         ? 'patients.table.paid_full'.tr()
         : 'patients.table.remaining'.tr(

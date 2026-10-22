@@ -199,7 +199,12 @@
     "notes_hint": "Allergies, chronic conditions…",
     "cancel": "Cancel",
     "save": "Save patient",
-    "saved": "Patient added"
+    "saved": "Patient added",
+    "dialog_phone": "Phone",
+    "dialog_blood_type": "Blood Type",
+    "dialog_age": "Age",
+    "dialog_address": "Address",
+    "dialog_close": "Close"
   },
   "patients_filter": {
     "all": "All",

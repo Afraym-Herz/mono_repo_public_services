@@ -26,7 +26,7 @@ class AppointmentIdentity extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.bold,
-            color: AppColors.clinicTextPrimary,
+            color: context.clinicTextPrimary,
           ),
         ),
         if (meta.isNotEmpty) ...[
@@ -36,7 +36,7 @@ class AppointmentIdentity extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: AppColors.clinicTextSecondary,
+              color: context.clinicTextSecondary,
               fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL.sp,
             ),
           ),

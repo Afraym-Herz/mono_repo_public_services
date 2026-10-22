@@ -19,7 +19,7 @@ class AppointmentPatientOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: isSelected
-          ? context.clinicPrimaryContainer
+          ? AppColors.clinicSurfaceContainerLow
           : context.clinicContainer,
       borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
       child: InkWell(

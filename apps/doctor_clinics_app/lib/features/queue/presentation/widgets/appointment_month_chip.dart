@@ -13,7 +13,7 @@ class AppointmentMonthChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = AppointmentStatusStyle.forStatus(item.status);
+    final style = AppointmentStatusStyle.forStatus(context, item.status);
     final locale = context.locale.toString();
     final number = item.queueNumber == null
         ? null

@@ -158,4 +158,33 @@ class AppColors {
   static const Color clinicStatusUrgent = Color(0xFFB91C1C);
   static const Color clinicStatusUrgentBg = Color(0xFFFEE2E2);
   static const Color clinicStatusUrgentBorder = Color(0xFFFECACA);
+
+  // Dark-mode counterparts of the clinic status tokens above.
+  // Surfaces/borders are deep tinted versions of the light pastels and the
+  // foregrounds are lifted so pills and list cards keep their contrast on a
+  // dark card (clinicSurfaceContainerDark). Resolve through the `clinicStatus*`
+  // BuildContext getters in color_extensions.dart — never use these directly.
+  static const Color clinicStatusBookedDark = Color(0xFF8AB4FF);
+  static const Color clinicStatusBookedBgDark = Color(0xFF16233C);
+  static const Color clinicStatusBookedBorderDark = Color(0xFF28406B);
+
+  static const Color clinicStatusWaitingDark = Color(0xFFF0B458);
+  static const Color clinicStatusWaitingBgDark = Color(0xFF3A2C0E);
+  static const Color clinicStatusWaitingBorderDark = Color(0xFF6B4E18);
+
+  static const Color clinicStatusCurrentDark = Color(0xFF5FE0CE);
+  static const Color clinicStatusCurrentBgDark = Color(0xFF0E3A34);
+  static const Color clinicStatusCurrentBorderDark = Color(0xFF1B6157);
+
+  static const Color clinicStatusDoneDark = Color(0xFF7BDDA3);
+  static const Color clinicStatusDoneBgDark = Color(0xFF12301E);
+  static const Color clinicStatusDoneBorderDark = Color(0xFF245A38);
+
+  static const Color clinicStatusCancelledDark = Color(0xFFA7B4C2);
+  static const Color clinicStatusCancelledBgDark = Color(0xFF1F2A36);
+  static const Color clinicStatusCancelledBorderDark = Color(0xFF354553);
+
+  static const Color clinicStatusUrgentDark = Color(0xFFF08585);
+  static const Color clinicStatusUrgentBgDark = Color(0xFF3A1618);
+  static const Color clinicStatusUrgentBorderDark = Color(0xFF7A2E31);
 }

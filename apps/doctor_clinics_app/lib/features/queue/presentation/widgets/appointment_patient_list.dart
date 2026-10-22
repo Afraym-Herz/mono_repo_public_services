@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/widgets/patient_profile_dialog.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/appointment_booking_controller.dart';
 import 'appointment_patient_option.dart';
 
@@ -42,11 +43,19 @@ class AppointmentPatientList extends StatelessWidget {
           return AppointmentPatientOption(
             patient: patient,
             isSelected: chosen?.id == patient.id,
-            onTap: () => controller.selected.value = patient,
+            onTap: () => _onPatientTap(context, patient),
           );
         },
       ),
     );
+  }
+
+  void _onPatientTap(BuildContext context, Patient patient) async {
+    await showPatientDetailDialog(context, patient: patient);
+    // No 'mounted' check needed - this is a StatelessWidget method.
+    // The dialog dismisses automatically; if re-selection is desired,
+    // the caller can handle it.
+    controller.search.clear();
   }
 
   bool _matches(Patient patient, String query) =>

@@ -12,7 +12,7 @@ class AppointmentTypeChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = _styleFor(type);
+    final style = _styleFor(context, type);
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: Dimensions.PADDING_SIZE_SMALL.w,
@@ -44,26 +44,26 @@ class AppointmentTypeChip extends StatelessWidget {
     );
   }
 
-  _TypeStyle _styleFor(String type) {
+  _TypeStyle _styleFor(BuildContext context, String type) {
     switch (type) {
       case AppConstants.appointmentTypeBooked:
-        return const _TypeStyle(
+        return _TypeStyle(
           labelKey: 'appointment_type.booked',
           icon: Icons.event_available_rounded,
-          color: AppColors.clinicPrimary,
+          color: context.clinicAccent,
         );
       case AppConstants.appointmentTypeWalkIn:
-        return const _TypeStyle(
+        return _TypeStyle(
           labelKey: 'appointment_type.walk_in',
           icon: Icons.directions_walk_rounded,
-          color: AppColors.clinicStatusWaiting,
+          color: context.clinicStatusWaiting,
         );
       case AppConstants.appointmentTypeFollowUp:
       default:
-        return const _TypeStyle(
+        return _TypeStyle(
           labelKey: 'appointment_type.follow_up',
           icon: Icons.replay_rounded,
-          color: AppColors.clinicTextSecondary,
+          color: context.clinicTextSecondary,
         );
     }
   }

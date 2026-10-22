@@ -24,7 +24,7 @@ class AppointmentRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = context.locale.toString();
-    final style = AppointmentStatusStyle.forStatus(item.status);
+    final style = AppointmentStatusStyle.forStatus(context, item.status);
     final number = item.queueNumber == null
         ? '—'
         : DateConverter.withLocalizedDigits('${item.queueNumber}', locale);
@@ -32,9 +32,9 @@ class AppointmentRow extends StatelessWidget {
       margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL.h),
       padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
       decoration: BoxDecoration(
-        color: AppColors.surfaceWhite,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
-        border: Border.all(color: AppColors.clinicBorder),
+        border: Border.all(color: context.clinicBorder),
       ),
       child: Row(
         children: [

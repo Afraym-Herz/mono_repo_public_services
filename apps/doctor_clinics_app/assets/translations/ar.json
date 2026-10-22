@@ -199,7 +199,12 @@
     "notes_hint": "الحساسية أو الأمراض المزمنة…",
     "cancel": "إلغاء",
     "save": "حفظ المريض",
-    "saved": "تمت إضافة المريض"
+    "saved": "تمت إضافة المريض",
+    "dialog_phone": "رقم الهاتف",
+    "dialog_blood_type": "فصيلة الدم",
+    "dialog_age": "العمر",
+    "dialog_address": "العنوان",
+    "dialog_close": "إغلاق"
   },
   "patients_filter": {
     "all": "الكل",

@@ -23,7 +23,22 @@ extension AppColorExtensions on BuildContext {
   Color get infoColor => AppColors.info;
 
   // Surface Colors
-  Color get cardColor => AppColors.backgroundCard;
+
+  /// Card surface — brightness-aware.
+  ///
+  /// This is the single source for every card/list-card surface: light cards
+  /// stay white, dark cards use the clinic dark container so nothing renders
+  /// light-on-light in dark mode.
+  Color get cardColor => clinicIsDark
+      ? AppColors.clinicSurfaceContainerDark
+      : AppColors.backgroundCard;
+
+  /// Surface layered *on top of* a card (chips, insets). Keeps a visible step
+  /// away from [cardColor] in both modes.
+  Color get clinicInset => clinicIsDark
+      ? AppColors.inputFillDark
+      : AppColors.clinicSurfaceContainerLow;
+
   Color get surfaceColor => AppColors.surfaceLight;
 
   // Interactive Colors
@@ -48,6 +63,9 @@ extension AppColorExtensions on BuildContext {
       ? AppColors.clinicTextSecondaryDark
       : AppColors.clinicTextSecondary;
   Color get clinicPrimary => AppColors.clinicPrimary;
+  Color get clinicPrimaryContainer => clinicIsDark
+      ? AppColors.clinicSurfaceContainerDark
+      : AppColors.clinicSurfaceContainerLow;
   Color get clinicAccent => clinicIsDark
       ? AppColors.clinicInversePrimary
       : AppColors.clinicPrimaryContainer;
@@ -57,4 +75,67 @@ extension AppColorExtensions on BuildContext {
   Color get clinicNavActiveBackground => clinicIsDark
       ? AppColors.clinicPrimaryContainerTintDark
       : AppColors.clinicPrimaryContainerTint;
+
+  // ── Clinic status colors — brightness-aware ──────────────────────────────
+  // Single source for every status pill/chip/card tint. Light mode keeps the
+  // original pastel palette; dark mode swaps in the *Dark tokens.
+  Color get clinicStatusBooked => clinicIsDark
+      ? AppColors.clinicStatusBookedDark
+      : AppColors.clinicStatusBooked;
+  Color get clinicStatusBookedBg => clinicIsDark
+      ? AppColors.clinicStatusBookedBgDark
+      : AppColors.clinicStatusBookedBg;
+  Color get clinicStatusBookedBorder => clinicIsDark
+      ? AppColors.clinicStatusBookedBorderDark
+      : AppColors.clinicStatusBookedBorder;
+
+  Color get clinicStatusWaiting => clinicIsDark
+      ? AppColors.clinicStatusWaitingDark
+      : AppColors.clinicStatusWaiting;
+  Color get clinicStatusWaitingBg => clinicIsDark
+      ? AppColors.clinicStatusWaitingBgDark
+      : AppColors.clinicStatusWaitingBg;
+  Color get clinicStatusWaitingBorder => clinicIsDark
+      ? AppColors.clinicStatusWaitingBorderDark
+      : AppColors.clinicStatusWaitingBorder;
+
+  Color get clinicStatusCurrent => clinicIsDark
+      ? AppColors.clinicStatusCurrentDark
+      : AppColors.clinicStatusCurrent;
+  Color get clinicStatusCurrentBg => clinicIsDark
+      ? AppColors.clinicStatusCurrentBgDark
+      : AppColors.clinicStatusCurrentBg;
+  Color get clinicStatusCurrentBorder => clinicIsDark
+      ? AppColors.clinicStatusCurrentBorderDark
+      : AppColors.clinicStatusCurrentBorder;
+
+  Color get clinicStatusDone => clinicIsDark
+      ? AppColors.clinicStatusDoneDark
+      : AppColors.clinicStatusDone;
+  Color get clinicStatusDoneBg => clinicIsDark
+      ? AppColors.clinicStatusDoneBgDark
+      : AppColors.clinicStatusDoneBg;
+  Color get clinicStatusDoneBorder => clinicIsDark
+      ? AppColors.clinicStatusDoneBorderDark
+      : AppColors.clinicStatusDoneBorder;
+
+  Color get clinicStatusCancelled => clinicIsDark
+      ? AppColors.clinicStatusCancelledDark
+      : AppColors.clinicStatusCancelled;
+  Color get clinicStatusCancelledBg => clinicIsDark
+      ? AppColors.clinicStatusCancelledBgDark
+      : AppColors.clinicStatusCancelledBg;
+  Color get clinicStatusCancelledBorder => clinicIsDark
+      ? AppColors.clinicStatusCancelledBorderDark
+      : AppColors.clinicStatusCancelledBorder;
+
+  Color get clinicStatusUrgent => clinicIsDark
+      ? AppColors.clinicStatusUrgentDark
+      : AppColors.clinicStatusUrgent;
+  Color get clinicStatusUrgentBg => clinicIsDark
+      ? AppColors.clinicStatusUrgentBgDark
+      : AppColors.clinicStatusUrgentBg;
+  Color get clinicStatusUrgentBorder => clinicIsDark
+      ? AppColors.clinicStatusUrgentBorderDark
+      : AppColors.clinicStatusUrgentBorder;
 }
