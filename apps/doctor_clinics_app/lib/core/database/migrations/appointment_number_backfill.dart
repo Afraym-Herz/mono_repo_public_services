@@ -9,46 +9,50 @@ Future<void> backfillAppointmentQueueNumbers(AppDatabase db) async {
   await db.customUpdate(
     'UPDATE appointments SET status = ? WHERE status IN (?, ?)',
     variables: [
-      Variable.withString('booked'),
-      Variable.withString('arrived'),
-      Variable.withString('waiting'),
+      Variable.withString(AppConstants.appointmentStatusBooked),
+      Variable.withString(AppConstants.appointmentStatusArrived),
+      Variable.withString(AppConstants.appointmentStatusWaiting),
     ],
   );
   await db.customUpdate(
     'UPDATE queue_entries SET status = ? WHERE status = ?',
-    variables: [Variable.withString('waiting'), Variable.withString('arrived')],
+    variables: [
+      Variable.withString(AppConstants.queueStatusWaiting),
+      Variable.withString(AppConstants.queueStatusArrived),
+    ],
   );
 
   final appointmentRows = await db
       .customSelect(
-        'SELECT id, scheduled_date FROM appointments '
-        'ORDER BY scheduled_date, scheduled_time, id',
+        'SELECT ${DbConstants.colAppointmentId}, ${DbConstants.colScheduledDate} '
+        'FROM appointments '
+        'ORDER BY ${DbConstants.colScheduledDate}, ${DbConstants.colScheduledTime}, ${DbConstants.colAppointmentId}',
       )
       .get();
   if (appointmentRows.isEmpty) return;
 
   final entryRows = await db
       .customSelect(
-        'SELECT appointment_id, queue_number, queue_date FROM queue_entries',
+        'SELECT ${DbConstants.colAppointmentIdQueue}, ${DbConstants.colQueueNumber}, ${DbConstants.colQueueDate} FROM queue_entries',
       )
       .get();
   final entryNumbers = <String, int>{};
   final dayMax = <String, int>{};
   for (final row in entryRows) {
-    final number = row.read<int?>('queue_number');
-    final epoch = row.read<int?>('queue_date');
+    final number = row.read<int?>(DbConstants.colQueueNumber);
+    final epoch = row.read<int?>(DbConstants.colQueueDate);
     if (number == null || epoch == null) continue;
     final day = _dayKey(DateTime.fromMillisecondsSinceEpoch(epoch * 1000));
     if (number > (dayMax[day] ?? 0)) dayMax[day] = number;
-    final appointmentId = row.read<int?>('appointment_id');
+    final appointmentId = row.read<int?>(DbConstants.colAppointmentIdQueue);
     if (appointmentId != null) entryNumbers['$appointmentId|$day'] = number;
   }
 
   final byDay = <String, List<({int id, DateTime date})>>{};
   for (final row in appointmentRows) {
-    final id = row.read<int>('id');
+    final id = row.read<int>(DbConstants.colAppointmentId);
     final date = DateTime.fromMillisecondsSinceEpoch(
-      row.read<int>('scheduled_date') * 1000,
+      row.read<int>(DbConstants.colScheduledDate) * 1000,
     );
     byDay.putIfAbsent(_dayKey(date), () => []).add((id: id, date: date));
   }

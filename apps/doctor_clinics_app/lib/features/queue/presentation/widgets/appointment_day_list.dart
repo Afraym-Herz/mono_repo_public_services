@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/appointment_list_item.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/helpers/open_patient_profile.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/appointment_calendar.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/appointment_sort.dart';
 import 'appointment_day_heading.dart';
@@ -42,7 +43,11 @@ class AppointmentDayList extends StatelessWidget {
           showDate: false,
         ),
         for (final item in dayItems)
-          AppointmentRow(item: item, canManage: canManage),
+          AppointmentRow(
+            item: item,
+            canManage: canManage,
+            onTap: () => openPatientProfileById(context, item.patientId),
+          ),
       ],
     );
   }

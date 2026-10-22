@@ -1,8 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 
+/// One patient hit in the booking sheet: name plus file and phone, so two
+/// patients sharing a name can be told apart before one is picked.
 class AppointmentPatientOption extends StatelessWidget {
   const AppointmentPatientOption({
     super.key,
@@ -17,58 +20,61 @@ class AppointmentPatientOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    final meta = [
+      if (patient.fileNumber.isNotEmpty) patient.fileNumber,
+      if ((patient.phone ?? '').isNotEmpty) patient.phone!,
+    ].join(' • ');
+
     return Material(
-      color: isSelected
-          ? AppColors.clinicSurfaceContainerLow
-          : context.clinicContainer,
+      color: isSelected ? context.clinicInset : context.clinicContainer,
       borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
-      child: InkWell(
+      child: ListTile(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
-        child: Padding(
-          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL.r),
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: Dimensions.ICON_SIZE_SMALL.r,
-                backgroundColor: AppColors.clinicPrimary.withValues(
-                  alpha: 0.12,
-                ),
-                child: Text(
-                  _initial(patient.fullName),
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: AppColors.clinicPrimary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
-              Expanded(
-                child: Text(
-                  patient.fullName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.clinicTextPrimary,
-                    fontWeight: isSelected ? FontWeight.bold : null,
-                  ),
-                ),
-              ),
-              if (isSelected)
-                Icon(
-                  Icons.check_circle_rounded,
-                  color: AppColors.clinicPrimary,
-                  size: Dimensions.ICON_SIZE_SMALL.r,
-                ),
-            ],
+        dense: true,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: Dimensions.PADDING_SIZE_SMALL.w,
+        ),
+        leading: CircleAvatar(
+          radius: Dimensions.ICON_SIZE_SMALL.r,
+          backgroundColor: context.clinicPrimaryInk.withValues(
+            alpha: context.clinicIsDark ? 0.18 : 0.12,
+          ),
+          child: Text(
+            patient.fullName.trim().isEmpty ? '?' : patient.fullName.trim()[0],
+            style: theme.labelSmall?.copyWith(
+              color: context.clinicPrimaryInk,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
+        title: Text(
+          patient.fullName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: theme.bodyMedium?.copyWith(
+            color: context.clinicTextPrimary,
+            fontWeight: isSelected ? FontWeight.bold : null,
+          ),
+        ),
+        subtitle: meta.isEmpty
+            ? null
+            : Text(
+                meta,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.bodySmall?.copyWith(
+                  color: context.clinicTextSecondary,
+                ),
+              ),
+        trailing: isSelected
+            ? Icon(
+                Icons.check_circle_rounded,
+                color: context.clinicPrimaryInk,
+                size: Dimensions.ICON_SIZE_SMALL.r,
+              )
+            : null,
       ),
     );
-  }
-
-  String _initial(String name) {
-    final trimmed = name.trim();
-    return trimmed.isEmpty ? '?' : trimmed.characters.first;
   }
 }

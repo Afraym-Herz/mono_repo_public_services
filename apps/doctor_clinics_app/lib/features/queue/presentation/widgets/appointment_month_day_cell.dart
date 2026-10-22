@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doctor_clinics_app/features/patients/presentation/helpers/open_patient_profile.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/appointment_list_item.dart';
 
 import 'appointment_month_chip.dart';
@@ -62,7 +63,10 @@ class AppointmentMonthDayCell extends StatelessWidget {
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_BORDER.h),
               for (final item in items.take(2))
-                AppointmentMonthChip(item: item),
+                AppointmentMonthChip(
+                  item: item,
+                  onTap: () => openPatientProfileById(context, item.patientId),
+                ),
               if (hidden > 0) AppointmentMonthMore(hidden: hidden),
             ],
           ),

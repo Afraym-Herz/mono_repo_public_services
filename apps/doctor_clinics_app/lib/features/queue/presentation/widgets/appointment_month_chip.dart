@@ -7,9 +7,14 @@ import 'package:doctor_clinics_app/features/queue/presentation/helpers/appointme
 
 /// Compact patient line inside a month day cell.
 class AppointmentMonthChip extends StatelessWidget {
-  const AppointmentMonthChip({super.key, required this.item});
+  const AppointmentMonthChip({
+    super.key,
+    required this.item,
+    required this.onTap,
+  });
 
   final AppointmentListItem item;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,39 +23,48 @@ class AppointmentMonthChip extends StatelessWidget {
     final number = item.queueNumber == null
         ? null
         : DateConverter.withLocalizedDigits('${item.queueNumber}', locale);
-    return Container(
-      margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_CARD.h),
-      padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.PADDING_SIZE_BORDER.w,
-        vertical: Dimensions.PADDING_SIZE_CARD.h,
-      ),
-      decoration: BoxDecoration(
-        color: style.background,
-        borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
-      ),
-      child: Row(
-        children: [
-          if (number != null) ...[
-            Text(
-              number,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: style.color,
-                fontWeight: FontWeight.w700,
-              ),
+    return Padding(
+      padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_CARD.h),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: Dimensions.PADDING_SIZE_BORDER.w,
+              vertical: Dimensions.PADDING_SIZE_CARD.h,
             ),
-            SizedBox(width: Dimensions.PADDING_SIZE_BORDER.w),
-          ],
-          Expanded(
-            child: Text(
-              item.patientName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: context.clinicTextPrimary,
-              ),
+            decoration: BoxDecoration(
+              color: style.background,
+              borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
+            ),
+            child: Row(
+              children: [
+                if (number != null) ...[
+                  Text(
+                    number,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: style.color,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(width: Dimensions.PADDING_SIZE_BORDER.w),
+                ],
+                Expanded(
+                  child: Text(
+                    item.patientName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: context.clinicTextPrimary,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

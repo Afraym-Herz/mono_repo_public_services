@@ -44,7 +44,7 @@ class AppointmentPatientPicker extends StatelessWidget {
   }
 
   Future<void> _addPatient(BuildContext context) async {
-    final patient = await showPatientFormDialog(context);
-    if (patient != null) controller.addPatient(patient);
+    final outcome = await showPatientFormDialog(context);
+    if (outcome != null) controller.addPatient(outcome.patient);
   }
 }

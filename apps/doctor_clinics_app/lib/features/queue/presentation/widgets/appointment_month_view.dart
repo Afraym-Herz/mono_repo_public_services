@@ -11,7 +11,8 @@ import 'appointment_month_weekdays.dart';
 /// Saturday-first six-week calendar for the Month segment.
 ///
 /// Tapping a day opens that day in the Day view, which keeps the detailed
-/// secretary actions out of the dense grid.
+/// secretary actions out of the dense grid; tapping a patient chip opens that
+/// patient's profile.
 class AppointmentMonthView extends StatelessWidget {
   const AppointmentMonthView({
     super.key,
