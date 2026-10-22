@@ -5,12 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/patient_cubit.dart';
-import 'patient_profile_content.dart';
+import 'patient_profile_details.dart';
 import 'patient_profile_error.dart';
-import 'patient_profile_header.dart';
 import 'patient_profile_loading.dart';
 
-/// Card chrome for the read-only patient profile modal.
+/// Card chrome for the editable patient profile modal.
 class PatientProfilePanel extends StatelessWidget {
   const PatientProfilePanel({super.key, required this.patientId});
 
@@ -33,30 +32,22 @@ class PatientProfilePanel extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const PatientProfileHeader(),
-            Divider(height: 1, thickness: 1, color: context.clinicBorder),
-            Flexible(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
-                child: BlocBuilder<PatientCubit, PatientState>(
-                  builder: (context, state) => state.maybeMap(
-                    patientDetail: (detail) =>
-                        PatientProfileContent(patient: detail.patient),
-                    error: (_) => PatientProfileError(
-                      onRetry: () => context
-                          .read<PatientCubit>()
-                          .loadPatientDetail(patientId),
-                    ),
-                    orElse: () => const PatientProfileLoading(),
-                  ),
-                ),
+        child: BlocBuilder<PatientCubit, PatientState>(
+          builder: (context, state) => state.maybeMap(
+            patientDetail: (detail) =>
+                PatientProfileDetails(patient: detail.patient),
+            error: (_) => Padding(
+              padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
+              child: PatientProfileError(
+                onRetry: () =>
+                    context.read<PatientCubit>().loadPatientDetail(patientId),
               ),
             ),
-          ],
+            orElse: () => Padding(
+              padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
+              child: const PatientProfileLoading(),
+            ),
+          ),
         ),
       ),
     );

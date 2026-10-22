@@ -27,6 +27,7 @@ mixin _$Patient {
   String get searchText => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
+  int? get age => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get phone2 => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
@@ -58,6 +59,7 @@ abstract class $PatientCopyWith<$Res> {
     String searchText,
     String gender,
     DateTime? birthDate,
+    int? age,
     String? phone,
     String? phone2,
     String? address,
@@ -91,6 +93,7 @@ class _$PatientCopyWithImpl<$Res, $Val extends Patient>
     Object? searchText = null,
     Object? gender = null,
     Object? birthDate = freezed,
+    Object? age = freezed,
     Object? phone = freezed,
     Object? phone2 = freezed,
     Object? address = freezed,
@@ -127,6 +130,10 @@ class _$PatientCopyWithImpl<$Res, $Val extends Patient>
                 ? _value.birthDate
                 : birthDate // ignore: cast_nullable_to_non_nullable
                       as DateTime?,
+            age: freezed == age
+                ? _value.age
+                : age // ignore: cast_nullable_to_non_nullable
+                      as int?,
             phone: freezed == phone
                 ? _value.phone
                 : phone // ignore: cast_nullable_to_non_nullable
@@ -184,6 +191,7 @@ abstract class _$$PatientImplCopyWith<$Res> implements $PatientCopyWith<$Res> {
     String searchText,
     String gender,
     DateTime? birthDate,
+    int? age,
     String? phone,
     String? phone2,
     String? address,
@@ -216,6 +224,7 @@ class __$$PatientImplCopyWithImpl<$Res>
     Object? searchText = null,
     Object? gender = null,
     Object? birthDate = freezed,
+    Object? age = freezed,
     Object? phone = freezed,
     Object? phone2 = freezed,
     Object? address = freezed,
@@ -252,6 +261,10 @@ class __$$PatientImplCopyWithImpl<$Res>
             ? _value.birthDate
             : birthDate // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
+        age: freezed == age
+            ? _value.age
+            : age // ignore: cast_nullable_to_non_nullable
+                  as int?,
         phone: freezed == phone
             ? _value.phone
             : phone // ignore: cast_nullable_to_non_nullable
@@ -303,6 +316,7 @@ class _$PatientImpl implements _Patient {
     required this.searchText,
     required this.gender,
     this.birthDate,
+    this.age,
     this.phone,
     this.phone2,
     this.address,
@@ -330,6 +344,8 @@ class _$PatientImpl implements _Patient {
   @override
   final DateTime? birthDate;
   @override
+  final int? age;
+  @override
   final String? phone;
   @override
   final String? phone2;
@@ -350,7 +366,7 @@ class _$PatientImpl implements _Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, fileNumber: $fileNumber, fullName: $fullName, searchText: $searchText, gender: $gender, birthDate: $birthDate, phone: $phone, phone2: $phone2, address: $address, occupation: $occupation, notes: $notes, bloodType: $bloodType, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'Patient(id: $id, fileNumber: $fileNumber, fullName: $fullName, searchText: $searchText, gender: $gender, birthDate: $birthDate, age: $age, phone: $phone, phone2: $phone2, address: $address, occupation: $occupation, notes: $notes, bloodType: $bloodType, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -368,6 +384,7 @@ class _$PatientImpl implements _Patient {
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.birthDate, birthDate) ||
                 other.birthDate == birthDate) &&
+            (identical(other.age, age) || other.age == age) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.phone2, phone2) || other.phone2 == phone2) &&
             (identical(other.address, address) || other.address == address) &&
@@ -394,6 +411,7 @@ class _$PatientImpl implements _Patient {
     searchText,
     gender,
     birthDate,
+    age,
     phone,
     phone2,
     address,
@@ -427,6 +445,7 @@ abstract class _Patient implements Patient {
     required final String searchText,
     required final String gender,
     final DateTime? birthDate,
+    final int? age,
     final String? phone,
     final String? phone2,
     final String? address,
@@ -452,6 +471,8 @@ abstract class _Patient implements Patient {
   String get gender;
   @override
   DateTime? get birthDate;
+  @override
+  int? get age;
   @override
   String? get phone;
   @override

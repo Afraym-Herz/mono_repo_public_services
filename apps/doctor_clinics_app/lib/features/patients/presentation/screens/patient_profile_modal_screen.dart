@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/patient_cubit.dart';
+import '../cubit/patient_edit_cubit.dart';
 import '../widgets/patient_profile_panel.dart';
 
-/// Barrier-backed host for the read-only patient profile.
+/// Barrier-backed host for the editable patient profile.
 ///
 /// Pushed with `transparentModalRoutePage(...)` so the register stays visible
 /// behind the modal, and wrapped in [AdaptiveLayout] for the ScreenUtil scope.
@@ -17,8 +18,13 @@ class PatientProfileModalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<PatientCubit>()..loadPatientDetail(patientId),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<PatientCubit>()..loadPatientDetail(patientId),
+        ),
+        BlocProvider(create: (_) => getIt<PatientEditCubit>()),
+      ],
       child: Scaffold(
         backgroundColor: AppColors.transparent,
         body: AdaptiveLayout(

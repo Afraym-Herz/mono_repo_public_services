@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 import 'package:doctor_clinics_app/features/patients/domain/helpers/patient_file_number.dart';
+import 'package:doctor_clinics_app/features/patients/domain/helpers/patient_search_text.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
 
 part 'patient_form_state.dart';
@@ -34,7 +35,10 @@ class PatientFormCubit extends Cubit<PatientFormState> {
     final result = await repository.addPatient(
       patient.copyWith(
         fileNumber: PatientFileNumber.next(highest),
-        searchText: _searchText(patient),
+        searchText: PatientSearchText.of(
+          fullName: patient.fullName,
+          phone: patient.phone,
+        ),
       ),
     );
     if (isClosed) return;
@@ -43,9 +47,4 @@ class PatientFormCubit extends Cubit<PatientFormState> {
       (created) => emit(PatientFormState.saved(patient: created)),
     );
   }
-
-  String _searchText(Patient patient) => [
-    patient.fullName,
-    patient.phone ?? '',
-  ].where((value) => value.trim().isNotEmpty).join(' ').toLowerCase();
 }

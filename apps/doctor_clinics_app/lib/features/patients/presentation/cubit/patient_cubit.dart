@@ -14,7 +14,7 @@ class PatientCubit extends Cubit<PatientState> {
   final PatientRepository repository;
 
   PatientCubit({required this.repository})
-      : super(const PatientState.initial());
+    : super(const PatientState.initial());
 
   Future<void> loadPatients() async {
     emit(const PatientState.loading());
@@ -58,6 +58,15 @@ class PatientCubit extends Cubit<PatientState> {
     result.fold(
       (failure) => emit(PatientState.error(message: failure.message)),
       (_) => loadPatientDetail(patient.id),
+    );
+  }
+
+  /// Swaps the patient inside the current detail state without dropping the
+  /// card into a loading spinner (used after an inline profile save).
+  void applyPatient(Patient patient) {
+    state.maybeMap(
+      patientDetail: (detail) => emit(detail.copyWith(patient: patient)),
+      orElse: () {},
     );
   }
 

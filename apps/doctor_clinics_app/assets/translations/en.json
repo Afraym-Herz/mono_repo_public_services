@@ -226,7 +226,12 @@
     "notes": "Medical notes",
     "load_error": "Could not load this patient's details",
     "retry": "Try again",
-    "close": "Close"
+    "close": "Close",
+    "edit": "Edit",
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "saved": "Patient details updated",
+    "save_error": "Could not update this patient"
   },
   "patients_filter": {
     "all": "All",

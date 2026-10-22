@@ -1,4 +1,4 @@
-﻿import 'package:drift/drift.dart';
+import 'package:drift/drift.dart';
 
 class Patients extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -7,6 +7,7 @@ class Patients extends Table {
   TextColumn get searchText => text()();
   TextColumn get gender => text()();
   DateTimeColumn get birthDate => dateTime().nullable()();
+  IntColumn get age => integer().nullable()();
   TextColumn get phone => text().nullable()();
   TextColumn get phone2 => text().nullable()();
   TextColumn get address => text().nullable()();

@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/core/demo/queue_demo_patient.dart';
+import 'package:doctor_clinics_app/features/patients/domain/helpers/patient_age.dart';
 
 /// Maps a demo fixture row to the register's patient row.
 class PatientDemoProfile {
@@ -11,7 +12,7 @@ class PatientDemoProfile {
   /// True when an older demo record lacks the profile block, or when its name
   /// no longer matches the fixture (for example after a broken-encoding seed).
   static bool needsRefresh(Patient existing, QueueDemoPatient patient) =>
-      existing.birthDate == null ||
+      existing.age == null ||
       existing.bloodType == null ||
       existing.fullName != patient.name;
 
@@ -29,6 +30,7 @@ class PatientDemoProfile {
       searchText: Value(patient.name),
       gender: Value(patient.gender ?? AppConstants.genderMale),
       birthDate: Value(_parseDate(patient.birthDate) ?? existing?.birthDate),
+      age: Value(PatientAge.fromIsoDate(patient.birthDate) ?? existing?.age),
       phone: Value(patient.phone ?? existing?.phone),
       phone2: Value(patient.phone2 ?? existing?.phone2),
       address: Value(existing?.address),

@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
+import 'package:doctor_clinics_app/features/patients/domain/helpers/patient_search_text.dart';
 
 /// Holds the patient form fields without rebuilding the whole dialog.
 class PatientFormController {
@@ -17,14 +18,16 @@ class PatientFormController {
   final DateTime createdAt;
 
   Patient toPatient() {
+    final fullName = name.text.trim();
+    final phoneValue = _optional(phone.text);
     return Patient(
       id: 0,
       fileNumber: '',
-      fullName: name.text.trim(),
-      searchText: name.text.trim(),
+      fullName: fullName,
+      searchText: PatientSearchText.of(fullName: fullName, phone: phoneValue),
       gender: gender.value,
-      birthDate: _birthDateFromAge(),
-      phone: _optional(phone.text),
+      age: int.tryParse(age.text.trim()),
+      phone: phoneValue,
       notes: _optional(notes.text),
       bloodType: bloodType.value,
       createdAt: createdAt,
@@ -39,15 +42,6 @@ class PatientFormController {
     notes.dispose();
     gender.dispose();
     bloodType.dispose();
-  }
-
-  /// Approximates the birth date from the entered age so the rest of the app
-  /// keeps using the existing birth-date field.
-  DateTime? _birthDateFromAge() {
-    final years = int.tryParse(age.text.trim());
-    if (years == null) return null;
-    final now = DateTime.now();
-    return DateTime(now.year - years, now.month, now.day);
   }
 
   static String? _optional(String value) {

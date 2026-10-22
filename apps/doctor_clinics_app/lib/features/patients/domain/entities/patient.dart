@@ -12,6 +12,7 @@ class Patient with _$Patient {
     required String searchText,
     required String gender,
     DateTime? birthDate,
+    int? age,
     String? phone,
     String? phone2,
     String? address,
@@ -23,5 +24,6 @@ class Patient with _$Patient {
     DateTime? deletedAt,
   }) = _Patient;
 
-  factory Patient.fromJson(Map<String, dynamic> json) => _$PatientFromJson(json);
+  factory Patient.fromJson(Map<String, dynamic> json) =>
+      _$PatientFromJson(json);
 }

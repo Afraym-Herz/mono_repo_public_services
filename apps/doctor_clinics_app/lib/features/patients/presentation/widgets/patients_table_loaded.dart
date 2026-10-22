@@ -45,7 +45,15 @@ class PatientsTableLoaded extends StatelessWidget {
                     height: constraints.maxHeight,
                     child: PatientsTableCard(
                       rows: visible,
-                      onView: (row) => openPatientProfile(context, row.patient),
+                      onView: (row) async {
+                        final changed = await openPatientProfile(
+                          context,
+                          row.patient,
+                        );
+                        if (changed && context.mounted && !cubit.isClosed) {
+                          await cubit.load();
+                        }
+                      },
                       onDelete: cubit.delete,
                     ),
                   ),

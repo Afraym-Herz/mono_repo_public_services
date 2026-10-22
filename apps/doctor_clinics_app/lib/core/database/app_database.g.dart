@@ -75,6 +75,15 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _ageMeta = const VerificationMeta('age');
+  @override
+  late final GeneratedColumn<int> age = GeneratedColumn<int>(
+    'age',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
   @override
   late final GeneratedColumn<String> phone = GeneratedColumn<String>(
@@ -178,6 +187,7 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
     searchText,
     gender,
     birthDate,
+    age,
     phone,
     phone2,
     address,
@@ -239,6 +249,12 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
       context.handle(
         _birthDateMeta,
         birthDate.isAcceptableOrUnknown(data['birth_date']!, _birthDateMeta),
+      );
+    }
+    if (data.containsKey('age')) {
+      context.handle(
+        _ageMeta,
+        age.isAcceptableOrUnknown(data['age']!, _ageMeta),
       );
     }
     if (data.containsKey('phone')) {
@@ -328,6 +344,10 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
         DriftSqlType.dateTime,
         data['${effectivePrefix}birth_date'],
       ),
+      age: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}age'],
+      ),
       phone: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}phone'],
@@ -380,6 +400,7 @@ class Patient extends DataClass implements Insertable<Patient> {
   final String searchText;
   final String gender;
   final DateTime? birthDate;
+  final int? age;
   final String? phone;
   final String? phone2;
   final String? address;
@@ -396,6 +417,7 @@ class Patient extends DataClass implements Insertable<Patient> {
     required this.searchText,
     required this.gender,
     this.birthDate,
+    this.age,
     this.phone,
     this.phone2,
     this.address,
@@ -416,6 +438,9 @@ class Patient extends DataClass implements Insertable<Patient> {
     map['gender'] = Variable<String>(gender);
     if (!nullToAbsent || birthDate != null) {
       map['birth_date'] = Variable<DateTime>(birthDate);
+    }
+    if (!nullToAbsent || age != null) {
+      map['age'] = Variable<int>(age);
     }
     if (!nullToAbsent || phone != null) {
       map['phone'] = Variable<String>(phone);
@@ -453,6 +478,7 @@ class Patient extends DataClass implements Insertable<Patient> {
       birthDate: birthDate == null && nullToAbsent
           ? const Value.absent()
           : Value(birthDate),
+      age: age == null && nullToAbsent ? const Value.absent() : Value(age),
       phone: phone == null && nullToAbsent
           ? const Value.absent()
           : Value(phone),
@@ -491,6 +517,7 @@ class Patient extends DataClass implements Insertable<Patient> {
       searchText: serializer.fromJson<String>(json['searchText']),
       gender: serializer.fromJson<String>(json['gender']),
       birthDate: serializer.fromJson<DateTime?>(json['birthDate']),
+      age: serializer.fromJson<int?>(json['age']),
       phone: serializer.fromJson<String?>(json['phone']),
       phone2: serializer.fromJson<String?>(json['phone2']),
       address: serializer.fromJson<String?>(json['address']),
@@ -512,6 +539,7 @@ class Patient extends DataClass implements Insertable<Patient> {
       'searchText': serializer.toJson<String>(searchText),
       'gender': serializer.toJson<String>(gender),
       'birthDate': serializer.toJson<DateTime?>(birthDate),
+      'age': serializer.toJson<int?>(age),
       'phone': serializer.toJson<String?>(phone),
       'phone2': serializer.toJson<String?>(phone2),
       'address': serializer.toJson<String?>(address),
@@ -531,6 +559,7 @@ class Patient extends DataClass implements Insertable<Patient> {
     String? searchText,
     String? gender,
     Value<DateTime?> birthDate = const Value.absent(),
+    Value<int?> age = const Value.absent(),
     Value<String?> phone = const Value.absent(),
     Value<String?> phone2 = const Value.absent(),
     Value<String?> address = const Value.absent(),
@@ -547,6 +576,7 @@ class Patient extends DataClass implements Insertable<Patient> {
     searchText: searchText ?? this.searchText,
     gender: gender ?? this.gender,
     birthDate: birthDate.present ? birthDate.value : this.birthDate,
+    age: age.present ? age.value : this.age,
     phone: phone.present ? phone.value : this.phone,
     phone2: phone2.present ? phone2.value : this.phone2,
     address: address.present ? address.value : this.address,
@@ -569,6 +599,7 @@ class Patient extends DataClass implements Insertable<Patient> {
           : this.searchText,
       gender: data.gender.present ? data.gender.value : this.gender,
       birthDate: data.birthDate.present ? data.birthDate.value : this.birthDate,
+      age: data.age.present ? data.age.value : this.age,
       phone: data.phone.present ? data.phone.value : this.phone,
       phone2: data.phone2.present ? data.phone2.value : this.phone2,
       address: data.address.present ? data.address.value : this.address,
@@ -592,6 +623,7 @@ class Patient extends DataClass implements Insertable<Patient> {
           ..write('searchText: $searchText, ')
           ..write('gender: $gender, ')
           ..write('birthDate: $birthDate, ')
+          ..write('age: $age, ')
           ..write('phone: $phone, ')
           ..write('phone2: $phone2, ')
           ..write('address: $address, ')
@@ -613,6 +645,7 @@ class Patient extends DataClass implements Insertable<Patient> {
     searchText,
     gender,
     birthDate,
+    age,
     phone,
     phone2,
     address,
@@ -633,6 +666,7 @@ class Patient extends DataClass implements Insertable<Patient> {
           other.searchText == this.searchText &&
           other.gender == this.gender &&
           other.birthDate == this.birthDate &&
+          other.age == this.age &&
           other.phone == this.phone &&
           other.phone2 == this.phone2 &&
           other.address == this.address &&
@@ -651,6 +685,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
   final Value<String> searchText;
   final Value<String> gender;
   final Value<DateTime?> birthDate;
+  final Value<int?> age;
   final Value<String?> phone;
   final Value<String?> phone2;
   final Value<String?> address;
@@ -667,6 +702,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     this.searchText = const Value.absent(),
     this.gender = const Value.absent(),
     this.birthDate = const Value.absent(),
+    this.age = const Value.absent(),
     this.phone = const Value.absent(),
     this.phone2 = const Value.absent(),
     this.address = const Value.absent(),
@@ -684,6 +720,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     required String searchText,
     required String gender,
     this.birthDate = const Value.absent(),
+    this.age = const Value.absent(),
     this.phone = const Value.absent(),
     this.phone2 = const Value.absent(),
     this.address = const Value.absent(),
@@ -704,6 +741,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     Expression<String>? searchText,
     Expression<String>? gender,
     Expression<DateTime>? birthDate,
+    Expression<int>? age,
     Expression<String>? phone,
     Expression<String>? phone2,
     Expression<String>? address,
@@ -721,6 +759,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
       if (searchText != null) 'search_text': searchText,
       if (gender != null) 'gender': gender,
       if (birthDate != null) 'birth_date': birthDate,
+      if (age != null) 'age': age,
       if (phone != null) 'phone': phone,
       if (phone2 != null) 'phone2': phone2,
       if (address != null) 'address': address,
@@ -740,6 +779,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     Value<String>? searchText,
     Value<String>? gender,
     Value<DateTime?>? birthDate,
+    Value<int?>? age,
     Value<String?>? phone,
     Value<String?>? phone2,
     Value<String?>? address,
@@ -757,6 +797,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
       searchText: searchText ?? this.searchText,
       gender: gender ?? this.gender,
       birthDate: birthDate ?? this.birthDate,
+      age: age ?? this.age,
       phone: phone ?? this.phone,
       phone2: phone2 ?? this.phone2,
       address: address ?? this.address,
@@ -789,6 +830,9 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     }
     if (birthDate.present) {
       map['birth_date'] = Variable<DateTime>(birthDate.value);
+    }
+    if (age.present) {
+      map['age'] = Variable<int>(age.value);
     }
     if (phone.present) {
       map['phone'] = Variable<String>(phone.value);
@@ -829,6 +873,7 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
           ..write('searchText: $searchText, ')
           ..write('gender: $gender, ')
           ..write('birthDate: $birthDate, ')
+          ..write('age: $age, ')
           ..write('phone: $phone, ')
           ..write('phone2: $phone2, ')
           ..write('address: $address, ')
@@ -11712,6 +11757,7 @@ typedef $$PatientsTableCreateCompanionBuilder =
       required String searchText,
       required String gender,
       Value<DateTime?> birthDate,
+      Value<int?> age,
       Value<String?> phone,
       Value<String?> phone2,
       Value<String?> address,
@@ -11730,6 +11776,7 @@ typedef $$PatientsTableUpdateCompanionBuilder =
       Value<String> searchText,
       Value<String> gender,
       Value<DateTime?> birthDate,
+      Value<int?> age,
       Value<String?> phone,
       Value<String?> phone2,
       Value<String?> address,
@@ -11957,6 +12004,11 @@ class $$PatientsTableFilterComposer
 
   ColumnFilters<DateTime> get birthDate => $composableBuilder(
     column: $table.birthDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get age => $composableBuilder(
+    column: $table.age,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -12270,6 +12322,11 @@ class $$PatientsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get age => $composableBuilder(
+    column: $table.age,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get phone => $composableBuilder(
     column: $table.phone,
     builder: (column) => ColumnOrderings(column),
@@ -12346,6 +12403,9 @@ class $$PatientsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get birthDate =>
       $composableBuilder(column: $table.birthDate, builder: (column) => column);
+
+  GeneratedColumn<int> get age =>
+      $composableBuilder(column: $table.age, builder: (column) => column);
 
   GeneratedColumn<String> get phone =>
       $composableBuilder(column: $table.phone, builder: (column) => column);
@@ -12647,6 +12707,7 @@ class $$PatientsTableTableManager
                 Value<String> searchText = const Value.absent(),
                 Value<String> gender = const Value.absent(),
                 Value<DateTime?> birthDate = const Value.absent(),
+                Value<int?> age = const Value.absent(),
                 Value<String?> phone = const Value.absent(),
                 Value<String?> phone2 = const Value.absent(),
                 Value<String?> address = const Value.absent(),
@@ -12663,6 +12724,7 @@ class $$PatientsTableTableManager
                 searchText: searchText,
                 gender: gender,
                 birthDate: birthDate,
+                age: age,
                 phone: phone,
                 phone2: phone2,
                 address: address,
@@ -12681,6 +12743,7 @@ class $$PatientsTableTableManager
                 required String searchText,
                 required String gender,
                 Value<DateTime?> birthDate = const Value.absent(),
+                Value<int?> age = const Value.absent(),
                 Value<String?> phone = const Value.absent(),
                 Value<String?> phone2 = const Value.absent(),
                 Value<String?> address = const Value.absent(),
@@ -12697,6 +12760,7 @@ class $$PatientsTableTableManager
                 searchText: searchText,
                 gender: gender,
                 birthDate: birthDate,
+                age: age,
                 phone: phone,
                 phone2: phone2,
                 address: address,

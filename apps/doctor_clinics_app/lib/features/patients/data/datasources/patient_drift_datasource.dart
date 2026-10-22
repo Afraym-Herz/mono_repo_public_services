@@ -36,7 +36,10 @@ class PatientDriftDatasource implements IPatientDatasource {
 
   @override
   Future<void> update(entity.Patient patient) async {
-    await patientDao.updatePatient(toPatientCompanion(patient));
+    final updated = await patientDao.updatePatient(toPatientCompanion(patient));
+    if (!updated) {
+      throw StateError('patients.updatePatient: row ${patient.id} not found');
+    }
   }
 
   @override

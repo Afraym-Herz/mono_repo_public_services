@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
+import 'package:doctor_clinics_app/features/patients/domain/helpers/patient_age.dart';
 
 /// Presentation formatting for the patients register cells.
 class PatientRowFormat {
@@ -12,11 +13,13 @@ class PatientRowFormat {
   static String ageGender(Patient patient, BuildContext context) =>
       '${age(patient, context)} / ${gender(patient)}';
 
-  /// `٣٨ سنة` — age in years from [patient]'s birth date, or `—` when unknown.
+  /// `٣٨ سنة` — age in years from the stored age, or `—` when unknown.
   static String age(Patient patient, BuildContext context) {
+    final age = patient.age;
+    if (age != null) return _ageLabel(age, context);
     final birthDate = patient.birthDate;
     if (birthDate == null) return 'patients.table.none'.tr();
-    return _ageLabel(_yearsSince(birthDate), context);
+    return _ageLabel(PatientAge.yearsSince(birthDate), context);
   }
 
   /// Localized gender label (`ذكر` / `أنثى`).
@@ -43,16 +46,6 @@ class PatientRowFormat {
         ? value.substring(0, value.length - 3)
         : value;
     return '${_localizedDigits(trimmed, context)} ${'patients.currency'.tr()}';
-  }
-
-  static int _yearsSince(DateTime birthDate) {
-    final now = DateTime.now();
-    var years = now.year - birthDate.year;
-    if (now.month < birthDate.month ||
-        (now.month == birthDate.month && now.day < birthDate.day)) {
-      years--;
-    }
-    return years < 0 ? 0 : years;
   }
 
   static String _genderKey(String gender) =>

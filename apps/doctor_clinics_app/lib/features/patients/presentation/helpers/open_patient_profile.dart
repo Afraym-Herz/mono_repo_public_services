@@ -4,11 +4,15 @@ import 'package:go_router/go_router.dart';
 
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 
-/// Opens the read-only patient profile modal over the current screen.
-Future<void> openPatientProfile(BuildContext context, Patient patient) =>
+/// Opens the patient profile modal over the current screen.
+///
+/// Returns `true` when the profile was edited and saved, so the register behind
+/// the modal can reload.
+Future<bool> openPatientProfile(BuildContext context, Patient patient) =>
     openPatientProfileById(context, patient.id);
 
-/// Opens the read-only patient profile modal for [patientId].
-Future<void> openPatientProfileById(BuildContext context, int patientId) async {
-  await context.push('${Routes.patients}/$patientId');
+/// Opens the patient profile modal for [patientId].
+Future<bool> openPatientProfileById(BuildContext context, int patientId) async {
+  final changed = await context.push<bool>('${Routes.patients}/$patientId');
+  return changed ?? false;
 }

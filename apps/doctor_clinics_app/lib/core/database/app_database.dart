@@ -26,6 +26,7 @@ import 'daos/audit_dao.dart';
 
 part 'app_database.g.dart';
 part 'migrations/appointment_number_backfill.dart';
+part 'migrations/patient_age_backfill.dart';
 
 @DriftDatabase(
   tables: [
@@ -68,7 +69,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e]) : super(e ?? _openConnection());
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   static QueryExecutor _openConnection() {
     return openConnection(dbName: DbConstants.dbName);
@@ -89,6 +90,10 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 4) {
         await m.addColumn(appointments, appointments.depositPiasters);
+      }
+      if (from < 5) {
+        await m.addColumn(patients, patients.age);
+        await backfillPatientAges(this);
       }
     },
   );
