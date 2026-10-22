@@ -24,6 +24,7 @@ extension QueueDaoBooking on QueueDao {
             status: AppConstants.appointmentStatusBooked,
             reason: Value(appointment.reason),
             notes: Value(appointment.notes),
+            depositPiasters: Value(appointment.depositPiasters),
             createdBy: appointment.createdBy.toString(),
           ),
         );
@@ -53,6 +54,7 @@ extension QueueDaoBooking on QueueDao {
   Future<domain.Appointment> addWalkInAppointment(
     int patientId, {
     String? notes,
+    int depositPiasters = 0,
   }) async {
     final today = DateTime.now();
     return bookAppointment(
@@ -64,6 +66,7 @@ extension QueueDaoBooking on QueueDao {
         type: AppConstants.appointmentTypeWalkIn,
         status: AppConstants.appointmentStatusBooked,
         notes: notes,
+        depositPiasters: depositPiasters,
         createdBy: 0,
         createdAt: today,
         updatedAt: today,

@@ -178,7 +178,11 @@
       "cancel": "Cancel",
       "profile_unavailable": "Patient records are not available in this version",
       "book_unavailable": "Appointment booking is not available in this version"
-    }
+    },
+    "book_success": "Appointment booked for {name}",
+    "book_success_generic": "Appointment booked",
+    "book_error": "Could not book the appointment",
+    "book_forbidden": "You don't have permission to book appointments"
   },
   "patient_form": {
     "title": "New patient",
@@ -285,7 +289,8 @@
       "queue_number": "Queue no.",
       "file_number": "File no.",
       "wait": "Wait time: {minutes} min",
-      "paid": "Collected"
+      "paid": "Paid now",
+      "deposit": "Deposit"
     },
     "cancel_reason": {
       "staff": "Cancelled by staff"
@@ -295,6 +300,16 @@
       "amount_label": "Amount (EGP)",
       "confirm": "Confirm collection",
       "invalid_amount": "Enter a valid amount"
+    },
+    "finish": {
+      "title": "Finish exam and payment"
+    },
+    "payment": {
+      "deposit": "Deposit (from booking)",
+      "paid_now": "Amount collected now (EGP)",
+      "optional_hint": "Optional — leave empty for 0",
+      "invalid_amount": "Enter a valid amount",
+      "confirm": "Confirm"
     },
     "empty": "No patients in the queue",
     "error": {
@@ -369,6 +384,8 @@
     "reason": "Reason for visit or current complaint",
     "reason_hint": "What brings the patient in?",
     "fee": "Due fees",
+    "deposit": "Deposit paid (EGP)",
+    "deposit_hint": "Optional — leave empty for 0",
     "notes": "Secretary notes",
     "notes_hint": "Optional note for the secretary",
     "confirm": "Confirm booking",

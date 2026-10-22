@@ -8,6 +8,7 @@ import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_
 import 'package:doctor_clinics_app/features/patients/presentation/widgets/patients_header_connected.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/widgets/patients_table.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/widgets/patients_toolbar.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/cubit/appointment_cubit.dart';
 
 /// Displays all patients with live search and filters.
 class PatientListScreen extends StatelessWidget {
@@ -19,6 +20,9 @@ class PatientListScreen extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => getIt<PatientListCubit>()..load()),
         BlocProvider(create: (_) => getIt<PatientToolbarCubit>()),
+        // Planner for the search suggestions' "book a new appointment" flow;
+        // created cold and loaded right before the first booking.
+        BlocProvider(create: (_) => getIt<AppointmentCubit>()),
       ],
       child: AdaptiveLayout(
         mobileLayout: (_) => const _PatientListBody(),

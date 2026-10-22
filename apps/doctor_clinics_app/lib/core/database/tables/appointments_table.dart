@@ -17,12 +17,16 @@ class Appointments extends Table {
   TextColumn get reason => text().nullable()();
   TextColumn get notes => text().nullable()();
   TextColumn get cancelledReason => text().nullable()();
+  // Integer piasters paid when the appointment was booked. Displayed to the
+  // secretary; the amount collected after the visit is stored separately.
+  IntColumn get depositPiasters => integer().withDefault(const Constant(0))();
   TextColumn get createdBy => text()();
 }
 
 class QueueEntries extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get appointmentId => integer().nullable().references(Appointments, #id)();
+  IntColumn get appointmentId =>
+      integer().nullable().references(Appointments, #id)();
   IntColumn get patientId => integer().references(Patients, #id)();
   DateTimeColumn get queueDate => dateTime()();
   IntColumn get queueNumber => integer()();

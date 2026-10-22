@@ -22,7 +22,7 @@ Future<Patient?> showPatientDetailDialog(
 class _PatientDetailDialog extends StatelessWidget {
   final Patient patient;
 
-  _PatientDetailDialog({required this.patient});
+  const _PatientDetailDialog({required this.patient});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,7 @@ class _PatientDetailDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: lightSurface,
       surfaceTintColor: AppColors.transparent,
-      insetPadding: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
+      insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(color: context.clinicBorder),
@@ -97,15 +94,15 @@ class _PatientDetailDialog extends StatelessWidget {
 }
 
 class _PatientHeader extends StatelessWidget {
-  _PatientHeader({
+  const _PatientHeader({
     required this.patient,
-    required lightSurface,
-    required lightText,
+    required this.lightSurface,
+    required this.lightText,
   });
 
   final Patient patient;
-  Color lightSurface = AppColors.clinicSurfaceContainerLow;
-  Color lightText = AppColors.clinicTextPrimary;
+  final Color lightSurface;
+  final Color lightText;
 
   @override
   Widget build(BuildContext context) {
@@ -142,9 +139,7 @@ class _PatientHeader extends StatelessWidget {
                   ),
                   Text(
                     'File No.: ${patient.fileNumber}',
-                    style: const TextStyle(
-                      color: Color(0xFFB2B2B2),
-                    ),
+                    style: const TextStyle(color: Color(0xFFB2B2B2)),
                   ),
                 ],
               ),
@@ -157,41 +152,32 @@ class _PatientHeader extends StatelessWidget {
 }
 
 class _DetailRow extends StatelessWidget {
-  _DetailRow({
-    required IconData icon,
-    required String label,
-    required String value,
-  })  : _icon = icon,
-        _label = label,
-        _value = value;
+  const _DetailRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
-  final IconData _icon;
-  final String _label;
-  final String _value;
+  final IconData icon;
+  final String label;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 8,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Icon(_icon,
-              size: 18,
-              color: AppColors.clinicTextSecondary),
+          Icon(icon, size: 18, color: AppColors.clinicTextSecondary),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              _label,
-              style: const TextStyle(
-                color: Color(0xFF6E6E6E),
-                fontSize: 10,
-              ),
+              label,
+              style: const TextStyle(color: Color(0xFF6E6E6E), fontSize: 10),
             ),
           ),
           Text(
-            _value,
+            value,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               color: Color(0xFF6E6E6E),

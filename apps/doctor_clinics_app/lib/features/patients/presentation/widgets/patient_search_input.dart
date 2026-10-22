@@ -12,6 +12,7 @@ class PatientSearchInput extends StatelessWidget {
     super.key,
     required this.controller,
     required this.onChanged,
+    this.onTap,
   });
 
   /// Controller owned by the toolbar cubit.
@@ -20,11 +21,15 @@ class PatientSearchInput extends StatelessWidget {
   /// Called on every keystroke; the cubit debounces it.
   final ValueChanged<String> onChanged;
 
+  /// Called when the field is tapped, so the dropdown can re-open.
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       onChanged: onChanged,
+      onTap: onTap,
       textInputAction: TextInputAction.search,
       cursorColor: context.clinicAccent,
       style: TextStyle(

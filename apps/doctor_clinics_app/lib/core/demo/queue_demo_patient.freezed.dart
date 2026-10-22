@@ -36,6 +36,7 @@ mixin _$QueueDemoPatient {
   int? get waitMinutes => throw _privateConstructorUsedError;
   String? get scheduledTime => throw _privateConstructorUsedError;
   int? get paidAmountPiasters => throw _privateConstructorUsedError;
+  int? get depositPiasters => throw _privateConstructorUsedError;
   String? get cancelReason => throw _privateConstructorUsedError;
   String? get birthDate => throw _privateConstructorUsedError;
   String? get phone2 => throw _privateConstructorUsedError;
@@ -77,6 +78,7 @@ abstract class $QueueDemoPatientCopyWith<$Res> {
     int? waitMinutes,
     String? scheduledTime,
     int? paidAmountPiasters,
+    int? depositPiasters,
     String? cancelReason,
     String? birthDate,
     String? phone2,
@@ -117,6 +119,7 @@ class _$QueueDemoPatientCopyWithImpl<$Res, $Val extends QueueDemoPatient>
     Object? waitMinutes = freezed,
     Object? scheduledTime = freezed,
     Object? paidAmountPiasters = freezed,
+    Object? depositPiasters = freezed,
     Object? cancelReason = freezed,
     Object? birthDate = freezed,
     Object? phone2 = freezed,
@@ -187,6 +190,10 @@ class _$QueueDemoPatientCopyWithImpl<$Res, $Val extends QueueDemoPatient>
                 ? _value.paidAmountPiasters
                 : paidAmountPiasters // ignore: cast_nullable_to_non_nullable
                       as int?,
+            depositPiasters: freezed == depositPiasters
+                ? _value.depositPiasters
+                : depositPiasters // ignore: cast_nullable_to_non_nullable
+                      as int?,
             cancelReason: freezed == cancelReason
                 ? _value.cancelReason
                 : cancelReason // ignore: cast_nullable_to_non_nullable
@@ -246,6 +253,7 @@ abstract class _$$QueueDemoPatientImplCopyWith<$Res>
     int? waitMinutes,
     String? scheduledTime,
     int? paidAmountPiasters,
+    int? depositPiasters,
     String? cancelReason,
     String? birthDate,
     String? phone2,
@@ -285,6 +293,7 @@ class __$$QueueDemoPatientImplCopyWithImpl<$Res>
     Object? waitMinutes = freezed,
     Object? scheduledTime = freezed,
     Object? paidAmountPiasters = freezed,
+    Object? depositPiasters = freezed,
     Object? cancelReason = freezed,
     Object? birthDate = freezed,
     Object? phone2 = freezed,
@@ -355,6 +364,10 @@ class __$$QueueDemoPatientImplCopyWithImpl<$Res>
             ? _value.paidAmountPiasters
             : paidAmountPiasters // ignore: cast_nullable_to_non_nullable
                   as int?,
+        depositPiasters: freezed == depositPiasters
+            ? _value.depositPiasters
+            : depositPiasters // ignore: cast_nullable_to_non_nullable
+                  as int?,
         cancelReason: freezed == cancelReason
             ? _value.cancelReason
             : cancelReason // ignore: cast_nullable_to_non_nullable
@@ -407,6 +420,7 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
     this.waitMinutes,
     this.scheduledTime,
     this.paidAmountPiasters,
+    this.depositPiasters,
     this.cancelReason,
     this.birthDate,
     this.phone2,
@@ -450,6 +464,8 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
   @override
   final int? paidAmountPiasters;
   @override
+  final int? depositPiasters;
+  @override
   final String? cancelReason;
   @override
   final String? birthDate;
@@ -466,7 +482,7 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
 
   @override
   String toString() {
-    return 'QueueDemoPatient(number: $number, name: $name, status: $status, appointmentType: $appointmentType, isUrgent: $isUrgent, showOnHome: $showOnHome, paid: $paid, phone: $phone, fileNumber: $fileNumber, gender: $gender, examTypeKey: $examTypeKey, homeAction: $homeAction, waitMinutes: $waitMinutes, scheduledTime: $scheduledTime, paidAmountPiasters: $paidAmountPiasters, cancelReason: $cancelReason, birthDate: $birthDate, phone2: $phone2, bloodType: $bloodType, lastVisitDaysAgo: $lastVisitDaysAgo, followUpInDays: $followUpInDays, debtPiasters: $debtPiasters)';
+    return 'QueueDemoPatient(number: $number, name: $name, status: $status, appointmentType: $appointmentType, isUrgent: $isUrgent, showOnHome: $showOnHome, paid: $paid, phone: $phone, fileNumber: $fileNumber, gender: $gender, examTypeKey: $examTypeKey, homeAction: $homeAction, waitMinutes: $waitMinutes, scheduledTime: $scheduledTime, paidAmountPiasters: $paidAmountPiasters, depositPiasters: $depositPiasters, cancelReason: $cancelReason, birthDate: $birthDate, phone2: $phone2, bloodType: $bloodType, lastVisitDaysAgo: $lastVisitDaysAgo, followUpInDays: $followUpInDays, debtPiasters: $debtPiasters)';
   }
 
   @override
@@ -498,6 +514,8 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
                 other.scheduledTime == scheduledTime) &&
             (identical(other.paidAmountPiasters, paidAmountPiasters) ||
                 other.paidAmountPiasters == paidAmountPiasters) &&
+            (identical(other.depositPiasters, depositPiasters) ||
+                other.depositPiasters == depositPiasters) &&
             (identical(other.cancelReason, cancelReason) ||
                 other.cancelReason == cancelReason) &&
             (identical(other.birthDate, birthDate) ||
@@ -532,6 +550,7 @@ class _$QueueDemoPatientImpl extends _QueueDemoPatient {
     waitMinutes,
     scheduledTime,
     paidAmountPiasters,
+    depositPiasters,
     cancelReason,
     birthDate,
     phone2,
@@ -575,6 +594,7 @@ abstract class _QueueDemoPatient extends QueueDemoPatient {
     final int? waitMinutes,
     final String? scheduledTime,
     final int? paidAmountPiasters,
+    final int? depositPiasters,
     final String? cancelReason,
     final String? birthDate,
     final String? phone2,
@@ -618,6 +638,8 @@ abstract class _QueueDemoPatient extends QueueDemoPatient {
   String? get scheduledTime;
   @override
   int? get paidAmountPiasters;
+  @override
+  int? get depositPiasters;
   @override
   String? get cancelReason;
   @override

@@ -14,7 +14,8 @@ part 'queue_demo_patient.g.dart';
 ///
 /// The profile block (`birthDate`, `bloodType`, `phone2`) and the register block
 /// (`lastVisitDaysAgo`, `followUpInDays`, `debtPiasters`) are only read by
-/// [PatientDemoSeeder]; the queue rows ignore them.
+/// [PatientDemoSeeder]; the queue rows ignore them. `depositPiasters` is present
+/// only on the demo bookings that paid a deposit upfront.
 @freezed
 class QueueDemoPatient with _$QueueDemoPatient {
   const QueueDemoPatient._();
@@ -35,6 +36,7 @@ class QueueDemoPatient with _$QueueDemoPatient {
     int? waitMinutes,
     String? scheduledTime,
     int? paidAmountPiasters,
+    int? depositPiasters,
     String? cancelReason,
     String? birthDate,
     String? phone2,

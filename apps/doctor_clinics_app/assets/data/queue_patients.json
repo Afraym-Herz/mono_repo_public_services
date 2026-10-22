@@ -19,7 +19,8 @@
       "scheduledTime": "09:00",
       "homeAction": "finish",
       "showOnHome": true,
-      "paid": false
+      "paid": false,
+      "depositPiasters": 10000
     },
     {
       "number": 2,
@@ -39,7 +40,8 @@
       "scheduledTime": "09:15",
       "homeAction": "start",
       "showOnHome": true,
-      "paid": false
+      "paid": false,
+      "depositPiasters": 5000
     },
     {
       "number": 3,
@@ -116,7 +118,8 @@
       "scheduledTime": "10:00",
       "homeAction": "more",
       "showOnHome": false,
-      "paid": false
+      "paid": false,
+      "depositPiasters": 12000
     },
     {
       "number": 7,
@@ -137,6 +140,7 @@
       "homeAction": "more",
       "showOnHome": false,
       "paid": true,
+      "depositPiasters": 20000,
       "paidAmountPiasters": 30000
     },
     {

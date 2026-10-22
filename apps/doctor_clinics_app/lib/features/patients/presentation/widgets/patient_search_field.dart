@@ -1,57 +1,32 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/patient_toolbar_cubit.dart';
-import 'patient_search_input.dart';
-import 'patient_search_trailing.dart';
+import 'patient_search_overlay.dart';
+import 'patient_search_pill.dart';
 
-/// Debounced patient search pill at the head of the patients toolbar.
+/// Patient search pill plus the floating suggestion dropdown it owns.
 ///
-/// Reads the controller from [PatientToolbarCubit] so the field itself stays
-/// stateless; the cubit owns the 500ms debounce and the `isSearching` flag.
+/// The dropdown renders through [OverlayPortal] on the app's overlay, so it
+/// floats above the table instead of pushing it down. It opens only once a
+/// debounced query exists — an empty field keeps it hidden — and dismisses on
+/// any outside tap.
 class PatientSearchField extends StatelessWidget {
   const PatientSearchField({super.key});
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<PatientToolbarCubit>();
-    return BlocBuilder<PatientToolbarCubit, PatientToolbarState>(
-      buildWhen: (previous, current) =>
-          previous.query != current.query ||
-          previous.isSearching != current.isSearching,
-      builder: (context, state) => Container(
-        height: Dimensions.CONTROL_HEIGHT.h,
-        decoration: BoxDecoration(
-          color: context.clinicIsDark
-              ? context.clinicContainer
-              : context.cardColor,
-          borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
-          border: Border.all(color: context.clinicBorder),
+    return LayoutBuilder(
+      builder: (context, constraints) => OverlayPortal(
+        controller: cubit.suggestions,
+        overlayChildBuilder: (context) => PatientSearchOverlay(
+          width: constraints.maxWidth,
+          link: cubit.suggestionsLink,
         ),
-        child: Row(
-          children: [
-            SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
-            Icon(
-              Icons.search_rounded,
-              size: Dimensions.ICON_SIZE_SMALL.r,
-              color: context.clinicTextSecondary,
-            ),
-            SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-            Expanded(
-              child: PatientSearchInput(
-                controller: cubit.controller,
-                onChanged: cubit.queryChanged,
-              ),
-            ),
-            SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-            PatientSearchTrailing(
-              isSearching: state.isSearching,
-              hasQuery: state.query.isNotEmpty,
-              onClear: cubit.clearQuery,
-            ),
-          ],
+        child: CompositedTransformTarget(
+          link: cubit.suggestionsLink,
+          child: const PatientSearchPill(),
         ),
       ),
     );

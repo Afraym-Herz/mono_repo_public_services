@@ -67,7 +67,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e]) : super(e ?? _openConnection());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   static QueryExecutor _openConnection() {
     return openConnection(dbName: DbConstants.dbName);
@@ -85,6 +85,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 3) {
         await m.addColumn(appointments, appointments.queueNumber);
         await backfillAppointmentQueueNumbers(this);
+      }
+      if (from < 4) {
+        await m.addColumn(appointments, appointments.depositPiasters);
       }
     },
   );

@@ -1652,6 +1652,18 @@ class $AppointmentsTable extends Appointments
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _depositPiastersMeta = const VerificationMeta(
+    'depositPiasters',
+  );
+  @override
+  late final GeneratedColumn<int> depositPiasters = GeneratedColumn<int>(
+    'deposit_piasters',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _createdByMeta = const VerificationMeta(
     'createdBy',
   );
@@ -1675,6 +1687,7 @@ class $AppointmentsTable extends Appointments
     reason,
     notes,
     cancelledReason,
+    depositPiasters,
     createdBy,
   ];
   @override
@@ -1768,6 +1781,15 @@ class $AppointmentsTable extends Appointments
         ),
       );
     }
+    if (data.containsKey('deposit_piasters')) {
+      context.handle(
+        _depositPiastersMeta,
+        depositPiasters.isAcceptableOrUnknown(
+          data['deposit_piasters']!,
+          _depositPiastersMeta,
+        ),
+      );
+    }
     if (data.containsKey('created_by')) {
       context.handle(
         _createdByMeta,
@@ -1825,6 +1847,10 @@ class $AppointmentsTable extends Appointments
         DriftSqlType.string,
         data['${effectivePrefix}cancelled_reason'],
       ),
+      depositPiasters: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deposit_piasters'],
+      )!,
       createdBy: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}created_by'],
@@ -1849,6 +1875,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
   final String? reason;
   final String? notes;
   final String? cancelledReason;
+  final int depositPiasters;
   final String createdBy;
   const Appointment({
     required this.id,
@@ -1861,6 +1888,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     this.reason,
     this.notes,
     this.cancelledReason,
+    required this.depositPiasters,
     required this.createdBy,
   });
   @override
@@ -1884,6 +1912,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     if (!nullToAbsent || cancelledReason != null) {
       map['cancelled_reason'] = Variable<String>(cancelledReason);
     }
+    map['deposit_piasters'] = Variable<int>(depositPiasters);
     map['created_by'] = Variable<String>(createdBy);
     return map;
   }
@@ -1908,6 +1937,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       cancelledReason: cancelledReason == null && nullToAbsent
           ? const Value.absent()
           : Value(cancelledReason),
+      depositPiasters: Value(depositPiasters),
       createdBy: Value(createdBy),
     );
   }
@@ -1928,6 +1958,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       reason: serializer.fromJson<String?>(json['reason']),
       notes: serializer.fromJson<String?>(json['notes']),
       cancelledReason: serializer.fromJson<String?>(json['cancelledReason']),
+      depositPiasters: serializer.fromJson<int>(json['depositPiasters']),
       createdBy: serializer.fromJson<String>(json['createdBy']),
     );
   }
@@ -1945,6 +1976,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       'reason': serializer.toJson<String?>(reason),
       'notes': serializer.toJson<String?>(notes),
       'cancelledReason': serializer.toJson<String?>(cancelledReason),
+      'depositPiasters': serializer.toJson<int>(depositPiasters),
       'createdBy': serializer.toJson<String>(createdBy),
     };
   }
@@ -1960,6 +1992,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     Value<String?> reason = const Value.absent(),
     Value<String?> notes = const Value.absent(),
     Value<String?> cancelledReason = const Value.absent(),
+    int? depositPiasters,
     String? createdBy,
   }) => Appointment(
     id: id ?? this.id,
@@ -1974,6 +2007,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     cancelledReason: cancelledReason.present
         ? cancelledReason.value
         : this.cancelledReason,
+    depositPiasters: depositPiasters ?? this.depositPiasters,
     createdBy: createdBy ?? this.createdBy,
   );
   Appointment copyWithCompanion(AppointmentsCompanion data) {
@@ -1996,6 +2030,9 @@ class Appointment extends DataClass implements Insertable<Appointment> {
       cancelledReason: data.cancelledReason.present
           ? data.cancelledReason.value
           : this.cancelledReason,
+      depositPiasters: data.depositPiasters.present
+          ? data.depositPiasters.value
+          : this.depositPiasters,
       createdBy: data.createdBy.present ? data.createdBy.value : this.createdBy,
     );
   }
@@ -2013,6 +2050,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
           ..write('reason: $reason, ')
           ..write('notes: $notes, ')
           ..write('cancelledReason: $cancelledReason, ')
+          ..write('depositPiasters: $depositPiasters, ')
           ..write('createdBy: $createdBy')
           ..write(')'))
         .toString();
@@ -2030,6 +2068,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
     reason,
     notes,
     cancelledReason,
+    depositPiasters,
     createdBy,
   );
   @override
@@ -2046,6 +2085,7 @@ class Appointment extends DataClass implements Insertable<Appointment> {
           other.reason == this.reason &&
           other.notes == this.notes &&
           other.cancelledReason == this.cancelledReason &&
+          other.depositPiasters == this.depositPiasters &&
           other.createdBy == this.createdBy);
 }
 
@@ -2060,6 +2100,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
   final Value<String?> reason;
   final Value<String?> notes;
   final Value<String?> cancelledReason;
+  final Value<int> depositPiasters;
   final Value<String> createdBy;
   const AppointmentsCompanion({
     this.id = const Value.absent(),
@@ -2072,6 +2113,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     this.reason = const Value.absent(),
     this.notes = const Value.absent(),
     this.cancelledReason = const Value.absent(),
+    this.depositPiasters = const Value.absent(),
     this.createdBy = const Value.absent(),
   });
   AppointmentsCompanion.insert({
@@ -2085,6 +2127,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     this.reason = const Value.absent(),
     this.notes = const Value.absent(),
     this.cancelledReason = const Value.absent(),
+    this.depositPiasters = const Value.absent(),
     required String createdBy,
   }) : patientId = Value(patientId),
        scheduledDate = Value(scheduledDate),
@@ -2103,6 +2146,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     Expression<String>? reason,
     Expression<String>? notes,
     Expression<String>? cancelledReason,
+    Expression<int>? depositPiasters,
     Expression<String>? createdBy,
   }) {
     return RawValuesInsertable({
@@ -2116,6 +2160,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
       if (reason != null) 'reason': reason,
       if (notes != null) 'notes': notes,
       if (cancelledReason != null) 'cancelled_reason': cancelledReason,
+      if (depositPiasters != null) 'deposit_piasters': depositPiasters,
       if (createdBy != null) 'created_by': createdBy,
     });
   }
@@ -2131,6 +2176,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     Value<String?>? reason,
     Value<String?>? notes,
     Value<String?>? cancelledReason,
+    Value<int>? depositPiasters,
     Value<String>? createdBy,
   }) {
     return AppointmentsCompanion(
@@ -2144,6 +2190,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
       reason: reason ?? this.reason,
       notes: notes ?? this.notes,
       cancelledReason: cancelledReason ?? this.cancelledReason,
+      depositPiasters: depositPiasters ?? this.depositPiasters,
       createdBy: createdBy ?? this.createdBy,
     );
   }
@@ -2181,6 +2228,9 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
     if (cancelledReason.present) {
       map['cancelled_reason'] = Variable<String>(cancelledReason.value);
     }
+    if (depositPiasters.present) {
+      map['deposit_piasters'] = Variable<int>(depositPiasters.value);
+    }
     if (createdBy.present) {
       map['created_by'] = Variable<String>(createdBy.value);
     }
@@ -2200,6 +2250,7 @@ class AppointmentsCompanion extends UpdateCompanion<Appointment> {
           ..write('reason: $reason, ')
           ..write('notes: $notes, ')
           ..write('cancelledReason: $cancelledReason, ')
+          ..write('depositPiasters: $depositPiasters, ')
           ..write('createdBy: $createdBy')
           ..write(')'))
         .toString();
@@ -13576,6 +13627,7 @@ typedef $$AppointmentsTableCreateCompanionBuilder =
       Value<String?> reason,
       Value<String?> notes,
       Value<String?> cancelledReason,
+      Value<int> depositPiasters,
       required String createdBy,
     });
 typedef $$AppointmentsTableUpdateCompanionBuilder =
@@ -13590,6 +13642,7 @@ typedef $$AppointmentsTableUpdateCompanionBuilder =
       Value<String?> reason,
       Value<String?> notes,
       Value<String?> cancelledReason,
+      Value<int> depositPiasters,
       Value<String> createdBy,
     });
 
@@ -13689,6 +13742,11 @@ class $$AppointmentsTableFilterComposer
 
   ColumnFilters<String> get cancelledReason => $composableBuilder(
     column: $table.cancelledReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get depositPiasters => $composableBuilder(
+    column: $table.depositPiasters,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13800,6 +13858,11 @@ class $$AppointmentsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get depositPiasters => $composableBuilder(
+    column: $table.depositPiasters,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get createdBy => $composableBuilder(
     column: $table.createdBy,
     builder: (column) => ColumnOrderings(column),
@@ -13870,6 +13933,11 @@ class $$AppointmentsTableAnnotationComposer
 
   GeneratedColumn<String> get cancelledReason => $composableBuilder(
     column: $table.cancelledReason,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get depositPiasters => $composableBuilder(
+    column: $table.depositPiasters,
     builder: (column) => column,
   );
 
@@ -13963,6 +14031,7 @@ class $$AppointmentsTableTableManager
                 Value<String?> reason = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
                 Value<String?> cancelledReason = const Value.absent(),
+                Value<int> depositPiasters = const Value.absent(),
                 Value<String> createdBy = const Value.absent(),
               }) => AppointmentsCompanion(
                 id: id,
@@ -13975,6 +14044,7 @@ class $$AppointmentsTableTableManager
                 reason: reason,
                 notes: notes,
                 cancelledReason: cancelledReason,
+                depositPiasters: depositPiasters,
                 createdBy: createdBy,
               ),
           createCompanionCallback:
@@ -13989,6 +14059,7 @@ class $$AppointmentsTableTableManager
                 Value<String?> reason = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
                 Value<String?> cancelledReason = const Value.absent(),
+                Value<int> depositPiasters = const Value.absent(),
                 required String createdBy,
               }) => AppointmentsCompanion.insert(
                 id: id,
@@ -14001,6 +14072,7 @@ class $$AppointmentsTableTableManager
                 reason: reason,
                 notes: notes,
                 cancelledReason: cancelledReason,
+                depositPiasters: depositPiasters,
                 createdBy: createdBy,
               ),
           withReferenceMapper: (p0) => p0
