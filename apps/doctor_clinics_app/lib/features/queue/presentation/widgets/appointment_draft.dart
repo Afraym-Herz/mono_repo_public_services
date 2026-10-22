@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/appointment_booking_controller.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/helpers/queue_money_input.dart';
 
 /// Values collected by the booking sheet and handed to the cubit.
 class AppointmentDraft {
@@ -10,6 +11,7 @@ class AppointmentDraft {
     this.type = AppConstants.appointmentTypeBooked,
     this.reason,
     this.notes,
+    this.depositPiasters = 0,
   });
 
   factory AppointmentDraft.fromController(
@@ -26,6 +28,8 @@ class AppointmentDraft {
           : controller.type.value,
       reason: reason.isEmpty ? null : reason,
       notes: notes.isEmpty ? null : notes,
+      depositPiasters:
+          QueueMoneyInput.tryParsePiasters(controller.deposit.text) ?? 0,
     );
   }
 
@@ -34,4 +38,5 @@ class AppointmentDraft {
   final String type;
   final String? reason;
   final String? notes;
+  final int depositPiasters;
 }

@@ -62,6 +62,7 @@ class AppointmentHeaderConnected extends StatelessWidget {
       type: draft.type,
       reason: draft.reason,
       notes: draft.notes,
+      depositPiasters: draft.depositPiasters,
     );
   }
 }

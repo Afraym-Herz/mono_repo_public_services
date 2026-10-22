@@ -5,10 +5,18 @@ mixin QueueCubitActions on Cubit<QueueState> {
 
   Future<void> loadTodayQueue();
 
-  Future<void> addWalkIn(int id, {String? notes}) =>
-      _runAction(() => repository.addWalkIn(id, notes: notes));
+  Future<void> addWalkIn(int id, {String? notes, int depositPiasters = 0}) =>
+      _runAction(
+        () => repository.addWalkIn(
+          id,
+          notes: notes,
+          depositPiasters: depositPiasters,
+        ),
+      );
   Future<void> call(int id) => _runAction(() => repository.callEntry(id));
   Future<void> finish(int id) => _runAction(() => repository.finishEntry(id));
+  Future<void> finishAndCollect(int id, int amountPiasters) =>
+      _runAction(() => repository.finishEntryWithPayment(id, amountPiasters));
   Future<void> cancel(int id, {String? reason}) =>
       _runAction(() => repository.cancelEntry(id, reason: reason));
   Future<void> cancelAppointment(int id, String reason) =>

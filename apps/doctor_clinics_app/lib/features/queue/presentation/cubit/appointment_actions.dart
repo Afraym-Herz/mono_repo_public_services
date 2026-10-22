@@ -11,6 +11,7 @@ mixin AppointmentActions on Cubit<AppointmentState> {
     String type = AppConstants.appointmentTypeBooked,
     String? reason,
     String? notes,
+    int depositPiasters = 0,
   }) => _runAction(() {
     final now = DateTime.now();
     return repository.bookAppointment(
@@ -23,6 +24,7 @@ mixin AppointmentActions on Cubit<AppointmentState> {
         status: AppConstants.appointmentStatusBooked,
         reason: reason,
         notes: notes,
+        depositPiasters: depositPiasters,
         createdBy: _currentUserId(),
         createdAt: now,
         updatedAt: now,

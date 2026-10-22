@@ -16,7 +16,12 @@ abstract class IQueueRepository {
   FutureResult<void> cancelAppointment(int id, String reason);
   FutureResult<void> rescheduleAppointment(int id, DateTime newDate);
 
-  FutureResult<void> addWalkIn(int patientId, {String? notes});
+  FutureResult<void> addWalkIn(
+    int patientId, {
+    String? notes,
+    int depositPiasters = 0,
+  });
+  FutureResult<void> finishEntryWithPayment(int entryId, int amountPiasters);
   FutureResult<void> callEntry(int entryId);
   FutureResult<void> finishEntry(int entryId);
   FutureResult<void> cancelEntry(int entryId, {String? reason});

@@ -6,6 +6,7 @@ import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dar
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/appointment_booking_controller.dart';
 import 'appointment_booking_footer.dart';
 import 'appointment_date_picker_row.dart';
+import 'appointment_deposit_field.dart';
 import 'appointment_fee_row.dart';
 import 'appointment_patient_picker.dart';
 import 'appointment_type_field.dart';
@@ -60,6 +61,8 @@ class AppointmentBookingForm extends StatelessWidget {
             gap,
             AppointmentFeeRow(template: controller.template),
           ],
+          gap,
+          AppointmentDepositField(controller: controller),
           SizedBox(height: Dimensions.paddingSizeDefault.h),
           AppointmentBookingFooter(
             controller: controller,

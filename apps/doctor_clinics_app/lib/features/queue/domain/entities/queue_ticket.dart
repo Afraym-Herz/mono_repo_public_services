@@ -23,6 +23,7 @@ class QueueTicket with _$QueueTicket {
     String? fileNumber,
     String? appointmentType,
     String? scheduledTime,
+    @Default(0) int depositPiasters,
     DateTime? paidAt,
     int? paidAmountPiasters,
     String? cancelReason,

@@ -32,6 +32,7 @@ mixin _$QueueTicket {
   String? get fileNumber => throw _privateConstructorUsedError;
   String? get appointmentType => throw _privateConstructorUsedError;
   String? get scheduledTime => throw _privateConstructorUsedError;
+  int get depositPiasters => throw _privateConstructorUsedError;
   DateTime? get paidAt => throw _privateConstructorUsedError;
   int? get paidAmountPiasters => throw _privateConstructorUsedError;
   String? get cancelReason => throw _privateConstructorUsedError;
@@ -66,6 +67,7 @@ abstract class $QueueTicketCopyWith<$Res> {
     String? fileNumber,
     String? appointmentType,
     String? scheduledTime,
+    int depositPiasters,
     DateTime? paidAt,
     int? paidAmountPiasters,
     String? cancelReason,
@@ -102,6 +104,7 @@ class _$QueueTicketCopyWithImpl<$Res, $Val extends QueueTicket>
     Object? fileNumber = freezed,
     Object? appointmentType = freezed,
     Object? scheduledTime = freezed,
+    Object? depositPiasters = null,
     Object? paidAt = freezed,
     Object? paidAmountPiasters = freezed,
     Object? cancelReason = freezed,
@@ -168,6 +171,10 @@ class _$QueueTicketCopyWithImpl<$Res, $Val extends QueueTicket>
                 ? _value.scheduledTime
                 : scheduledTime // ignore: cast_nullable_to_non_nullable
                       as String?,
+            depositPiasters: null == depositPiasters
+                ? _value.depositPiasters
+                : depositPiasters // ignore: cast_nullable_to_non_nullable
+                      as int,
             paidAt: freezed == paidAt
                 ? _value.paidAt
                 : paidAt // ignore: cast_nullable_to_non_nullable
@@ -211,6 +218,7 @@ abstract class _$$QueueTicketImplCopyWith<$Res>
     String? fileNumber,
     String? appointmentType,
     String? scheduledTime,
+    int depositPiasters,
     DateTime? paidAt,
     int? paidAmountPiasters,
     String? cancelReason,
@@ -246,6 +254,7 @@ class __$$QueueTicketImplCopyWithImpl<$Res>
     Object? fileNumber = freezed,
     Object? appointmentType = freezed,
     Object? scheduledTime = freezed,
+    Object? depositPiasters = null,
     Object? paidAt = freezed,
     Object? paidAmountPiasters = freezed,
     Object? cancelReason = freezed,
@@ -312,6 +321,10 @@ class __$$QueueTicketImplCopyWithImpl<$Res>
             ? _value.scheduledTime
             : scheduledTime // ignore: cast_nullable_to_non_nullable
                   as String?,
+        depositPiasters: null == depositPiasters
+            ? _value.depositPiasters
+            : depositPiasters // ignore: cast_nullable_to_non_nullable
+                  as int,
         paidAt: freezed == paidAt
             ? _value.paidAt
             : paidAt // ignore: cast_nullable_to_non_nullable
@@ -348,6 +361,7 @@ class _$QueueTicketImpl extends _QueueTicket {
     this.fileNumber,
     this.appointmentType,
     this.scheduledTime,
+    this.depositPiasters = 0,
     this.paidAt,
     this.paidAmountPiasters,
     this.cancelReason,
@@ -384,6 +398,9 @@ class _$QueueTicketImpl extends _QueueTicket {
   @override
   final String? scheduledTime;
   @override
+  @JsonKey()
+  final int depositPiasters;
+  @override
   final DateTime? paidAt;
   @override
   final int? paidAmountPiasters;
@@ -392,7 +409,7 @@ class _$QueueTicketImpl extends _QueueTicket {
 
   @override
   String toString() {
-    return 'QueueTicket(entryId: $entryId, appointmentId: $appointmentId, patientId: $patientId, queueNumber: $queueNumber, position: $position, status: $status, isUrgent: $isUrgent, arrivedAt: $arrivedAt, calledAt: $calledAt, finishedAt: $finishedAt, patientName: $patientName, patientPhone: $patientPhone, fileNumber: $fileNumber, appointmentType: $appointmentType, scheduledTime: $scheduledTime, paidAt: $paidAt, paidAmountPiasters: $paidAmountPiasters, cancelReason: $cancelReason)';
+    return 'QueueTicket(entryId: $entryId, appointmentId: $appointmentId, patientId: $patientId, queueNumber: $queueNumber, position: $position, status: $status, isUrgent: $isUrgent, arrivedAt: $arrivedAt, calledAt: $calledAt, finishedAt: $finishedAt, patientName: $patientName, patientPhone: $patientPhone, fileNumber: $fileNumber, appointmentType: $appointmentType, scheduledTime: $scheduledTime, depositPiasters: $depositPiasters, paidAt: $paidAt, paidAmountPiasters: $paidAmountPiasters, cancelReason: $cancelReason)';
   }
 
   @override
@@ -428,6 +445,8 @@ class _$QueueTicketImpl extends _QueueTicket {
                 other.appointmentType == appointmentType) &&
             (identical(other.scheduledTime, scheduledTime) ||
                 other.scheduledTime == scheduledTime) &&
+            (identical(other.depositPiasters, depositPiasters) ||
+                other.depositPiasters == depositPiasters) &&
             (identical(other.paidAt, paidAt) || other.paidAt == paidAt) &&
             (identical(other.paidAmountPiasters, paidAmountPiasters) ||
                 other.paidAmountPiasters == paidAmountPiasters) &&
@@ -436,7 +455,7 @@ class _$QueueTicketImpl extends _QueueTicket {
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     runtimeType,
     entryId,
     appointmentId,
@@ -453,10 +472,11 @@ class _$QueueTicketImpl extends _QueueTicket {
     fileNumber,
     appointmentType,
     scheduledTime,
+    depositPiasters,
     paidAt,
     paidAmountPiasters,
     cancelReason,
-  );
+  ]);
 
   /// Create a copy of QueueTicket
   /// with the given fields replaced by the non-null parameter values.
@@ -484,6 +504,7 @@ abstract class _QueueTicket extends QueueTicket {
     final String? fileNumber,
     final String? appointmentType,
     final String? scheduledTime,
+    final int depositPiasters,
     final DateTime? paidAt,
     final int? paidAmountPiasters,
     final String? cancelReason,
@@ -520,6 +541,8 @@ abstract class _QueueTicket extends QueueTicket {
   String? get appointmentType;
   @override
   String? get scheduledTime;
+  @override
+  int get depositPiasters;
   @override
   DateTime? get paidAt;
   @override

@@ -16,6 +16,7 @@ class Appointment with _$Appointment {
     String? reason,
     String? notes,
     String? cancelledReason,
+    @Default(0) int depositPiasters,
     required int createdBy,
     required DateTime createdAt,
     required DateTime updatedAt,

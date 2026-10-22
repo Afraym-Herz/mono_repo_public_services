@@ -11,6 +11,7 @@ Future<AppointmentDraft?> showAppointmentBookingDialog(
   BuildContext context, {
   DateTime? initialDate,
   bool isWalkIn = false,
+  Patient? initialPatient,
 }) {
   return showGeneralDialog<AppointmentDraft>(
     context: context,
@@ -20,6 +21,7 @@ Future<AppointmentDraft?> showAppointmentBookingDialog(
     pageBuilder: (_, _, _) => AppointmentBookingDialog(
       initialDate: initialDate ?? DateTime.now(),
       isWalkIn: isWalkIn,
+      initialPatient: initialPatient,
     ),
   );
 }
@@ -29,10 +31,14 @@ class AppointmentBookingDialog extends StatefulWidget {
     super.key,
     required this.initialDate,
     this.isWalkIn = false,
+    this.initialPatient,
   });
 
   final DateTime initialDate;
   final bool isWalkIn;
+
+  /// Pre-selected patient when the sheet is opened from a suggestion list.
+  final Patient? initialPatient;
 
   @override
   State<AppointmentBookingDialog> createState() =>
@@ -48,6 +54,7 @@ class _AppointmentBookingDialogState extends State<AppointmentBookingDialog> {
     _controller = AppointmentBookingController(
       initialDate: widget.initialDate,
       isWalkIn: widget.isWalkIn,
+      initialPatient: widget.initialPatient,
     );
   }
 

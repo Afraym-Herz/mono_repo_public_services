@@ -31,6 +31,7 @@ mixin _$Appointment {
   String? get reason => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String? get cancelledReason => throw _privateConstructorUsedError;
+  int get depositPiasters => throw _privateConstructorUsedError;
   int get createdBy => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -63,6 +64,7 @@ abstract class $AppointmentCopyWith<$Res> {
     String? reason,
     String? notes,
     String? cancelledReason,
+    int depositPiasters,
     int createdBy,
     DateTime createdAt,
     DateTime updatedAt,
@@ -94,6 +96,7 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
     Object? reason = freezed,
     Object? notes = freezed,
     Object? cancelledReason = freezed,
+    Object? depositPiasters = null,
     Object? createdBy = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -140,6 +143,10 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
                 ? _value.cancelledReason
                 : cancelledReason // ignore: cast_nullable_to_non_nullable
                       as String?,
+            depositPiasters: null == depositPiasters
+                ? _value.depositPiasters
+                : depositPiasters // ignore: cast_nullable_to_non_nullable
+                      as int,
             createdBy: null == createdBy
                 ? _value.createdBy
                 : createdBy // ignore: cast_nullable_to_non_nullable
@@ -178,6 +185,7 @@ abstract class _$$AppointmentImplCopyWith<$Res>
     String? reason,
     String? notes,
     String? cancelledReason,
+    int depositPiasters,
     int createdBy,
     DateTime createdAt,
     DateTime updatedAt,
@@ -208,6 +216,7 @@ class __$$AppointmentImplCopyWithImpl<$Res>
     Object? reason = freezed,
     Object? notes = freezed,
     Object? cancelledReason = freezed,
+    Object? depositPiasters = null,
     Object? createdBy = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -254,6 +263,10 @@ class __$$AppointmentImplCopyWithImpl<$Res>
             ? _value.cancelledReason
             : cancelledReason // ignore: cast_nullable_to_non_nullable
                   as String?,
+        depositPiasters: null == depositPiasters
+            ? _value.depositPiasters
+            : depositPiasters // ignore: cast_nullable_to_non_nullable
+                  as int,
         createdBy: null == createdBy
             ? _value.createdBy
             : createdBy // ignore: cast_nullable_to_non_nullable
@@ -285,6 +298,7 @@ class _$AppointmentImpl implements _Appointment {
     this.reason,
     this.notes,
     this.cancelledReason,
+    this.depositPiasters = 0,
     required this.createdBy,
     required this.createdAt,
     required this.updatedAt,
@@ -314,6 +328,9 @@ class _$AppointmentImpl implements _Appointment {
   @override
   final String? cancelledReason;
   @override
+  @JsonKey()
+  final int depositPiasters;
+  @override
   final int createdBy;
   @override
   final DateTime createdAt;
@@ -322,7 +339,7 @@ class _$AppointmentImpl implements _Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, patientId: $patientId, scheduledDate: $scheduledDate, scheduledTime: $scheduledTime, queueNumber: $queueNumber, type: $type, status: $status, reason: $reason, notes: $notes, cancelledReason: $cancelledReason, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Appointment(id: $id, patientId: $patientId, scheduledDate: $scheduledDate, scheduledTime: $scheduledTime, queueNumber: $queueNumber, type: $type, status: $status, reason: $reason, notes: $notes, cancelledReason: $cancelledReason, depositPiasters: $depositPiasters, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -345,6 +362,8 @@ class _$AppointmentImpl implements _Appointment {
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.cancelledReason, cancelledReason) ||
                 other.cancelledReason == cancelledReason) &&
+            (identical(other.depositPiasters, depositPiasters) ||
+                other.depositPiasters == depositPiasters) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
             (identical(other.createdAt, createdAt) ||
@@ -367,6 +386,7 @@ class _$AppointmentImpl implements _Appointment {
     reason,
     notes,
     cancelledReason,
+    depositPiasters,
     createdBy,
     createdAt,
     updatedAt,
@@ -398,6 +418,7 @@ abstract class _Appointment implements Appointment {
     final String? reason,
     final String? notes,
     final String? cancelledReason,
+    final int depositPiasters,
     required final int createdBy,
     required final DateTime createdAt,
     required final DateTime updatedAt,
@@ -426,6 +447,8 @@ abstract class _Appointment implements Appointment {
   String? get notes;
   @override
   String? get cancelledReason;
+  @override
+  int get depositPiasters;
   @override
   int get createdBy;
   @override
