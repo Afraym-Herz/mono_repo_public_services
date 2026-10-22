@@ -19,9 +19,9 @@ class QueueListSkeleton extends StatelessWidget {
           vertical: Dimensions.PADDING_SIZE_SMALL.h,
         ),
         decoration: BoxDecoration(
-          color: AppColors.surfaceWhite,
+          color: context.cardColor,
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
-          border: Border.all(color: AppColors.clinicBorder, width: 1.w),
+          border: Border.all(color: context.clinicBorder, width: 1.w),
         ),
         child: Row(
           children: [

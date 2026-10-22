@@ -19,9 +19,9 @@ class QueuePaidPill extends StatelessWidget {
         vertical: Dimensions.PADDING_SIZE_BORDER.h,
       ),
       decoration: BoxDecoration(
-        color: AppColors.clinicStatusDoneBg,
+        color: context.clinicStatusDoneBg,
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_EXTRA_LARGE.r),
-        border: Border.all(color: AppColors.clinicStatusDoneBorder, width: 1.w),
+        border: Border.all(color: context.clinicStatusDoneBorder, width: 1.w),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -29,13 +29,13 @@ class QueuePaidPill extends StatelessWidget {
           Icon(
             Icons.check_circle_outline,
             size: Dimensions.FONT_SIZE_SMALL.sp,
-            color: AppColors.clinicStatusDone,
+            color: context.clinicStatusDone,
           ),
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
           Text(
             text,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppColors.clinicStatusDone,
+                  color: context.clinicStatusDone,
                   fontWeight: FontWeight.w600,
                 ),
           ),

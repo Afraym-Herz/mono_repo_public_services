@@ -17,62 +17,66 @@ class QueueRowStyle {
     required this.labelKey,
   });
 
-  static QueueRowStyle forRowState(QueueRowState state) {
+  /// Palette for one queue list card.
+  ///
+  /// Every color comes from the brightness-aware tokens in core, so the whole
+  /// row adapts to light/dark from a single source instead of per-card fixes.
+  static QueueRowStyle forRowState(BuildContext context, QueueRowState state) {
     switch (state) {
       case QueueRowState.current:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.clinicStatusCurrentBg,
-          borderColor: AppColors.clinicStatusCurrentBorder,
-          badgeTextColor: AppColors.clinicStatusCurrent,
-          badgeBgColor: AppColors.surfaceWhite,
+        return QueueRowStyle(
+          surfaceColor: context.clinicStatusCurrentBg,
+          borderColor: context.clinicStatusCurrentBorder,
+          badgeTextColor: context.clinicStatusCurrent,
+          badgeBgColor: context.cardColor,
           labelKey: 'queue_row.status.current',
         );
       case QueueRowState.urgent:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.surfaceWhite,
-          borderColor: AppColors.clinicStatusUrgentBorder,
-          badgeTextColor: AppColors.clinicStatusUrgent,
-          badgeBgColor: AppColors.clinicStatusUrgentBg,
+        return QueueRowStyle(
+          surfaceColor: context.cardColor,
+          borderColor: context.clinicStatusUrgentBorder,
+          badgeTextColor: context.clinicStatusUrgent,
+          badgeBgColor: context.clinicStatusUrgentBg,
           labelKey: 'queue_row.status.urgent',
         );
       case QueueRowState.waiting:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.surfaceWhite,
-          borderColor: AppColors.clinicBorder,
-          badgeTextColor: AppColors.clinicStatusWaiting,
-          badgeBgColor: AppColors.clinicStatusWaitingBg,
+        return QueueRowStyle(
+          surfaceColor: context.cardColor,
+          borderColor: context.clinicBorder,
+          badgeTextColor: context.clinicStatusWaiting,
+          badgeBgColor: context.clinicStatusWaitingBg,
           labelKey: 'queue_row.status.waiting',
         );
       case QueueRowState.done:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.surfaceWhite,
-          borderColor: AppColors.clinicBorder,
-          badgeTextColor: AppColors.clinicStatusDone,
-          badgeBgColor: AppColors.clinicStatusDoneBg,
+        return QueueRowStyle(
+          surfaceColor: context.cardColor,
+          borderColor: context.clinicBorder,
+          badgeTextColor: context.clinicStatusDone,
+          badgeBgColor: context.clinicStatusDoneBg,
           labelKey: 'queue_row.status.done',
         );
       case QueueRowState.collected:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.surfaceWhite,
-          borderColor: AppColors.clinicBorder,
-          badgeTextColor: AppColors.clinicStatusDone,
-          badgeBgColor: AppColors.clinicStatusDoneBg,
+        return QueueRowStyle(
+          surfaceColor: context.cardColor,
+          borderColor: context.clinicBorder,
+          badgeTextColor: context.clinicStatusDone,
+          badgeBgColor: context.clinicStatusDoneBg,
           labelKey: 'queue_row.status.collected',
         );
       case QueueRowState.cancelled:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.clinicStatusCancelledBg,
-          borderColor: AppColors.clinicStatusCancelledBorder,
-          badgeTextColor: AppColors.clinicStatusCancelled,
-          badgeBgColor: AppColors.clinicStatusCancelledBg,
+        return QueueRowStyle(
+          surfaceColor: context.clinicStatusCancelledBg,
+          borderColor: context.clinicStatusCancelledBorder,
+          badgeTextColor: context.clinicStatusCancelled,
+          badgeBgColor: context.clinicStatusCancelledBg,
           labelKey: 'queue_row.status.cancelled',
         );
       case QueueRowState.noShow:
-        return const QueueRowStyle(
-          surfaceColor: AppColors.clinicStatusCancelledBg,
-          borderColor: AppColors.clinicStatusCancelledBorder,
-          badgeTextColor: AppColors.clinicStatusCancelled,
-          badgeBgColor: AppColors.clinicStatusCancelledBg,
+        return QueueRowStyle(
+          surfaceColor: context.clinicStatusCancelledBg,
+          borderColor: context.clinicStatusCancelledBorder,
+          badgeTextColor: context.clinicStatusCancelled,
+          badgeBgColor: context.clinicStatusCancelledBg,
           labelKey: 'queue_row.status.no_show',
         );
     }

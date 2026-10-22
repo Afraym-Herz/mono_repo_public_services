@@ -20,7 +20,7 @@ class QueueTicketMeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme.bodySmall?.copyWith(
-      color: AppColors.clinicTextSecondary,
+      color: context.clinicTextSecondary,
       fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL.sp,
     );
     final hasType = appointmentType != null && appointmentType!.isNotEmpty;
@@ -38,12 +38,12 @@ class QueueTicketMeta extends StatelessWidget {
               vertical: Dimensions.PADDING_SIZE_BORDER.h,
             ),
             decoration: BoxDecoration(
-              color: AppColors.clinicSurfaceContainerLow,
+              color: context.clinicInset,
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
             ),
             child: Text(
               _localizeType(appointmentType!),
-              style: style?.copyWith(color: AppColors.clinicPrimary),
+              style: style?.copyWith(color: context.clinicAccent),
             ),
           ),
         if (hasType && hasDetail) Text('•', style: style),

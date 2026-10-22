@@ -40,8 +40,8 @@ class QueueTicketActions extends StatelessWidget {
               isUrgent ? Icons.flag : Icons.flag_outlined,
               size: Dimensions.ICON_SIZE_SMALL.sp,
               color: isUrgent
-                  ? AppColors.clinicStatusUrgent
-                  : AppColors.clinicTextSecondary,
+                  ? context.clinicStatusUrgent
+                  : context.clinicTextSecondary,
             ),
             tooltip: 'queue_row.status.urgent'.tr(),
             onPressed: isSubmitting ? null : onToggleUrgent,

@@ -16,9 +16,7 @@ class QueueSummarySurface extends StatelessWidget {
         vertical: Dimensions.PADDING_SIZE_SMALL.h,
       ),
       decoration: BoxDecoration(
-        color: context.clinicIsDark
-            ? context.clinicContainer
-            : context.cardColor,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_MEDIUM.r),
         border: Border.all(color: context.clinicBorder),
       ),

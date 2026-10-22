@@ -18,7 +18,7 @@ class QueueTicketSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = QueueRowStyle.forRowState(rowState);
+    final style = QueueRowStyle.forRowState(context, rowState);
     return Material(
       color: style.surfaceColor,
       shape: RoundedRectangleBorder(

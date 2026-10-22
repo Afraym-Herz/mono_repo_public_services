@@ -22,7 +22,7 @@ class QueueSummaryStatsCard extends StatelessWidget {
             child: QueueSummaryMetric(
               label: 'queue_filter.waiting'.tr(),
               value: data.waiting,
-              color: AppColors.clinicStatusWaiting,
+              color: context.clinicStatusWaiting,
             ),
           ),
           const _Divider(),
@@ -30,7 +30,7 @@ class QueueSummaryStatsCard extends StatelessWidget {
             child: QueueSummaryMetric(
               label: 'queue_filter.done'.tr(),
               value: data.done,
-              color: AppColors.clinicStatusDone,
+              color: context.clinicStatusDone,
             ),
           ),
           const _Divider(),
@@ -38,7 +38,7 @@ class QueueSummaryStatsCard extends StatelessWidget {
             child: QueueSummaryMetric(
               label: 'queue_filter.cancelled'.tr(),
               value: data.cancelled,
-              color: AppColors.clinicStatusCancelled,
+              color: context.clinicStatusCancelled,
             ),
           ),
           const _Divider(),
@@ -46,7 +46,7 @@ class QueueSummaryStatsCard extends StatelessWidget {
             child: QueueSummaryMetric(
               label: 'queue_summary.no_show'.tr(),
               value: data.noShow,
-              color: AppColors.clinicStatusUrgent,
+              color: context.clinicStatusUrgent,
             ),
           ),
         ],

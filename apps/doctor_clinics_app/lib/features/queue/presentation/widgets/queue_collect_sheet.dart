@@ -43,7 +43,7 @@ class _QueueCollectSheetState extends State<QueueCollectSheet> {
       width: Dimensions.SETTINGS_PANEL_MAX_WIDTH.w,
       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE.w),
       decoration: BoxDecoration(
-        color: AppColors.surfaceWhite,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT.r),
       ),
       child: Column(
@@ -54,7 +54,7 @@ class _QueueCollectSheetState extends State<QueueCollectSheet> {
             'queue_row.collect.title'.tr(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.clinicTextPrimary,
+                  color: context.clinicTextPrimary,
                 ),
           ),
           SizedBox(height: Dimensions.paddingSizeDefault.h),

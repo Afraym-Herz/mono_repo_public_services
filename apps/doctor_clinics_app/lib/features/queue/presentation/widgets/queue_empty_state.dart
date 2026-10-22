@@ -18,13 +18,13 @@ class QueueEmptyState extends StatelessWidget {
             Icon(
               Icons.people_outline,
               size: Dimensions.ICON_SIZE_EXTRA_LARGE.sp * 1.5,
-              color: AppColors.clinicTextSecondary.withValues(alpha: 0.5),
+              color: context.clinicTextSecondary.withValues(alpha: 0.5),
             ),
             SizedBox(height: Dimensions.paddingSizeDefault.h),
             Text(
               'queue_row.empty'.tr(),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.clinicTextSecondary,
+                    color: context.clinicTextSecondary,
                   ),
               textAlign: TextAlign.center,
             ),

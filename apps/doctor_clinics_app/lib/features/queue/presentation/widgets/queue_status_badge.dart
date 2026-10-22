@@ -12,7 +12,7 @@ class QueueStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = QueueRowStyle.forRowState(rowState);
+    final style = QueueRowStyle.forRowState(context, rowState);
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: Dimensions.PADDING_SIZE_SMALL.w,

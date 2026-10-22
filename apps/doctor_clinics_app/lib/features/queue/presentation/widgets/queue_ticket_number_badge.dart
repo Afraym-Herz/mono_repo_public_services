@@ -38,8 +38,8 @@ class QueueTicketNumberBadge extends StatelessWidget {
       background = context.clinicAccent;
       foreground = AppColors.white;
     } else if (isUrgentRow) {
-      background = AppColors.clinicStatusUrgentBg;
-      foreground = AppColors.clinicStatusUrgent;
+      background = context.clinicStatusUrgentBg;
+      foreground = context.clinicStatusUrgent;
     } else {
       background = context.clinicContainer;
       foreground = context.clinicTextSecondary;
@@ -56,7 +56,7 @@ class QueueTicketNumberBadge extends StatelessWidget {
             ? null
             : Border.all(
                 color: isUrgentRow
-                    ? AppColors.clinicStatusUrgentBorder
+                    ? context.clinicStatusUrgentBorder
                     : context.clinicBorder,
               ),
       ),

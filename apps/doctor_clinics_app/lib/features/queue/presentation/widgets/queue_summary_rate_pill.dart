@@ -14,9 +14,9 @@ class QueueSummaryRatePill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = switch (rating) {
-      QueueWaitRating.excellent => AppColors.clinicStatusDone,
-      QueueWaitRating.good => AppColors.clinicStatusWaiting,
-      QueueWaitRating.high => AppColors.clinicStatusUrgent,
+      QueueWaitRating.excellent => context.clinicStatusDone,
+      QueueWaitRating.good => context.clinicStatusWaiting,
+      QueueWaitRating.high => context.clinicStatusUrgent,
     };
 
     return Container(

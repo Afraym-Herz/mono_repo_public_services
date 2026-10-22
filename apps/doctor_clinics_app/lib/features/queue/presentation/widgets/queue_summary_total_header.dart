@@ -64,7 +64,7 @@ class QueueSummaryTotalHeader extends StatelessWidget {
         SizedBox(width: Dimensions.PADDING_SIZE_SMALL.w),
         QueueSummaryIconChip(
           icon: Icons.groups_2_outlined,
-          color: AppColors.clinicStatusBooked,
+          color: context.clinicStatusBooked,
         ),
       ],
     );
