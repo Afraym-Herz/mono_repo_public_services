@@ -14,7 +14,6 @@ class OperationRequiredTest with _$OperationRequiredTest {
     String? notes,
   }) = _OperationRequiredTest;
 
-  factory OperationRequiredTest.fromJson(
-    Map<String, dynamic> json,
-  ) => _$OperationRequiredTestFromJson(json);
+  factory OperationRequiredTest.fromJson(Map<String, dynamic> json) =>
+      _$OperationRequiredTestFromJson(json);
 }

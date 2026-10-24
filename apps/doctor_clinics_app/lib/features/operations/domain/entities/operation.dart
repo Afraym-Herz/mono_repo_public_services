@@ -10,6 +10,8 @@ class Operation with _$Operation {
     required int patientId,
     required String name,
     required DateTime scheduledDate,
+    String? scheduledTime,
+    String? surgeonName,
     String? notes,
     String? status,
     int? depositPiasters,

@@ -27,26 +27,31 @@ class OperationRepositoryImpl implements IOperationRepository {
 
   @override
   FutureResult<Operation> create(Operation operation) => guardOperationValue(
-        'create',
-        () async => operation.copyWith(id: await datasource.insert(operation)),
-      );
+    'create',
+    () async => operation.copyWith(id: await datasource.insert(operation)),
+  );
 
   @override
-  FutureResult<void> update(Operation operation) => guardOperationVoid(
-        'update',
-        () => datasource.update(operation),
-      );
+  FutureResult<Operation> createWithTests(
+    Operation operation,
+    List<String> testNames,
+  ) => guardOperationValue(
+    'createWithTests',
+    () async => operation.copyWith(
+      id: await datasource.insertWithTests(operation, testNames),
+    ),
+  );
 
   @override
-  FutureResult<void> softDelete(int id) => guardOperationVoid(
-        'softDelete',
-        () => datasource.softDelete(id),
-      );
+  FutureResult<void> update(Operation operation) =>
+      guardOperationVoid('update', () => datasource.update(operation));
 
   @override
-  FutureResult<List<OperationRequiredTest>> getRequiredTests(
-    int operationId,
-  ) =>
+  FutureResult<void> softDelete(int id) =>
+      guardOperationVoid('softDelete', () => datasource.softDelete(id));
+
+  @override
+  FutureResult<List<OperationRequiredTest>> getRequiredTests(int operationId) =>
       guardOperationValue(
         'getRequiredTests',
         () => datasource.fetchRequiredTests(operationId),
@@ -68,7 +73,7 @@ class OperationRepositoryImpl implements IOperationRepository {
 
   @override
   FutureResult<void> deleteRequiredTest(int id) => guardOperationVoid(
-        'deleteRequiredTest',
-        () => datasource.deleteRequiredTest(id),
-      );
+    'deleteRequiredTest',
+    () => datasource.deleteRequiredTest(id),
+  );
 }

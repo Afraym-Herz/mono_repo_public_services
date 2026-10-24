@@ -36,6 +36,21 @@ class OperationDriftDatasource implements IOperationDatasource {
   }
 
   @override
+  Future<int> insertWithTests(
+    entity.Operation operation,
+    List<String> testNames,
+  ) {
+    final names = testNames
+        .map((name) => name.trim())
+        .where((name) => name.isNotEmpty)
+        .toList();
+    return dao.insertOperationWithTests(
+      OperationMapper.toOperationCompanion(operation),
+      names,
+    );
+  }
+
+  @override
   Future<void> update(entity.Operation operation) async {
     await dao.updateOperation(OperationMapper.toOperationCompanion(operation));
   }

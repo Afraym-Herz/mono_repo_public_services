@@ -7,12 +7,11 @@ abstract class IOperationDatasource {
   Future<List<Operation>> fetchByPatient(int patientId);
   Future<List<Operation>> fetchUpcoming();
   Future<int> insert(Operation operation);
+  Future<int> insertWithTests(Operation operation, List<String> testNames);
   Future<void> update(Operation operation);
   Future<void> softDelete(int id);
 
-  Future<List<OperationRequiredTest>> fetchRequiredTests(
-    int operationId,
-  );
+  Future<List<OperationRequiredTest>> fetchRequiredTests(int operationId);
   Future<void> insertRequiredTest(OperationRequiredTest test);
   Future<void> updateRequiredTest(OperationRequiredTest test);
   Future<void> deleteRequiredTest(int id);
