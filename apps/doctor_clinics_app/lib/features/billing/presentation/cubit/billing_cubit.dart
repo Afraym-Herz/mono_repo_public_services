@@ -1,95 +1,71 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:doctor_clinics_app/features/billing/domain/entities/invoice.dart';
-import 'package:doctor_clinics_app/features/billing/domain/entities/invoice_item.dart';
-import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart';
-import 'package:doctor_clinics_app/features/billing/domain/entities/expense.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/billing_overview.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/billing_range.dart';
 import 'package:doctor_clinics_app/features/billing/domain/repositories/billing_repository.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/helpers/billing_overview_builder.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/helpers/billing_source.dart';
+import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
 
 part 'billing_state.dart';
 part 'billing_cubit.freezed.dart';
 
+/// Loads the accounts read model and re-scopes it when the range changes.
+///
+/// The raw rows are cached in [BillingSource], so tapping another range pill
+/// only rebuilds the overview instead of re-reading every table.
 class BillingCubit extends Cubit<BillingState> {
+  BillingCubit({required this.repository, required this.patientRepository})
+    : super(const BillingState.initial());
+
   final IBillingRepository repository;
+  final PatientRepository patientRepository;
 
-  BillingCubit({required this.repository})
-      : super(const BillingState.initial());
+  BillingSource? _source;
+  BillingRange _range = BillingRange.month;
+  int _request = 0;
 
-  Future<void> loadInvoices() async {
-    emit(const BillingState.loading());
-    final result = await repository.getAllInvoices();
-    result.fold(
-      (failure) => emit(BillingState.error(message: failure.message)),
-      (invoices) => emit(BillingState.loaded(invoices: invoices)),
-    );
-  }
+  /// Rebuilds the overview for [range], fetching the snapshot when needed.
+  Future<void> load({BillingRange? range, bool force = false}) async {
+    if (range != null) _range = range;
+    final request = ++_request;
 
-  Future<void> loadByPatient(int patientId) async {
-    emit(const BillingState.loading());
-    final result = await repository.getByPatient(patientId);
-    result.fold(
-      (failure) => emit(BillingState.error(message: failure.message)),
-      (invoices) => emit(BillingState.loaded(invoices: invoices)),
-    );
-  }
+    if (_source == null || force) {
+      emit(const BillingState.loading());
+      _source = await BillingSourceLoader.load(
+        repository: repository,
+        patientRepository: patientRepository,
+      );
+    }
+    if (request != _request || isClosed) return;
 
-  Future<void> loadInvoiceDetail(int invoiceId) async {
-    emit(const BillingState.loading());
-    final invoicesResult = await repository.getAllInvoices();
-    final itemsResult = await repository.getInvoiceItems(invoiceId);
-    final paymentsResult = await repository.getPayments(invoiceId);
-
-    final invoices = invoicesResult.fold((_) => <Invoice>[], (i) => i);
-    final invoice = invoices.cast<Invoice?>().firstWhere(
-          (inv) => inv?.id == invoiceId,
-          orElse: () => null,
-        );
-
-    if (invoice == null) {
-      emit(const BillingState.error(message: 'Invoice not found'));
+    final source = _source;
+    if (source == null) {
+      emit(const BillingState.error(message: 'billing.error.load'));
       return;
     }
 
-    final items = itemsResult.fold((_) => <InvoiceItem>[], (i) => i);
-    final payments = paymentsResult.fold((_) => <Payment>[], (p) => p);
-
     emit(
-      BillingState.invoiceDetail(
-        invoice: invoice,
-        items: items,
-        payments: payments,
+      BillingState.loaded(
+        overview: BillingOverviewBuilder.build(
+          range: _range,
+          invoices: source.invoices,
+          payments: source.payments,
+          expenses: source.expenses,
+          items: source.items,
+          categories: source.categories,
+          patientNames: source.patientNames,
+          purchases: source.purchases,
+          purchaseItems: source.purchaseItems,
+          purchasePayments: source.purchasePayments,
+          vendors: source.vendors,
+          now: DateTime.now(),
+        ),
       ),
     );
   }
 
-  Future<void> createInvoice(Invoice invoice) async {
-    emit(const BillingState.loading());
-    final result = await repository.createInvoice(invoice);
-    result.fold(
-      (failure) => emit(BillingState.error(message: failure.message)),
-      (_) => loadInvoices(),
-    );
-  }
-
-  Future<void> addItem(InvoiceItem item) async {
-    final result = await repository.addInvoiceItem(item);
-    result.fold(
-      (failure) => emit(BillingState.error(message: failure.message)),
-      (_) => loadInvoiceDetail(item.invoiceId),
-    );
-  }
-
-  Future<void> recordPayment(Payment payment) async {
-    emit(const BillingState.loading());
-    final result = await repository.recordPayment(payment);
-    result.fold(
-      (failure) => emit(BillingState.error(message: failure.message)),
-      (_) => loadInvoiceDetail(payment.invoiceId),
-    );
-  }
-
-  Future<void> addExpense(Expense expense) async {
-    await repository.addExpense(expense);
-  }
+  /// Re-reads the local database, discarding the cached snapshot.
+  Future<void> refresh() => load(force: true);
 }

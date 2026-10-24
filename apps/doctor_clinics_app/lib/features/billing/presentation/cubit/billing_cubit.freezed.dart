@@ -21,39 +21,21 @@ mixin _$BillingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Invoice> invoices) loaded,
-    required TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )
-    invoiceDetail,
+    required TResult Function(BillingOverview overview) loaded,
     required TResult Function(String message) error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Invoice> invoices)? loaded,
-    TResult? Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult? Function(BillingOverview overview)? loaded,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Invoice> invoices)? loaded,
-    TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult Function(BillingOverview overview)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -62,7 +44,6 @@ mixin _$BillingState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_InvoiceDetail value) invoiceDetail,
     required TResult Function(_Error value) error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,7 +51,6 @@ mixin _$BillingState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_InvoiceDetail value)? invoiceDetail,
     TResult? Function(_Error value)? error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,7 +58,6 @@ mixin _$BillingState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_InvoiceDetail value)? invoiceDetail,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -151,13 +130,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Invoice> invoices) loaded,
-    required TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )
-    invoiceDetail,
+    required TResult Function(BillingOverview overview) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -168,13 +141,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Invoice> invoices)? loaded,
-    TResult? Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult? Function(BillingOverview overview)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -185,13 +152,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Invoice> invoices)? loaded,
-    TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult Function(BillingOverview overview)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -207,7 +168,6 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_InvoiceDetail value) invoiceDetail,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -219,7 +179,6 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_InvoiceDetail value)? invoiceDetail,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -231,7 +190,6 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_InvoiceDetail value)? invoiceDetail,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -291,13 +249,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Invoice> invoices) loaded,
-    required TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )
-    invoiceDetail,
+    required TResult Function(BillingOverview overview) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -308,13 +260,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Invoice> invoices)? loaded,
-    TResult? Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult? Function(BillingOverview overview)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -325,13 +271,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Invoice> invoices)? loaded,
-    TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult Function(BillingOverview overview)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -347,7 +287,6 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_InvoiceDetail value) invoiceDetail,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -359,7 +298,6 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_InvoiceDetail value)? invoiceDetail,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -371,7 +309,6 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_InvoiceDetail value)? invoiceDetail,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -393,7 +330,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
     $Res Function(_$LoadedImpl) then,
   ) = __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Invoice> invoices});
+  $Res call({BillingOverview overview});
 }
 
 /// @nodoc
@@ -409,13 +346,13 @@ class __$$LoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? invoices = null}) {
+  $Res call({Object? overview = null}) {
     return _then(
       _$LoadedImpl(
-        invoices: null == invoices
-            ? _value._invoices
-            : invoices // ignore: cast_nullable_to_non_nullable
-                  as List<Invoice>,
+        overview: null == overview
+            ? _value.overview
+            : overview // ignore: cast_nullable_to_non_nullable
+                  as BillingOverview,
       ),
     );
   }
@@ -424,20 +361,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required final List<Invoice> invoices})
-    : _invoices = invoices;
+  const _$LoadedImpl({required this.overview});
 
-  final List<Invoice> _invoices;
   @override
-  List<Invoice> get invoices {
-    if (_invoices is EqualUnmodifiableListView) return _invoices;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_invoices);
-  }
+  final BillingOverview overview;
 
   @override
   String toString() {
-    return 'BillingState.loaded(invoices: $invoices)';
+    return 'BillingState.loaded(overview: $overview)';
   }
 
   @override
@@ -445,12 +376,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality().equals(other._invoices, _invoices));
+            (identical(other.overview, overview) ||
+                other.overview == overview));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_invoices));
+  int get hashCode => Object.hash(runtimeType, overview);
 
   /// Create a copy of BillingState
   /// with the given fields replaced by the non-null parameter values.
@@ -465,16 +396,10 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Invoice> invoices) loaded,
-    required TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )
-    invoiceDetail,
+    required TResult Function(BillingOverview overview) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(invoices);
+    return loaded(overview);
   }
 
   @override
@@ -482,16 +407,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Invoice> invoices)? loaded,
-    TResult? Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult? Function(BillingOverview overview)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(invoices);
+    return loaded?.call(overview);
   }
 
   @override
@@ -499,18 +418,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Invoice> invoices)? loaded,
-    TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult Function(BillingOverview overview)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(invoices);
+      return loaded(overview);
     }
     return orElse();
   }
@@ -521,7 +434,6 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_InvoiceDetail value) invoiceDetail,
     required TResult Function(_Error value) error,
   }) {
     return loaded(this);
@@ -533,7 +445,6 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_InvoiceDetail value)? invoiceDetail,
     TResult? Function(_Error value)? error,
   }) {
     return loaded?.call(this);
@@ -545,7 +456,6 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_InvoiceDetail value)? invoiceDetail,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -557,246 +467,15 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements BillingState {
-  const factory _Loaded({required final List<Invoice> invoices}) = _$LoadedImpl;
+  const factory _Loaded({required final BillingOverview overview}) =
+      _$LoadedImpl;
 
-  List<Invoice> get invoices;
+  BillingOverview get overview;
 
   /// Create a copy of BillingState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$InvoiceDetailImplCopyWith<$Res> {
-  factory _$$InvoiceDetailImplCopyWith(
-    _$InvoiceDetailImpl value,
-    $Res Function(_$InvoiceDetailImpl) then,
-  ) = __$$InvoiceDetailImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Invoice invoice, List<InvoiceItem> items, List<Payment> payments});
-
-  $InvoiceCopyWith<$Res> get invoice;
-}
-
-/// @nodoc
-class __$$InvoiceDetailImplCopyWithImpl<$Res>
-    extends _$BillingStateCopyWithImpl<$Res, _$InvoiceDetailImpl>
-    implements _$$InvoiceDetailImplCopyWith<$Res> {
-  __$$InvoiceDetailImplCopyWithImpl(
-    _$InvoiceDetailImpl _value,
-    $Res Function(_$InvoiceDetailImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of BillingState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? invoice = null,
-    Object? items = null,
-    Object? payments = null,
-  }) {
-    return _then(
-      _$InvoiceDetailImpl(
-        invoice: null == invoice
-            ? _value.invoice
-            : invoice // ignore: cast_nullable_to_non_nullable
-                  as Invoice,
-        items: null == items
-            ? _value._items
-            : items // ignore: cast_nullable_to_non_nullable
-                  as List<InvoiceItem>,
-        payments: null == payments
-            ? _value._payments
-            : payments // ignore: cast_nullable_to_non_nullable
-                  as List<Payment>,
-      ),
-    );
-  }
-
-  /// Create a copy of BillingState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $InvoiceCopyWith<$Res> get invoice {
-    return $InvoiceCopyWith<$Res>(_value.invoice, (value) {
-      return _then(_value.copyWith(invoice: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$InvoiceDetailImpl implements _InvoiceDetail {
-  const _$InvoiceDetailImpl({
-    required this.invoice,
-    required final List<InvoiceItem> items,
-    required final List<Payment> payments,
-  }) : _items = items,
-       _payments = payments;
-
-  @override
-  final Invoice invoice;
-  final List<InvoiceItem> _items;
-  @override
-  List<InvoiceItem> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
-  }
-
-  final List<Payment> _payments;
-  @override
-  List<Payment> get payments {
-    if (_payments is EqualUnmodifiableListView) return _payments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_payments);
-  }
-
-  @override
-  String toString() {
-    return 'BillingState.invoiceDetail(invoice: $invoice, items: $items, payments: $payments)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InvoiceDetailImpl &&
-            (identical(other.invoice, invoice) || other.invoice == invoice) &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
-            const DeepCollectionEquality().equals(other._payments, _payments));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    invoice,
-    const DeepCollectionEquality().hash(_items),
-    const DeepCollectionEquality().hash(_payments),
-  );
-
-  /// Create a copy of BillingState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$InvoiceDetailImplCopyWith<_$InvoiceDetailImpl> get copyWith =>
-      __$$InvoiceDetailImplCopyWithImpl<_$InvoiceDetailImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Invoice> invoices) loaded,
-    required TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )
-    invoiceDetail,
-    required TResult Function(String message) error,
-  }) {
-    return invoiceDetail(invoice, items, payments);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Invoice> invoices)? loaded,
-    TResult? Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
-    TResult? Function(String message)? error,
-  }) {
-    return invoiceDetail?.call(invoice, items, payments);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Invoice> invoices)? loaded,
-    TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (invoiceDetail != null) {
-      return invoiceDetail(invoice, items, payments);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_InvoiceDetail value) invoiceDetail,
-    required TResult Function(_Error value) error,
-  }) {
-    return invoiceDetail(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_InvoiceDetail value)? invoiceDetail,
-    TResult? Function(_Error value)? error,
-  }) {
-    return invoiceDetail?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_InvoiceDetail value)? invoiceDetail,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (invoiceDetail != null) {
-      return invoiceDetail(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _InvoiceDetail implements BillingState {
-  const factory _InvoiceDetail({
-    required final Invoice invoice,
-    required final List<InvoiceItem> items,
-    required final List<Payment> payments,
-  }) = _$InvoiceDetailImpl;
-
-  Invoice get invoice;
-  List<InvoiceItem> get items;
-  List<Payment> get payments;
-
-  /// Create a copy of BillingState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$InvoiceDetailImplCopyWith<_$InvoiceDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -872,13 +551,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Invoice> invoices) loaded,
-    required TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )
-    invoiceDetail,
+    required TResult Function(BillingOverview overview) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -889,13 +562,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Invoice> invoices)? loaded,
-    TResult? Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult? Function(BillingOverview overview)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -906,13 +573,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Invoice> invoices)? loaded,
-    TResult Function(
-      Invoice invoice,
-      List<InvoiceItem> items,
-      List<Payment> payments,
-    )?
-    invoiceDetail,
+    TResult Function(BillingOverview overview)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -928,7 +589,6 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_InvoiceDetail value) invoiceDetail,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -940,7 +600,6 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_InvoiceDetail value)? invoiceDetail,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -952,7 +611,6 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_InvoiceDetail value)? invoiceDetail,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
