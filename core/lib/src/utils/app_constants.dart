@@ -70,10 +70,19 @@ class AppConstants {
   static const String invoiceStatusPaid = 'paid';
   static const String invoiceStatusCancelled = 'cancelled';
 
+  // Invoices.type
+  static const String invoiceTypePatient = 'patient';
+  static const String invoiceTypeSale = 'sale';
+  static const String invoiceTypeOtherIncome = 'other_income';
+
+  // Billing ledger entry kinds (invoice types + supplier purchases)
+  static const String billingTypePurchase = 'purchase';
+
   // InvoiceItems.itemType
   static const String invoiceItemTypeConsultation = 'consultation';
   static const String invoiceItemTypeOperation = 'operation';
   static const String invoiceItemTypeMedicine = 'medicine';
+  static const String invoiceItemTypeService = 'service';
   static const String invoiceItemTypeOther = 'other';
 
   // Payments.paymentMethod

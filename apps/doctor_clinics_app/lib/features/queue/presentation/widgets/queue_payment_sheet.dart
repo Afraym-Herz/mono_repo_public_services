@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/queue/domain/entities/queue_ticket.dart';
-import '../helpers/queue_money_input.dart';
+import 'package:doctor_clinics_app/core/helpers/money_input.dart';
 import 'queue_payment_form.dart';
 
 /// Finishes a visit or collects a late payment. The deposit is read-only and
@@ -30,7 +30,7 @@ class _QueuePaymentSheetState extends State<QueuePaymentSheet> {
   void initState() {
     super.initState();
     _deposit = TextEditingController(
-      text: QueueMoneyInput.poundsText(widget.ticket.depositPiasters),
+      text: MoneyInput.poundsText(widget.ticket.depositPiasters),
     );
   }
 
@@ -60,7 +60,7 @@ class _QueuePaymentSheetState extends State<QueuePaymentSheet> {
   }
 
   void _confirm(BuildContext context) {
-    final piasters = QueueMoneyInput.tryParsePiasters(_paidNow.text);
+    final piasters = MoneyInput.tryParsePiasters(_paidNow.text);
     if (piasters == null) {
       AppSnackBar.showError(context, 'queue_row.payment.invalid_amount'.tr());
       return;

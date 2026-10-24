@@ -10,6 +10,7 @@ class ResponsiveText extends StatelessWidget {
     this.fontWeight,
     this.color,
     this.textAlign,
+    this.textDirection,
     this.maxLines,
     this.overflow,
     this.height,
@@ -26,6 +27,7 @@ class ResponsiveText extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? color;
   final TextAlign? textAlign;
+  final TextDirection? textDirection;
   final int? maxLines;
   final TextOverflow? overflow;
   final double? height;
@@ -41,6 +43,7 @@ class ResponsiveText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
+      textDirection: textDirection,
       maxLines: maxLines,
       overflow: overflow,
       style: TextStyle(
