@@ -27,6 +27,7 @@ import 'daos/audit_dao.dart';
 part 'app_database.g.dart';
 part 'migrations/appointment_number_backfill.dart';
 part 'migrations/patient_age_backfill.dart';
+part 'migrations/expense_category_seed.dart';
 
 @DriftDatabase(
   tables: [
@@ -49,6 +50,10 @@ part 'migrations/patient_age_backfill.dart';
     Payments,
     ExpenseCategories,
     Expenses,
+    Vendors,
+    Purchases,
+    PurchaseItems,
+    PurchasePayments,
     Users,
     ClinicSettingsTable,
     AuditLogs,
@@ -69,7 +74,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e]) : super(e ?? _openConnection());
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 7;
 
   static QueryExecutor _openConnection() {
     return openConnection(dbName: DbConstants.dbName);
@@ -77,7 +82,10 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    onCreate: (m) async => m.createAll(),
+    onCreate: (m) async {
+      await m.createAll();
+      await seedDefaultExpenseCategories(this);
+    },
     onUpgrade: (m, from, to) async {
       if (from < 2) {
         await m.addColumn(queueEntries, queueEntries.paidAt);
@@ -94,6 +102,33 @@ class AppDatabase extends _$AppDatabase {
       if (from < 5) {
         await m.addColumn(patients, patients.age);
         await backfillPatientAges(this);
+      }
+      if (from < 6) {
+        await m.addColumn(invoices, invoices.notes);
+      }
+      if (from < 7) {
+        await m.addColumn(invoices, invoices.type);
+        await m.addColumn(invoices, invoices.customerName);
+        await m.addColumn(expenses, expenses.notes);
+        await m.alterTable(
+          TableMigration(
+            invoices,
+            newColumns: [invoices.patientId],
+            columnTransformer: {invoices.patientId: invoices.patientId},
+          ),
+        );
+        await m.alterTable(
+          TableMigration(
+            payments,
+            newColumns: [payments.patientId],
+            columnTransformer: {payments.patientId: payments.patientId},
+          ),
+        );
+        await m.createTable(vendors);
+        await m.createTable(purchases);
+        await m.createTable(purchaseItems);
+        await m.createTable(purchasePayments);
+        await seedDefaultExpenseCategories(this);
       }
     },
   );

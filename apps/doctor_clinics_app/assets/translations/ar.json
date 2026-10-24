@@ -133,6 +133,157 @@
     "logout_confirm_title": "تأكيد تسجيل الخروج",
     "logout_confirm_message": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
   },
+  "billing": {
+    "title": "الحسابات والإيرادات",
+    "subtitle": "متابعة الفواتير والمدفوعات والمصروفات والتحصيل",
+    "currency": "ج.م.",
+    "search_hint": "ابحث باسم المريض أو رقم الفاتورة أو الإيصال…",
+    "action": {
+      "export": "تصدير التقرير",
+      "export_unavailable": "تصدير التقرير غير متاح في هذه النسخة",
+      "new_invoice": "فاتورة جديدة"
+    },
+    "invoice_form": {
+      "title": "فاتورة جديدة",
+      "subtitle": "سجّل الخدمات والدفعة المقدمة للمريض",
+      "close": "إغلاق",
+      "patient": "المريض",
+      "patient_hint": "ابحث بالاسم أو رقم الملف أو الهاتف…",
+      "new_patient": "مريض جديد",
+      "no_patients": "لا يوجد مرضى مطابقون",
+      "date": "تاريخ الفاتورة",
+      "services": "الخدمات",
+      "service_description": "الخدمة",
+      "service_hint": "مثال: كشف عيادة",
+      "quantity": "الكمية",
+      "unit_price": "سعر الوحدة",
+      "add_service": "إضافة خدمة",
+      "remove_service": "حذف الخدمة",
+      "discount": "الخصم",
+      "paid_now": "المدفوع الآن",
+      "payment_method": "طريقة الدفع",
+      "method_cash": "نقدي",
+      "method_card": "بطاقة",
+      "method_transfer": "تحويل",
+      "notes": "ملاحظات",
+      "notes_hint": "ملاحظات اختيارية",
+      "subtotal": "الإجمالي الفرعي",
+      "total": "الإجمالي",
+      "paid": "المدفوع",
+      "due": "المتبقي",
+      "cancel": "إلغاء",
+      "save": "حفظ الفاتورة",
+      "saved": "تم حفظ الفاتورة بنجاح",
+      "patient_required": "اختر المريض أولًا",
+      "service_required": "أضف خدمة واحدة على الأقل بكمية وسعر",
+      "discount_exceeds": "لا يمكن أن يتجاوز الخصم الإجمالي الفرعي",
+      "paid_exceeds": "لا يمكن أن يتجاوز المدفوع إجمالي الفاتورة",
+      "invalid_amount": "أدخل مبلغًا صحيحًا",
+      "invalid_quantity": "أدخل كمية صحيحة"
+    },
+    "kpi": {
+      "invoiced": "إجمالي الفواتير",
+      "invoice_count": "{count} فاتورة",
+      "collected": "المحصّل",
+      "collection_rate": "نسبة التحصيل {percent}",
+      "expenses": "المصروفات",
+      "expense_count": "{count} مصروف",
+      "net": "الصافي",
+      "net_margin": "هامش {percent}"
+    },
+    "chart": {
+      "title": "توزيع الإيرادات",
+      "total": "إجمالي المحصّل في الفترة",
+      "empty": "لا توجد مدفوعات مسجلة في هذه الفترة"
+    },
+    "cash": {
+      "title": "درج النقدية",
+      "opening": "الرصيد الافتتاحي",
+      "collected": "المحصّل نقدًا",
+      "expenses": "المصروفات النقدية",
+      "expected": "المتوقع في الدرج"
+    },
+    "ledger": {
+      "title": "سجل الفواتير والمدفوعات",
+      "count": "{count} قيد",
+      "invoice": "الفاتورة",
+      "patient": "المريض",
+      "statement": "البيان",
+      "total": "الإجمالي",
+      "paid": "المدفوع",
+      "due": "المتبقي",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "no_statement": "بدون بيان",
+      "empty": "لا توجد فواتير في هذه الفترة",
+      "empty_hint": "ستظهر الفواتير والمدفوعات هنا بمجرد تسجيلها."
+    },
+    "status": {
+      "paid": "مدفوعة",
+      "partially_paid": "مدفوعة جزئيًا",
+      "cancelled": "ملغاة",
+      "pending": "غير مدفوعة"
+    },
+    "value": {
+      "none": "—"
+    },
+    "search": {
+      "empty": "لا توجد نتائج مطابقة",
+      "empty_hint": "جرّب اسم مريض أو رقم فاتورة آخر."
+    },
+    "payments": {
+      "title": "سجل المدفوعات",
+      "count": "{count} إيصال",
+      "empty": "لا توجد مدفوعات في هذه الفترة",
+      "empty_hint": "ستظهر الدفعات المسجلة هنا فور إضافتها."
+    },
+    "expenses": {
+      "title": "سجل المصروفات",
+      "count": "{count} مصروف",
+      "empty": "لا توجد مصروفات في هذه الفترة",
+      "empty_hint": "ستظهر المصروفات المسجلة هنا فور إضافتها."
+    },
+    "expense": {
+      "date": "التاريخ",
+      "category": "التصنيف",
+      "description": "الوصف",
+      "notes": "ملاحظات",
+      "amount": "المبلغ",
+      "uncategorized": "غير مصنّف"
+    },
+    "report": {
+      "summary": "ملخص الفترة",
+      "outstanding": "المستحقات",
+      "outstanding_hint": "إجمالي المتبقي على كل الفواتير غير المسددة.",
+      "invoiced": "إجمالي الفواتير",
+      "collected": "المحصّل",
+      "expenses": "المصروفات",
+      "net": "الصافي",
+      "remaining": "متبقي الفترة",
+      "average": "متوسط الفاتورة",
+      "collection_rate": "نسبة التحصيل",
+      "debtors": "عدد المدينين",
+      "debtors_value": "{count} مريض",
+      "top_debt": "أعلى مديونية"
+    },
+    "error": {
+      "title": "تعذّر تحميل الحسابات",
+      "load": "حدث خطأ أثناء قراءة بيانات الفواتير والمدفوعات.",
+      "save": "تعذّر حفظ الفاتورة",
+      "retry": "إعادة المحاولة"
+    }
+  },
+  "billing_range": {
+    "today": "اليوم",
+    "week": "٧ أيام",
+    "month": "٣٠ يومًا"
+  },
+  "billing_tab": {
+    "summary": "الملخص",
+    "payments": "المدفوعات",
+    "expenses": "المصروفات",
+    "report": "التقرير"
+  },
   "patients_header": {
     "title": "سجل المرضى",
     "registered": "{count} مريض مسجل",
@@ -421,5 +572,158 @@
   "appointment_error": {
     "retry": "إعادة المحاولة",
     "past_date": "لا يمكن حجز موعد في تاريخ سابق"
+  },
+  "operations_board": {
+    "currency": "ج.م.",
+    "header": {
+      "title": "إدارة العمليات الجراحية والتنظير",
+      "subtitle": "متابعة جدول العمليات والتنظير وتجهيز المرضى قبل الجراحة",
+      "count": "{count} عملية",
+      "dashboard": "لوحة التحكم",
+      "backup": "نسخ احتياطي",
+      "new_operation": "عملية جديدة",
+      "backup_unavailable": "النسخ الاحتياطي غير متاح في هذه النسخة"
+    },
+    "status": {
+      "scheduled": "مجدول",
+      "completed": "مكتمل",
+      "cancelled": "ملغي"
+    },
+    "stats": {
+      "total": "إجمالي العمليات",
+      "today": "عمليات اليوم",
+      "completed": "مكتملة",
+      "upcoming": "قادمة"
+    },
+    "filter": {
+      "all": "الكل",
+      "today": "اليوم",
+      "upcoming": "القادمة",
+      "completed": "المكتملة",
+      "cancelled": "الملغاة"
+    },
+    "card": {
+      "tests": "{done} من {total} فحوصات",
+      "balance": "متبقي {amount}"
+    },
+    "week": {
+      "title": "عمليات هذا الأسبوع",
+      "show_all": "عرض كل العمليات"
+    },
+    "quick_stats": {
+      "title": "إحصائيات سريعة",
+      "total": "الإجمالي",
+      "completed": "مكتملة",
+      "cancelled": "ملغاة",
+      "upcoming": "قادمة",
+      "pending_tests": "فحوصات معلقة"
+    },
+    "alerts": {
+      "title": "تنبيهات هامة",
+      "none": "لا توجد تنبيهات حالياً",
+      "pending_tests": "{count} فحص مطلوب لم يكتمل بعد",
+      "unassigned_surgeon": "{count} عملية بدون جراح",
+      "outstanding": "{count} عملية عليها مبلغ متبقٍ"
+    },
+    "patient": {
+      "title": "بيانات المريض",
+      "file_number": "رقم الملف",
+      "file_short": "ملف {file}",
+      "age": "العمر",
+      "age_value": "{count} سنة",
+      "gender": "النوع",
+      "female": "أنثى",
+      "male": "ذكر",
+      "blood_type": "فصيلة الدم",
+      "phone": "الهاتف",
+      "notes": "ملاحظات طبية",
+      "none": "—",
+      "unknown": "مريض غير مسجل"
+    },
+    "info": {
+      "title": "بيانات العملية",
+      "number": "رقم العملية",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "surgeon": "الجراح",
+      "unassigned": "غير محدد"
+    },
+    "tests": {
+      "title": "الفحوصات المطلوبة",
+      "progress": "{done} من {total}",
+      "empty": "لا توجد فحوصات مطلوبة"
+    },
+    "finance": {
+      "title": "المالية",
+      "cost": "التكلفة",
+      "deposit": "العربون",
+      "remaining": "المتبقي"
+    },
+    "notes": {
+      "title": "الملاحظات",
+      "empty": "لا توجد ملاحظات"
+    },
+    "actions": {
+      "complete": "إكمال العملية",
+      "cancel": "إلغاء العملية",
+      "edit": "تعديل",
+      "complete_title": "إكمال العملية؟",
+      "complete_body": "سيتم نقل {name} إلى قائمة العمليات المكتملة.",
+      "cancel_title": "إلغاء العملية؟",
+      "cancel_body": "سيتم تعليم {name} كعملية ملغاة.",
+      "keep": "رجوع",
+      "expand": "عرض التفاصيل",
+      "collapse": "إخفاء التفاصيل"
+    },
+    "feedback": {
+      "test_updated": "تم تحديث حالة الفحص",
+      "completed": "تم تعليم العملية كمكتملة",
+      "cancelled": "تم إلغاء العملية",
+      "edit_unavailable": "تعديل العمليات غير متاح في هذه النسخة"
+    },
+    "empty": {
+      "title": "لا توجد عمليات",
+      "subtitle": "جدول عملية جديدة لتظهر هنا.",
+      "day_title": "لا توجد عمليات في هذا اليوم",
+      "day_subtitle": "اختر يومًا آخر أو اعرض كل العمليات."
+    },
+    "error": {
+      "load": "تعذر تحميل العمليات",
+      "retry": "إعادة المحاولة"
+    }
+  },
+  "operation_form": {
+    "title": "عملية جديدة",
+    "subtitle": "حدد موعد العملية وقائمة الفحوصات المطلوبة قبلها.",
+    "patient": "المريض",
+    "patient_hint": "اختر مريضًا مسجلًا",
+    "no_patients": "لا يوجد مرضى مسجلون بعد",
+    "no_patients_hint": "أضف مريضًا من شاشة المرضى أولًا.",
+    "loading_patients": "جارٍ تحميل المرضى…",
+    "patient_required": "اختر المريض",
+    "name": "اسم العملية",
+    "name_hint": "مثال: استئصال المرارة بالمنظار",
+    "surgeon": "الجراح",
+    "surgeon_hint": "الطبيب الجراح",
+    "date": "تاريخ العملية",
+    "time": "وقت العملية",
+    "time_none": "غير محدد",
+    "cost": "التكلفة الإجمالية (ج.م.)",
+    "deposit": "العربون (ج.م.)",
+    "amount_hint": "0.00",
+    "invalid_amount": "أدخل مبلغًا صحيحًا",
+    "negative_amount": "لا يمكن أن يكون المبلغ سالبًا",
+    "notes": "الملاحظات",
+    "notes_hint": "تعليمات التحضير وملاحظات التخدير…",
+    "tests": "الفحوصات المطلوبة",
+    "test_hint": "أضف فحصًا مطلوبًا",
+    "test_help": "اكتب اسم الفحص ثم اضغط +.",
+    "test_required": "اكتب اسم الفحص أولًا",
+    "test_duplicate": "هذا الفحص مضاف بالفعل",
+    "tests_empty": "لم تُضف فحوصات مطلوبة",
+    "add_test": "إضافة فحص",
+    "cancel": "إلغاء",
+    "save": "جدولة العملية",
+    "saved": "تمت جدولة العملية"
   }
 }

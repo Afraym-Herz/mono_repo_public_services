@@ -9,10 +9,13 @@ import 'package:core/core.dart';
 import 'package:doctor_clinics_app/app.dart';
 import 'package:doctor_clinics_app/core/database/daos/billing_dao.dart';
 import 'package:doctor_clinics_app/core/database/daos/consultation_dao.dart';
+import 'package:doctor_clinics_app/core/database/daos/operation_dao.dart';
 import 'package:doctor_clinics_app/core/database/daos/patient_dao.dart';
 import 'package:doctor_clinics_app/core/database/daos/queue_dao.dart';
 import 'package:doctor_clinics_app/core/dependency_injection/app_locator.dart';
 import 'package:doctor_clinics_app/core/demo/queue_demo_store.dart';
+import 'package:doctor_clinics_app/features/billing/data/demo/billing_demo_seeder.dart';
+import 'package:doctor_clinics_app/features/operations/data/demo/operation_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/patients/data/demo/patient_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_seeder.dart';
 
@@ -39,9 +42,11 @@ Future<void> main() async {
   // ---------------------------------------------------------------------------
   // TEMPORARY DEMO SEED
   // Loads the dummy clinic day (`assets/data/queue_patients.json`) and seeds it
-  // into the local database when empty, so the home, queue and patient widgets
-  // render with content in the offline MVP. The patient register is seeded
-  // first so the queue reuses those records instead of inserting duplicates.
+  // into the local database when empty, so the home, queue, patient and billing
+  // widgets render with content in the offline MVP. The patient register is
+  // seeded first so the queue reuses those records instead of inserting
+  // duplicates, and billing derives its invoices/payments from those same
+  // appointments and queue visits.
   // REVERT: drop these calls, the `lib/core/demo/` fixture, and the
   // `features/*/data/demo/` seeders once a real source of patients exists.
   // ---------------------------------------------------------------------------
@@ -53,6 +58,14 @@ Future<void> main() async {
   ).seedIfEmpty();
   await QueueDemoSeeder(
     patientDao: getIt<PatientDao>(),
+    queueDao: getIt<QueueDao>(),
+  ).seedIfEmpty();
+  await OperationDemoSeeder(
+    operationDao: getIt<OperationDao>(),
+    patientDao: getIt<PatientDao>(),
+  ).seedIfEmpty();
+  await BillingDemoSeeder(
+    billingDao: getIt<BillingDao>(),
     queueDao: getIt<QueueDao>(),
   ).seedIfEmpty();
 

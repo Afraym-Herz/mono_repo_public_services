@@ -133,6 +133,157 @@
     "logout_confirm_title": "Confirm logout",
     "logout_confirm_message": "Are you sure you want to log out?"
   },
+  "billing": {
+    "title": "Accounts & Revenue",
+    "subtitle": "Track invoices, payments, expenses and collections",
+    "currency": "EGP",
+    "search_hint": "Search by patient, invoice or receipt number…",
+    "action": {
+      "export": "Export report",
+      "export_unavailable": "Report export is not available in this version",
+      "new_invoice": "New invoice"
+    },
+    "invoice_form": {
+      "title": "New invoice",
+      "subtitle": "Record services and an optional payment for a patient",
+      "close": "Close",
+      "patient": "Patient",
+      "patient_hint": "Search by name, file or phone…",
+      "new_patient": "New patient",
+      "no_patients": "No matching patients",
+      "date": "Invoice date",
+      "services": "Services",
+      "service_description": "Service",
+      "service_hint": "e.g. Consultation",
+      "quantity": "Qty",
+      "unit_price": "Unit price",
+      "add_service": "Add service",
+      "remove_service": "Remove service",
+      "discount": "Discount",
+      "paid_now": "Paid now",
+      "payment_method": "Payment method",
+      "method_cash": "Cash",
+      "method_card": "Card",
+      "method_transfer": "Transfer",
+      "notes": "Notes",
+      "notes_hint": "Optional notes",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "paid": "Paid",
+      "due": "Remaining",
+      "cancel": "Cancel",
+      "save": "Save invoice",
+      "saved": "Invoice saved successfully",
+      "patient_required": "Select a patient first",
+      "service_required": "Add at least one service with a quantity and price",
+      "discount_exceeds": "The discount cannot exceed the subtotal",
+      "paid_exceeds": "The paid amount cannot exceed the total",
+      "invalid_amount": "Enter a valid amount",
+      "invalid_quantity": "Enter a valid quantity"
+    },
+    "kpi": {
+      "invoiced": "Total invoiced",
+      "invoice_count": "{count} invoices",
+      "collected": "Collected",
+      "collection_rate": "Collection rate {percent}",
+      "expenses": "Expenses",
+      "expense_count": "{count} expenses",
+      "net": "Net",
+      "net_margin": "Margin {percent}"
+    },
+    "chart": {
+      "title": "Revenue distribution",
+      "total": "Total collected in the period",
+      "empty": "No payments recorded in this period"
+    },
+    "cash": {
+      "title": "Cash drawer",
+      "opening": "Opening balance",
+      "collected": "Cash collected",
+      "expenses": "Cash expenses",
+      "expected": "Expected in drawer"
+    },
+    "ledger": {
+      "title": "Invoices & payments ledger",
+      "count": "{count} entries",
+      "invoice": "Invoice",
+      "patient": "Patient",
+      "statement": "Statement",
+      "total": "Total",
+      "paid": "Paid",
+      "due": "Due",
+      "date": "Date",
+      "status": "Status",
+      "no_statement": "No statement",
+      "empty": "No invoices in this period",
+      "empty_hint": "Invoices and payments will appear here once recorded."
+    },
+    "status": {
+      "paid": "Paid",
+      "partially_paid": "Partially paid",
+      "cancelled": "Cancelled",
+      "pending": "Unpaid"
+    },
+    "value": {
+      "none": "—"
+    },
+    "search": {
+      "empty": "No matching results",
+      "empty_hint": "Try another patient name or invoice number."
+    },
+    "payments": {
+      "title": "Payment log",
+      "count": "{count} receipts",
+      "empty": "No payments in this period",
+      "empty_hint": "Recorded payments will appear here right away."
+    },
+    "expenses": {
+      "title": "Expense log",
+      "count": "{count} expenses",
+      "empty": "No expenses in this period",
+      "empty_hint": "Recorded expenses will appear here right away."
+    },
+    "expense": {
+      "date": "Date",
+      "category": "Category",
+      "description": "Description",
+      "notes": "Notes",
+      "amount": "Amount",
+      "uncategorized": "Uncategorized"
+    },
+    "report": {
+      "summary": "Period summary",
+      "outstanding": "Outstanding",
+      "outstanding_hint": "Total still due across all unpaid invoices.",
+      "invoiced": "Total invoiced",
+      "collected": "Collected",
+      "expenses": "Expenses",
+      "net": "Net",
+      "remaining": "Remaining this period",
+      "average": "Average invoice",
+      "collection_rate": "Collection rate",
+      "debtors": "Debtors",
+      "debtors_value": "{count} patients",
+      "top_debt": "Largest debt"
+    },
+    "error": {
+      "title": "Could not load accounts",
+      "load": "Something went wrong while reading invoices and payments.",
+      "save": "Could not save the invoice",
+      "retry": "Try again"
+    }
+  },
+  "billing_range": {
+    "today": "Today",
+    "week": "7 days",
+    "month": "30 days"
+  },
+  "billing_tab": {
+    "summary": "Summary",
+    "payments": "Payments",
+    "expenses": "Expenses",
+    "report": "Report"
+  },
   "patients_header": {
     "title": "Patients Record",
     "registered": "{count} registered patients",
@@ -421,5 +572,158 @@
   "appointment_error": {
     "retry": "Try again",
     "past_date": "Appointments cannot be booked in the past"
+  },
+  "operations_board": {
+    "currency": "EGP",
+    "header": {
+      "title": "Surgical Operations & Endoscopy",
+      "subtitle": "Manage the surgical schedule, preparation and patient checklist",
+      "count": "{count} operations",
+      "dashboard": "Dashboard",
+      "backup": "Backup",
+      "new_operation": "New Operation",
+      "backup_unavailable": "Backup is not available in this version"
+    },
+    "status": {
+      "scheduled": "Scheduled",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "stats": {
+      "total": "Total operations",
+      "today": "Today's operations",
+      "completed": "Completed",
+      "upcoming": "Upcoming"
+    },
+    "filter": {
+      "all": "All",
+      "today": "Today",
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "card": {
+      "tests": "{done} of {total} tests",
+      "balance": "{amount} due"
+    },
+    "week": {
+      "title": "Operations this week",
+      "show_all": "View all operations"
+    },
+    "quick_stats": {
+      "title": "Quick stats",
+      "total": "Total",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "upcoming": "Upcoming",
+      "pending_tests": "Pending tests"
+    },
+    "alerts": {
+      "title": "Important alerts",
+      "none": "No alerts right now",
+      "pending_tests": "{count} required tests are still pending",
+      "unassigned_surgeon": "{count} operations have no surgeon assigned",
+      "outstanding": "{count} operations have an outstanding balance"
+    },
+    "patient": {
+      "title": "Patient data",
+      "file_number": "File no.",
+      "file_short": "File {file}",
+      "age": "Age",
+      "age_value": "{count} yrs",
+      "gender": "Gender",
+      "female": "Female",
+      "male": "Male",
+      "blood_type": "Blood type",
+      "phone": "Phone",
+      "notes": "Medical notes",
+      "none": "—",
+      "unknown": "Unregistered patient"
+    },
+    "info": {
+      "title": "Operation data",
+      "number": "Operation no.",
+      "date": "Date",
+      "time": "Time",
+      "surgeon": "Surgeon",
+      "unassigned": "Not assigned"
+    },
+    "tests": {
+      "title": "Required tests",
+      "progress": "{done} / {total}",
+      "empty": "No required tests"
+    },
+    "finance": {
+      "title": "Financials",
+      "cost": "Cost",
+      "deposit": "Deposit",
+      "remaining": "Remaining"
+    },
+    "notes": {
+      "title": "Notes",
+      "empty": "No notes"
+    },
+    "actions": {
+      "complete": "Complete operation",
+      "cancel": "Cancel operation",
+      "edit": "Edit",
+      "complete_title": "Complete this operation?",
+      "complete_body": "{name} will move to the completed list.",
+      "cancel_title": "Cancel this operation?",
+      "cancel_body": "{name} will be marked as cancelled.",
+      "keep": "Back",
+      "expand": "Show details",
+      "collapse": "Hide details"
+    },
+    "feedback": {
+      "test_updated": "Test status updated",
+      "completed": "Operation marked as completed",
+      "cancelled": "Operation cancelled",
+      "edit_unavailable": "Editing operations is not available in this version"
+    },
+    "empty": {
+      "title": "No operations",
+      "subtitle": "Schedule a new operation to see it here.",
+      "day_title": "No operations on this day",
+      "day_subtitle": "Pick another day or show the full operations list."
+    },
+    "error": {
+      "load": "Could not load operations",
+      "retry": "Try again"
+    }
+  },
+  "operation_form": {
+    "title": "New operation",
+    "subtitle": "Schedule the operation and its pre-operation checklist.",
+    "patient": "Patient",
+    "patient_hint": "Select a registered patient",
+    "no_patients": "No registered patients yet",
+    "no_patients_hint": "Add a patient from the Patients screen first.",
+    "loading_patients": "Loading patients…",
+    "patient_required": "Select a patient",
+    "name": "Operation name",
+    "name_hint": "e.g. Laparoscopic cholecystectomy",
+    "surgeon": "Surgeon",
+    "surgeon_hint": "Operating surgeon",
+    "date": "Scheduled date",
+    "time": "Scheduled time",
+    "time_none": "Not set",
+    "cost": "Total cost (EGP)",
+    "deposit": "Deposit (EGP)",
+    "amount_hint": "0.00",
+    "invalid_amount": "Enter a valid amount",
+    "negative_amount": "Amount cannot be negative",
+    "notes": "Notes",
+    "notes_hint": "Preparation instructions, anesthesia notes…",
+    "tests": "Required tests",
+    "test_hint": "Add a required test",
+    "test_help": "Type the test name, then tap +.",
+    "test_required": "Enter a test name first",
+    "test_duplicate": "This test is already added",
+    "tests_empty": "No required tests added",
+    "add_test": "Add test",
+    "cancel": "Cancel",
+    "save": "Schedule operation",
+    "saved": "Operation scheduled"
   }
 }

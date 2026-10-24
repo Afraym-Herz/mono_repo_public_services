@@ -15,4 +15,9 @@ mixin _$BillingDaoMixin on DatabaseAccessor<AppDatabase> {
   $ExpenseCategoriesTable get expenseCategories =>
       attachedDatabase.expenseCategories;
   $ExpensesTable get expenses => attachedDatabase.expenses;
+  $VendorsTable get vendors => attachedDatabase.vendors;
+  $PurchasesTable get purchases => attachedDatabase.purchases;
+  $PurchaseItemsTable get purchaseItems => attachedDatabase.purchaseItems;
+  $PurchasePaymentsTable get purchasePayments =>
+      attachedDatabase.purchasePayments;
 }
