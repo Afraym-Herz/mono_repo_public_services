@@ -1,62 +1,70 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:core/core.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-// TODO: implement operation form UI
-/// Schedule / edit an operation with required-tests checklist.
-class OperationFormScreen extends StatelessWidget {
+import 'package:doctor_clinics_app/features/operations/domain/entities/operation.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_form_cubit.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/helpers/operation_form_controller.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_form_centered.dart';
+
+/// Barrier-backed host for the new-operation form.
+class OperationFormScreen extends StatefulWidget {
   const OperationFormScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return AdaptiveLayout(
-      mobileLayout: (_) => const _OperationFormBody(),
-      tabletLayout: (_) => const _OperationFormBody(),
-      desktopLayout: (_) => const _OperationFormBody(),
-    );
-  }
+  State<OperationFormScreen> createState() => _OperationFormScreenState();
 }
 
-class _OperationFormBody extends StatelessWidget {
-  const _OperationFormBody();
+class _OperationFormScreenState extends State<OperationFormScreen> {
+  late final OperationFormController _controller = OperationFormController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = context.isMobileOrSmallTablet
-        ? double.infinity
-        : context.contentMaxWidth;
-    return Scaffold(
-      body: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth),
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const AppFeatureHeader(
-                  title: 'Operation Form',
-                  subtitle: 'Schedule or edit an operation',
-                ),
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
-                ZoomIn(
-                  delay: const Duration(milliseconds: 300),
-                  child: AppSectionCard(
-                    title: 'Operation details',
-                    icon: Icons.calendar_month_outlined,
-                    animationDelay: const Duration(milliseconds: 350),
-                    child: Text(
-                      'TODO: Operation Form Screen',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+    final form = OperationFormCentered(
+      controller: _controller,
+      onClose: () => context.pop(),
+      onSave: _save,
+    );
+    return BlocProvider(
+      create: (_) => getIt<OperationFormCubit>(),
+      child: BlocListener<OperationFormCubit, OperationFormState>(
+        listenWhen: (previous, current) => previous != current,
+        listener: (context, state) {
+          state.maybeMap(
+            saved: (saved) => context.pop<Operation>(saved.operation),
+            error: (error) => AppSnackBar.showError(context, error.message),
+            orElse: () {},
+          );
+        },
+        child: Scaffold(
+          backgroundColor: AppColors.transparent,
+          body: AdaptiveLayout(
+            mobileLayout: (_) => form,
+            tabletLayout: (_) => form,
+            desktopLayout: (_) => form,
           ),
         ),
       ),
+    );
+  }
+
+  void _save() {
+    if (_controller.patientId.value == null) {
+      AppSnackBar.showError(context, 'operation_form.patient_required'.tr());
+      return;
+    }
+    if (!(_controller.formKey.currentState?.validate() ?? false)) return;
+    context.read<OperationFormCubit>().save(
+      operation: _controller.toOperation(),
+      testNames: _controller.tests.value,
     );
   }
 }
