@@ -1,19 +1,30 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// TODO: implement billing overview UI
-/// Overview of invoices, payments, and daily summary.
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_toolbar_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing_header_connected.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing_tab_body.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing_tabs.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing_toolbar.dart';
+
+/// Accounts and revenue dashboard: invoices, payments, expenses and reports.
 class BillingScreen extends StatelessWidget {
   const BillingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveLayout(
-      mobileLayout: (_) => const _BillingBody(),
-      tabletLayout: (_) => const _BillingBody(),
-      desktopLayout: (_) => const _BillingBody(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<BillingCubit>()..load()),
+        BlocProvider(create: (_) => getIt<BillingToolbarCubit>()),
+      ],
+      child: AdaptiveLayout(
+        mobileLayout: (_) => const _BillingBody(),
+        tabletLayout: (_) => const _BillingBody(),
+        desktopLayout: (_) => const _BillingBody(),
+      ),
     );
   }
 }
@@ -23,38 +34,20 @@ class _BillingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = context.isMobileOrSmallTablet
-        ? double.infinity
-        : context.contentMaxWidth;
-    return Scaffold(
-      body: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth),
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(Dimensions.paddingSizeDefault.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const AppFeatureHeader(
-                  title: 'Billing',
-                  subtitle: 'Invoices, payments and daily summary',
-                ),
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
-                ZoomIn(
-                  delay: const Duration(milliseconds: 300),
-                  child: AppSectionCard(
-                    title: 'Billing overview',
-                    icon: Icons.receipt_long_outlined,
-                    animationDelay: const Duration(milliseconds: 350),
-                    child: Text(
-                      'TODO: Billing Screen',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return BlocListener<BillingToolbarCubit, BillingToolbarState>(
+      listenWhen: (previous, current) => previous.range != current.range,
+      listener: (context, state) =>
+          context.read<BillingCubit>().load(range: state.range),
+      child: Scaffold(
+        backgroundColor: context.clinicBackground,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: const [
+            BillingHeaderConnected(),
+            BillingToolbar(),
+            BillingTabs(),
+            Expanded(child: BillingTabBody()),
+          ],
         ),
       ),
     );
