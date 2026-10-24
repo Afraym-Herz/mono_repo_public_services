@@ -5,10 +5,16 @@ import 'package:doctor_clinics_app/features/backup/domain/repositories/backup_re
 import 'package:doctor_clinics_app/features/backup/presentation/cubit/backup_cubit.dart';
 import 'package:doctor_clinics_app/features/billing/domain/repositories/billing_repository.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_toolbar_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/new_expense_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/new_invoice_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/new_purchase_cubit.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/repositories/consultation_repository.dart';
 import 'package:doctor_clinics_app/features/consultations/presentation/cubit/consultation_cubit.dart';
 import 'package:doctor_clinics_app/features/operations/domain/repositories/operation_repository.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_board_cubit.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_cubit.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_form_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_cubit.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/cubit/patient_edit_cubit.dart';
@@ -66,8 +72,30 @@ void registerAppCubits() {
   getIt.registerFactory<OperationCubit>(
     () => OperationCubit(repository: getIt<IOperationRepository>()),
   );
+  getIt.registerFactory<OperationFormCubit>(
+    () => OperationFormCubit(repository: getIt<IOperationRepository>()),
+  );
+  getIt.registerFactory<OperationBoardCubit>(
+    () => OperationBoardCubit(
+      operationRepository: getIt<IOperationRepository>(),
+      patientRepository: getIt<PatientRepository>(),
+    ),
+  );
   getIt.registerFactory<BillingCubit>(
-    () => BillingCubit(repository: getIt<IBillingRepository>()),
+    () => BillingCubit(
+      repository: getIt<IBillingRepository>(),
+      patientRepository: getIt<PatientRepository>(),
+    ),
+  );
+  getIt.registerFactory<BillingToolbarCubit>(() => BillingToolbarCubit());
+  getIt.registerFactory<NewInvoiceCubit>(
+    () => NewInvoiceCubit(repository: getIt<IBillingRepository>()),
+  );
+  getIt.registerFactory<NewPurchaseCubit>(
+    () => NewPurchaseCubit(repository: getIt<IBillingRepository>()),
+  );
+  getIt.registerFactory<NewExpenseCubit>(
+    () => NewExpenseCubit(repository: getIt<IBillingRepository>()),
   );
   getIt.registerFactory<SettingsCubit>(
     () => SettingsCubit(repository: getIt<ISettingsRepository>()),

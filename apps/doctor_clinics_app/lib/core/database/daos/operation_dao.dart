@@ -6,26 +6,55 @@ import '../tables/operations_table.dart';
 part 'operation_dao.g.dart';
 
 @DriftAccessor(tables: [Operations, OperationRequiredTests])
-class OperationDao extends DatabaseAccessor<AppDatabase> with _$OperationDaoMixin {
+class OperationDao extends DatabaseAccessor<AppDatabase>
+    with _$OperationDaoMixin {
   OperationDao(super.db);
 
   Future<List<Operation>> getAllOperations() => select(operations).get();
   Future<List<Operation>> getOperationsForPatient(int patientId) =>
       (select(operations)..where((o) => o.patientId.equals(patientId))).get();
-  Future<List<Operation>> getUpcomingOperations() => (select(operations)
-        ..where((o) =>
-            o.scheduledDate.isBiggerOrEqualValue(DateTime.now()) &
-            o.status.equals(AppConstants.operationStatusScheduled)))
-      .get();
-  Future<int> insertOperation(OperationsCompanion entry) => into(operations).insert(entry);
-  Future<bool> updateOperation(OperationsCompanion entry) => update(operations).replace(entry);
+  Future<List<Operation>> getUpcomingOperations() =>
+      (select(operations)..where(
+            (o) =>
+                o.scheduledDate.isBiggerOrEqualValue(DateTime.now()) &
+                o.status.equals(AppConstants.operationStatusScheduled),
+          ))
+          .get();
+  Future<int> insertOperation(OperationsCompanion entry) =>
+      into(operations).insert(entry);
+  Future<bool> updateOperation(OperationsCompanion entry) =>
+      update(operations).replace(entry);
+
+  /// Inserts an operation and its required-test checklist as one transaction.
+  Future<int> insertOperationWithTests(
+    OperationsCompanion entry,
+    List<String> testNames,
+  ) {
+    return transaction(() async {
+      final id = await into(operations).insert(entry);
+      for (final name in testNames) {
+        await into(operationRequiredTests).insert(
+          OperationRequiredTestsCompanion.insert(
+            operationId: id,
+            testName: name,
+          ),
+        );
+      }
+      return id;
+    });
+  }
+
   Future<int> deleteOperation(int id) =>
       (delete(operations)..where((o) => o.id.equals(id))).go();
 
   Future<List<OperationRequiredTest>> getTestsForOperation(int operationId) =>
-      (select(operationRequiredTests)..where((t) => t.operationId.equals(operationId))).get();
-  Future<int> insertTest(OperationRequiredTestsCompanion entry) => into(operationRequiredTests).insert(entry);
-  Future<bool> updateTest(OperationRequiredTestsCompanion entry) => update(operationRequiredTests).replace(entry);
+      (select(
+        operationRequiredTests,
+      )..where((t) => t.operationId.equals(operationId))).get();
+  Future<int> insertTest(OperationRequiredTestsCompanion entry) =>
+      into(operationRequiredTests).insert(entry);
+  Future<bool> updateTest(OperationRequiredTestsCompanion entry) =>
+      update(operationRequiredTests).replace(entry);
   Future<int> deleteTest(int id) =>
       (delete(operationRequiredTests)..where((t) => t.id.equals(id))).go();
 }
