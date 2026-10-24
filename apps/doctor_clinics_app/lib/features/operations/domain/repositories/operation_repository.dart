@@ -8,6 +8,10 @@ abstract class IOperationRepository {
   FutureResult<List<Operation>> getByPatient(int patientId);
   FutureResult<List<Operation>> getUpcoming();
   FutureResult<Operation> create(Operation operation);
+  FutureResult<Operation> createWithTests(
+    Operation operation,
+    List<String> testNames,
+  );
   FutureResult<void> update(Operation operation);
   FutureResult<void> softDelete(int id);
 

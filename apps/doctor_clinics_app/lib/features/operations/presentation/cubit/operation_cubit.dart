@@ -12,7 +12,7 @@ class OperationCubit extends Cubit<OperationState> {
   final IOperationRepository repository;
 
   OperationCubit({required this.repository})
-      : super(const OperationState.initial());
+    : super(const OperationState.initial());
 
   Future<void> loadAll() async {
     emit(const OperationState.loading());

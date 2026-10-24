@@ -25,6 +25,8 @@ mixin _$Operation {
   int get patientId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   DateTime get scheduledDate => throw _privateConstructorUsedError;
+  String? get scheduledTime => throw _privateConstructorUsedError;
+  String? get surgeonName => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   int? get depositPiasters => throw _privateConstructorUsedError;
@@ -54,6 +56,8 @@ abstract class $OperationCopyWith<$Res> {
     int patientId,
     String name,
     DateTime scheduledDate,
+    String? scheduledTime,
+    String? surgeonName,
     String? notes,
     String? status,
     int? depositPiasters,
@@ -84,6 +88,8 @@ class _$OperationCopyWithImpl<$Res, $Val extends Operation>
     Object? patientId = null,
     Object? name = null,
     Object? scheduledDate = null,
+    Object? scheduledTime = freezed,
+    Object? surgeonName = freezed,
     Object? notes = freezed,
     Object? status = freezed,
     Object? depositPiasters = freezed,
@@ -111,6 +117,14 @@ class _$OperationCopyWithImpl<$Res, $Val extends Operation>
                 ? _value.scheduledDate
                 : scheduledDate // ignore: cast_nullable_to_non_nullable
                       as DateTime,
+            scheduledTime: freezed == scheduledTime
+                ? _value.scheduledTime
+                : scheduledTime // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            surgeonName: freezed == surgeonName
+                ? _value.surgeonName
+                : surgeonName // ignore: cast_nullable_to_non_nullable
+                      as String?,
             notes: freezed == notes
                 ? _value.notes
                 : notes // ignore: cast_nullable_to_non_nullable
@@ -163,6 +177,8 @@ abstract class _$$OperationImplCopyWith<$Res>
     int patientId,
     String name,
     DateTime scheduledDate,
+    String? scheduledTime,
+    String? surgeonName,
     String? notes,
     String? status,
     int? depositPiasters,
@@ -192,6 +208,8 @@ class __$$OperationImplCopyWithImpl<$Res>
     Object? patientId = null,
     Object? name = null,
     Object? scheduledDate = null,
+    Object? scheduledTime = freezed,
+    Object? surgeonName = freezed,
     Object? notes = freezed,
     Object? status = freezed,
     Object? depositPiasters = freezed,
@@ -219,6 +237,14 @@ class __$$OperationImplCopyWithImpl<$Res>
             ? _value.scheduledDate
             : scheduledDate // ignore: cast_nullable_to_non_nullable
                   as DateTime,
+        scheduledTime: freezed == scheduledTime
+            ? _value.scheduledTime
+            : scheduledTime // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        surgeonName: freezed == surgeonName
+            ? _value.surgeonName
+            : surgeonName // ignore: cast_nullable_to_non_nullable
+                  as String?,
         notes: freezed == notes
             ? _value.notes
             : notes // ignore: cast_nullable_to_non_nullable
@@ -264,6 +290,8 @@ class _$OperationImpl implements _Operation {
     required this.patientId,
     required this.name,
     required this.scheduledDate,
+    this.scheduledTime,
+    this.surgeonName,
     this.notes,
     this.status,
     this.depositPiasters,
@@ -286,6 +314,10 @@ class _$OperationImpl implements _Operation {
   @override
   final DateTime scheduledDate;
   @override
+  final String? scheduledTime;
+  @override
+  final String? surgeonName;
+  @override
   final String? notes;
   @override
   final String? status;
@@ -304,7 +336,7 @@ class _$OperationImpl implements _Operation {
 
   @override
   String toString() {
-    return 'Operation(id: $id, patientId: $patientId, name: $name, scheduledDate: $scheduledDate, notes: $notes, status: $status, depositPiasters: $depositPiasters, totalCostPiasters: $totalCostPiasters, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'Operation(id: $id, patientId: $patientId, name: $name, scheduledDate: $scheduledDate, scheduledTime: $scheduledTime, surgeonName: $surgeonName, notes: $notes, status: $status, depositPiasters: $depositPiasters, totalCostPiasters: $totalCostPiasters, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -318,6 +350,10 @@ class _$OperationImpl implements _Operation {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.scheduledDate, scheduledDate) ||
                 other.scheduledDate == scheduledDate) &&
+            (identical(other.scheduledTime, scheduledTime) ||
+                other.scheduledTime == scheduledTime) &&
+            (identical(other.surgeonName, surgeonName) ||
+                other.surgeonName == surgeonName) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.depositPiasters, depositPiasters) ||
@@ -342,6 +378,8 @@ class _$OperationImpl implements _Operation {
     patientId,
     name,
     scheduledDate,
+    scheduledTime,
+    surgeonName,
     notes,
     status,
     depositPiasters,
@@ -372,6 +410,8 @@ abstract class _Operation implements Operation {
     required final int patientId,
     required final String name,
     required final DateTime scheduledDate,
+    final String? scheduledTime,
+    final String? surgeonName,
     final String? notes,
     final String? status,
     final int? depositPiasters,
@@ -393,6 +433,10 @@ abstract class _Operation implements Operation {
   String get name;
   @override
   DateTime get scheduledDate;
+  @override
+  String? get scheduledTime;
+  @override
+  String? get surgeonName;
   @override
   String? get notes;
   @override
