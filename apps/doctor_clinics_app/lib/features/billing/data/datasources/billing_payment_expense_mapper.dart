@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:doctor_clinics_app/core/database/app_database.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/billing_expense_category.dart'
+    as entity;
 import 'package:doctor_clinics_app/features/billing/domain/entities/expense.dart'
     as entity;
 import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart'
@@ -14,6 +16,7 @@ class BillingPaymentExpenseMapper {
     return entity.Payment(
       id: row.id,
       invoiceId: row.invoiceId,
+      patientId: row.patientId,
       receiptNumber: row.receiptNumber,
       amountPiasters: row.amount,
       paymentMethod: row.paymentMethod,
@@ -29,7 +32,7 @@ class BillingPaymentExpenseMapper {
     return PaymentsCompanion(
       id: p.id > 0 ? Value(p.id) : const Value.absent(),
       invoiceId: Value(p.invoiceId),
-      patientId: const Value(0),
+      patientId: Value(p.patientId),
       receiptNumber: Value(p.receiptNumber),
       amount: Value(p.amountPiasters),
       paymentMethod: Value(p.paymentMethod),
@@ -47,6 +50,7 @@ class BillingPaymentExpenseMapper {
       description: row.description ?? '',
       amountPiasters: row.amount,
       expenseDate: row.expenseDate,
+      notes: row.notes,
       createdBy: int.tryParse(row.createdBy) ?? 0,
       createdAt: row.expenseDate,
       updatedAt: row.expenseDate,
@@ -60,8 +64,14 @@ class BillingPaymentExpenseMapper {
       categoryId: Value(int.tryParse(e.category) ?? 1),
       amount: Value(e.amountPiasters),
       description: Value(e.description),
+      notes: Value(e.notes),
       expenseDate: Value(e.expenseDate),
       createdBy: Value(e.createdBy.toString()),
     );
+  }
+
+  /// Maps an [ExpenseCategory] row to the domain lookup entity.
+  static entity.BillingExpenseCategory toDomainCategory(ExpenseCategory row) {
+    return entity.BillingExpenseCategory(id: row.id, name: row.name);
   }
 }

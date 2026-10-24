@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:drift/drift.dart';
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice.dart'
@@ -14,12 +15,16 @@ class BillingInvoiceMapper {
     return entity.Invoice(
       id: row.id,
       patientId: row.patientId,
+      type: row.type,
+      customerName: row.customerName,
       invoiceNumber: row.invoiceNumber,
       invoiceDate: row.createdAt,
       totalPiasters: row.totalAmount,
+      discountPiasters: row.discountAmount,
       paidPiasters: row.netAmount,
       duePiasters: row.totalAmount - row.netAmount,
       status: row.status,
+      notes: row.notes,
       createdBy: 0,
       createdAt: row.createdAt,
       updatedAt: row.createdAt,
@@ -31,11 +36,14 @@ class BillingInvoiceMapper {
     return InvoicesCompanion(
       id: inv.id > 0 ? Value(inv.id) : const Value.absent(),
       patientId: Value(inv.patientId),
+      type: Value(inv.type),
+      customerName: Value(inv.customerName),
       invoiceNumber: Value(inv.invoiceNumber),
       totalAmount: Value(inv.totalPiasters),
-      discountAmount: const Value(0),
+      discountAmount: Value(inv.discountPiasters),
       netAmount: Value(inv.paidPiasters),
       status: Value(inv.status),
+      notes: Value(inv.notes),
       createdAt: Value(inv.invoiceDate),
     );
   }
@@ -57,7 +65,7 @@ class BillingInvoiceMapper {
     return InvoiceItemsCompanion(
       id: item.id > 0 ? Value(item.id) : const Value.absent(),
       invoiceId: Value(item.invoiceId),
-      itemType: const Value('service'),
+      itemType: const Value(AppConstants.invoiceItemTypeService),
       description: Value(item.description),
       quantity: Value(item.quantity),
       unitPrice: Value(item.unitPricePiasters),
