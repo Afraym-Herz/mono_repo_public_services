@@ -8,6 +8,7 @@ class Payment with _$Payment {
   const factory Payment({
     required int id,
     required int invoiceId,
+    int? patientId,
     required String receiptNumber,
     required int amountPiasters,
     required String paymentMethod,

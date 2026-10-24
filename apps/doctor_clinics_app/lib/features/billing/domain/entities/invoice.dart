@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'invoice.freezed.dart';
@@ -7,10 +8,13 @@ part 'invoice.g.dart';
 class Invoice with _$Invoice {
   const factory Invoice({
     required int id,
-    required int patientId,
+    int? patientId,
+    @Default(AppConstants.invoiceTypePatient) String type,
+    String? customerName,
     required String invoiceNumber,
     required DateTime invoiceDate,
     required int totalPiasters,
+    @Default(0) int discountPiasters,
     required int paidPiasters,
     required int duePiasters,
     required String status,

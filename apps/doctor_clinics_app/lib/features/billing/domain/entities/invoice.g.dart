@@ -9,10 +9,13 @@ part of 'invoice.dart';
 _$InvoiceImpl _$$InvoiceImplFromJson(Map<String, dynamic> json) =>
     _$InvoiceImpl(
       id: (json['id'] as num).toInt(),
-      patientId: (json['patientId'] as num).toInt(),
+      patientId: (json['patientId'] as num?)?.toInt(),
+      type: json['type'] as String? ?? AppConstants.invoiceTypePatient,
+      customerName: json['customerName'] as String?,
       invoiceNumber: json['invoiceNumber'] as String,
       invoiceDate: DateTime.parse(json['invoiceDate'] as String),
       totalPiasters: (json['totalPiasters'] as num).toInt(),
+      discountPiasters: (json['discountPiasters'] as num?)?.toInt() ?? 0,
       paidPiasters: (json['paidPiasters'] as num).toInt(),
       duePiasters: (json['duePiasters'] as num).toInt(),
       status: json['status'] as String,
@@ -29,9 +32,12 @@ Map<String, dynamic> _$$InvoiceImplToJson(_$InvoiceImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'patientId': instance.patientId,
+      'type': instance.type,
+      'customerName': instance.customerName,
       'invoiceNumber': instance.invoiceNumber,
       'invoiceDate': instance.invoiceDate.toIso8601String(),
       'totalPiasters': instance.totalPiasters,
+      'discountPiasters': instance.discountPiasters,
       'paidPiasters': instance.paidPiasters,
       'duePiasters': instance.duePiasters,
       'status': instance.status,

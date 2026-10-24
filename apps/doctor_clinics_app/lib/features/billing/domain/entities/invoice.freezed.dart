@@ -22,10 +22,13 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Invoice {
   int get id => throw _privateConstructorUsedError;
-  int get patientId => throw _privateConstructorUsedError;
+  int? get patientId => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  String? get customerName => throw _privateConstructorUsedError;
   String get invoiceNumber => throw _privateConstructorUsedError;
   DateTime get invoiceDate => throw _privateConstructorUsedError;
   int get totalPiasters => throw _privateConstructorUsedError;
+  int get discountPiasters => throw _privateConstructorUsedError;
   int get paidPiasters => throw _privateConstructorUsedError;
   int get duePiasters => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
@@ -51,10 +54,13 @@ abstract class $InvoiceCopyWith<$Res> {
   @useResult
   $Res call({
     int id,
-    int patientId,
+    int? patientId,
+    String type,
+    String? customerName,
     String invoiceNumber,
     DateTime invoiceDate,
     int totalPiasters,
+    int discountPiasters,
     int paidPiasters,
     int duePiasters,
     String status,
@@ -82,10 +88,13 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
   @override
   $Res call({
     Object? id = null,
-    Object? patientId = null,
+    Object? patientId = freezed,
+    Object? type = null,
+    Object? customerName = freezed,
     Object? invoiceNumber = null,
     Object? invoiceDate = null,
     Object? totalPiasters = null,
+    Object? discountPiasters = null,
     Object? paidPiasters = null,
     Object? duePiasters = null,
     Object? status = null,
@@ -101,10 +110,18 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
                       as int,
-            patientId: null == patientId
+            patientId: freezed == patientId
                 ? _value.patientId
                 : patientId // ignore: cast_nullable_to_non_nullable
-                      as int,
+                      as int?,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as String,
+            customerName: freezed == customerName
+                ? _value.customerName
+                : customerName // ignore: cast_nullable_to_non_nullable
+                      as String?,
             invoiceNumber: null == invoiceNumber
                 ? _value.invoiceNumber
                 : invoiceNumber // ignore: cast_nullable_to_non_nullable
@@ -116,6 +133,10 @@ class _$InvoiceCopyWithImpl<$Res, $Val extends Invoice>
             totalPiasters: null == totalPiasters
                 ? _value.totalPiasters
                 : totalPiasters // ignore: cast_nullable_to_non_nullable
+                      as int,
+            discountPiasters: null == discountPiasters
+                ? _value.discountPiasters
+                : discountPiasters // ignore: cast_nullable_to_non_nullable
                       as int,
             paidPiasters: null == paidPiasters
                 ? _value.paidPiasters
@@ -165,10 +186,13 @@ abstract class _$$InvoiceImplCopyWith<$Res> implements $InvoiceCopyWith<$Res> {
   @useResult
   $Res call({
     int id,
-    int patientId,
+    int? patientId,
+    String type,
+    String? customerName,
     String invoiceNumber,
     DateTime invoiceDate,
     int totalPiasters,
+    int discountPiasters,
     int paidPiasters,
     int duePiasters,
     String status,
@@ -195,10 +219,13 @@ class __$$InvoiceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? patientId = null,
+    Object? patientId = freezed,
+    Object? type = null,
+    Object? customerName = freezed,
     Object? invoiceNumber = null,
     Object? invoiceDate = null,
     Object? totalPiasters = null,
+    Object? discountPiasters = null,
     Object? paidPiasters = null,
     Object? duePiasters = null,
     Object? status = null,
@@ -214,10 +241,18 @@ class __$$InvoiceImplCopyWithImpl<$Res>
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
                   as int,
-        patientId: null == patientId
+        patientId: freezed == patientId
             ? _value.patientId
             : patientId // ignore: cast_nullable_to_non_nullable
-                  as int,
+                  as int?,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String,
+        customerName: freezed == customerName
+            ? _value.customerName
+            : customerName // ignore: cast_nullable_to_non_nullable
+                  as String?,
         invoiceNumber: null == invoiceNumber
             ? _value.invoiceNumber
             : invoiceNumber // ignore: cast_nullable_to_non_nullable
@@ -229,6 +264,10 @@ class __$$InvoiceImplCopyWithImpl<$Res>
         totalPiasters: null == totalPiasters
             ? _value.totalPiasters
             : totalPiasters // ignore: cast_nullable_to_non_nullable
+                  as int,
+        discountPiasters: null == discountPiasters
+            ? _value.discountPiasters
+            : discountPiasters // ignore: cast_nullable_to_non_nullable
                   as int,
         paidPiasters: null == paidPiasters
             ? _value.paidPiasters
@@ -272,10 +311,13 @@ class __$$InvoiceImplCopyWithImpl<$Res>
 class _$InvoiceImpl implements _Invoice {
   const _$InvoiceImpl({
     required this.id,
-    required this.patientId,
+    this.patientId,
+    this.type = AppConstants.invoiceTypePatient,
+    this.customerName,
     required this.invoiceNumber,
     required this.invoiceDate,
     required this.totalPiasters,
+    this.discountPiasters = 0,
     required this.paidPiasters,
     required this.duePiasters,
     required this.status,
@@ -292,13 +334,21 @@ class _$InvoiceImpl implements _Invoice {
   @override
   final int id;
   @override
-  final int patientId;
+  final int? patientId;
+  @override
+  @JsonKey()
+  final String type;
+  @override
+  final String? customerName;
   @override
   final String invoiceNumber;
   @override
   final DateTime invoiceDate;
   @override
   final int totalPiasters;
+  @override
+  @JsonKey()
+  final int discountPiasters;
   @override
   final int paidPiasters;
   @override
@@ -318,7 +368,7 @@ class _$InvoiceImpl implements _Invoice {
 
   @override
   String toString() {
-    return 'Invoice(id: $id, patientId: $patientId, invoiceNumber: $invoiceNumber, invoiceDate: $invoiceDate, totalPiasters: $totalPiasters, paidPiasters: $paidPiasters, duePiasters: $duePiasters, status: $status, notes: $notes, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'Invoice(id: $id, patientId: $patientId, type: $type, customerName: $customerName, invoiceNumber: $invoiceNumber, invoiceDate: $invoiceDate, totalPiasters: $totalPiasters, discountPiasters: $discountPiasters, paidPiasters: $paidPiasters, duePiasters: $duePiasters, status: $status, notes: $notes, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -329,12 +379,17 @@ class _$InvoiceImpl implements _Invoice {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.patientId, patientId) ||
                 other.patientId == patientId) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.customerName, customerName) ||
+                other.customerName == customerName) &&
             (identical(other.invoiceNumber, invoiceNumber) ||
                 other.invoiceNumber == invoiceNumber) &&
             (identical(other.invoiceDate, invoiceDate) ||
                 other.invoiceDate == invoiceDate) &&
             (identical(other.totalPiasters, totalPiasters) ||
                 other.totalPiasters == totalPiasters) &&
+            (identical(other.discountPiasters, discountPiasters) ||
+                other.discountPiasters == discountPiasters) &&
             (identical(other.paidPiasters, paidPiasters) ||
                 other.paidPiasters == paidPiasters) &&
             (identical(other.duePiasters, duePiasters) ||
@@ -357,9 +412,12 @@ class _$InvoiceImpl implements _Invoice {
     runtimeType,
     id,
     patientId,
+    type,
+    customerName,
     invoiceNumber,
     invoiceDate,
     totalPiasters,
+    discountPiasters,
     paidPiasters,
     duePiasters,
     status,
@@ -387,10 +445,13 @@ class _$InvoiceImpl implements _Invoice {
 abstract class _Invoice implements Invoice {
   const factory _Invoice({
     required final int id,
-    required final int patientId,
+    final int? patientId,
+    final String type,
+    final String? customerName,
     required final String invoiceNumber,
     required final DateTime invoiceDate,
     required final int totalPiasters,
+    final int discountPiasters,
     required final int paidPiasters,
     required final int duePiasters,
     required final String status,
@@ -406,13 +467,19 @@ abstract class _Invoice implements Invoice {
   @override
   int get id;
   @override
-  int get patientId;
+  int? get patientId;
+  @override
+  String get type;
+  @override
+  String? get customerName;
   @override
   String get invoiceNumber;
   @override
   DateTime get invoiceDate;
   @override
   int get totalPiasters;
+  @override
+  int get discountPiasters;
   @override
   int get paidPiasters;
   @override

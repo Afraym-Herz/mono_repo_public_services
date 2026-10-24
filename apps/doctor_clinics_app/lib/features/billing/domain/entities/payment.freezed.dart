@@ -23,6 +23,7 @@ Payment _$PaymentFromJson(Map<String, dynamic> json) {
 mixin _$Payment {
   int get id => throw _privateConstructorUsedError;
   int get invoiceId => throw _privateConstructorUsedError;
+  int? get patientId => throw _privateConstructorUsedError;
   String get receiptNumber => throw _privateConstructorUsedError;
   int get amountPiasters => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $PaymentCopyWith<$Res> {
   $Res call({
     int id,
     int invoiceId,
+    int? patientId,
     String receiptNumber,
     int amountPiasters,
     String paymentMethod,
@@ -75,6 +77,7 @@ class _$PaymentCopyWithImpl<$Res, $Val extends Payment>
   $Res call({
     Object? id = null,
     Object? invoiceId = null,
+    Object? patientId = freezed,
     Object? receiptNumber = null,
     Object? amountPiasters = null,
     Object? paymentMethod = null,
@@ -93,6 +96,10 @@ class _$PaymentCopyWithImpl<$Res, $Val extends Payment>
                 ? _value.invoiceId
                 : invoiceId // ignore: cast_nullable_to_non_nullable
                       as int,
+            patientId: freezed == patientId
+                ? _value.patientId
+                : patientId // ignore: cast_nullable_to_non_nullable
+                      as int?,
             receiptNumber: null == receiptNumber
                 ? _value.receiptNumber
                 : receiptNumber // ignore: cast_nullable_to_non_nullable
@@ -138,6 +145,7 @@ abstract class _$$PaymentImplCopyWith<$Res> implements $PaymentCopyWith<$Res> {
   $Res call({
     int id,
     int invoiceId,
+    int? patientId,
     String receiptNumber,
     int amountPiasters,
     String paymentMethod,
@@ -164,6 +172,7 @@ class __$$PaymentImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? invoiceId = null,
+    Object? patientId = freezed,
     Object? receiptNumber = null,
     Object? amountPiasters = null,
     Object? paymentMethod = null,
@@ -182,6 +191,10 @@ class __$$PaymentImplCopyWithImpl<$Res>
             ? _value.invoiceId
             : invoiceId // ignore: cast_nullable_to_non_nullable
                   as int,
+        patientId: freezed == patientId
+            ? _value.patientId
+            : patientId // ignore: cast_nullable_to_non_nullable
+                  as int?,
         receiptNumber: null == receiptNumber
             ? _value.receiptNumber
             : receiptNumber // ignore: cast_nullable_to_non_nullable
@@ -221,6 +234,7 @@ class _$PaymentImpl implements _Payment {
   const _$PaymentImpl({
     required this.id,
     required this.invoiceId,
+    this.patientId,
     required this.receiptNumber,
     required this.amountPiasters,
     required this.paymentMethod,
@@ -238,6 +252,8 @@ class _$PaymentImpl implements _Payment {
   @override
   final int invoiceId;
   @override
+  final int? patientId;
+  @override
   final String receiptNumber;
   @override
   final int amountPiasters;
@@ -254,7 +270,7 @@ class _$PaymentImpl implements _Payment {
 
   @override
   String toString() {
-    return 'Payment(id: $id, invoiceId: $invoiceId, receiptNumber: $receiptNumber, amountPiasters: $amountPiasters, paymentMethod: $paymentMethod, paymentDate: $paymentDate, notes: $notes, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'Payment(id: $id, invoiceId: $invoiceId, patientId: $patientId, receiptNumber: $receiptNumber, amountPiasters: $amountPiasters, paymentMethod: $paymentMethod, paymentDate: $paymentDate, notes: $notes, createdBy: $createdBy, createdAt: $createdAt)';
   }
 
   @override
@@ -265,6 +281,8 @@ class _$PaymentImpl implements _Payment {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.invoiceId, invoiceId) ||
                 other.invoiceId == invoiceId) &&
+            (identical(other.patientId, patientId) ||
+                other.patientId == patientId) &&
             (identical(other.receiptNumber, receiptNumber) ||
                 other.receiptNumber == receiptNumber) &&
             (identical(other.amountPiasters, amountPiasters) ||
@@ -286,6 +304,7 @@ class _$PaymentImpl implements _Payment {
     runtimeType,
     id,
     invoiceId,
+    patientId,
     receiptNumber,
     amountPiasters,
     paymentMethod,
@@ -313,6 +332,7 @@ abstract class _Payment implements Payment {
   const factory _Payment({
     required final int id,
     required final int invoiceId,
+    final int? patientId,
     required final String receiptNumber,
     required final int amountPiasters,
     required final String paymentMethod,
@@ -328,6 +348,8 @@ abstract class _Payment implements Payment {
   int get id;
   @override
   int get invoiceId;
+  @override
+  int? get patientId;
   @override
   String get receiptNumber;
   @override

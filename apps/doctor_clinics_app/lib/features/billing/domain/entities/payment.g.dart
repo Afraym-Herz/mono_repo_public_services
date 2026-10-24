@@ -10,6 +10,7 @@ _$PaymentImpl _$$PaymentImplFromJson(Map<String, dynamic> json) =>
     _$PaymentImpl(
       id: (json['id'] as num).toInt(),
       invoiceId: (json['invoiceId'] as num).toInt(),
+      patientId: (json['patientId'] as num?)?.toInt(),
       receiptNumber: json['receiptNumber'] as String,
       amountPiasters: (json['amountPiasters'] as num).toInt(),
       paymentMethod: json['paymentMethod'] as String,
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$PaymentImplToJson(_$PaymentImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'invoiceId': instance.invoiceId,
+      'patientId': instance.patientId,
       'receiptNumber': instance.receiptNumber,
       'amountPiasters': instance.amountPiasters,
       'paymentMethod': instance.paymentMethod,
