@@ -50,7 +50,7 @@ class PatientDemoHistory {
 
     await dao.insertInvoice(
       InvoicesCompanion.insert(
-        patientId: patientId,
+        patientId: Value(patientId),
         invoiceNumber: 'DEMO-INV-$fileNumber',
         totalAmount: debt,
         discountAmount: 0,

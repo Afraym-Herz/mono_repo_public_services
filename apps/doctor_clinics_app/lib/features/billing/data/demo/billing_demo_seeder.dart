@@ -88,7 +88,7 @@ class BillingDemoSeeder {
 
     final invoiceId = await billingDao.insertInvoice(
       InvoicesCompanion.insert(
-        patientId: appointment.patientId,
+        patientId: Value(appointment.patientId),
         invoiceNumber: invoiceNumber,
         totalAmount: total,
         discountAmount: 0,
@@ -146,7 +146,7 @@ class BillingDemoSeeder {
     return billingDao.insertPayment(
       PaymentsCompanion.insert(
         invoiceId: invoiceId,
-        patientId: patientId,
+        patientId: Value(patientId),
         receiptNumber: receiptNumber,
         amount: amount,
         paymentMethod: method,

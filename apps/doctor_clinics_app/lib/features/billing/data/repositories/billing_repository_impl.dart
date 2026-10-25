@@ -2,10 +2,15 @@ import 'package:core/core.dart';
 import 'package:doctor_clinics_app/features/billing/data/datasources/billing_datasource.dart';
 import 'package:doctor_clinics_app/features/billing/data/repositories/billing_repository_guard.dart';
 import 'package:doctor_clinics_app/features/billing/data/repositories/billing_repository_reads.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/billing_expense_category.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/expense.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice_item.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/purchase.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/purchase_item.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/purchase_payment.dart';
+import 'package:doctor_clinics_app/features/billing/domain/entities/vendor.dart';
 import 'package:doctor_clinics_app/features/billing/domain/repositories/billing_repository.dart';
 
 class BillingRepositoryImpl
