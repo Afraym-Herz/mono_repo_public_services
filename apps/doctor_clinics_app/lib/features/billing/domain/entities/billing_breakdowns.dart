@@ -12,12 +12,10 @@ class BillingCashSummary {
   const BillingCashSummary({
     required this.openingPiasters,
     required this.collectedPiasters,
-    required this.expensesPiasters,
     required this.expectedPiasters,
   });
 
   final int openingPiasters;
   final int collectedPiasters;
-  final int expensesPiasters;
   final int expectedPiasters;
 }

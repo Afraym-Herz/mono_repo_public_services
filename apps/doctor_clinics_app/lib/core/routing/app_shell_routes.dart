@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:doctor_clinics_app/features/billing/presentation/screens/billing_screen.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/screens/expenses_screen.dart';
 import 'package:doctor_clinics_app/features/navigation/presentation/layouts/app_shell_layout.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/screens/operation_screen.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/screens/patient_list_screen.dart';
@@ -39,6 +40,11 @@ List<RouteBase> buildAppShellRoutes() {
       path: Routes.billing,
       name: Routes.routeBilling,
       child: const BillingScreen(),
+    ),
+    _shellRoute(
+      path: Routes.expenses,
+      name: Routes.routeExpenses,
+      child: const ExpensesScreen(),
     ),
   ];
 }

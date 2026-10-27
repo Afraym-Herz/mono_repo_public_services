@@ -9,13 +9,13 @@ import 'package:doctor_clinics_app/core/database/daos/queue_dao.dart';
 import 'package:doctor_clinics_app/features/queue/data/demo/demo_month_schedule.dart';
 import 'package:doctor_clinics_app/features/queue/data/demo/demo_today_seed.dart';
 
-/// Turns the demo appointments and queue visits into invoices, receipts and
-/// clinic expenses, so the accounts workspace reflects the same clinic activity
-/// the queue and appointment planner show.
+/// Turns the demo appointments and queue visits into invoices and receipts, so
+/// the accounts workspace reflects the same clinic activity the queue and
+/// appointment planner show.
 ///
-/// Only rows written by the queue demo seeders are billed. Real appointments,
-/// invoices and expenses are never modified, and every demo invoice is keyed by
-/// its appointment id so re-running the seeder never duplicates it.
+/// Only rows written by the queue demo seeders are billed. Real appointments
+/// and invoices are never modified, and every demo invoice is keyed by its
+/// appointment id so re-running the seeder never duplicates it.
 class BillingDemoSeeder {
   BillingDemoSeeder({required this.billingDao, required this.queueDao});
 
@@ -63,8 +63,6 @@ class BillingDemoSeeder {
 
       await _seedVisit(appointment, entry, today, invoiceNumber);
     }
-
-    await _seedExpenses(now);
   }
 
   Future<void> _seedVisit(
@@ -157,36 +155,6 @@ class BillingDemoSeeder {
     );
   }
 
-  Future<void> _seedExpenses(DateTime now) async {
-    final expenses = await billingDao.getAllExpenses();
-    if (expenses.any((expense) => expense.createdBy == _createdBy)) return;
-
-    final categories = await billingDao.getExpenseCategories();
-    final categoryIds = {
-      for (final category in categories) category.name: category.id,
-    };
-    for (final name in _categoryNames) {
-      if (categoryIds.containsKey(name)) continue;
-      categoryIds[name] = await billingDao.insertExpenseCategory(
-        ExpenseCategoriesCompanion.insert(name: name),
-      );
-    }
-
-    for (final spec in _expenseSpecs) {
-      final categoryId = categoryIds[spec.category];
-      if (categoryId == null) continue;
-      await billingDao.insertExpense(
-        ExpensesCompanion.insert(
-          categoryId: categoryId,
-          amount: spec.amountPiasters,
-          description: Value(spec.description),
-          expenseDate: now.subtract(Duration(days: spec.daysAgo)),
-          createdBy: _createdBy,
-        ),
-      );
-    }
-  }
-
   /// Day-only demo appointments have no clock time, so spread them through the
   /// morning to keep the hourly chart readable.
   static DateTime _visitDate(Appointment appointment, QueueEntry? entry) {
@@ -240,65 +208,4 @@ class BillingDemoSeeder {
         ? AppConstants.invoiceStatusPaid
         : AppConstants.invoiceStatusPartiallyPaid;
   }
-
-  static const List<String> _categoryNames = [
-    'إيجار العيادة',
-    'مستلزمات طبية',
-    'رواتب وأجور',
-    'كهرباء ومياه',
-    'صيانة',
-  ];
-
-  static const List<_ExpenseSpec> _expenseSpecs = [
-    _ExpenseSpec(
-      category: 'مستلزمات طبية',
-      description: 'مستلزمات تعقيم وغيارات',
-      amountPiasters: 85000,
-      daysAgo: 0,
-    ),
-    _ExpenseSpec(
-      category: 'إيجار العيادة',
-      description: 'إيجار الشهر الحالي',
-      amountPiasters: 450000,
-      daysAgo: 3,
-    ),
-    _ExpenseSpec(
-      category: 'مستلزمات طبية',
-      description: 'شراء قفازات وأقنعة',
-      amountPiasters: 45000,
-      daysAgo: 5,
-    ),
-    _ExpenseSpec(
-      category: 'رواتب وأجور',
-      description: 'رواتب فريق التمريض',
-      amountPiasters: 600000,
-      daysAgo: 7,
-    ),
-    _ExpenseSpec(
-      category: 'كهرباء ومياه',
-      description: 'فواتير المرافق',
-      amountPiasters: 60000,
-      daysAgo: 12,
-    ),
-    _ExpenseSpec(
-      category: 'صيانة',
-      description: 'صيانة جهاز الأشعة',
-      amountPiasters: 35000,
-      daysAgo: 20,
-    ),
-  ];
-}
-
-class _ExpenseSpec {
-  const _ExpenseSpec({
-    required this.category,
-    required this.description,
-    required this.amountPiasters,
-    required this.daysAgo,
-  });
-
-  final String category;
-  final String description;
-  final int amountPiasters;
-  final int daysAgo;
 }
