@@ -21,4 +21,11 @@ class OperationFormValidators {
     if (amount == null || amount < 0) return 0;
     return (amount * 100).round();
   }
+
+  /// Inverse of [toPiasters]: stored piasters back to a plain EGP field value.
+  static String fromPiasters(int? piasters) {
+    if (piasters == null || piasters == 0) return '';
+    final value = (piasters / 100).toStringAsFixed(2);
+    return value.endsWith('.00') ? value.substring(0, value.length - 3) : value;
+  }
 }

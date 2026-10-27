@@ -33,7 +33,7 @@ class OperationCardPatientInfo extends StatelessWidget {
           children: [
             Expanded(
               child: ResponsiveText(
-                entry.operation.name,
+                patient?.fullName ?? 'operations_board.patient.unknown'.tr(),
                 fontSize: Dimensions.FONT_SIZE_DEFAULT,
                 fontWeight: FontWeight.w700,
                 color: context.clinicTextPrimary,
@@ -47,13 +47,14 @@ class OperationCardPatientInfo extends StatelessWidget {
         ),
         SizedBox(height: Dimensions.PADDING_SIZE_BORDER.h / 2),
         ResponsiveText(
-          patient?.fullName ?? 'operations_board.patient.unknown'.tr(),
+          entry.operation.name,
           fontSize: Dimensions.FONT_SIZE_SMALL,
           fontWeight: FontWeight.w600,
-          color: context.clinicTextPrimary,
+          color: context.clinicTextSecondary,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
+        SizedBox(height: Dimensions.PADDING_SIZE_BORDER.h / 4),
         ResponsiveText(
           details,
           fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,

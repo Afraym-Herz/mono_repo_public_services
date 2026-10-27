@@ -9,11 +9,20 @@ import 'package:doctor_clinics_app/features/operations/presentation/widgets/oper
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_form_patient_field.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_form_tests_field.dart';
 
-/// Scrollable body of the new-operation modal.
+/// Scrollable body of the operation form.
+///
+/// The finance fields are new-operation only: the deposit and the cost already
+/// produced billing rows at insert, and editing them here would leave the
+/// ledger out of step with the operation.
 class OperationFormFields extends StatelessWidget {
-  const OperationFormFields({super.key, required this.controller});
+  const OperationFormFields({
+    super.key,
+    required this.controller,
+    required this.isEditing,
+  });
 
   final OperationFormController controller;
+  final bool isEditing;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +32,10 @@ class OperationFormFields extends StatelessWidget {
         OperationFormPatientField(controller: controller),
         SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
         OperationFormDetailsFields(controller: controller),
-        SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
-        OperationFormFinanceFields(controller: controller),
+        if (!isEditing) ...[
+          SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
+          OperationFormFinanceFields(controller: controller),
+        ],
         SizedBox(height: Dimensions.PADDING_SIZE_SMALL.h),
         AppTextField(
           controller: controller.notes,

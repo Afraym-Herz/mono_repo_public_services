@@ -8,7 +8,6 @@ class OperationBoardState with _$OperationBoardState {
     required List<OperationEntry> entries,
     required OperationFilter filter,
     DateTime? focusedDay,
-    int? expandedId,
   }) = OperationBoardLoaded;
   const factory OperationBoardState.error({required String message}) = _Error;
 }

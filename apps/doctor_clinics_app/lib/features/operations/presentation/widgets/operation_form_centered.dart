@@ -10,11 +10,13 @@ class OperationFormCentered extends StatelessWidget {
   const OperationFormCentered({
     super.key,
     required this.controller,
+    required this.isEditing,
     required this.onClose,
     required this.onSave,
   });
 
   final OperationFormController controller;
+  final bool isEditing;
   final VoidCallback onClose;
   final VoidCallback onSave;
 
@@ -32,6 +34,7 @@ class OperationFormCentered extends StatelessWidget {
           ),
           child: OperationFormView(
             controller: controller,
+            isEditing: isEditing,
             onClose: onClose,
             onSave: onSave,
           ),

@@ -47,6 +47,15 @@ class OperationRepositoryImpl implements IOperationRepository {
       guardOperationVoid('update', () => datasource.update(operation));
 
   @override
+  FutureResult<void> updateWithTests(
+    Operation operation,
+    List<String> testNames,
+  ) => guardOperationVoid(
+    'updateWithTests',
+    () => datasource.updateWithTests(operation, testNames),
+  );
+
+  @override
   FutureResult<void> softDelete(int id) =>
       guardOperationVoid('softDelete', () => datasource.softDelete(id));
 

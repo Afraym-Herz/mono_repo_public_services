@@ -2,11 +2,13 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doctor_clinics_app/features/operations/domain/entities/operation.dart';
-import 'package:doctor_clinics_app/features/operations/presentation/helpers/operation_form_validators.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
 import 'package:doctor_clinics_app/features/patients/domain/repositories/patient_repository.dart';
 
-/// Holds the new-operation form values without rebuilding the whole modal.
+/// Holds the operation form values without rebuilding the whole modal.
+///
+/// Edit-mode seeding and entity building live on the [OperationFormValues]
+/// extension so create and edit share one controller.
 class OperationFormController {
   OperationFormController() {
     loadPatients();
@@ -26,6 +28,9 @@ class OperationFormController {
   final ValueNotifier<DateTime> date = ValueNotifier(_today());
   final ValueNotifier<TimeOfDay?> time = ValueNotifier(TimeOfDay.now());
   final ValueNotifier<List<String>> tests = ValueNotifier(const []);
+
+  /// The row being edited; `null` while scheduling a new operation.
+  Operation? original;
 
   bool _disposed = false;
 
@@ -50,25 +55,6 @@ class OperationFormController {
     tests.value = tests.value.where((test) => test != value).toList();
   }
 
-  Operation toOperation() {
-    final now = DateTime.now();
-    return Operation(
-      id: 0,
-      patientId: patientId.value!,
-      name: name.text.trim(),
-      scheduledDate: date.value,
-      scheduledTime: _formatTime(time.value),
-      surgeonName: surgeon.text.trim().isEmpty ? null : surgeon.text.trim(),
-      notes: notes.text.trim().isEmpty ? null : notes.text.trim(),
-      status: AppConstants.operationStatusScheduled,
-      depositPiasters: OperationFormValidators.toPiasters(deposit.text),
-      totalCostPiasters: OperationFormValidators.toPiasters(cost.text),
-      createdBy: 0,
-      createdAt: now,
-      updatedAt: now,
-    );
-  }
-
   void dispose() {
     _disposed = true;
     name.dispose();
@@ -88,12 +74,5 @@ class OperationFormController {
   static DateTime _today() {
     final now = DateTime.now();
     return DateTime(now.year, now.month, now.day);
-  }
-
-  static String? _formatTime(TimeOfDay? value) {
-    if (value == null) return null;
-    final hour = value.hour.toString().padLeft(2, '0');
-    final minute = value.minute.toString().padLeft(2, '0');
-    return '$hour:$minute';
   }
 }

@@ -12,7 +12,7 @@ import 'package:doctor_clinics_app/features/operations/presentation/widgets/oper
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_patient_section.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_tests_section.dart';
 
-/// Expanded content of an operation card.
+/// Detail sections shown inside the operation details modal.
 class OperationCardDetails extends StatelessWidget {
   const OperationCardDetails({
     super.key,

@@ -13,6 +13,12 @@ abstract class IOperationRepository {
     List<String> testNames,
   );
   FutureResult<void> update(Operation operation);
+
+  /// Updates the operation and makes its stored checklist match [testNames].
+  FutureResult<void> updateWithTests(
+    Operation operation,
+    List<String> testNames,
+  );
   FutureResult<void> softDelete(int id);
 
   //   Required tests

@@ -1,8 +1,8 @@
 part of 'operation_board_cubit.dart';
 
-/// Client-side board navigation: status tabs, week focus and card expansion.
+/// Client-side board navigation: status tabs and week focus.
 mixin OperationBoardNavigation on Cubit<OperationBoardState> {
-  /// Switches the active status tab, collapsing any open card.
+  /// Switches the active status tab.
   void setFilter(OperationFilter filter) => _apply(
     filter: filter,
     focusedDay: state.maybeMap(
@@ -40,32 +40,12 @@ mixin OperationBoardNavigation on Cubit<OperationBoardState> {
     _apply(filter: current.filter);
   }
 
-  /// Expands [operationId] or collapses it when it is already open.
-  void toggleEntry(int operationId) {
-    final current = state.maybeMap(
-      loaded: (loaded) => loaded,
-      orElse: () => null,
-    );
-    if (current == null) return;
-    emit(
-      current.copyWith(
-        expandedId: current.expandedId == operationId ? null : operationId,
-      ),
-    );
-  }
-
   void _apply({required OperationFilter filter, DateTime? focusedDay}) {
     final current = state.maybeMap(
       loaded: (loaded) => loaded,
       orElse: () => null,
     );
     if (current == null) return;
-    emit(
-      current.copyWith(
-        filter: filter,
-        focusedDay: focusedDay,
-        expandedId: null,
-      ),
-    );
+    emit(current.copyWith(filter: filter, focusedDay: focusedDay));
   }
 }

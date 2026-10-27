@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/operations/presentation/models/operation_entry.dart';
 
-/// Footer actions of an expanded operation card.
+/// Footer actions of the operation details modal.
 class OperationCardActions extends StatelessWidget {
   const OperationCardActions({
     super.key,

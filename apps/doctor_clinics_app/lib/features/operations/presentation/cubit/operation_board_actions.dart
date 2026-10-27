@@ -8,7 +8,7 @@ part of 'operation_board_cubit.dart';
 mixin OperationBoardActions on Cubit<OperationBoardState> {
   IOperationRepository get operationRepository;
 
-  Future<void> load({int? keepExpandedId});
+  Future<void> load();
 
   Future<String?> toggleTest(
     OperationEntry entry,
@@ -16,7 +16,7 @@ mixin OperationBoardActions on Cubit<OperationBoardState> {
   ) async {
     final updated = test.copyWith(isDone: !(test.isDone ?? false));
     final result = await operationRepository.updateRequiredTest(updated);
-    return _finish(result, keepExpandedId: entry.operation.id);
+    return _finish(result);
   }
 
   Future<String?> complete(OperationEntry entry) =>
@@ -36,16 +36,13 @@ mixin OperationBoardActions on Cubit<OperationBoardState> {
       updatedAt: DateTime.now(),
     );
     final result = await operationRepository.update(operation);
-    return _finish(result, keepExpandedId: entry.operation.id);
+    return _finish(result);
   }
 
-  Future<String?> _finish(
-    Either<Failure, void> result, {
-    int? keepExpandedId,
-  }) async {
+  Future<String?> _finish(Either<Failure, void> result) async {
     final failure = result.fold<Failure?>((failure) => failure, (_) => null);
     if (failure != null) return failure.message;
-    await load(keepExpandedId: keepExpandedId);
+    await load();
     return null;
   }
 }

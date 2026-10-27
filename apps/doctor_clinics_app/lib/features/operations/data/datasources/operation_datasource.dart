@@ -9,6 +9,9 @@ abstract class IOperationDatasource {
   Future<int> insert(Operation operation);
   Future<int> insertWithTests(Operation operation, List<String> testNames);
   Future<void> update(Operation operation);
+
+  /// Updates the operation row and makes its checklist match [testNames].
+  Future<void> updateWithTests(Operation operation, List<String> testNames);
   Future<void> softDelete(int id);
 
   Future<List<OperationRequiredTest>> fetchRequiredTests(int operationId);

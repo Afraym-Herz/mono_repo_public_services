@@ -7,7 +7,7 @@ import 'package:doctor_clinics_app/features/operations/domain/repositories/opera
 part 'operation_form_state.dart';
 part 'operation_form_cubit.freezed.dart';
 
-/// Creates one operation together with its required-test checklist.
+/// Creates or updates one operation together with its required-test checklist.
 class OperationFormCubit extends Cubit<OperationFormState> {
   OperationFormCubit({required this.repository})
     : super(const OperationFormState.initial());
@@ -26,6 +26,22 @@ class OperationFormCubit extends Cubit<OperationFormState> {
     result.fold(
       (failure) => emit(OperationFormState.error(message: failure.message)),
       (created) => emit(OperationFormState.saved(operation: created)),
+    );
+  }
+
+  /// Persists the edited operation and syncs its checklist names.
+  Future<void> update({
+    required Operation operation,
+    required List<String> testNames,
+  }) async {
+    if (state.maybeMap(saving: (_) => true, orElse: () => false)) return;
+    emit(const OperationFormState.saving());
+
+    final result = await repository.updateWithTests(operation, testNames);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(OperationFormState.error(message: failure.message)),
+      (_) => emit(OperationFormState.saved(operation: operation)),
     );
   }
 }

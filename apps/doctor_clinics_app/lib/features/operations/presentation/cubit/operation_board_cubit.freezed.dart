@@ -25,7 +25,6 @@ mixin _$OperationBoardState {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )
     loaded,
     required TResult Function(String message) error,
@@ -38,7 +37,6 @@ mixin _$OperationBoardState {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -51,7 +49,6 @@ mixin _$OperationBoardState {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -152,7 +149,6 @@ class _$InitialImpl implements _Initial {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )
     loaded,
     required TResult Function(String message) error,
@@ -169,7 +165,6 @@ class _$InitialImpl implements _Initial {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -186,7 +181,6 @@ class _$InitialImpl implements _Initial {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -289,7 +283,6 @@ class _$LoadingImpl implements _Loading {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )
     loaded,
     required TResult Function(String message) error,
@@ -306,7 +299,6 @@ class _$LoadingImpl implements _Loading {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -323,7 +315,6 @@ class _$LoadingImpl implements _Loading {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -388,7 +379,6 @@ abstract class _$$OperationBoardLoadedImplCopyWith<$Res> {
     List<OperationEntry> entries,
     OperationFilter filter,
     DateTime? focusedDay,
-    int? expandedId,
   });
 }
 
@@ -409,7 +399,6 @@ class __$$OperationBoardLoadedImplCopyWithImpl<$Res>
     Object? entries = null,
     Object? filter = null,
     Object? focusedDay = freezed,
-    Object? expandedId = freezed,
   }) {
     return _then(
       _$OperationBoardLoadedImpl(
@@ -425,10 +414,6 @@ class __$$OperationBoardLoadedImplCopyWithImpl<$Res>
             ? _value.focusedDay
             : focusedDay // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
-        expandedId: freezed == expandedId
-            ? _value.expandedId
-            : expandedId // ignore: cast_nullable_to_non_nullable
-                  as int?,
       ),
     );
   }
@@ -441,7 +426,6 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
     required final List<OperationEntry> entries,
     required this.filter,
     this.focusedDay,
-    this.expandedId,
   }) : _entries = entries;
 
   final List<OperationEntry> _entries;
@@ -456,12 +440,10 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
   final OperationFilter filter;
   @override
   final DateTime? focusedDay;
-  @override
-  final int? expandedId;
 
   @override
   String toString() {
-    return 'OperationBoardState.loaded(entries: $entries, filter: $filter, focusedDay: $focusedDay, expandedId: $expandedId)';
+    return 'OperationBoardState.loaded(entries: $entries, filter: $filter, focusedDay: $focusedDay)';
   }
 
   @override
@@ -472,9 +454,7 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
             const DeepCollectionEquality().equals(other._entries, _entries) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.focusedDay, focusedDay) ||
-                other.focusedDay == focusedDay) &&
-            (identical(other.expandedId, expandedId) ||
-                other.expandedId == expandedId));
+                other.focusedDay == focusedDay));
   }
 
   @override
@@ -483,7 +463,6 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
     const DeepCollectionEquality().hash(_entries),
     filter,
     focusedDay,
-    expandedId,
   );
 
   /// Create a copy of OperationBoardState
@@ -507,12 +486,11 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )
     loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(entries, filter, focusedDay, expandedId);
+    return loaded(entries, filter, focusedDay);
   }
 
   @override
@@ -524,12 +502,11 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(entries, filter, focusedDay, expandedId);
+    return loaded?.call(entries, filter, focusedDay);
   }
 
   @override
@@ -541,14 +518,13 @@ class _$OperationBoardLoadedImpl implements OperationBoardLoaded {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(entries, filter, focusedDay, expandedId);
+      return loaded(entries, filter, focusedDay);
     }
     return orElse();
   }
@@ -596,13 +572,11 @@ abstract class OperationBoardLoaded implements OperationBoardState {
     required final List<OperationEntry> entries,
     required final OperationFilter filter,
     final DateTime? focusedDay,
-    final int? expandedId,
   }) = _$OperationBoardLoadedImpl;
 
   List<OperationEntry> get entries;
   OperationFilter get filter;
   DateTime? get focusedDay;
-  int? get expandedId;
 
   /// Create a copy of OperationBoardState
   /// with the given fields replaced by the non-null parameter values.
@@ -687,7 +661,6 @@ class _$ErrorImpl implements _Error {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )
     loaded,
     required TResult Function(String message) error,
@@ -704,7 +677,6 @@ class _$ErrorImpl implements _Error {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -721,7 +693,6 @@ class _$ErrorImpl implements _Error {
       List<OperationEntry> entries,
       OperationFilter filter,
       DateTime? focusedDay,
-      int? expandedId,
     )?
     loaded,
     TResult Function(String message)? error,

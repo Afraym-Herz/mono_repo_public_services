@@ -65,4 +65,10 @@ const List<SideNavDestination> sideNavDestinations = [
     activeIcon: Icons.account_balance_wallet_rounded,
     route: Routes.billing,
   ),
+  SideNavDestination(
+    labelKey: 'nav_expenses',
+    icon: Icons.wallet_outlined,
+    activeIcon: Icons.wallet_rounded,
+    route: Routes.expenses,
+  ),
 ];

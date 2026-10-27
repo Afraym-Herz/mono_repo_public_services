@@ -18,8 +18,8 @@ part 'operation_board_navigation.dart';
 /// Loads and filters the surgical-operations board.
 ///
 /// The board is one read model (operations + patients + tests) kept in state;
-/// status tabs, week focus and card expansion stay client-side so switching
-/// never re-queries the database.
+/// status tabs and the week focus stay client-side so switching never
+/// re-queries the database.
 class OperationBoardCubit extends Cubit<OperationBoardState>
     with OperationBoardActions, OperationBoardNavigation {
   OperationBoardCubit({
@@ -32,9 +32,12 @@ class OperationBoardCubit extends Cubit<OperationBoardState>
 
   final PatientRepository patientRepository;
 
-  /// Reloads the board, keeping the active tab, day focus and expanded card.
+  /// Reloads the board, keeping the active tab and day focus.
+  ///
+  /// The modal routes own their own board cubit, so every `emit` after an
+  /// await is guarded against a dispose that happened mid-load.
   @override
-  Future<void> load({int? keepExpandedId}) async {
+  Future<void> load() async {
     final current = state.maybeMap(
       loaded: (loaded) => loaded,
       orElse: () => null,
@@ -45,26 +48,17 @@ class OperationBoardCubit extends Cubit<OperationBoardState>
       operations: operationRepository,
       patients: patientRepository,
     );
+    if (isClosed) return;
     if (!result.isSuccess) {
       emit(OperationBoardState.error(message: result.error ?? ''));
       return;
     }
 
-    final entries = result.entries;
-    final filter = current?.filter ?? OperationFilter.all;
-    final focusedDay = current?.focusedDay;
-    final visible = applyOperationFilter(entries, filter, day: focusedDay);
-    final requested = keepExpandedId ?? current?.expandedId;
-    final expandedId = visible.any((entry) => entry.operation.id == requested)
-        ? requested
-        : null;
-
     emit(
       OperationBoardState.loaded(
-        entries: entries,
-        filter: filter,
-        focusedDay: focusedDay,
-        expandedId: expandedId,
+        entries: result.entries,
+        filter: current?.filter ?? OperationFilter.all,
+        focusedDay: current?.focusedDay,
       ),
     );
   }

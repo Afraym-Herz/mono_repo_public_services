@@ -5,10 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:doctor_clinics_app/features/operations/domain/entities/operation_required_test.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_board_cubit.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/helpers/open_operation_edit.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/models/operation_entry.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_confirm_dialog.dart';
 
-/// Snackbar-returning handlers shared by the operation cards.
+/// Snackbar-returning handlers shared by the operation cards and the
+/// details modal.
+///
+/// Every handler reloads the [OperationBoardCubit] that is in scope: the board
+/// behind the modal when called there, the modal's own copy when called from
+/// the details panel.
 class OperationBoardHandlers {
   const OperationBoardHandlers._();
 
@@ -71,10 +77,11 @@ class OperationBoardHandlers {
     );
   }
 
-  static void edit(BuildContext context) {
-    AppSnackBar.showInfo(
-      context,
-      'operations_board.feedback.edit_unavailable'.tr(),
-    );
+  /// Opens the edit modal for [entry] and refreshes the board in scope.
+  static Future<void> edit(BuildContext context, OperationEntry entry) async {
+    final saved = await openOperationEdit(context, entry.operation.id);
+    if (!saved || !context.mounted) return;
+    AppSnackBar.showSuccess(context, 'operation_form.updated'.tr());
+    await context.read<OperationBoardCubit>().load();
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/features/operations/presentation/cubit/operation_board_cubit.dart';
-import 'package:doctor_clinics_app/features/operations/presentation/helpers/operation_board_handlers.dart';
+import 'package:doctor_clinics_app/features/operations/presentation/helpers/open_operation_details.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/helpers/operation_board_view.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_board_layout.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_empty_state.dart';
@@ -47,15 +47,8 @@ class OperationBoardContent extends StatelessWidget {
                 )
               : OperationList(
                   entries: view.visible,
-                  expandedId: state.expandedId,
-                  onToggle: cubit.toggleEntry,
-                  onToggleTest: (entry, test) =>
-                      OperationBoardHandlers.toggleTest(context, entry, test),
-                  onComplete: (entry) =>
-                      OperationBoardHandlers.complete(context, entry),
-                  onCancel: (entry) =>
-                      OperationBoardHandlers.cancel(context, entry),
-                  onEdit: (_) => OperationBoardHandlers.edit(context),
+                  onOpenDetails: (entry) =>
+                      openOperationDetails(context, entry.operation.id),
                 ),
           sidebar: OperationSidebar(
             stats: view.stats,

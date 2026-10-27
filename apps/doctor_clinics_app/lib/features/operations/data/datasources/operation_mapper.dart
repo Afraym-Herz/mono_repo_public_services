@@ -23,9 +23,10 @@ class OperationMapper {
       status: row.status,
       depositPiasters: row.depositAmount,
       totalCostPiasters: row.cost,
-      createdBy: 0,
-      createdAt: row.scheduledDate,
-      updatedAt: row.scheduledDate,
+      createdBy: int.tryParse(row.createdBy) ?? 0,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
+      deletedAt: row.deletedAt,
     );
   }
 
@@ -42,6 +43,10 @@ class OperationMapper {
       status: Value(op.status ?? AppConstants.operationStatusScheduled),
       cost: Value(op.totalCostPiasters ?? 0),
       depositAmount: Value(op.depositPiasters ?? 0),
+      createdBy: Value(op.createdBy.toString()),
+      createdAt: Value(op.createdAt),
+      updatedAt: Value(op.updatedAt),
+      deletedAt: Value(op.deletedAt),
     );
   }
 
@@ -54,6 +59,7 @@ class OperationMapper {
       operationId: Value(test.operationId),
       testName: Value(test.testName),
       isCompleted: Value(test.isDone ?? false),
+      result: Value(test.result),
       notes: Value(test.notes),
     );
   }
@@ -67,6 +73,7 @@ class OperationMapper {
       operationId: Value(test.operationId),
       testName: Value(test.testName),
       isCompleted: Value(test.isDone ?? false),
+      result: Value(test.result),
       notes: Value(test.notes),
     );
   }
@@ -78,6 +85,7 @@ class OperationMapper {
       operationId: row.operationId,
       testName: row.testName,
       isDone: row.isCompleted,
+      result: row.result,
       notes: row.notes,
     );
   }
