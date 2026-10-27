@@ -8,6 +8,7 @@
   "nav_patients": "Patients",
   "nav_operations": "Operations",
   "nav_accounts": "Accounts",
+  "nav_expenses": "Expenses",
   "nav_clinic_specialty": "Internal medicine & diabetes",
   "nav_version": "Version 2.0.6",
   "settings_title": "Settings",
@@ -133,15 +134,23 @@
     "logout_confirm_title": "Confirm logout",
     "logout_confirm_message": "Are you sure you want to log out?"
   },
+  "expenses": {
+    "title": "Expenses & Purchases",
+    "subtitle": "Track clinic spending, supplier bills and payables"
+  },
   "billing": {
     "title": "Accounts & Revenue",
-    "subtitle": "Track invoices, payments, expenses and collections",
+    "subtitle": "Track invoices, payments and collections",
     "currency": "EGP",
     "search_hint": "Search by patient, invoice or receipt number…",
     "action": {
       "export": "Export report",
       "export_unavailable": "Report export is not available in this version",
-      "new_invoice": "New invoice"
+      "new": "New",
+      "new_invoice": "New invoice",
+      "new_sale": "New sale",
+      "new_purchase": "New purchase",
+      "new_expense": "New expense"
     },
     "invoice_form": {
       "title": "New invoice",
@@ -151,8 +160,21 @@
       "patient_hint": "Search by name, file or phone…",
       "new_patient": "New patient",
       "no_patients": "No matching patients",
+      "customer": "Customer",
+      "customer_hint": "Walk-in customer name",
+      "income_type": "Income type",
+      "type_sale": "Sale",
+      "type_other_income": "Other income",
+      "sale_title": "New sale",
+      "sale_subtitle": "Record a sale or other income for a walk-in customer",
+      "save_sale": "Save sale",
+      "sale_saved": "Sale saved successfully",
       "date": "Invoice date",
       "services": "Services",
+      "items": "Items",
+      "item_description": "Item",
+      "item_hint": "e.g. Supplies",
+      "add_item": "Add item",
       "service_description": "Service",
       "service_hint": "e.g. Consultation",
       "quantity": "Qty",
@@ -188,8 +210,12 @@
       "collection_rate": "Collection rate {percent}",
       "expenses": "Expenses",
       "expense_count": "{count} expenses",
+      "outflow_count": "{count} outflows",
       "net": "Net",
-      "net_margin": "Margin {percent}"
+      "net_margin": "Margin {percent}",
+      "remaining": "Remaining",
+      "outstanding": "Outstanding",
+      "average": "Average {value}"
     },
     "chart": {
       "title": "Revenue distribution",
@@ -206,6 +232,9 @@
     "ledger": {
       "title": "Invoices & payments ledger",
       "count": "{count} entries",
+      "document": "Document",
+      "type": "Type",
+      "party": "Party",
       "invoice": "Invoice",
       "patient": "Patient",
       "statement": "Statement",
@@ -215,6 +244,7 @@
       "date": "Date",
       "status": "Status",
       "no_statement": "No statement",
+      "walk_in": "Walk-in",
       "empty": "No invoices in this period",
       "empty_hint": "Invoices and payments will appear here once recorded."
     },
@@ -225,7 +255,8 @@
       "pending": "Unpaid"
     },
     "value": {
-      "none": "—"
+      "none": "—",
+      "no_supplier": "No supplier"
     },
     "search": {
       "empty": "No matching results",
@@ -258,6 +289,8 @@
       "invoiced": "Total invoiced",
       "collected": "Collected",
       "expenses": "Expenses",
+      "purchases": "Purchases",
+      "payables": "Supplier payables",
       "net": "Net",
       "remaining": "Remaining this period",
       "average": "Average invoice",
@@ -265,6 +298,102 @@
       "debtors": "Debtors",
       "debtors_value": "{count} patients",
       "top_debt": "Largest debt"
+    },
+    "invoice_detail": {
+      "title": "Invoice details",
+      "subtitle": "Services, receipts and remaining balance",
+      "summary": "Invoice summary",
+      "number": "Invoice number",
+      "party": "Billed to",
+      "date": "Date",
+      "type": "Type",
+      "status": "Status",
+      "items": "Items",
+      "no_items": "No items recorded for this invoice.",
+      "payments": "Receipts",
+      "no_payments": "No payments recorded yet.",
+      "record_payment": "Record payment",
+      "close": "Close",
+      "not_found": "This invoice could not be found."
+    },
+    "payment": {
+      "title": "Record payment",
+      "subtitle": "Add a receipt against this invoice",
+      "invoice": "Invoice",
+      "amount": "Amount",
+      "amount_hint": "Amount paid now",
+      "method": "Payment method",
+      "date": "Payment date",
+      "notes": "Notes",
+      "notes_hint": "Optional notes",
+      "cancel": "Cancel",
+      "save": "Save payment",
+      "invalid_amount": "Enter a valid amount",
+      "exceeds_due": "The amount cannot exceed the remaining balance"
+    },
+    "expense_form": {
+      "title": "New expense",
+      "subtitle": "Record one clinic operating expense",
+      "edit_title": "Edit expense",
+      "edit_subtitle": "Update the recorded expense details",
+      "category": "Category",
+      "new_category": "New category",
+      "category_name": "Category name",
+      "category_name_hint": "e.g. Supplies",
+      "category_required": "Choose or create a category",
+      "amount": "Amount",
+      "date": "Expense date",
+      "description": "Description",
+      "description_hint": "What was this expense for?",
+      "notes": "Notes",
+      "notes_hint": "Optional notes",
+      "save": "Save expense",
+      "cancel": "Cancel",
+      "saved": "Expense saved successfully",
+      "invalid_amount": "Enter a valid amount",
+      "not_found": "This expense could not be found."
+    },
+    "purchase_form": {
+      "title": "New purchase",
+      "subtitle": "Record a supplier bill for tools, equipment or supplies",
+      "supplier": "Supplier",
+      "supplier_hint": "Choose the supplier",
+      "new_supplier": "New supplier",
+      "date": "Purchase date",
+      "items": "Items",
+      "item_description": "Item",
+      "item_hint": "e.g. Examination table",
+      "unit_cost": "Unit cost",
+      "add_item": "Add item",
+      "paid_now": "Paid now",
+      "notes": "Notes",
+      "notes_hint": "Optional notes",
+      "save": "Save purchase",
+      "saved": "Purchase saved successfully",
+      "item_required": "Add at least one item with a quantity and cost"
+    },
+    "vendor_form": {
+      "title": "New supplier",
+      "subtitle": "Add a supplier to link purchases to",
+      "name": "Supplier name",
+      "name_hint": "e.g. Medical Supplies Co.",
+      "phone": "Phone",
+      "phone_hint": "Optional phone number",
+      "notes": "Notes",
+      "notes_hint": "Optional notes",
+      "save": "Save supplier"
+    },
+    "type": {
+      "patient": "Patient",
+      "sale": "Sale",
+      "other_income": "Other income",
+      "purchase": "Purchase"
+    },
+    "purchases": {
+      "title": "Purchases & supplier bills",
+      "count": "{count} bills",
+      "empty": "No purchases in this period",
+      "empty_hint": "Supplier bills will appear here once recorded."
     },
     "error": {
       "title": "Could not load accounts",
@@ -281,6 +410,7 @@
   "billing_tab": {
     "summary": "Summary",
     "payments": "Payments",
+    "purchases": "Purchases",
     "expenses": "Expenses",
     "report": "Report"
   },
@@ -314,20 +444,20 @@
       "paid_full": "Paid in full",
       "remaining": "{amount} due",
       "showing": "Showing {from} - {to} of {total} patients",
-      "showing_none": "No results out of {total} patients",
+      "showing_none": "No matching patients",
       "empty": "No matching patients",
       "empty_hint": "Try another search term or switch the filter.",
       "load_error": "Could not load the patient register",
       "retry": "Try again",
       "previous": "Previous",
       "next": "Next",
+      "page_of": "{page} / {pages}",
       "view": "View record",
       "book": "Book appointment",
       "delete": "Delete",
       "delete_title": "Delete patient",
       "delete_message": "Are you sure you want to delete {name}?",
-      "cancel": "Cancel",
-      "book_unavailable": "Appointment booking is not available in this version"
+      "cancel": "Cancel"
     },
     "book_success": "Appointment booked for {name}",
     "book_success_generic": "Appointment booked",
@@ -394,9 +524,13 @@
     "title": "Today's Queue",
     "live": "Live",
     "add_walk_in": "Add without appointment",
-    "screen_call": "General screen call",
+    "screen_call": "Call next patient",
     "session_morning": "Morning clinic session",
     "session_evening": "Evening clinic session"
+  },
+  "queue_call": {
+    "title": "Now calling",
+    "close": "Done"
   },
   "queue": {
     "list_title": "Queue list",
@@ -663,6 +797,11 @@
       "title": "Notes",
       "empty": "No notes"
     },
+    "details": {
+      "title": "Operation details",
+      "subtitle": "Patient, preparation checklist and financials",
+      "missing": "This operation is no longer available."
+    },
     "actions": {
       "complete": "Complete operation",
       "cancel": "Cancel operation",
@@ -672,14 +811,12 @@
       "cancel_title": "Cancel this operation?",
       "cancel_body": "{name} will be marked as cancelled.",
       "keep": "Back",
-      "expand": "Show details",
-      "collapse": "Hide details"
+      "expand": "Show details"
     },
     "feedback": {
       "test_updated": "Test status updated",
       "completed": "Operation marked as completed",
-      "cancelled": "Operation cancelled",
-      "edit_unavailable": "Editing operations is not available in this version"
+      "cancelled": "Operation cancelled"
     },
     "empty": {
       "title": "No operations",
@@ -695,6 +832,8 @@
   "operation_form": {
     "title": "New operation",
     "subtitle": "Schedule the operation and its pre-operation checklist.",
+    "edit_title": "Edit operation",
+    "edit_subtitle": "Update the schedule and the pre-operation checklist.",
     "patient": "Patient",
     "patient_hint": "Select a registered patient",
     "no_patients": "No registered patients yet",
@@ -724,6 +863,8 @@
     "add_test": "Add test",
     "cancel": "Cancel",
     "save": "Schedule operation",
-    "saved": "Operation scheduled"
+    "saved": "Operation scheduled",
+    "update": "Save changes",
+    "updated": "Operation updated"
   }
 }

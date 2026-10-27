@@ -74,7 +74,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e]) : super(e ?? _openConnection());
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   static QueryExecutor _openConnection() {
     return openConnection(dbName: DbConstants.dbName);
@@ -111,6 +111,7 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(invoices, invoices.customerName);
         await m.addColumn(expenses, expenses.notes);
         await m.alterTable(
+          // ignore: experimental_member_use
           TableMigration(
             invoices,
             newColumns: [invoices.patientId],
@@ -118,6 +119,7 @@ class AppDatabase extends _$AppDatabase {
           ),
         );
         await m.alterTable(
+          // ignore: experimental_member_use
           TableMigration(
             payments,
             newColumns: [payments.patientId],
@@ -129,6 +131,31 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(purchaseItems);
         await m.createTable(purchasePayments);
         await seedDefaultExpenseCategories(this);
+      }
+      if (from < 8) {
+        // Existing operations predate the lifecycle columns: seed them from
+        // the scheduled date so the mapper never reads a fabricated timestamp.
+        await m.alterTable(
+          // ignore: experimental_member_use
+          TableMigration(
+            operations,
+            newColumns: [
+              operations.createdBy,
+              operations.createdAt,
+              operations.updatedAt,
+            ],
+            columnTransformer: {
+              operations.createdBy: const Constant(''),
+              operations.createdAt: operations.scheduledDate,
+              operations.updatedAt: operations.scheduledDate,
+            },
+          ),
+        );
+        await m.addColumn(operations, operations.deletedAt);
+        await m.addColumn(
+          operationRequiredTests,
+          operationRequiredTests.result,
+        );
       }
     },
   );

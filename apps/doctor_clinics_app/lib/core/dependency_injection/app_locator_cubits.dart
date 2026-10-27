@@ -6,9 +6,15 @@ import 'package:doctor_clinics_app/features/backup/presentation/cubit/backup_cub
 import 'package:doctor_clinics_app/features/billing/domain/repositories/billing_repository.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_cubit.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_toolbar_cubit.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/cubit/new_expense_cubit.dart';
+import 'package:doctor_clinics_app/features/expenses/domain/repositories/expenses_repository.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/cubit/expense_form_cubit.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/cubit/expenses_cubit.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/cubit/expenses_toolbar_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/invoice_detail_cubit.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/cubit/new_expense_cubit.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/cubit/new_invoice_cubit.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/cubit/new_purchase_cubit.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/cubit/new_purchase_cubit.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/cubit/record_payment_cubit.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/repositories/consultation_repository.dart';
 import 'package:doctor_clinics_app/features/consultations/presentation/cubit/consultation_cubit.dart';
 import 'package:doctor_clinics_app/features/operations/domain/repositories/operation_repository.dart';
@@ -88,14 +94,33 @@ void registerAppCubits() {
     ),
   );
   getIt.registerFactory<BillingToolbarCubit>(() => BillingToolbarCubit());
+  getIt.registerFactory<ExpensesCubit>(
+    () => ExpensesCubit(repository: getIt<IExpensesRepository>()),
+  );
+  getIt.registerFactory<ExpensesToolbarCubit>(() => ExpensesToolbarCubit());
   getIt.registerFactory<NewInvoiceCubit>(
     () => NewInvoiceCubit(repository: getIt<IBillingRepository>()),
   );
   getIt.registerFactory<NewPurchaseCubit>(
-    () => NewPurchaseCubit(repository: getIt<IBillingRepository>()),
+    () => NewPurchaseCubit(repository: getIt<IExpensesRepository>()),
   );
   getIt.registerFactory<NewExpenseCubit>(
-    () => NewExpenseCubit(repository: getIt<IBillingRepository>()),
+    () => NewExpenseCubit(repository: getIt<IExpensesRepository>()),
+  );
+  getIt.registerFactory<InvoiceDetailCubit>(
+    () => InvoiceDetailCubit(
+      repository: getIt<IBillingRepository>(),
+      patientRepository: getIt<PatientRepository>(),
+    ),
+  );
+  getIt.registerFactory<RecordPaymentCubit>(
+    () => RecordPaymentCubit(
+      repository: getIt<IBillingRepository>(),
+      patientRepository: getIt<PatientRepository>(),
+    ),
+  );
+  getIt.registerFactory<ExpenseFormCubit>(
+    () => ExpenseFormCubit(repository: getIt<IExpensesRepository>()),
   );
   getIt.registerFactory<SettingsCubit>(
     () => SettingsCubit(repository: getIt<ISettingsRepository>()),

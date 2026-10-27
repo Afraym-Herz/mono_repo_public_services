@@ -40,6 +40,9 @@ class Dimensions {
   static const double FONT_SIZE_EXTRA_OVER_LARGE = 22.0;
   static const double FONT_SIZE_OVER_OVER_LARGE = 24.0;
 
+  /// Display-size figure, reserved for the waiting-room announcement card.
+  static const double FONT_SIZE_DISPLAY = 42.0;
+
   static const double PADDING_SIZE_CARD = 1.0;
   static const double PADDING_SIZE_BORDER = 3.0;
   static const double PADDING_SIZE_MEDIUM_BORDER = 5.0;
@@ -101,6 +104,15 @@ class Dimensions {
 
   /// Max width of the read-only patient profile modal panel.
   static const double PATIENT_PROFILE_MAX_WIDTH = 620.0;
+
+  /// Max width of the invoice detail billing modal.
+  static const double BILLING_DETAIL_MAX_WIDTH = 720.0;
+
+  /// Max width of the payment and expense billing modals.
+  static const double BILLING_FORM_MAX_WIDTH = 520.0;
+
+  /// Width of the queue "now calling" waiting-room announcement card.
+  static const double QUEUE_CALL_CARD_WIDTH = 420.0;
 
   /// Max share of the viewport height the patient profile modal may occupy.
   static const double MODAL_MAX_HEIGHT_FACTOR = 0.86;

@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:core/core.dart';
 import 'package:doctor_clinics_app/core/routing/app_shell_routes.dart';
 import 'package:doctor_clinics_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:doctor_clinics_app/features/billing/presentation/billing_routes.dart';
+import 'package:doctor_clinics_app/features/expenses/presentation/expenses_routes.dart';
 import 'package:doctor_clinics_app/features/home/presentation/screens/home_screen.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/operation_routes.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/patient_routes.dart';
@@ -34,6 +36,8 @@ class _DoctorClinicsAppState extends State<DoctorClinicsApp> {
       ...buildSettingsRoutes(),
       ...buildPatientRoutes(),
       ...buildOperationRoutes(),
+      ...buildBillingRoutes(),
+      ...buildExpensesRoutes(),
     ],
   );
 

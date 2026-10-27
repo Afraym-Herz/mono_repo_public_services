@@ -19,12 +19,13 @@ class TodayQueueHeader extends StatelessWidget {
     this.onAddWalkIn,
     this.onScreenCall,
     this.isAddWalkInEnabled = true,
+    this.isScreenCallEnabled = true,
   });
 
   /// Adds a walk-in patient to today's queue.
   final VoidCallback? onAddWalkIn;
 
-  /// Broadcasts a general call to the waiting-room screen.
+  /// Calls the next waiting patient and shows the waiting-room announcement.
   final VoidCallback? onScreenCall;
 
   /// Whether the walk-in pill accepts taps. Kept separate from [onAddWalkIn]
@@ -32,12 +33,17 @@ class TodayQueueHeader extends StatelessWidget {
   /// queue action is submitting.
   final bool isAddWalkInEnabled;
 
+  /// Whether the screen-call pill accepts taps. Kept separate from
+  /// [onScreenCall] for the same layout reason as [isAddWalkInEnabled].
+  final bool isScreenCallEnabled;
+
   @override
   Widget build(BuildContext context) {
     final actions = QueueHeaderActions(
       onAddWalkIn: onAddWalkIn,
       onScreenCall: onScreenCall,
       isAddWalkInEnabled: isAddWalkInEnabled,
+      isScreenCallEnabled: isScreenCallEnabled,
     );
 
     return FadeInUp(

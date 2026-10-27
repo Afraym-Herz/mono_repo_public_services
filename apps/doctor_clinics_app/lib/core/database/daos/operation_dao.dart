@@ -10,20 +10,65 @@ class OperationDao extends DatabaseAccessor<AppDatabase>
     with _$OperationDaoMixin {
   OperationDao(super.db);
 
-  Future<List<Operation>> getAllOperations() => select(operations).get();
-  Future<List<Operation>> getOperationsForPatient(int patientId) =>
-      (select(operations)..where((o) => o.patientId.equals(patientId))).get();
-  Future<List<Operation>> getUpcomingOperations() =>
-      (select(operations)..where(
-            (o) =>
-                o.scheduledDate.isBiggerOrEqualValue(DateTime.now()) &
-                o.status.equals(AppConstants.operationStatusScheduled),
-          ))
-          .get();
+  // Soft-deleted rows (deletedAt set) are never returned.
+  Future<List<Operation>> getAllOperations() =>
+      (select(operations)..where((o) => o.deletedAt.isNull())).get();
+  Future<List<Operation>> getOperationsForPatient(int patientId) => (select(
+    operations,
+  )..where((o) => o.patientId.equals(patientId) & o.deletedAt.isNull())).get();
+  Future<List<Operation>> getUpcomingOperations() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    return (select(operations)..where(
+          (o) =>
+              // Scheduled dates are day-only, so today must be included.
+              o.scheduledDate.isBiggerOrEqualValue(today) &
+              o.status.equals(AppConstants.operationStatusScheduled) &
+              o.deletedAt.isNull(),
+        ))
+        .get();
+  }
+
   Future<int> insertOperation(OperationsCompanion entry) =>
       into(operations).insert(entry);
   Future<bool> updateOperation(OperationsCompanion entry) =>
       update(operations).replace(entry);
+
+  /// Updates the operation and syncs its checklist names in one transaction,
+  /// so a saved edit can never leave the row and its tests disagreeing.
+  Future<void> updateOperationWithTests(
+    OperationsCompanion entry,
+    int operationId,
+    List<String> testNames,
+  ) {
+    return transaction(() async {
+      await update(operations).replace(entry);
+      final existing = await getTestsForOperation(operationId);
+      final wanted = testNames.toSet();
+      for (final test in existing) {
+        if (!wanted.contains(test.testName)) await deleteTest(test.id);
+      }
+      final kept = existing.map((test) => test.testName).toSet();
+      for (final name in testNames) {
+        if (kept.contains(name)) continue;
+        await into(operationRequiredTests).insert(
+          OperationRequiredTestsCompanion.insert(
+            operationId: operationId,
+            testName: name,
+          ),
+        );
+      }
+    });
+  }
+
+  /// Marks the operation deleted without touching its tests or billing rows.
+  Future<int> softDeleteOperation(int id) =>
+      (update(operations)..where((o) => o.id.equals(id))).write(
+        OperationsCompanion(
+          deletedAt: Value(DateTime.now()),
+          updatedAt: Value(DateTime.now()),
+        ),
+      );
 
   /// Inserts an operation and its required-test checklist as one transaction.
   Future<int> insertOperationWithTests(
@@ -43,9 +88,6 @@ class OperationDao extends DatabaseAccessor<AppDatabase>
       return id;
     });
   }
-
-  Future<int> deleteOperation(int id) =>
-      (delete(operations)..where((o) => o.id.equals(id))).go();
 
   Future<List<OperationRequiredTest>> getTestsForOperation(int operationId) =>
       (select(

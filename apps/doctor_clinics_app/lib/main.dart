@@ -15,6 +15,7 @@ import 'package:doctor_clinics_app/core/database/daos/queue_dao.dart';
 import 'package:doctor_clinics_app/core/dependency_injection/app_locator.dart';
 import 'package:doctor_clinics_app/core/demo/queue_demo_store.dart';
 import 'package:doctor_clinics_app/features/billing/data/demo/billing_demo_seeder.dart';
+import 'package:doctor_clinics_app/features/expenses/data/demo/expenses_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/operations/data/demo/operation_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/patients/data/demo/patient_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/queue/data/demo/queue_demo_seeder.dart';
@@ -63,11 +64,13 @@ Future<void> main() async {
   await OperationDemoSeeder(
     operationDao: getIt<OperationDao>(),
     patientDao: getIt<PatientDao>(),
+    billingDao: getIt<BillingDao>(),
   ).seedIfEmpty();
   await BillingDemoSeeder(
     billingDao: getIt<BillingDao>(),
     queueDao: getIt<QueueDao>(),
   ).seedIfEmpty();
+  await ExpensesDemoSeeder(billingDao: getIt<BillingDao>()).seedIfEmpty();
 
   // ---------------------------------------------------------------------------
   // TEMPORARY AUTH BYPASS

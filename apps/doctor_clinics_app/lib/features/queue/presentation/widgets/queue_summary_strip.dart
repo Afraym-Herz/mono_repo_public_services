@@ -1,11 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:core/core.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/queue_cubit.dart';
+import '../helpers/queue_doctor_name.dart';
 import '../helpers/queue_summary_data.dart';
 import 'queue_summary_current_card.dart';
 import 'queue_summary_stats_card.dart';
@@ -27,11 +27,7 @@ class QueueSummaryStrip extends StatelessWidget {
         if (!isLoaded) return const SizedBox.shrink();
 
         final data = QueueSummaryData.fromBoard(tickets: state.allTickets);
-        final doctorName = context.locale.languageCode == AppConstants.printLanguageAr
-            ? state.doctorNameAr
-            : (state.doctorNameEn.isEmpty
-                  ? state.doctorNameAr
-                  : state.doctorNameEn);
+        final doctorName = queueDoctorName(context, state);
         final cards = [
           QueueSummaryCurrentCard(ticket: data.current, doctorName: doctorName),
           QueueSummaryTotalCard(data: data),

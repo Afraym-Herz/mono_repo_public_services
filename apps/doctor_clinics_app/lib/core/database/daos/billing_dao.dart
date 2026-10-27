@@ -22,6 +22,8 @@ class BillingDao extends DatabaseAccessor<AppDatabase> with _$BillingDaoMixin {
   BillingDao(super.db);
 
   Future<List<Invoice>> getAllInvoices() => select(invoices).get();
+  Future<Invoice?> getInvoiceById(int id) =>
+      (select(invoices)..where((i) => i.id.equals(id))).getSingleOrNull();
   Future<List<Invoice>> getInvoicesForPatient(int patientId) =>
       (select(invoices)..where((i) => i.patientId.equals(patientId))).get();
   Future<List<Invoice>> getOutstandingInvoices() =>
@@ -58,6 +60,8 @@ class BillingDao extends DatabaseAccessor<AppDatabase> with _$BillingDaoMixin {
       into(payments).insert(entry);
 
   Future<List<Expense>> getAllExpenses() => select(expenses).get();
+  Future<Expense?> getExpenseById(int id) =>
+      (select(expenses)..where((e) => e.id.equals(id))).getSingleOrNull();
   Future<List<ExpenseCategory>> getExpenseCategories() =>
       select(expenseCategories).get();
   Future<List<Expense>> getExpensesBetween(DateTime from, DateTime to) =>
@@ -77,8 +81,12 @@ class BillingDao extends DatabaseAccessor<AppDatabase> with _$BillingDaoMixin {
       into(vendors).insert(entry);
 
   Future<List<Purchase>> getAllPurchases() => select(purchases).get();
+  Future<Purchase?> getPurchaseById(int id) =>
+      (select(purchases)..where((p) => p.id.equals(id))).getSingleOrNull();
   Future<int> insertPurchase(PurchasesCompanion entry) =>
       into(purchases).insert(entry);
+  Future<bool> updatePurchase(PurchasesCompanion entry) =>
+      update(purchases).replace(entry);
 
   Future<List<PurchaseItem>> getAllPurchaseItems() =>
       select(purchaseItems).get();

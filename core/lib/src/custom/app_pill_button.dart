@@ -18,6 +18,7 @@ class AppPillButton extends StatelessWidget {
     this.primary = false,
     this.outlined = false,
     this.iconTrailing = false,
+    this.enabled = true,
   });
 
   /// Leading icon (or trailing when [iconTrailing] is `true`).
@@ -26,8 +27,12 @@ class AppPillButton extends StatelessWidget {
   /// Already-localized label text.
   final String label;
 
-  /// Called when the pill is tapped.
+  /// Called when the pill is tapped. Ignored while [enabled] is `false`.
   final VoidCallback onTap;
+
+  /// When `false` the pill is dimmed and stops accepting taps without leaving
+  /// the row (so the header layout does not reflow between states).
+  final bool enabled;
 
   /// When `true` the pill is filled with the primary clinical colour; otherwise
   /// it sits on the muted container tone.
@@ -52,49 +57,55 @@ class AppPillButton extends StatelessWidget {
         : context.clinicContainer;
     final foreground = primary ? AppColors.white : context.clinicTextPrimary;
 
-    return Material(
-      color: background,
-      shape: RoundedRectangleBorder(
-        borderRadius: radius,
-        side: outlined && !primary
-            ? BorderSide(color: context.clinicBorder)
-            : BorderSide.none,
-      ),
-      child: InkWell(
-        borderRadius: radius,
-        onTap: onTap,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.PADDING_SIZE_LARGE.w,
-            vertical: Dimensions.PADDING_SIZE_SMALL.h,
+    return IgnorePointer(
+      ignoring: !enabled,
+      child: Opacity(
+        opacity: enabled ? 1 : 0.5,
+        child: Material(
+          color: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: radius,
+            side: outlined && !primary
+                ? BorderSide(color: context.clinicBorder)
+                : BorderSide.none,
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (!iconTrailing) ...[
-                Icon(
-                  icon,
-                  size: Dimensions.ICON_SIZE_SMALL.r,
-                  color: foreground,
-                ),
-                SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-              ],
-              ResponsiveText(
-                label,
-                fontSize: Dimensions.FONT_SIZE_SMALL,
-                fontWeight: FontWeight.w600,
-                color: foreground,
-                maxLines: 1,
+          child: InkWell(
+            borderRadius: radius,
+            onTap: onTap,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimensions.PADDING_SIZE_LARGE.w,
+                vertical: Dimensions.PADDING_SIZE_SMALL.h,
               ),
-              if (iconTrailing) ...[
-                SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
-                Icon(
-                  icon,
-                  size: Dimensions.ICON_SIZE_SMALL.r,
-                  color: foreground,
-                ),
-              ],
-            ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (!iconTrailing) ...[
+                    Icon(
+                      icon,
+                      size: Dimensions.ICON_SIZE_SMALL.r,
+                      color: foreground,
+                    ),
+                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+                  ],
+                  ResponsiveText(
+                    label,
+                    fontSize: Dimensions.FONT_SIZE_SMALL,
+                    fontWeight: FontWeight.w600,
+                    color: foreground,
+                    maxLines: 1,
+                  ),
+                  if (iconTrailing) ...[
+                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL.w),
+                    Icon(
+                      icon,
+                      size: Dimensions.ICON_SIZE_SMALL.r,
+                      color: foreground,
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
         ),
       ),

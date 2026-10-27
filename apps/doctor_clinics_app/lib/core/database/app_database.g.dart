@@ -6903,6 +6903,53 @@ class $OperationsTable extends Operations
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _createdByMeta = const VerificationMeta(
+    'createdBy',
+  );
+  @override
+  late final GeneratedColumn<String> createdBy = GeneratedColumn<String>(
+    'created_by',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -6915,6 +6962,10 @@ class $OperationsTable extends Operations
     status,
     cost,
     depositAmount,
+    createdBy,
+    createdAt,
+    updatedAt,
+    deletedAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -7012,6 +7063,30 @@ class $OperationsTable extends Operations
     } else if (isInserting) {
       context.missing(_depositAmountMeta);
     }
+    if (data.containsKey('created_by')) {
+      context.handle(
+        _createdByMeta,
+        createdBy.isAcceptableOrUnknown(data['created_by']!, _createdByMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
     return context;
   }
 
@@ -7061,6 +7136,22 @@ class $OperationsTable extends Operations
         DriftSqlType.int,
         data['${effectivePrefix}deposit_amount'],
       )!,
+      createdBy: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}created_by'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
     );
   }
 
@@ -7081,6 +7172,10 @@ class Operation extends DataClass implements Insertable<Operation> {
   final String status;
   final int cost;
   final int depositAmount;
+  final String createdBy;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
   const Operation({
     required this.id,
     required this.patientId,
@@ -7092,6 +7187,10 @@ class Operation extends DataClass implements Insertable<Operation> {
     required this.status,
     required this.cost,
     required this.depositAmount,
+    required this.createdBy,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -7112,6 +7211,12 @@ class Operation extends DataClass implements Insertable<Operation> {
     map['status'] = Variable<String>(status);
     map['cost'] = Variable<int>(cost);
     map['deposit_amount'] = Variable<int>(depositAmount);
+    map['created_by'] = Variable<String>(createdBy);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
     return map;
   }
 
@@ -7133,6 +7238,12 @@ class Operation extends DataClass implements Insertable<Operation> {
       status: Value(status),
       cost: Value(cost),
       depositAmount: Value(depositAmount),
+      createdBy: Value(createdBy),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
     );
   }
 
@@ -7152,6 +7263,10 @@ class Operation extends DataClass implements Insertable<Operation> {
       status: serializer.fromJson<String>(json['status']),
       cost: serializer.fromJson<int>(json['cost']),
       depositAmount: serializer.fromJson<int>(json['depositAmount']),
+      createdBy: serializer.fromJson<String>(json['createdBy']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
     );
   }
   @override
@@ -7168,6 +7283,10 @@ class Operation extends DataClass implements Insertable<Operation> {
       'status': serializer.toJson<String>(status),
       'cost': serializer.toJson<int>(cost),
       'depositAmount': serializer.toJson<int>(depositAmount),
+      'createdBy': serializer.toJson<String>(createdBy),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
     };
   }
 
@@ -7182,6 +7301,10 @@ class Operation extends DataClass implements Insertable<Operation> {
     String? status,
     int? cost,
     int? depositAmount,
+    String? createdBy,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
   }) => Operation(
     id: id ?? this.id,
     patientId: patientId ?? this.patientId,
@@ -7195,6 +7318,10 @@ class Operation extends DataClass implements Insertable<Operation> {
     status: status ?? this.status,
     cost: cost ?? this.cost,
     depositAmount: depositAmount ?? this.depositAmount,
+    createdBy: createdBy ?? this.createdBy,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
   );
   Operation copyWithCompanion(OperationsCompanion data) {
     return Operation(
@@ -7218,6 +7345,10 @@ class Operation extends DataClass implements Insertable<Operation> {
       depositAmount: data.depositAmount.present
           ? data.depositAmount.value
           : this.depositAmount,
+      createdBy: data.createdBy.present ? data.createdBy.value : this.createdBy,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
     );
   }
 
@@ -7233,7 +7364,11 @@ class Operation extends DataClass implements Insertable<Operation> {
           ..write('notes: $notes, ')
           ..write('status: $status, ')
           ..write('cost: $cost, ')
-          ..write('depositAmount: $depositAmount')
+          ..write('depositAmount: $depositAmount, ')
+          ..write('createdBy: $createdBy, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
           ..write(')'))
         .toString();
   }
@@ -7250,6 +7385,10 @@ class Operation extends DataClass implements Insertable<Operation> {
     status,
     cost,
     depositAmount,
+    createdBy,
+    createdAt,
+    updatedAt,
+    deletedAt,
   );
   @override
   bool operator ==(Object other) =>
@@ -7264,7 +7403,11 @@ class Operation extends DataClass implements Insertable<Operation> {
           other.notes == this.notes &&
           other.status == this.status &&
           other.cost == this.cost &&
-          other.depositAmount == this.depositAmount);
+          other.depositAmount == this.depositAmount &&
+          other.createdBy == this.createdBy &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
 }
 
 class OperationsCompanion extends UpdateCompanion<Operation> {
@@ -7278,6 +7421,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
   final Value<String> status;
   final Value<int> cost;
   final Value<int> depositAmount;
+  final Value<String> createdBy;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
   const OperationsCompanion({
     this.id = const Value.absent(),
     this.patientId = const Value.absent(),
@@ -7289,6 +7436,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
     this.status = const Value.absent(),
     this.cost = const Value.absent(),
     this.depositAmount = const Value.absent(),
+    this.createdBy = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
   });
   OperationsCompanion.insert({
     this.id = const Value.absent(),
@@ -7301,6 +7452,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
     required String status,
     required int cost,
     required int depositAmount,
+    this.createdBy = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
   }) : patientId = Value(patientId),
        operationType = Value(operationType),
        scheduledDate = Value(scheduledDate),
@@ -7318,6 +7473,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
     Expression<String>? status,
     Expression<int>? cost,
     Expression<int>? depositAmount,
+    Expression<String>? createdBy,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -7330,6 +7489,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
       if (status != null) 'status': status,
       if (cost != null) 'cost': cost,
       if (depositAmount != null) 'deposit_amount': depositAmount,
+      if (createdBy != null) 'created_by': createdBy,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
     });
   }
 
@@ -7344,6 +7507,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
     Value<String>? status,
     Value<int>? cost,
     Value<int>? depositAmount,
+    Value<String>? createdBy,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
   }) {
     return OperationsCompanion(
       id: id ?? this.id,
@@ -7356,6 +7523,10 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
       status: status ?? this.status,
       cost: cost ?? this.cost,
       depositAmount: depositAmount ?? this.depositAmount,
+      createdBy: createdBy ?? this.createdBy,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
     );
   }
 
@@ -7392,6 +7563,18 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
     if (depositAmount.present) {
       map['deposit_amount'] = Variable<int>(depositAmount.value);
     }
+    if (createdBy.present) {
+      map['created_by'] = Variable<String>(createdBy.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
     return map;
   }
 
@@ -7407,7 +7590,11 @@ class OperationsCompanion extends UpdateCompanion<Operation> {
           ..write('notes: $notes, ')
           ..write('status: $status, ')
           ..write('cost: $cost, ')
-          ..write('depositAmount: $depositAmount')
+          ..write('depositAmount: $depositAmount, ')
+          ..write('createdBy: $createdBy, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
           ..write(')'))
         .toString();
   }
@@ -7472,6 +7659,15 @@ class $OperationRequiredTestsTable extends OperationRequiredTests
     ),
     defaultValue: const Constant(false),
   );
+  static const VerificationMeta _resultMeta = const VerificationMeta('result');
+  @override
+  late final GeneratedColumn<String> result = GeneratedColumn<String>(
+    'result',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _notesMeta = const VerificationMeta('notes');
   @override
   late final GeneratedColumn<String> notes = GeneratedColumn<String>(
@@ -7487,6 +7683,7 @@ class $OperationRequiredTestsTable extends OperationRequiredTests
     operationId,
     testName,
     isCompleted,
+    result,
     notes,
   ];
   @override
@@ -7532,6 +7729,12 @@ class $OperationRequiredTestsTable extends OperationRequiredTests
         ),
       );
     }
+    if (data.containsKey('result')) {
+      context.handle(
+        _resultMeta,
+        result.isAcceptableOrUnknown(data['result']!, _resultMeta),
+      );
+    }
     if (data.containsKey('notes')) {
       context.handle(
         _notesMeta,
@@ -7563,6 +7766,10 @@ class $OperationRequiredTestsTable extends OperationRequiredTests
         DriftSqlType.bool,
         data['${effectivePrefix}is_completed'],
       )!,
+      result: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}result'],
+      ),
       notes: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}notes'],
@@ -7582,12 +7789,14 @@ class OperationRequiredTest extends DataClass
   final int operationId;
   final String testName;
   final bool isCompleted;
+  final String? result;
   final String? notes;
   const OperationRequiredTest({
     required this.id,
     required this.operationId,
     required this.testName,
     required this.isCompleted,
+    this.result,
     this.notes,
   });
   @override
@@ -7597,6 +7806,9 @@ class OperationRequiredTest extends DataClass
     map['operation_id'] = Variable<int>(operationId);
     map['test_name'] = Variable<String>(testName);
     map['is_completed'] = Variable<bool>(isCompleted);
+    if (!nullToAbsent || result != null) {
+      map['result'] = Variable<String>(result);
+    }
     if (!nullToAbsent || notes != null) {
       map['notes'] = Variable<String>(notes);
     }
@@ -7609,6 +7821,9 @@ class OperationRequiredTest extends DataClass
       operationId: Value(operationId),
       testName: Value(testName),
       isCompleted: Value(isCompleted),
+      result: result == null && nullToAbsent
+          ? const Value.absent()
+          : Value(result),
       notes: notes == null && nullToAbsent
           ? const Value.absent()
           : Value(notes),
@@ -7625,6 +7840,7 @@ class OperationRequiredTest extends DataClass
       operationId: serializer.fromJson<int>(json['operationId']),
       testName: serializer.fromJson<String>(json['testName']),
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
+      result: serializer.fromJson<String?>(json['result']),
       notes: serializer.fromJson<String?>(json['notes']),
     );
   }
@@ -7636,6 +7852,7 @@ class OperationRequiredTest extends DataClass
       'operationId': serializer.toJson<int>(operationId),
       'testName': serializer.toJson<String>(testName),
       'isCompleted': serializer.toJson<bool>(isCompleted),
+      'result': serializer.toJson<String?>(result),
       'notes': serializer.toJson<String?>(notes),
     };
   }
@@ -7645,12 +7862,14 @@ class OperationRequiredTest extends DataClass
     int? operationId,
     String? testName,
     bool? isCompleted,
+    Value<String?> result = const Value.absent(),
     Value<String?> notes = const Value.absent(),
   }) => OperationRequiredTest(
     id: id ?? this.id,
     operationId: operationId ?? this.operationId,
     testName: testName ?? this.testName,
     isCompleted: isCompleted ?? this.isCompleted,
+    result: result.present ? result.value : this.result,
     notes: notes.present ? notes.value : this.notes,
   );
   OperationRequiredTest copyWithCompanion(
@@ -7665,6 +7884,7 @@ class OperationRequiredTest extends DataClass
       isCompleted: data.isCompleted.present
           ? data.isCompleted.value
           : this.isCompleted,
+      result: data.result.present ? data.result.value : this.result,
       notes: data.notes.present ? data.notes.value : this.notes,
     );
   }
@@ -7676,6 +7896,7 @@ class OperationRequiredTest extends DataClass
           ..write('operationId: $operationId, ')
           ..write('testName: $testName, ')
           ..write('isCompleted: $isCompleted, ')
+          ..write('result: $result, ')
           ..write('notes: $notes')
           ..write(')'))
         .toString();
@@ -7683,7 +7904,7 @@ class OperationRequiredTest extends DataClass
 
   @override
   int get hashCode =>
-      Object.hash(id, operationId, testName, isCompleted, notes);
+      Object.hash(id, operationId, testName, isCompleted, result, notes);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -7692,6 +7913,7 @@ class OperationRequiredTest extends DataClass
           other.operationId == this.operationId &&
           other.testName == this.testName &&
           other.isCompleted == this.isCompleted &&
+          other.result == this.result &&
           other.notes == this.notes);
 }
 
@@ -7701,12 +7923,14 @@ class OperationRequiredTestsCompanion
   final Value<int> operationId;
   final Value<String> testName;
   final Value<bool> isCompleted;
+  final Value<String?> result;
   final Value<String?> notes;
   const OperationRequiredTestsCompanion({
     this.id = const Value.absent(),
     this.operationId = const Value.absent(),
     this.testName = const Value.absent(),
     this.isCompleted = const Value.absent(),
+    this.result = const Value.absent(),
     this.notes = const Value.absent(),
   });
   OperationRequiredTestsCompanion.insert({
@@ -7714,6 +7938,7 @@ class OperationRequiredTestsCompanion
     required int operationId,
     required String testName,
     this.isCompleted = const Value.absent(),
+    this.result = const Value.absent(),
     this.notes = const Value.absent(),
   }) : operationId = Value(operationId),
        testName = Value(testName);
@@ -7722,6 +7947,7 @@ class OperationRequiredTestsCompanion
     Expression<int>? operationId,
     Expression<String>? testName,
     Expression<bool>? isCompleted,
+    Expression<String>? result,
     Expression<String>? notes,
   }) {
     return RawValuesInsertable({
@@ -7729,6 +7955,7 @@ class OperationRequiredTestsCompanion
       if (operationId != null) 'operation_id': operationId,
       if (testName != null) 'test_name': testName,
       if (isCompleted != null) 'is_completed': isCompleted,
+      if (result != null) 'result': result,
       if (notes != null) 'notes': notes,
     });
   }
@@ -7738,6 +7965,7 @@ class OperationRequiredTestsCompanion
     Value<int>? operationId,
     Value<String>? testName,
     Value<bool>? isCompleted,
+    Value<String?>? result,
     Value<String?>? notes,
   }) {
     return OperationRequiredTestsCompanion(
@@ -7745,6 +7973,7 @@ class OperationRequiredTestsCompanion
       operationId: operationId ?? this.operationId,
       testName: testName ?? this.testName,
       isCompleted: isCompleted ?? this.isCompleted,
+      result: result ?? this.result,
       notes: notes ?? this.notes,
     );
   }
@@ -7764,6 +7993,9 @@ class OperationRequiredTestsCompanion
     if (isCompleted.present) {
       map['is_completed'] = Variable<bool>(isCompleted.value);
     }
+    if (result.present) {
+      map['result'] = Variable<String>(result.value);
+    }
     if (notes.present) {
       map['notes'] = Variable<String>(notes.value);
     }
@@ -7777,6 +8009,7 @@ class OperationRequiredTestsCompanion
           ..write('operationId: $operationId, ')
           ..write('testName: $testName, ')
           ..write('isCompleted: $isCompleted, ')
+          ..write('result: $result, ')
           ..write('notes: $notes')
           ..write(')'))
         .toString();
@@ -20163,6 +20396,10 @@ typedef $$OperationsTableCreateCompanionBuilder =
       required String status,
       required int cost,
       required int depositAmount,
+      Value<String> createdBy,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
     });
 typedef $$OperationsTableUpdateCompanionBuilder =
     OperationsCompanion Function({
@@ -20176,6 +20413,10 @@ typedef $$OperationsTableUpdateCompanionBuilder =
       Value<String> status,
       Value<int> cost,
       Value<int> depositAmount,
+      Value<String> createdBy,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
     });
 
 final class $$OperationsTableReferences
@@ -20300,6 +20541,26 @@ class $$OperationsTableFilterComposer
 
   ColumnFilters<int> get depositAmount => $composableBuilder(
     column: $table.depositAmount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get createdBy => $composableBuilder(
+    column: $table.createdBy,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -20432,6 +20693,26 @@ class $$OperationsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get createdBy => $composableBuilder(
+    column: $table.createdBy,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$PatientsTableOrderingComposer get patientId {
     final $$PatientsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -20501,6 +20782,18 @@ class $$OperationsTableAnnotationComposer
     column: $table.depositAmount,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get createdBy =>
+      $composableBuilder(column: $table.createdBy, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
 
   $$PatientsTableAnnotationComposer get patientId {
     final $$PatientsTableAnnotationComposer composer = $composerBuilder(
@@ -20619,6 +20912,10 @@ class $$OperationsTableTableManager
                 Value<String> status = const Value.absent(),
                 Value<int> cost = const Value.absent(),
                 Value<int> depositAmount = const Value.absent(),
+                Value<String> createdBy = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
               }) => OperationsCompanion(
                 id: id,
                 patientId: patientId,
@@ -20630,6 +20927,10 @@ class $$OperationsTableTableManager
                 status: status,
                 cost: cost,
                 depositAmount: depositAmount,
+                createdBy: createdBy,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
               ),
           createCompanionCallback:
               ({
@@ -20643,6 +20944,10 @@ class $$OperationsTableTableManager
                 required String status,
                 required int cost,
                 required int depositAmount,
+                Value<String> createdBy = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
               }) => OperationsCompanion.insert(
                 id: id,
                 patientId: patientId,
@@ -20654,6 +20959,10 @@ class $$OperationsTableTableManager
                 status: status,
                 cost: cost,
                 depositAmount: depositAmount,
+                createdBy: createdBy,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
               ),
           withReferenceMapper: (p0) => p0
               .map(
@@ -20784,6 +21093,7 @@ typedef $$OperationRequiredTestsTableCreateCompanionBuilder =
       required int operationId,
       required String testName,
       Value<bool> isCompleted,
+      Value<String?> result,
       Value<String?> notes,
     });
 typedef $$OperationRequiredTestsTableUpdateCompanionBuilder =
@@ -20792,6 +21102,7 @@ typedef $$OperationRequiredTestsTableUpdateCompanionBuilder =
       Value<int> operationId,
       Value<String> testName,
       Value<bool> isCompleted,
+      Value<String?> result,
       Value<String?> notes,
     });
 
@@ -20855,6 +21166,11 @@ class $$OperationRequiredTestsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get result => $composableBuilder(
+    column: $table.result,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<String> get notes => $composableBuilder(
     column: $table.notes,
     builder: (column) => ColumnFilters(column),
@@ -20908,6 +21224,11 @@ class $$OperationRequiredTestsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get result => $composableBuilder(
+    column: $table.result,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get notes => $composableBuilder(
     column: $table.notes,
     builder: (column) => ColumnOrderings(column),
@@ -20956,6 +21277,9 @@ class $$OperationRequiredTestsTableAnnotationComposer
     column: $table.isCompleted,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get result =>
+      $composableBuilder(column: $table.result, builder: (column) => column);
 
   GeneratedColumn<String> get notes =>
       $composableBuilder(column: $table.notes, builder: (column) => column);
@@ -21027,12 +21351,14 @@ class $$OperationRequiredTestsTableTableManager
                 Value<int> operationId = const Value.absent(),
                 Value<String> testName = const Value.absent(),
                 Value<bool> isCompleted = const Value.absent(),
+                Value<String?> result = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
               }) => OperationRequiredTestsCompanion(
                 id: id,
                 operationId: operationId,
                 testName: testName,
                 isCompleted: isCompleted,
+                result: result,
                 notes: notes,
               ),
           createCompanionCallback:
@@ -21041,12 +21367,14 @@ class $$OperationRequiredTestsTableTableManager
                 required int operationId,
                 required String testName,
                 Value<bool> isCompleted = const Value.absent(),
+                Value<String?> result = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
               }) => OperationRequiredTestsCompanion.insert(
                 id: id,
                 operationId: operationId,
                 testName: testName,
                 isCompleted: isCompleted,
+                result: result,
                 notes: notes,
               ),
           withReferenceMapper: (p0) => p0

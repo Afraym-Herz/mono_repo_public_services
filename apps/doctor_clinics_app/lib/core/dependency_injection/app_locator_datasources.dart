@@ -16,6 +16,8 @@ import 'package:doctor_clinics_app/features/billing/data/datasources/billing_dat
 import 'package:doctor_clinics_app/features/billing/data/datasources/billing_drift_datasource.dart';
 import 'package:doctor_clinics_app/features/consultations/data/datasources/consultation_datasource.dart';
 import 'package:doctor_clinics_app/features/consultations/data/datasources/consultation_drift_datasource.dart';
+import 'package:doctor_clinics_app/features/expenses/data/datasources/expenses_datasource.dart';
+import 'package:doctor_clinics_app/features/expenses/data/datasources/expenses_drift_datasource.dart';
 import 'package:doctor_clinics_app/features/operations/data/datasources/operation_datasource.dart';
 import 'package:doctor_clinics_app/features/operations/data/datasources/operation_drift_datasource.dart';
 import 'package:doctor_clinics_app/features/patients/data/datasources/patient_datasource.dart';
@@ -44,10 +46,13 @@ void registerAppDatasources() {
     () => PrescriptionDriftDatasource(getIt<PrescriptionDao>()),
   );
   getIt.registerLazySingleton<IOperationDatasource>(
-    () => OperationDriftDatasource(getIt<OperationDao>()),
+    () => OperationDriftDatasource(getIt<OperationDao>(), getIt<BillingDao>()),
   );
   getIt.registerLazySingleton<IBillingDatasource>(
     () => BillingDriftDatasource(getIt<BillingDao>()),
+  );
+  getIt.registerLazySingleton<IExpensesDatasource>(
+    () => ExpensesDriftDatasource(getIt<BillingDao>()),
   );
   getIt.registerLazySingleton<ISettingsDatasource>(
     () => SettingsDriftDatasource(getIt<SettingsDao>()),
@@ -55,9 +60,7 @@ void registerAppDatasources() {
   getIt.registerLazySingleton<IReportDatasource>(
     () => ReportDriftDatasource(getIt<BillingDao>(), getIt<PatientDao>()),
   );
-  getIt.registerLazySingleton<IBackupDatasource>(
-    () => BackupLocalDatasource(),
-  );
+  getIt.registerLazySingleton<IBackupDatasource>(() => BackupLocalDatasource());
   getIt.registerLazySingleton<IAuthDatasource>(
     () => AuthDriftDatasource(getIt<UserDao>()),
   );

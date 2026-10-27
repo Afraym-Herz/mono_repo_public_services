@@ -5,13 +5,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:core/core.dart';
 import 'package:doctor_clinics_app/core/database/app_database.dart';
 import 'package:doctor_clinics_app/features/billing/data/demo/billing_demo_seeder.dart';
+import 'package:doctor_clinics_app/features/expenses/data/demo/expenses_demo_seeder.dart';
 import 'package:doctor_clinics_app/features/queue/data/demo/demo_today_seed.dart';
 
 /// The accounts seeder must bill the demo appointments/queue visits instead of
 /// inventing unrelated rows.
 void main() {
   test(
-    'BillingDemoSeeder bills demo queue visits and seeds expenses',
+    'BillingDemoSeeder bills demo queue visits and ExpensesDemoSeeder seeds '
+    'expenses',
     () async {
       final db = AppDatabase(NativeDatabase.memory());
       addTearDown(db.close);
@@ -54,6 +56,7 @@ void main() {
         billingDao: db.billingDao,
         queueDao: db.queueDao,
       ).seedIfEmpty();
+      await ExpensesDemoSeeder(billingDao: db.billingDao).seedIfEmpty();
 
       final invoices = await db.billingDao.getAllInvoices();
       expect(invoices, hasLength(1));
@@ -72,11 +75,12 @@ void main() {
       expect(await db.billingDao.getAllExpenses(), isNotEmpty);
       expect(await db.billingDao.getExpenseCategories(), isNotEmpty);
 
-      // Re-running the seeder must not duplicate the visit or its receipts.
+      // Re-running the seeders must not duplicate rows.
       await BillingDemoSeeder(
         billingDao: db.billingDao,
         queueDao: db.queueDao,
       ).seedIfEmpty();
+      await ExpensesDemoSeeder(billingDao: db.billingDao).seedIfEmpty();
       expect(await db.billingDao.getAllInvoices(), hasLength(1));
       expect(await db.billingDao.getAllPayments(), hasLength(payments.length));
       expect(await db.billingDao.getAllExpenses(), hasLength(6));

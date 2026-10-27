@@ -11,6 +11,9 @@ import 'package:doctor_clinics_app/features/billing/domain/repositories/billing_
 import 'package:doctor_clinics_app/features/consultations/data/datasources/consultation_datasource.dart';
 import 'package:doctor_clinics_app/features/consultations/data/repositories/consultation_repository_impl.dart';
 import 'package:doctor_clinics_app/features/consultations/domain/repositories/consultation_repository.dart';
+import 'package:doctor_clinics_app/features/expenses/data/datasources/expenses_datasource.dart';
+import 'package:doctor_clinics_app/features/expenses/data/repositories/expenses_repository_impl.dart';
+import 'package:doctor_clinics_app/features/expenses/domain/repositories/expenses_repository.dart';
 import 'package:doctor_clinics_app/features/operations/data/datasources/operation_datasource.dart';
 import 'package:doctor_clinics_app/features/operations/data/repositories/operation_repository_impl.dart';
 import 'package:doctor_clinics_app/features/operations/domain/repositories/operation_repository.dart';
@@ -53,6 +56,9 @@ void registerAppRepositories() {
   );
   getIt.registerLazySingleton<IBillingRepository>(
     () => BillingRepositoryImpl(datasource: getIt<IBillingDatasource>()),
+  );
+  getIt.registerLazySingleton<IExpensesRepository>(
+    () => ExpensesRepositoryImpl(datasource: getIt<IExpensesDatasource>()),
   );
   getIt.registerLazySingleton<ISettingsRepository>(
     () => SettingsRepositoryImpl(datasource: getIt<ISettingsDatasource>()),
