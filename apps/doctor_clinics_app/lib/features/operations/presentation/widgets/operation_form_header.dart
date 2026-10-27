@@ -3,14 +3,25 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Header of the new-operation modal.
+/// Header of the operation form; copy switches between new and edit modes.
 class OperationFormHeader extends StatelessWidget {
-  const OperationFormHeader({super.key, required this.onClose});
+  const OperationFormHeader({
+    super.key,
+    required this.isEditing,
+    required this.onClose,
+  });
 
+  final bool isEditing;
   final VoidCallback onClose;
 
   @override
   Widget build(BuildContext context) {
+    final titleKey = isEditing
+        ? 'operation_form.edit_title'
+        : 'operation_form.title';
+    final subtitleKey = isEditing
+        ? 'operation_form.edit_subtitle'
+        : 'operation_form.subtitle';
     return Padding(
       padding: EdgeInsets.fromLTRB(
         Dimensions.PADDING_SIZE_LARGE.w,
@@ -40,7 +51,7 @@ class OperationFormHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'operation_form.title'.tr(),
+                  titleKey.tr(),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: context.clinicTextPrimary,
@@ -48,7 +59,7 @@ class OperationFormHeader extends StatelessWidget {
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_BORDER.h),
                 Text(
-                  'operation_form.subtitle'.tr(),
+                  subtitleKey.tr(),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: context.clinicTextSecondary,
                   ),

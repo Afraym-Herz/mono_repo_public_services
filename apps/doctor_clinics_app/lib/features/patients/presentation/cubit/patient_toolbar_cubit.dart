@@ -7,12 +7,17 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/helpers/patient_filter.dart';
 
 part 'patient_toolbar_state.dart';
+part 'patient_toolbar_pagination.dart';
 part 'patient_toolbar_cubit.freezed.dart';
 
-/// Owns the patients toolbar's scoped state: the debounced search query, the
-/// active filter chip, whether a search is in flight and the floating
-/// suggestion dropdown anchored to the search pill.
-class PatientToolbarCubit extends Cubit<PatientToolbarState> {
+/// Owns the patients list's scoped state: the debounced search query, the
+/// active filter chip, whether a search is in flight, the current page and the
+/// floating suggestion dropdown anchored to the search pill.
+///
+/// The register is paged in memory, so any query/filter change goes back to
+/// the first page.
+class PatientToolbarCubit extends Cubit<PatientToolbarState>
+    with PatientToolbarPagination {
   PatientToolbarCubit() : super(const PatientToolbarState());
 
   static const Duration _debounceDuration = Duration(milliseconds: 500);
@@ -34,7 +39,7 @@ class PatientToolbarCubit extends Cubit<PatientToolbarState> {
     _debounce?.cancel();
     final query = value.trim();
     if (query.isEmpty) {
-      emit(state.copyWith(query: '', isSearching: false));
+      emit(state.copyWith(query: '', isSearching: false, page: 0));
       _hideSuggestions();
       return;
     }
@@ -42,10 +47,10 @@ class PatientToolbarCubit extends Cubit<PatientToolbarState> {
     _debounce = Timer(_debounceDuration, () => _apply(query));
   }
 
-  /// Selects a filter chip.
+  /// Selects a filter chip and returns to the first page.
   void filterChanged(PatientFilter filter) {
     if (filter == state.filter) return;
-    emit(state.copyWith(filter: filter));
+    emit(state.copyWith(filter: filter, page: 0));
   }
 
   /// Re-opens the dropdown for the current query (e.g. after tapping away).
@@ -61,13 +66,13 @@ class PatientToolbarCubit extends Cubit<PatientToolbarState> {
   void clearQuery() {
     _debounce?.cancel();
     controller.clear();
-    emit(state.copyWith(query: '', isSearching: false));
+    emit(state.copyWith(query: '', isSearching: false, page: 0));
     _hideSuggestions();
   }
 
   void _apply(String query) {
     if (isClosed) return;
-    emit(state.copyWith(query: query, isSearching: false));
+    emit(state.copyWith(query: query, isSearching: false, page: 0));
     suggestions.show();
   }
 

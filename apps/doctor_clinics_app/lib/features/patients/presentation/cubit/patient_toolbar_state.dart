@@ -6,5 +6,6 @@ class PatientToolbarState with _$PatientToolbarState {
     @Default('') String query,
     @Default(PatientFilter.all) PatientFilter filter,
     @Default(false) bool isSearching,
+    @Default(0) int page,
   }) = _PatientToolbarState;
 }

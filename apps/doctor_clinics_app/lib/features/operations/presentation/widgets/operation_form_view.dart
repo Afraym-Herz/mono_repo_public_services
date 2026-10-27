@@ -8,16 +8,18 @@ import 'package:doctor_clinics_app/features/operations/presentation/widgets/oper
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_form_footer.dart';
 import 'package:doctor_clinics_app/features/operations/presentation/widgets/operation_form_header.dart';
 
-/// Dialog shell for the new-operation form.
+/// Dialog shell for the operation form (new and edit modes).
 class OperationFormView extends StatelessWidget {
   const OperationFormView({
     super.key,
     required this.controller,
+    required this.isEditing,
     required this.onClose,
     required this.onSave,
   });
 
   final OperationFormController controller;
+  final bool isEditing;
   final VoidCallback onClose;
   final VoidCallback onSave;
 
@@ -36,7 +38,7 @@ class OperationFormView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            OperationFormHeader(onClose: onClose),
+            OperationFormHeader(isEditing: isEditing, onClose: onClose),
             Flexible(
               child: Form(
                 key: controller.formKey,
@@ -47,7 +49,10 @@ class OperationFormView extends StatelessWidget {
                     Dimensions.PADDING_SIZE_LARGE.w,
                     Dimensions.PADDING_SIZE_LARGE.h,
                   ),
-                  child: OperationFormFields(controller: controller),
+                  child: OperationFormFields(
+                    controller: controller,
+                    isEditing: isEditing,
+                  ),
                 ),
               ),
             ),
@@ -58,7 +63,11 @@ class OperationFormView extends StatelessWidget {
                 Dimensions.PADDING_SIZE_LARGE.w,
                 Dimensions.PADDING_SIZE_LARGE.h,
               ),
-              child: OperationFormFooter(onCancel: onClose, onSave: onSave),
+              child: OperationFormFooter(
+                isEditing: isEditing,
+                onCancel: onClose,
+                onSave: onSave,
+              ),
             ),
           ],
         ),

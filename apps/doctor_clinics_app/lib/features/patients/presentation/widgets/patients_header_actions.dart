@@ -26,12 +26,14 @@ class PatientsHeaderActions extends StatelessWidget {
           icon: Icons.file_download_outlined,
           label: 'patients_header.export_excel'.tr(),
           onTap: onExport ?? () {},
+          enabled: onExport != null,
         ),
         AppPillButton(
           icon: Icons.add_rounded,
           label: 'patients_header.new_patient'.tr(),
           onTap: onAddPatient ?? () {},
           primary: true,
+          enabled: onAddPatient != null,
         ),
       ],
     );

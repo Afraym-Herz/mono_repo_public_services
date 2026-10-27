@@ -11,14 +11,16 @@ import 'package:doctor_clinics_app/features/queue/presentation/cubit/appointment
 import 'package:doctor_clinics_app/features/queue/presentation/helpers/schedule_permissions.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/appointment_booking_dialog.dart';
 
-/// Opens the booking sheet from the patients search and books the draft.
+/// Opens the booking sheet from the patients screen and books the draft.
 ///
-/// Pass [patient] to pre-select them (what a suggestion-list tap does), or
+/// Pass [patient] to pre-select them (what a row/suggestion tap does), or
 /// nothing for the "Book new appointment" tile — the sheet then offers its
-/// own "New patient" action.
+/// own "New patient" action. Set [clearSearch] to `false` when opening from a
+/// table row so the active toolbar query is preserved.
 Future<void> bookAppointmentFromSearch(
   BuildContext context, {
   Patient? patient,
+  bool clearSearch = true,
 }) async {
   if (!canManageSchedule()) {
     AppSnackBar.showInfo(context, 'patients.book_forbidden'.tr());
@@ -53,16 +55,23 @@ Future<void> bookAppointmentFromSearch(
   );
   if (!context.mounted) return;
 
-  _reportBooking(context, cubit, draft.patientId, patient?.fullName);
+  _reportBooking(
+    context,
+    cubit,
+    draft.patientId,
+    patient?.fullName,
+    clearSearch: clearSearch,
+  );
 }
 
-/// Clears the search and tells the user how the booking went.
+/// Tells the user how the booking went.
 void _reportBooking(
   BuildContext context,
   AppointmentCubit cubit,
   int patientId,
-  String? fallbackName,
-) {
+  String? fallbackName, {
+  required bool clearSearch,
+}) {
   final state = cubit.state;
   final error = state.maybeMap(
     loaded: (loaded) => loaded.actionError,
@@ -76,7 +85,7 @@ void _reportBooking(
     return;
   }
 
-  context.read<PatientToolbarCubit>().clearQuery();
+  if (clearSearch) context.read<PatientToolbarCubit>().clearQuery();
   final name = fallbackName ?? _patientName(context, patientId);
   AppSnackBar.showSuccess(
     context,

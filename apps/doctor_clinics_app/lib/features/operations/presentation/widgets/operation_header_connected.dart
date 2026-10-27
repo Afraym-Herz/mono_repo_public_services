@@ -38,7 +38,7 @@ class OperationHeaderConnected extends StatelessWidget {
     );
     if (created == null || !context.mounted) return;
     AppSnackBar.showSuccess(context, 'operation_form.saved'.tr());
-    context.read<OperationBoardCubit>().load(keepExpandedId: created.id);
+    context.read<OperationBoardCubit>().load();
   }
 
   void _showUnavailable(BuildContext context, String key) {

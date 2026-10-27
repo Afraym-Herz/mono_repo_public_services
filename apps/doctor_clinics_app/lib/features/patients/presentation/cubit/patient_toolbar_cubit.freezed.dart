@@ -20,6 +20,7 @@ mixin _$PatientToolbarState {
   String get query => throw _privateConstructorUsedError;
   PatientFilter get filter => throw _privateConstructorUsedError;
   bool get isSearching => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
 
   /// Create a copy of PatientToolbarState
   /// with the given fields replaced by the non-null parameter values.
@@ -35,7 +36,7 @@ abstract class $PatientToolbarStateCopyWith<$Res> {
     $Res Function(PatientToolbarState) then,
   ) = _$PatientToolbarStateCopyWithImpl<$Res, PatientToolbarState>;
   @useResult
-  $Res call({String query, PatientFilter filter, bool isSearching});
+  $Res call({String query, PatientFilter filter, bool isSearching, int page});
 }
 
 /// @nodoc
@@ -56,6 +57,7 @@ class _$PatientToolbarStateCopyWithImpl<$Res, $Val extends PatientToolbarState>
     Object? query = null,
     Object? filter = null,
     Object? isSearching = null,
+    Object? page = null,
   }) {
     return _then(
       _value.copyWith(
@@ -71,6 +73,10 @@ class _$PatientToolbarStateCopyWithImpl<$Res, $Val extends PatientToolbarState>
                 ? _value.isSearching
                 : isSearching // ignore: cast_nullable_to_non_nullable
                       as bool,
+            page: null == page
+                ? _value.page
+                : page // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -86,7 +92,7 @@ abstract class _$$PatientToolbarStateImplCopyWith<$Res>
   ) = __$$PatientToolbarStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String query, PatientFilter filter, bool isSearching});
+  $Res call({String query, PatientFilter filter, bool isSearching, int page});
 }
 
 /// @nodoc
@@ -106,6 +112,7 @@ class __$$PatientToolbarStateImplCopyWithImpl<$Res>
     Object? query = null,
     Object? filter = null,
     Object? isSearching = null,
+    Object? page = null,
   }) {
     return _then(
       _$PatientToolbarStateImpl(
@@ -121,6 +128,10 @@ class __$$PatientToolbarStateImplCopyWithImpl<$Res>
             ? _value.isSearching
             : isSearching // ignore: cast_nullable_to_non_nullable
                   as bool,
+        page: null == page
+            ? _value.page
+            : page // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -133,6 +144,7 @@ class _$PatientToolbarStateImpl implements _PatientToolbarState {
     this.query = '',
     this.filter = PatientFilter.all,
     this.isSearching = false,
+    this.page = 0,
   });
 
   @override
@@ -144,10 +156,13 @@ class _$PatientToolbarStateImpl implements _PatientToolbarState {
   @override
   @JsonKey()
   final bool isSearching;
+  @override
+  @JsonKey()
+  final int page;
 
   @override
   String toString() {
-    return 'PatientToolbarState(query: $query, filter: $filter, isSearching: $isSearching)';
+    return 'PatientToolbarState(query: $query, filter: $filter, isSearching: $isSearching, page: $page)';
   }
 
   @override
@@ -158,11 +173,13 @@ class _$PatientToolbarStateImpl implements _PatientToolbarState {
             (identical(other.query, query) || other.query == query) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.isSearching, isSearching) ||
-                other.isSearching == isSearching));
+                other.isSearching == isSearching) &&
+            (identical(other.page, page) || other.page == page));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query, filter, isSearching);
+  int get hashCode =>
+      Object.hash(runtimeType, query, filter, isSearching, page);
 
   /// Create a copy of PatientToolbarState
   /// with the given fields replaced by the non-null parameter values.
@@ -181,6 +198,7 @@ abstract class _PatientToolbarState implements PatientToolbarState {
     final String query,
     final PatientFilter filter,
     final bool isSearching,
+    final int page,
   }) = _$PatientToolbarStateImpl;
 
   @override
@@ -189,6 +207,8 @@ abstract class _PatientToolbarState implements PatientToolbarState {
   PatientFilter get filter;
   @override
   bool get isSearching;
+  @override
+  int get page;
 
   /// Create a copy of PatientToolbarState
   /// with the given fields replaced by the non-null parameter values.

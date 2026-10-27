@@ -3,12 +3,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../helpers/patients_count_format.dart';
+import 'patients_page_indicator.dart';
 
-/// Previous / page / next controls. Pagination is disabled while the offline
-/// MVP keeps the whole (small) register on one page.
+/// Previous / page / next controls for the paged patients register.
 class PatientsPaginationControls extends StatelessWidget {
-  const PatientsPaginationControls({super.key});
+  const PatientsPaginationControls({
+    super.key,
+    required this.page,
+    required this.pageCount,
+    this.onPrevious,
+    this.onNext,
+  });
+
+  /// Zero-based current page.
+  final int page;
+
+  /// Total number of pages; 0 when the register has no matching rows.
+  final int pageCount;
+
+  final VoidCallback? onPrevious;
+  final VoidCallback? onNext;
 
   @override
   Widget build(BuildContext context) {
@@ -19,54 +33,30 @@ class PatientsPaginationControls extends StatelessWidget {
         _PageButton(
           icon: isRtl ? Icons.chevron_right : Icons.chevron_left,
           label: 'patients.table.previous'.tr(),
+          onPressed: onPrevious,
         ),
-        const PatientsPageIndicator(),
+        PatientsPageIndicator(page: page, pageCount: pageCount),
         _PageButton(
           icon: isRtl ? Icons.chevron_left : Icons.chevron_right,
           label: 'patients.table.next'.tr(),
+          onPressed: onNext,
         ),
       ],
     );
   }
 }
 
-class PatientsPageIndicator extends StatelessWidget {
-  const PatientsPageIndicator({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL.w,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.PADDING_SIZE_SMALL.w,
-        vertical: Dimensions.PADDING_SIZE_BORDER.h,
-      ),
-      decoration: BoxDecoration(
-        color: context.clinicNavActiveBackground,
-        borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL.r),
-      ),
-      child: ResponsiveText(
-        PatientsCountFormat.count(1, context),
-        fontSize: Dimensions.FONT_SIZE_SMALL,
-        fontWeight: FontWeight.w700,
-        color: context.clinicTextPrimary,
-      ),
-    );
-  }
-}
-
 class _PageButton extends StatelessWidget {
-  const _PageButton({required this.icon, required this.label});
+  const _PageButton({required this.icon, required this.label, this.onPressed});
 
   final IconData icon;
   final String label;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
-      onPressed: null,
+      onPressed: onPressed,
       icon: Icon(icon, size: Dimensions.ICON_SIZE_EXTRA_SMALL.r),
       label: ResponsiveText(
         label,

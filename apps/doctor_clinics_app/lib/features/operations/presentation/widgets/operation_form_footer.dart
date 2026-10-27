@@ -10,10 +10,12 @@ import 'package:doctor_clinics_app/features/operations/presentation/cubit/operat
 class OperationFormFooter extends StatelessWidget {
   const OperationFormFooter({
     super.key,
+    required this.isEditing,
     required this.onCancel,
     required this.onSave,
   });
 
+  final bool isEditing;
   final VoidCallback onCancel;
   final VoidCallback onSave;
 
@@ -36,8 +38,12 @@ class OperationFormFooter extends StatelessWidget {
             Expanded(
               flex: 2,
               child: AppButton(
-                label: 'operation_form.save'.tr(),
-                icon: Icons.event_available_rounded,
+                label: isEditing
+                    ? 'operation_form.update'.tr()
+                    : 'operation_form.save'.tr(),
+                icon: isEditing
+                    ? Icons.save_outlined
+                    : Icons.event_available_rounded,
                 height: Dimensions.CONTROL_HEIGHT.h,
                 isLoading: saving,
                 onPressed: saving ? null : onSave,

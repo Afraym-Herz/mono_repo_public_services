@@ -4,28 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../helpers/patients_count_format.dart';
+import '../helpers/patients_pagination.dart';
 import 'patients_pagination_controls.dart';
 
 /// Count summary and pagination controls under the register.
 class PatientsTableFooter extends StatelessWidget {
   const PatientsTableFooter({
     super.key,
-    required this.visibleCount,
+    required this.from,
+    required this.to,
     required this.totalCount,
+    required this.page,
+    this.onPrevious,
+    this.onNext,
   });
 
-  final int visibleCount;
+  /// First row number on the current page (1-based), or 0 when empty.
+  final int from;
+
+  /// Last row number on the current page (1-based), or 0 when empty.
+  final int to;
+
+  /// Rows matching the active search/filter.
   final int totalCount;
+
+  /// Zero-based current page.
+  final int page;
+
+  final VoidCallback? onPrevious;
+  final VoidCallback? onNext;
 
   @override
   Widget build(BuildContext context) {
     final total = PatientsCountFormat.count(totalCount, context);
-    final summary = visibleCount == 0
-        ? 'patients.table.showing_none'.tr(namedArgs: {'total': total})
+    final summary = totalCount == 0
+        ? 'patients.table.showing_none'.tr()
         : 'patients.table.showing'.tr(
             namedArgs: {
-              'from': PatientsCountFormat.count(1, context),
-              'to': PatientsCountFormat.count(visibleCount, context),
+              'from': PatientsCountFormat.count(from, context),
+              'to': PatientsCountFormat.count(to, context),
               'total': total,
             },
           );
@@ -47,7 +64,12 @@ class PatientsTableFooter extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: context.clinicTextSecondary,
           ),
-          const PatientsPaginationControls(),
+          PatientsPaginationControls(
+            page: page,
+            pageCount: PatientsPagination.pageCount(totalCount),
+            onPrevious: onPrevious,
+            onNext: onNext,
+          ),
         ],
       ),
     );

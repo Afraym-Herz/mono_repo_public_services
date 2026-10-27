@@ -1,15 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_clinics_app/features/patients/presentation/helpers/open_patient_profile.dart';
-import 'package:doctor_clinics_app/features/queue/presentation/cubit/queue_cubit.dart';
-import 'package:doctor_clinics_app/features/queue/presentation/helpers/schedule_permissions.dart';
-import 'package:doctor_clinics_app/features/queue/presentation/widgets/appointment_booking_dialog.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_list.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_list_head.dart';
 import 'package:doctor_clinics_app/features/queue/presentation/widgets/queue_summary_strip.dart';
-import 'package:doctor_clinics_app/features/queue/presentation/widgets/today_queue_header.dart';
+import 'package:doctor_clinics_app/features/queue/presentation/widgets/today_queue_header_connected.dart';
 
 class QueueBody extends StatelessWidget {
   const QueueBody({super.key});
@@ -17,28 +13,12 @@ class QueueBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final padding = Dimensions.PADDING_SIZE_LARGE.w;
-    final canManage = canManageSchedule();
     return Scaffold(
       backgroundColor: context.clinicBackground,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          BlocBuilder<QueueCubit, QueueState>(
-            builder: (context, state) {
-              final loaded = state.maybeMap(
-                loaded: (s) => s,
-                orElse: () => null,
-              );
-              final canAdd = canManage && loaded != null;
-              // Keep the pill mounted while an action is submitting so the
-              // header does not reflow (button disappears then reappears on
-              // every row action); it is just disabled until the reload lands.
-              return TodayQueueHeader(
-                onAddWalkIn: canAdd ? () => _addWalkIn(context) : null,
-                isAddWalkInEnabled: loaded != null && !loaded.isSubmitting,
-              );
-            },
-          ),
+          const TodayQueueHeaderConnected(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: padding),
             child: const QueueSummaryStrip(),
@@ -60,20 +40,6 @@ class QueueBody extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Future<void> _addWalkIn(BuildContext context) async {
-    final draft = await showAppointmentBookingDialog(
-      context,
-      initialDate: DateTime.now(),
-      isWalkIn: true,
-    );
-    if (draft == null || !context.mounted) return;
-    await context.read<QueueCubit>().addWalkIn(
-      draft.patientId,
-      notes: draft.notes,
-      depositPiasters: draft.depositPiasters,
     );
   }
 }
