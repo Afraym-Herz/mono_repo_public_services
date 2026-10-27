@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BillingToolbarState {
-  BillingRange get range => throw _privateConstructorUsedError;
+  FinanceRange get range => throw _privateConstructorUsedError;
   BillingTab get tab => throw _privateConstructorUsedError;
   String get query => throw _privateConstructorUsedError;
   bool get isSearching => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $BillingToolbarStateCopyWith<$Res> {
   ) = _$BillingToolbarStateCopyWithImpl<$Res, BillingToolbarState>;
   @useResult
   $Res call({
-    BillingRange range,
+    FinanceRange range,
     BillingTab tab,
     String query,
     bool isSearching,
@@ -69,7 +69,7 @@ class _$BillingToolbarStateCopyWithImpl<$Res, $Val extends BillingToolbarState>
             range: null == range
                 ? _value.range
                 : range // ignore: cast_nullable_to_non_nullable
-                      as BillingRange,
+                      as FinanceRange,
             tab: null == tab
                 ? _value.tab
                 : tab // ignore: cast_nullable_to_non_nullable
@@ -98,7 +98,7 @@ abstract class _$$BillingToolbarStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    BillingRange range,
+    FinanceRange range,
     BillingTab tab,
     String query,
     bool isSearching,
@@ -129,7 +129,7 @@ class __$$BillingToolbarStateImplCopyWithImpl<$Res>
         range: null == range
             ? _value.range
             : range // ignore: cast_nullable_to_non_nullable
-                  as BillingRange,
+                  as FinanceRange,
         tab: null == tab
             ? _value.tab
             : tab // ignore: cast_nullable_to_non_nullable
@@ -151,7 +151,7 @@ class __$$BillingToolbarStateImplCopyWithImpl<$Res>
 
 class _$BillingToolbarStateImpl implements _BillingToolbarState {
   const _$BillingToolbarStateImpl({
-    this.range = BillingRange.month,
+    this.range = FinanceRange.month,
     this.tab = BillingTab.summary,
     this.query = '',
     this.isSearching = false,
@@ -159,7 +159,7 @@ class _$BillingToolbarStateImpl implements _BillingToolbarState {
 
   @override
   @JsonKey()
-  final BillingRange range;
+  final FinanceRange range;
   @override
   @JsonKey()
   final BillingTab tab;
@@ -204,14 +204,14 @@ class _$BillingToolbarStateImpl implements _BillingToolbarState {
 
 abstract class _BillingToolbarState implements BillingToolbarState {
   const factory _BillingToolbarState({
-    final BillingRange range,
+    final FinanceRange range,
     final BillingTab tab,
     final String query,
     final bool isSearching,
   }) = _$BillingToolbarStateImpl;
 
   @override
-  BillingRange get range;
+  FinanceRange get range;
   @override
   BillingTab get tab;
   @override

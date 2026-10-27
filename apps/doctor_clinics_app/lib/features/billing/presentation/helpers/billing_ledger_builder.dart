@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:core/core.dart';
 
-import 'package:doctor_clinics_app/features/billing/domain/entities/billing_ledger_row.dart';
+import 'package:doctor_clinics_app/core/finance/domain/ledger_row.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/invoice_item.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart';
@@ -12,7 +12,7 @@ import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart
 class BillingLedgerBuilder {
   BillingLedgerBuilder._();
 
-  static List<BillingLedgerRow> build({
+  static List<LedgerRow> build({
     required List<Invoice> invoices,
     required List<Payment> allPayments,
     required Map<int, String> patientNames,
@@ -35,7 +35,7 @@ class BillingLedgerBuilder {
       final patientId = invoice.patientId;
       final patientName = patientId == null ? '' : patientNames[patientId] ?? '';
       final customerName = invoice.customerName?.trim() ?? '';
-      return BillingLedgerRow(
+      return LedgerRow(
         id: invoice.id,
         number: invoice.invoiceNumber,
         receiptNumber: latest?.receiptNumber ?? '',

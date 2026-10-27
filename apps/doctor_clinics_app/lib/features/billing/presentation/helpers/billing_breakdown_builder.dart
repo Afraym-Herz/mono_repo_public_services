@@ -1,21 +1,20 @@
 import 'dart:math' as math;
 
 import 'package:core/core.dart';
+import 'package:doctor_clinics_app/core/finance/domain/finance_range.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/billing_breakdowns.dart';
-import 'package:doctor_clinics_app/features/billing/domain/entities/billing_range.dart';
 import 'package:doctor_clinics_app/features/billing/domain/entities/payment.dart';
-import 'package:doctor_clinics_app/features/billing/domain/entities/purchase_payment.dart';
 
-/// Builds the chart series and cash-drawer summary.
+/// Builds the revenue chart series and cash-drawer summary.
 class BillingBreakdownBuilder {
   BillingBreakdownBuilder._();
 
   static List<BillingSeriesPoint> series({
-    required BillingRange range,
+    required FinanceRange range,
     required List<Payment> payments,
     required DateTime now,
   }) {
-    if (range == BillingRange.today) {
+    if (range == FinanceRange.today) {
       final hours = payments.map((payment) => payment.paymentDate.hour);
       final firstHour = hours.isEmpty ? 8 : math.min(8, hours.reduce(math.min));
       final lastHour = hours.isEmpty
@@ -45,29 +44,17 @@ class BillingBreakdownBuilder {
     });
   }
 
-  static BillingCashSummary cash(
-    List<Payment> payments,
-    List<int> expenseAmounts, {
-    List<PurchasePayment> purchasePayments = const [],
-  }) {
+  static BillingCashSummary cash(List<Payment> payments) {
     final cashIn = payments
         .where(
           (payment) => payment.paymentMethod == AppConstants.paymentMethodCash,
         )
         .fold<int>(0, (sum, payment) => sum + payment.amountPiasters);
-    final purchaseCash = purchasePayments
-        .where(
-          (payment) => payment.paymentMethod == AppConstants.paymentMethodCash,
-        )
-        .fold<int>(0, (sum, payment) => sum + payment.amountPiasters);
-    final cashOut = expenseAmounts.fold<int>(0, (sum, amount) => sum + amount) +
-        purchaseCash;
     const opening = 0;
     return BillingCashSummary(
       openingPiasters: opening,
       collectedPiasters: cashIn,
-      expensesPiasters: cashOut,
-      expectedPiasters: opening + cashIn - cashOut,
+      expectedPiasters: opening + cashIn,
     );
   }
 }

@@ -9,7 +9,7 @@ import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing
 import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing_tabs.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/widgets/billing_toolbar.dart';
 
-/// Accounts and revenue dashboard: invoices, payments, expenses and reports.
+/// Accounts and revenue dashboard: invoices, payments and reports.
 class BillingScreen extends StatelessWidget {
   const BillingScreen({super.key});
 

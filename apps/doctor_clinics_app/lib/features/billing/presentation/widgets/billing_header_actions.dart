@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Documents the accounts screen can create.
-enum BillingCreateAction { invoice, sale, purchase, expense }
+enum BillingCreateAction { invoice, sale }
 
 /// Export plus the create-document menu on the accounts banner.
 class BillingHeaderActions extends StatefulWidget {
@@ -49,16 +49,6 @@ class _BillingHeaderActionsState extends State<BillingHeaderActions> {
               BillingCreateAction.sale,
               Icons.point_of_sale_outlined,
               'billing.action.new_sale',
-            ),
-            _item(
-              BillingCreateAction.purchase,
-              Icons.shopping_bag_outlined,
-              'billing.action.new_purchase',
-            ),
-            _item(
-              BillingCreateAction.expense,
-              Icons.account_balance_wallet_outlined,
-              'billing.action.new_expense',
             ),
           ],
           builder: (context, controller, child) => AppPillButton(

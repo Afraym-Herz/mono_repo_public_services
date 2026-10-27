@@ -2,8 +2,8 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_draft_builder.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_form_totals.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_line_draft.dart';
+import 'package:doctor_clinics_app/core/finance/domain/form_totals.dart';
+import 'package:doctor_clinics_app/core/finance/domain/line_item_draft.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_patient_source.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/new_invoice_draft.dart';
 import 'package:doctor_clinics_app/features/patients/domain/entities/patient.dart';
@@ -22,7 +22,7 @@ class InvoiceFormController {
   InvoiceFormController({this.mode = InvoiceFormMode.patient}) {
     discount.addListener(_bump);
     paidNow.addListener(_bump);
-    lines.add(InvoiceLineDraft(onChanged: _bump));
+    lines.add(FinanceLineItemDraft(onChanged: _bump));
     if (mode == InvoiceFormMode.patient) {
       patientSource = InvoicePatientSource();
     }
@@ -45,7 +45,7 @@ class InvoiceFormController {
   );
   final ValueNotifier<int> revision = ValueNotifier(0);
   final ValueNotifier<int> linesRevision = ValueNotifier(0);
-  final List<InvoiceLineDraft> lines = [];
+  final List<FinanceLineItemDraft> lines = [];
 
   /// Loaded only for patient invoices; sales and income skip the patient list.
   InvoicePatientSource? patientSource;
@@ -55,7 +55,7 @@ class InvoiceFormController {
 
   List<Patient>? get lastPatients => patientSource?.lastPatients;
 
-  InvoiceFormTotals get totals => InvoiceFormTotals.compute(
+  FinanceFormTotals get totals => FinanceFormTotals.compute(
     lines: lines,
     discountText: discount.text,
     paidText: paidNow.text,
@@ -64,12 +64,12 @@ class InvoiceFormController {
   void _bump() => revision.value++;
 
   void addLine() {
-    lines.add(InvoiceLineDraft(onChanged: _bump));
+    lines.add(FinanceLineItemDraft(onChanged: _bump));
     linesRevision.value++;
     _bump();
   }
 
-  void removeLine(InvoiceLineDraft line) {
+  void removeLine(FinanceLineItemDraft line) {
     if (lines.length <= 1) return;
     lines.remove(line);
     line.dispose();

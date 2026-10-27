@@ -4,14 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:doctor_clinics_app/features/billing/domain/entities/billing_range.dart';
+import 'package:doctor_clinics_app/core/finance/domain/finance_range.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/billing_tab.dart';
 
 part 'billing_toolbar_state.dart';
 part 'billing_toolbar_cubit.freezed.dart';
 
 /// Owns the accounts screen controls: range pill, active tab and the debounced
-/// ledger/expense search query.
+/// ledger search query.
 class BillingToolbarCubit extends Cubit<BillingToolbarState> {
   BillingToolbarCubit() : super(const BillingToolbarState());
 
@@ -35,7 +35,7 @@ class BillingToolbarCubit extends Cubit<BillingToolbarState> {
   }
 
   /// Selects the date window used by the dashboard.
-  void rangeChanged(BillingRange range) {
+  void rangeChanged(FinanceRange range) {
     if (range == state.range) return;
     emit(state.copyWith(range: range));
   }

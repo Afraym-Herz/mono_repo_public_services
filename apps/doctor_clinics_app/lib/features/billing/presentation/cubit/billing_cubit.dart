@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:doctor_clinics_app/features/billing/domain/entities/billing_overview.dart';
-import 'package:doctor_clinics_app/features/billing/domain/entities/billing_range.dart';
+import 'package:doctor_clinics_app/core/finance/domain/finance_range.dart';
 import 'package:doctor_clinics_app/features/billing/domain/repositories/billing_repository.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/billing_overview_builder.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/billing_source.dart';
@@ -23,11 +23,11 @@ class BillingCubit extends Cubit<BillingState> {
   final PatientRepository patientRepository;
 
   BillingSource? _source;
-  BillingRange _range = BillingRange.month;
+  FinanceRange _range = FinanceRange.month;
   int _request = 0;
 
   /// Rebuilds the overview for [range], fetching the snapshot when needed.
-  Future<void> load({BillingRange? range, bool force = false}) async {
+  Future<void> load({FinanceRange? range, bool force = false}) async {
     if (range != null) _range = range;
     final request = ++_request;
 
@@ -52,14 +52,8 @@ class BillingCubit extends Cubit<BillingState> {
           range: _range,
           invoices: source.invoices,
           payments: source.payments,
-          expenses: source.expenses,
           items: source.items,
-          categories: source.categories,
           patientNames: source.patientNames,
-          purchases: source.purchases,
-          purchaseItems: source.purchaseItems,
-          purchasePayments: source.purchasePayments,
-          vendors: source.vendors,
           now: DateTime.now(),
         ),
       ),
