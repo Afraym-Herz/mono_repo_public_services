@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../helpers/invoice_form_controller.dart';
-import 'billing_date_field.dart';
-import 'billing_line_items.dart';
-import 'billing_totals_card.dart';
+import 'package:doctor_clinics_app/core/finance/widgets/finance_date_field.dart';
+import 'package:doctor_clinics_app/core/finance/widgets/finance_line_items.dart';
+import 'package:doctor_clinics_app/core/finance/widgets/finance_totals_card.dart';
 import 'new_invoice_amount_fields.dart';
 import 'new_invoice_customer_fields.dart';
 import 'new_invoice_patient_picker.dart';
@@ -34,12 +34,12 @@ class NewInvoiceForm extends StatelessWidget {
         else
           NewInvoiceCustomerFields(controller: controller),
         gap,
-        BillingDateField(
+        FinanceDateField(
           date: controller.date,
           labelKey: 'billing.invoice_form.date',
         ),
         gap,
-        BillingLineItems(
+        FinanceLineItems(
           lines: controller.lines,
           revision: controller.linesRevision,
           onAdd: controller.addLine,
@@ -72,7 +72,7 @@ class NewInvoiceForm extends StatelessWidget {
         ValueListenableBuilder<int>(
           valueListenable: controller.revision,
           builder: (context, _, _) =>
-              BillingTotalsCard(totals: controller.totals),
+              FinanceTotalsCard(totals: controller.totals),
         ),
       ],
     );

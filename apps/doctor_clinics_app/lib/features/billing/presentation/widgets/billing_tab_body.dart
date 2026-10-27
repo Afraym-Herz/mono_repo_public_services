@@ -4,11 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/billing_cubit.dart';
 import '../cubit/billing_toolbar_cubit.dart';
 import '../helpers/billing_tab.dart';
-import 'billing_error_state.dart';
-import 'billing_expenses_tab.dart';
-import 'billing_loading_state.dart';
+import 'package:doctor_clinics_app/core/finance/widgets/finance_error_state.dart';
+import 'package:doctor_clinics_app/core/finance/widgets/finance_loading_state.dart';
 import 'billing_payments_tab.dart';
-import 'billing_purchases_tab.dart';
 import 'billing_report_tab.dart';
 import 'billing_summary_tab.dart';
 
@@ -35,20 +33,12 @@ class BillingTabBody extends StatelessWidget {
                   overview: overview,
                   query: toolbar.query,
                 ),
-                BillingTab.purchases => BillingPurchasesTab(
-                  overview: overview,
-                  query: toolbar.query,
-                ),
-                BillingTab.expenses => BillingExpensesTab(
-                  overview: overview,
-                  query: toolbar.query,
-                ),
                 BillingTab.report => BillingReportTab(overview: overview),
               },
             ),
         error: (message) =>
-            BillingErrorState(messageKey: message, onRetry: cubit.refresh),
-        orElse: () => const BillingLoadingState(),
+            FinanceErrorState(messageKey: message, onRetry: cubit.refresh),
+        orElse: () => const FinanceLoadingState(),
       ),
     );
   }

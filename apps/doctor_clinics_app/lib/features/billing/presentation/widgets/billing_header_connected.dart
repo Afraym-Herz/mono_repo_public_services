@@ -7,14 +7,12 @@ import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_c
 import 'package:doctor_clinics_app/features/billing/presentation/cubit/billing_toolbar_cubit.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/billing_tab.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_form_controller.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/widgets/new_expense_dialog.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/widgets/new_invoice_dialog.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/widgets/new_purchase_dialog.dart';
 
 import 'billing_header.dart';
 import 'billing_header_actions.dart';
 
-/// [BillingHeader] wired to export and every document creation flow.
+/// [BillingHeader] wired to export and the invoice creation flows.
 class BillingHeaderConnected extends StatelessWidget {
   const BillingHeaderConnected({super.key});
 
@@ -47,16 +45,6 @@ class BillingHeaderConnected extends StatelessWidget {
           'billing.invoice_form.sale_saved'.tr(),
         );
         _finish(context, BillingTab.summary);
-      case BillingCreateAction.purchase:
-        final purchase = await showNewPurchaseDialog(context);
-        if (purchase == null || !context.mounted) return;
-        AppSnackBar.showSuccess(context, 'billing.purchase_form.saved'.tr());
-        _finish(context, BillingTab.purchases);
-      case BillingCreateAction.expense:
-        final expense = await showNewExpenseDialog(context);
-        if (expense == null || !context.mounted) return;
-        AppSnackBar.showSuccess(context, 'billing.expense_form.saved'.tr());
-        _finish(context, BillingTab.expenses);
     }
   }
 

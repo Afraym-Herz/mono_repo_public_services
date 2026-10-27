@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:doctor_clinics_app/core/helpers/money_input.dart';
 import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_form_controller.dart';
-import 'package:doctor_clinics_app/features/billing/presentation/helpers/invoice_line_draft.dart';
+import 'package:doctor_clinics_app/core/finance/domain/line_item_draft.dart';
 
 /// One editable service row in the invoice form.
 class NewInvoiceLineItemRow extends StatelessWidget {
@@ -16,7 +16,7 @@ class NewInvoiceLineItemRow extends StatelessWidget {
   });
 
   final InvoiceFormController controller;
-  final InvoiceLineDraft line;
+  final FinanceLineItemDraft line;
 
   @override
   Widget build(BuildContext context) {
