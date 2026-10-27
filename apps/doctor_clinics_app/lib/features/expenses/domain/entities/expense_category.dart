@@ -1,0 +1,7 @@
+/// Expense category looked up for the expense log.
+class ExpenseCategoryEntity {
+  const ExpenseCategoryEntity({required this.id, required this.name});
+
+  final int id;
+  final String name;
+}
